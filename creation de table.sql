@@ -21,7 +21,7 @@ CREATE TABLE EQUIPE(
         CONSTRAINT pk_Equipe PRIMARY KEY,
     nb_joueurs INTEGER,
     total INTEGER   
-)
+);
 
 CREATE TABLE SESSION(
     id_session INTEGER    
@@ -35,7 +35,7 @@ CREATE TABLE SESSION(
     type_session TEXT NOT NULL,
     le_sport INTEGER
         CONSTRAINT fk_Session_Sport REFERENCES SPORT(id_sport)
-)
+);
 
 CREATE TABLE ELEVE(
     id_eleve INTEGER    
@@ -47,7 +47,7 @@ CREATE TABLE ELEVE(
     total_points INTEGER,   
     l_equipe INTEGER
         CONSTRAINT fk_Eleve_Equipe REFERENCES EQUIPE(id_equipe)
-)
+);
 
 CREATE TABLE MATCH(
     id_match INTEGER    
@@ -56,7 +56,7 @@ CREATE TABLE MATCH(
     resultat_equipe_2 INTEGER,
     la_session INTEGER
         CONSTRAINT fk_Match_Session REFERENCES SESSION(id_session),    
-)
+);
 
 CREATE TABLE MATCH_EQUIPE(
     le_match INTEGER    
@@ -64,7 +64,7 @@ CREATE TABLE MATCH_EQUIPE(
     les_equipes INTEGER    
         CONSTRAINT fk_Equipe_Match REFERENCES EQUIPE(id_equipe),
     CONSTRAINT pk_Match_Equipe PRIMARY KEY (le_match, les_equipe)
-)
+);
 
 CREATE MATCH_ELEVE(
     un_match INTEGER    
@@ -72,7 +72,7 @@ CREATE MATCH_ELEVE(
     les_eleves INTEGER    
         CONSTRAINT fk_Eleve_Match REFERENCES ELEVE(id_eleve),
     CONSTRAINT pk_Match_Eleve PRIMARY KEY (id_match, id_eleve)
-)
+);
 
 
 
