@@ -5,6 +5,21 @@ triger pour verifier qu'il y a bien 2 joueur par match
 
 
 
+Schema relationel :
+Sport ( id_sport : int , nom_sport : String (NN ) , description_sport : String)
+Session ( id_session : int (1) , date : Date (NN) , statut : String (NN) , heure : Time (NN), identifiant_con : String (NN ) , mdp : String (NN ) , professeur : String (NN) , type_session : String (NN) 
+Equipe ( id_equipe : int (1) ,nb_Joueurs : int (NN), total : int )
+Eleve ( id_eleve : int (1), nom : String(2) , prénom : String (2) , sexe : String , classe :String(NN) , total_point : int )
+Match(id_match : int (1) , resultat_1 : int , resultat_2 : int)
+
+
+Contraintes textuelles :
+Session :
+DOM_statut = {en cours , terminer}
+DOM_type_session : {tournois , resultat}
+Natation :
+DOM_plongeons : {0,1}
+
 
 
 
