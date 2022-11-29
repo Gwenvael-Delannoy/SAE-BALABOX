@@ -11,7 +11,16 @@ Session ( id_session : int (1) , date : Date (NN) , statut : String (NN) , heure
 Equipe ( id_equipe : int (1) ,nb_Joueurs : int (NN), total : int )
 Eleve ( id_eleve : int (1), nom : String(2) , prénom : String (2) , sexe : String , classe :String(NN) , total_point : int )
 Match(id_match : int (1) , resultat_1 : int , resultat_2 : int)
+Match_Equipe( le_match : int (1)@Match-id_match , lequipe : int (1) @Equipe-id_equipe)
+Match_Eleve(un_match : int (1) @Match-id_match, leleves : int(1) @ Eleve-id_equipe)
 
+CREATE TABLE Match_Eleve(
+    un_match INTEGER    
+        CONSTRAINT fk_Match_Eleve REFERENCES Match(id_match),
+    leleves INTEGER    
+        CONSTRAINT fk_Eleve_Match REFERENCES Eleve(id_eleve),
+    CONSTRAINT pk_Match_Eleve PRIMARY KEY (id_match, id_eleve)
+);
 
 Contraintes textuelles :
 Session :
@@ -19,9 +28,6 @@ DOM_statut = {en cours , terminer}
 DOM_type_session : {tournois , resultat}
 Natation :
 DOM_plongeons : {0,1}
-
-
-
 
 
 */
@@ -92,7 +98,7 @@ CREATE TABLE Match(
 CREATE TABLE Match_Equipe(
     le_match INTEGER    
         CONSTRAINT fk_Match_Equipe REFERENCES Match(id_match),
-    les_equipes INTEGER    
+    lequipe INTEGER    
         CONSTRAINT fk_Equipe_Match REFERENCES Equipe(id_equipe),
     CONSTRAINT pk_Match_Equipe PRIMARY KEY (le_match, les_equipe)
 );
@@ -100,7 +106,7 @@ CREATE TABLE Match_Equipe(
 CREATE TABLE Match_Eleve(
     un_match INTEGER    
         CONSTRAINT fk_Match_Eleve REFERENCES Match(id_match),
-    les_eleves INTEGER    
+    leleve INTEGER    
         CONSTRAINT fk_Eleve_Match REFERENCES Eleve(id_eleve),
     CONSTRAINT pk_Match_Eleve PRIMARY KEY (id_match, id_eleve)
 );
