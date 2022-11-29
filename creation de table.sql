@@ -1,3 +1,19 @@
+/*
+Contrainte a rajouter
+triger pour verifier qu'il y a bien 2 equipe par match
+triger pour verifier qu'il y a bien 2 joueur par match
+
+
+
+
+
+
+
+*/
+
+
+
+
 DROP TABLE SPORT;
 DROP TABLE EQUIPE;
 DROP TABLE SESSION;
@@ -5,10 +21,7 @@ DROP TABLE ELEVE;
 DROP TABLE MATCH;
 DROP TABLE MATCH_EQUIPE;
 DROP TABLE MATCH_ELEVE;
-/*
-trigger : 
-    - 
-*/
+
 
 
 
@@ -36,7 +49,7 @@ CREATE TABLE SESSION(
     mdp TEXT NOT NULL,
     professeur TEXT NOT NULL,
     type_session TEXT NOT NULL,
-    le_sport INTEGER
+    le_sport INTEGER 
         CONSTRAINT fk_Session_Sport REFERENCES SPORT(id_sport)
 );
 
