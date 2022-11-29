@@ -14,7 +14,7 @@ CREATE TABLE SPORT(
         CONSTRAINT pk_Sport PRIMARY KEY,
     nom_sport TEXT NOT NULL,
     description_sport TEXT
-)
+);
 
 CREATE TABLE EQUIPE(
     id_equipe INTEGER    
