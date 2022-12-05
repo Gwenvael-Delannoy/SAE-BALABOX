@@ -27,6 +27,8 @@ DOM_statut = {en cours , terminer}
 DOM_type_session : {tournois , resultat}
 Natation :
 DOM_plongeons : {0,1}
+Eleve:
+DOM_sexe : {homme, femme}
 */
 
 
