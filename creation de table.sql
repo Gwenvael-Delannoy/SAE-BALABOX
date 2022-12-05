@@ -64,12 +64,14 @@ CREATE TABLE Session(
     id_session NUMBER    
         CONSTRAINT pk_Session PRIMARY KEY,
     date_session DATE NOT NULL,
-    statut VARCHAR2(10) NOT NULL,
+    statut VARCHAR2(10) NOT NULL
+        CONSTRAINT ck_statut CHECK (statut IN ("en cours", "terminer")),
     heure TIME NOT NULL,
     identifiant_con VARCHAR2(50) NOT NULL,
     mdp VARCHAR2(50) NOT NULL,
     professeur VARCHAR2(30) NOT NULL,
-    type_session VARCHAR2(10) NOT NULL,
+    type_session VARCHAR2(10) NOT NULL
+        CONSTRAINT ck_type_session CHECK (type_session IN ("tournois", "resultat")),
     le_sport NUMBER 
         CONSTRAINT fk_Session_Sport REFERENCES Sport(id_sport)
 );
@@ -79,7 +81,8 @@ CREATE TABLE Eleve(
         CONSTRAINT pk_Eleve PRIMARY KEY,
     nom VARCHAR2(20) NOT NULL,
     prenom VARCHAR2(20) NOT NULL,
-    sexe VARCHAR2(10),
+    sexe VARCHAR2(10)
+        CONSTRAINT ck_sexe CHECK (sexe IN ("homme", "femme"))
     classe VARCHAR2(50) NOT NULL,
     total_points NUMBER,   
     l_equipe NUMBER
