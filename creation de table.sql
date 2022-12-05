@@ -10,7 +10,7 @@ Eleve ( id_eleve : int (1), nom : String(2) , prénom : String (2) , sexe : Stri
 Match(id_match : int (1) , resultat_1 : int , resultat_2 : int)
 Match_Equipe( le_match : int (1)@Match-id_match , lequipe : int (1) @Equipe-id_equipe)
 Match_Eleve(un_match : int (1) @Match-id_match, leleves : int(1) @ Eleve-id_equipe)
-Statistique(id_stats : int (1), intitule : String, stats : double)
+Statistique(id_stats : int (1), intitule : String, stats : double, lEleve : int @Eleve-id_eleve)
 
 CREATE TABLE Match_Eleve(
     un_match NUMBER    
@@ -93,7 +93,9 @@ CREATE TABLE Statistique(
     id_stats NUMBER
         CONSTRAINT pk_Eleve PRIMARY KEY,
     intitule VARCHAR2(250),
-    stats NUMBER
+    stats NUMBER,
+    lEleve NUMBER
+        CONSTRAINT fk_Statistique_Eleve REFERENCES Eleve(id_eleve)
 );
 
 CREATE TABLE Match(
