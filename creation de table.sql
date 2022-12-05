@@ -39,6 +39,7 @@ DROP TABLE Sport;
 DROP TABLE Equipe;
 DROP TABLE Session;
 DROP TABLE Eleve;
+DROP TABLE Statistique;
 DROP TABLE Match;
 DROP TABLE Match_Equipe;
 DROP TABLE Match_Eleve;
@@ -86,6 +87,13 @@ CREATE TABLE Eleve(
         CONSTRAINT fk_Eleve_Equipe REFERENCES Equipe(id_equipe)
 );
 
+CREATE TABLE Statistique(
+    id_stats NUMBER
+        CONSTRAINT pk_Eleve PRIMARY KEY,
+    intitule VARCHAR2(250),
+    stats NUMBER
+);
+
 CREATE TABLE Match(
     id_match INTEGER    
         CONSTRAINT pk_Match PRIMARY KEY,
@@ -110,6 +118,7 @@ CREATE TABLE Match_Eleve(
         CONSTRAINT fk_Eleve_Match REFERENCES Eleve(id_eleve),
     CONSTRAINT pk_Match_Eleve PRIMARY KEY (id_match, id_eleve)
 );
+
 
 
 
