@@ -1,7 +1,7 @@
 /*
 Contrainte a rajouter
-triger pour verifier qu'il y a bien 2 equipe par match
-triger pour verifier qu'il y a bien 2 joueur par match
+trigger pour verifier qu'il y a bien 2 equipe par match
+trigger pour verifier qu'il y a bien 2 joueur par match
 Schema relationel :
 Sport ( id_sport : int , nom_sport : String (NN ) , description_sport : String)
 Session ( id_session : int (1) , date : Date (NN) , statut : String (NN) , heure : Time (NN), identifiant_con : String (NN ) , mdp : String (NN ) , professeur : String (NN) , type_session : String (NN) 
@@ -10,6 +10,7 @@ Eleve ( id_eleve : int (1), nom : String(2) , prénom : String (2) , sexe : Stri
 Match(id_match : int (1) , resultat_1 : int , resultat_2 : int)
 Match_Equipe( le_match : int (1)@Match-id_match , lequipe : int (1) @Equipe-id_equipe)
 Match_Eleve(un_match : int (1) @Match-id_match, leleves : int(1) @ Eleve-id_equipe)
+
 CREATE TABLE Match_Eleve(
     un_match NUMBER    
         CONSTRAINT fk_Match_Eleve REFERENCES Match(id_match),
@@ -17,6 +18,8 @@ CREATE TABLE Match_Eleve(
         CONSTRAINT fk_Eleve_Match REFERENCES Eleve(id_eleve),
     CONSTRAINT pk_Match_Eleve PRIMARY KEY (id_match, id_eleve)
 );
+
+
 Contraintes VARCHAR2(250)uelles :
 Session :
 DOM_statut = {en cours , terminer}
