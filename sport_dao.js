@@ -73,5 +73,6 @@ var SportDAO = function(){
         smt.get(sql6,callback);
     };
 };
-
+var sport = new SportDAO();
+module.exports = sport;
 
