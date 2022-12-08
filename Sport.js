@@ -1,9 +1,9 @@
-    
-
-/**id_sport NUMBER    
-        CONSTRAINT pk_Sport PRIMARY KEY,
-    nom_sport VARCHAR2(30) NOT NULL,
-    description_sport VARCHAR2(250)
+/**
+ * Création d'un objet Sport 
+ * Attributs de la base de données : 
+    id_sport     
+    nom_sport 
+    description_sport 
 */
 module.exports = class Sport {
   init (nom , descri){
@@ -20,3 +20,16 @@ module.exports = class Sport {
   getDescription(){
     return this.description_sport
   }
+  setId(id){
+    this.id_sport = id;
+  }
+  setNomSport(nom){
+    this.nom_sport = nom;
+  }
+  setDescription(descri){
+    this.description_sport = descri;
+  }
+  toString(){
+    return "Sport : " + this.id_sport + " " + this.nom_sport + " " + this.description_sport;
+  }
+}
