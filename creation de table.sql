@@ -12,15 +12,6 @@ Match_Equipe( le_match : int (1)@Match-id_match , lequipe : int (1) @Equipe-id_e
 Match_Eleve(un_match : int (1) @Match-id_match, leleves : int(1) @ Eleve-id_equipe)
 Statistique(id_stats : int (1), intitule : String, stats : double, lEleve : int @Eleve-id_eleve)
 
-CREATE TABLE Match_Eleve(
-    un_match NUMBER    
-        CONSTRAINT fk_Match_Eleve REFERENCES Match(id_match),
-    leleves NUMBER    
-        CONSTRAINT fk_Eleve_Match REFERENCES Eleve(id_eleve),
-    CONSTRAINT pk_Match_Eleve PRIMARY KEY (id_match, id_eleve)
-);
-
-
 Contraintes VARCHAR2(250)uelles :
 Session :
 DOM_statut = {en cours , terminer}
