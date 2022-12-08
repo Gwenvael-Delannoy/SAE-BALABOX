@@ -1,6 +1,6 @@
 /**
- * Création d'un objet Sport 
- * Attributs de la base de données : 
+ * Create an objectSport 
+ * Attributs of the database : 
     id_sport     
     nom_sport 
     description_sport 
