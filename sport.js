@@ -6,6 +6,10 @@
     description_sport 
 */
 module.exports = class Sport {
+   /**
+   * Constructor of the object Sport
+   */
+  constructor() {}
   init (nom , descri){
     this.id_sport = -1;
     this.nom_sport = nom;
