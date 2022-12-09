@@ -3,6 +3,13 @@
 -- Base de données : ` balabox section sport`
 -- @AUTHOR L'equipe DEGT de L'IUT de Vannes
 -- @DATE 2022
+-- @VERSION 1.0
+
+/**
+* Create the database
+*/
+CREATE DATABASE IF NOT EXISTS balabox_sport_db;
+USE balabox_sport_db;
 
 /**
 
@@ -257,4 +264,3 @@ CREATE TABLE Musculation (
     CONSTRAINT pk_Musculation PRIMARY KEY (id_musculation),
     CONSTRAINT fk_Musculation_Eleve FOREIGN KEY (id_musculation) REFERENCES Resultat(id_resultat)
 );
-
