@@ -33,6 +33,8 @@ DROP TABLE Statistique;
 DROP TABLE Match;
 DROP TABLE Match_Equipe;
 DROP TABLE Match_Eleve;
+DROP TABLE Resultat;
+DROP TABLE Escalade;
 
 
 
@@ -120,7 +122,11 @@ CREATE TABLE Resultat (
     temps TIME,
     distance NUMBER,
     freq_card NUMBER,
-    complementaire String
+    complementaire String,
+    la_session NUMBER
+        CONSTRAINT fk_Resultat_Session REFERENCES Session(id_session),
+    unEleve NUMBER
+        CONSTRAINT fk_Resultat_Eleve REFERENCES Eleve(id_eleve)
 );
 
 CREATE TABLE Escalade (
@@ -130,6 +136,12 @@ CREATE TABLE Escalade (
     assureur NUMBER
         CONSTRAINT fk_Escalade_Eleve REFERENCES Eleve(id_eleve),
     total_diff NUMBER
+);
+
+CREATE TABLE Voie (
+    id_voie NUMBER
+        CONSTRAINT pk_Voie PRIMARY KEY,
+    deg_diffi NUMBER NOT NULL
 );
 
 
