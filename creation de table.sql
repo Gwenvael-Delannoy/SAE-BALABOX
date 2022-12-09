@@ -113,3 +113,7 @@ CREATE TABLE Match_Eleve(
         CONSTRAINT fk_Eleve_Match REFERENCES Eleve(id_eleve),
     CONSTRAINT pk_Match_Eleve PRIMARY KEY (id_match, id_eleve)
 );
+
+CREATE TABLE Resultat (
+    
+);
