@@ -144,6 +144,14 @@ CREATE TABLE Voie (
     deg_diffi NUMBER NOT NULL
 );
 
+CREATE TABLE Escalade_Voie (
+    lEscalade NUMBER    
+        CONSTRAINT fk_Escalade_Voie REFERENCES Escalade(id_escalade),
+    laVoie NUMBER    
+        CONSTRAINT fk_Voie_Escalade REFERENCES Voie(id_voie),
+    CONSTRAINT pk_Escalade_Voie PRIMARY KEY (id_escalade, id_voie)
+);
+
 
 
 
