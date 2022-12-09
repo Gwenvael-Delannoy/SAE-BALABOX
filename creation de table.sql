@@ -14,7 +14,13 @@ Match_Eleve(un_match : int (1) @Match-id_match, leleves : int(1) @ Eleve-id_equi
 Statistique(id_stats : int (1), intitule : String, stats : double, lEleve : int @Eleve-id_eleve)
 Resultat(id_resultat : int (1), le_match : int (1) @Match-id_match, leleve : int (1) @Eleve-id_eleve, lequipe : int (1) @Equipe-id_equipe, le_sport : int (1) @Sport-id_sport)
 Escalade(id_escalade : int (1), assureur : int @Eleve-id_eleve, total_diff : int)
-
+Voie (id_voie : int (1), nom_voie : String (NN), hauteur : int (NN), difficulte : int (NN), l_escalade : int (1) @Escalade-id_escalade)
+Escalade_voie (lEscalade : int (1) @Escalade-id_escalade, laVoie : int (1) @Voie-id_voie)
+Natation (id_natation : int (1)@Resultat-id_resultat ,style_nage : String , plongeons : int, nom_bassin : String  )
+Figure (id_figure : int (1), nom : String ,description String ,  point : int (NN))
+Acrosport (id_acrosport : int (1) @Resultat-id_resultat, total_point : int ,lesFigures : int @Figure-id_fig )
+Step (id_step : int (1) @Resultat-id_resultat,type_mobilite : String , ressenti : String , param_indv : String , bilan_perso : String , perspective : String)
+Musculation (id_musculation : int (1) @Resultat-id_resultat,muscle_travailler : String , temps_pause : Time ,series : int , nb_reps : int , intensite : int , charge : Double , ressenti : String )
 
 Contraintes textuelles :
 Session :
@@ -26,6 +32,11 @@ Eleve:
 DOM_sexe : {homme, femme}
 */
 
+DROP TABLE Musculation;
+DROP TABLE Step;
+DROP TABLE Acrosport;
+DROP TABLE Figure;
+DROP TABLE Natation;
 DROP TABLE Escalade_Voie;
 DROP TABLE Voie;
 DROP TABLE Escalade;
@@ -35,8 +46,6 @@ DROP TABLE Match_Equipe;
 DROP TABLE Match_;
 DROP TABLE Statistique;
 DROP TABLE Eleve;
-
-
 DROP TABLE Session;
 DROP TABLE Equipe;
 DROP TABLE Sport;
@@ -166,7 +175,7 @@ CREATE TABLE Voie (
     id_voie INTEGER AUTO_INCREMENT,
     deg_diffi INTEGER NOT NULL,
 
-    -- CONSTRAINTS
+    -- CONSTRAINT
     CONSTRAINT pk_Voie PRIMARY KEY (id_voie)
 );
 
@@ -178,5 +187,66 @@ CREATE TABLE Escalade_Voie (
     CONSTRAINT fk_Escalade_Voie FOREIGN KEY (lEscalade) REFERENCES Escalade(id_escalade),
     CONSTRAINT fk_Voie_Escalade FOREIGN KEY (laVoie) REFERENCES Voie(id_voie),
     CONSTRAINT pk_Escalade_Voie PRIMARY KEY (lEscalade, laVoie)
+);
+
+CREATE TABLE Natation (
+    id_natation INTEGER ,
+    style_nage VARCHAR(50),
+    plongeons INTEGER,
+    nom_bassin VARCHAR(50),
+    
+    -- CONSTRAINTS
+    CONSTRAINT pk_Natation PRIMARY KEY (id_natation),
+    CONSTRAINT fk_Natation_Eleve FOREIGN KEY (id_natation) REFERENCES Resultat(id_resultat)
+
+);
+
+CREATE TABLE Figure (
+    id_figure INTEGER AUTO_INCREMENT,
+    nom VARCHAR(50),
+    description VARCHAR(250),
+    point INTEGER NOT NULL,
+
+    -- CONSTRAINT
+    CONSTRAINT pk_Figure PRIMARY KEY (id_figure)
+);
+
+CREATE TABLE Acrosport (
+    id_acrosport INTEGER ,
+    total_point INTEGER,
+    lesFigures INTEGER,
+
+    -- CONSTRAINTS
+    CONSTRAINT pk_Acrosport PRIMARY KEY (id_acrosport),
+    CONSTRAINT fk_Acrosport_Eleve FOREIGN KEY (id_acrosport) REFERENCES Resultat(id_resultat),
+    CONSTRAINT fk_Acrosport_Figure FOREIGN KEY (lesFigures) REFERENCES Figure(id_figure)
+);
+
+CREATE TABLE Step (
+    id_step INTEGER ,
+    type_mobilite VARCHAR(50),
+    ressenti VARCHAR(250),
+    param_indv VARCHAR(250),
+    bilan_perso VARCHAR(250),
+    perspective VARCHAR(250),
+    
+    -- CONSTRAINTS
+    CONSTRAINT pk_Step PRIMARY KEY (id_step),
+    CONSTRAINT fk_Step_Eleve FOREIGN KEY (id_step) REFERENCES Resultat(id_resultat)
+);
+
+CREATE TABLE Musculation (
+    id_musculation INTEGER ,
+    muscle_travailler VARCHAR(50),
+    temps_pause INTEGER,
+    series INTEGER,
+    nb_reps INTEGER,
+    intensite INTEGER,
+    charge INTEGER,
+    ressenti VARCHAR(250),
+    
+    -- CONSTRAINTS
+    CONSTRAINT pk_Musculation PRIMARY KEY (id_musculation),
+    CONSTRAINT fk_Musculation_Eleve FOREIGN KEY (id_musculation) REFERENCES Resultat(id_resultat)
 );
 
