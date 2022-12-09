@@ -1,7 +1,7 @@
 /*
 Contrainte a rajouter
-trigger pour verifier qu'il y a bien 2 equipe par match
-trigger pour verifier qu'il y a bien 2 joueur par match
+trigger pour verifier qu'il y a bien 2 equipes par match maximun
+trigger pour verifier qu'il y a bien 2 joueurs par match maximun
 
 Schema relationel :
 Sport ( id_sport : int , nom_sport : String (NN ) , description_sport : String)
