@@ -3,7 +3,7 @@
  */
 
 var Match = require('../models/match');
-var smt = require('../sqlite_connection');
+var smt = require('../mysql_connection');
 
 var MatchDAO = function () {
     /**
