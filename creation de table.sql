@@ -115,5 +115,26 @@ CREATE TABLE Match_Eleve(
 );
 
 CREATE TABLE Resultat (
-    
+    id_resultat NUMBER
+        CONTRAINT pk_Resultat PRIMARY KEY,
+    temps TIME,
+    distance NUMBER,
+    freq_card NUMBER,
+    complementaire String
 );
+
+CREATE TABLE Escalade (
+    id_escalade NUMBER
+        CONSTRAINT fk_Escalade_Resultat REFERENCES Resultat(id_resultat)
+        CONTRAINT pk_Escalade PRIMARY KEY,
+    assureur NUMBER
+        CONSTRAINT fk_Escalade_Eleve REFERENCES Eleve(id_eleve),
+    total_diff NUMBER
+);
+
+
+
+
+
+
+
