@@ -1,7 +1,10 @@
-/*
-Contrainte a rajouter
-trigger pour verifier qu'il y a bien 2 equipes par match maximun
-trigger pour verifier qu'il y a bien 2 joueurs par match maximun
+
+-- 
+-- Base de données : ` balabox section sport`
+-- @AUTHOR L'equipe DEGT de L'IUT de Vannes
+-- @DATE 2022
+
+/**
 
 Schema relationel :
 Sport ( id_sport : int , nom_sport : String (NN ) , description_sport : String)
@@ -30,6 +33,11 @@ Natation :
 DOM_plongeons : {0,1}
 Eleve:
 DOM_sexe : {homme, femme}
+
+Contraintes internes :
+trigger pour verifier qu'il y a bien 2 equipes par match maximun
+trigger pour verifier qu'il y a bien 2 joueurs par match maximun
+
 */
 
 DROP TABLE Musculation;
