@@ -9,10 +9,10 @@
 * Create the database and configure it.
 */
 
+CREATE DATABASE IF NOT EXISTS balabox_sport_db;
 CREATE USER balabox@localhost;
 GRANT ALL ON db_balabox.* TO balabox@localhost; //le db_balabox sa dépand comment tu name ta database
 ALTER USER 'balabox'@'localhost' IDENTIFIED WITH mysql_native_password BY 'balabox';
-CREATE DATABASE IF NOT EXISTS balabox_sport_db;
 USE balabox_sport_db;
 
 /**
