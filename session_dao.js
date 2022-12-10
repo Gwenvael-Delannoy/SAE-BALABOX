@@ -1,8 +1,8 @@
 /**
  * DAO for session
  */
-var Session = require('../models/session');
-var smt = require('../mysql_connection');
+var Session = require('./models/session');
+var smt = require('./dataBase').db_connection;
 
 var SessionDAO = function(){
     
