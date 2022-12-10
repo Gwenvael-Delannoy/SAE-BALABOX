@@ -1,8 +1,8 @@
 /**
  * DAO for Sport
  */
-var Sport = require('../models/sport');
-var smt = require('../mysql_connection');
+var Sport = require('./models/sport');
+var smt = require('./mysql_connection');
 
 var SportDAO = function(){
 

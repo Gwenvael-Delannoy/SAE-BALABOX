@@ -12,8 +12,8 @@ class mysql_connection{
     constructor(){
         this.connection = mysql.createConnection({
             host: 'localhost',
-            user: 'root', // nom de l'utilisateur de la base de donnee (a modifier si necessaire)
-            password: 'root' // mot de passe de l'utilisateur de la base de donnee (a modifier si necessaire)
+            user: 'balabox', // nom de l'utilisateur de la base de donnee (a modifier si necessaire)
+            password: 'balabox' // mot de passe de l'utilisateur de la base de donnee (a modifier si necessaire)
         });
 
         this.connection.connect(function(err) {
