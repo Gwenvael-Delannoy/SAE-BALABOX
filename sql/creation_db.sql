@@ -10,8 +10,9 @@
 */
 
 CREATE DATABASE IF NOT EXISTS balabox_sport_db;
+DROP USER IF NOT EXIST balabox@localhost
 CREATE USER balabox@localhost;
-GRANT ALL ON db_balabox.* TO balabox@localhost; //le db_balabox sa dépand comment tu name ta database
+GRANT ALL ON balabox_sport_db.* TO balabox@localhost;
 ALTER USER 'balabox'@'localhost' IDENTIFIED WITH mysql_native_password BY 'balabox';
 USE balabox_sport_db;
 
