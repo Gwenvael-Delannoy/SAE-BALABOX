@@ -21,10 +21,10 @@ sportDao.findAll((err, rows) => {
 
             var id = rows[rows.length-1].id_sport;
             var res2=rows.length;
-
+            sport.setId(rows[rows.length-1].id_sport);
             if(res2==res1+1) console.log("Insertion réussie");
             else console.log("Insertion échouée");
-
+            
 
         });
     });
