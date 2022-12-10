@@ -13,8 +13,9 @@ var SportDAO = function(){
      * @returns {void}
      */
     this.insert = function(sport, callback){
+        this.use(null);
         values = [sport.getNom(), sport.getDescription()];
-        var sql = "INSERT INTO Sport (nom_sport, description_sport) VALUES ($nom_sport, $description_sport)";
+        var sql = "INSERT INTO Sport (nom_sport, description_sport) VALUES (?,?)";
         smt.query(sql, values ,callback);
     };
 
@@ -25,8 +26,10 @@ var SportDAO = function(){
      * @param {function} callback
      * @returns {void}
      */
-    this.update = function(key, values, callback){
-        var sql2 = "UPDATE Sport SET nom_sport=$nom_sport,description_sport=$description_sport WHERE id_sport= " + key + ";";
+    this.update = function(key, sport, callback){
+        this.use(null);
+        values = [sport.getNom(), sport.getDescription()];
+        var sql2 = "UPDATE Sport SET nom_sport=?,description_sport=? WHERE id_sport= " + key + ";";
         smt.query(sql2,values, callback);
     };
 
@@ -37,6 +40,7 @@ var SportDAO = function(){
      * @returns {void}
      */
     this.delete = function(key, callback){
+        this.use(null);
         var sql3 = "DELETE FROM Sport WHERE id_sport= " + key + ";";
         smt.query(sql3,callback);
     };
@@ -59,6 +63,7 @@ var SportDAO = function(){
      * @returns {Sport}
      */ 
     this.findByKey = function(key, callback){
+        this.use(null);
         var sql5 = "SELECT * FROM Sport WHERE id_sport= " + key + ";";
         smt.query(sql5,callback);
     };
@@ -70,13 +75,20 @@ var SportDAO = function(){
      * @returns {Sport}
      */ 
     this.findByName = function(name, callback){
+        this.use(null);
         var sql6 = "SELECT * FROM Sport WHERE nom_sport= '" + name + "';";
         smt.query(sql6,callback);
     };
 
     this.use = function(callback){
-        var sql = "USE balabox_sport_db;";
-        smt.query(sql, callback);
+        var sql7 = "USE balabox_sport_db;";
+        smt.query(sql7, callback);
+    };
+
+    this.deleteAll = function(callback){
+        this.use(null);
+        var sql8 = "DELETE FROM Sport;";
+        smt.query(sql8,callback);
     };
 };
 var sport = new SportDAO();
