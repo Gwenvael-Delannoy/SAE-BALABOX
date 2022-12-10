@@ -14,8 +14,8 @@ var SportDAO = function(){
      */
     this.insert = function(sport, callback){
         values = [sport.getNom(), sport.getDescription()];
-        var sql = "INSERT INTO Sport (nom_sport, description_sport) VALUES ($nom_sport, $description_sport)";
-        smt.run(sql, values ,callback);
+        var sql = "INSERT INTO Sport (nom_sport, description_sport) VALUES (?,?)";
+        smt.query(sql, values ,callback);
     };
 
     /**
@@ -26,8 +26,8 @@ var SportDAO = function(){
      * @returns {void}
      */
     this.update = function(key, values, callback){
-        var sql2 = "UPDATE Sport SET nom_sport=$nom_sport,description_sport=$description_sport WHERE id_sport= " + key + ";";
-        smt.run(sql2,values, callback);
+        var sql2 = "UPDATE Sport SET nom_sport=?,description_sport=? WHERE id_sport= " + key + ";";
+        smt.query(sql2,values, callback);
     };
 
     /**
@@ -38,7 +38,7 @@ var SportDAO = function(){
      */
     this.delete = function(key, callback){
         var sql3 = "DELETE FROM Sport WHERE id_sport= " + key + ";";
-        smt.run(sql3,callback);
+        smt.query(sql3,callback);
     };
 
     /**
@@ -47,8 +47,9 @@ var SportDAO = function(){
      * @returns {Sport[]}
      */ 
     this.findAll = function(callback){
+        this.use(null);
         var sql4 = "SELECT * FROM Sport";
-        smt.all(sql4, callback);
+        smt.query(sql4, callback);
     };
 
     /**
@@ -59,7 +60,7 @@ var SportDAO = function(){
      */ 
     this.findByKey = function(key, callback){
         var sql5 = "SELECT * FROM Sport WHERE id_sport= " + key + ";";
-        smt.get(sql5,callback);
+        smt.query(sql5,callback);
     };
 
     /**
@@ -70,7 +71,12 @@ var SportDAO = function(){
      */ 
     this.findByName = function(name, callback){
         var sql6 = "SELECT * FROM Sport WHERE nom_sport= '" + name + "';";
-        smt.get(sql6,callback);
+        smt.query(sql6,callback);
+    };
+
+    this.use = function(callback){
+        var sql = "USE balabox_sport_db;";
+        smt.query(sql, callback);
     };
 };
 var sport = new SportDAO();

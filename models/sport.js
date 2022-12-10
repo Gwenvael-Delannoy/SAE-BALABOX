@@ -31,7 +31,7 @@ module.exports = class Sport {
    * Get the name of the sport 
    * @returns {string}
    */
-  getNomSport(){
+  getNom(){
     return this.nom_sport;
   }
   /**
