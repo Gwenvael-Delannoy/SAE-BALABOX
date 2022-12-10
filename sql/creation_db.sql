@@ -6,8 +6,12 @@
 -- @VERSION 1.0
 
 /**
-* Create the database
+* Create the database and configure it.
 */
+
+CREATE USER balabox@localhost;
+GRANT ALL ON db_balabox.* TO balabox@localhost; //le db_balabox sa dépand comment tu name ta database
+ALTER USER 'balabox'@'localhost' IDENTIFIED WITH mysql_native_password BY 'balabox';
 CREATE DATABASE IF NOT EXISTS balabox_sport_db;
 USE balabox_sport_db;
 
