@@ -24,12 +24,15 @@ INSERT INTO Equipe VALUES (0,'2', 0);
 
 INSERT INTO Eleve VALUES (0,'M','D','homme','2',0,1);
 INSERT INTO Eleve VALUES (0,'D','M','femme','2',0,1);
-
 INSERT INTO Eleve VALUES (0,'M','F','homme','2',0,2);
-INSERT INTO Eleve VALUES (0,'F','M','femme','2',0,2);
 
+INSERT INTO Match_ VALUES (0,2,1,1);
 INSERT INTO Match_ VALUES (0,2,1,1);
 
 INSERT INTO Match_Equipe VALUES (1,1);
 INSERT INTO Match_Equipe VALUES (1,2);
 INSERT INTO Match_Equipe VALUES (1,3);
+
+INSERT INTO Match_Eleve VALUES (1,1);
+INSERT INTO Match_Eleve VALUES (1,2);
+INSERT INTO Match_Eleve VALUES (1,3);
