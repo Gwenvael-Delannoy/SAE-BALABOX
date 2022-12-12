@@ -10,7 +10,7 @@
 */
 
 CREATE DATABASE IF NOT EXISTS balabox_sport_db;
-DROP USER IF NOT EXIST balabox@localhost
+DROP USER IF EXISTS balabox@localhost;
 CREATE USER balabox@localhost;
 GRANT ALL ON balabox_sport_db.* TO balabox@localhost;
 ALTER USER 'balabox'@'localhost' IDENTIFIED WITH mysql_native_password BY 'balabox';
