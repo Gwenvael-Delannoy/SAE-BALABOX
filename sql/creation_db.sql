@@ -90,9 +90,9 @@ CREATE TABLE Equipe(
 
 CREATE TABLE Session(
     id_session INTEGER AUTO_INCREMENT, 
-    date_session DATE NOT NULL,
+    date_session DATE DEFAULT(CURRENT_DATE),
     statut VARCHAR(10) NOT NULL,
-    heure TIME NOT NULL,
+    heure TIME DEFAULT(CURRENT_TIME),
     identifiant_con VARCHAR(50) NOT NULL,
     mdp VARCHAR(50) NOT NULL,
     professeur VARCHAR(30) NOT NULL,
