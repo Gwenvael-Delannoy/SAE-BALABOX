@@ -14,7 +14,7 @@ BEGIN
     from Match_Equipe
     where le_match = NEW.le_match;
 
-    IF nb_equipe > 2 THEN
+    IF nb_equipe >= 2 THEN
         SIGNAL SQLSTATE '80001' SET MESSAGE_TEXT='Match déjà complet avec 2 équipes';
     END IF;
 END//
@@ -33,7 +33,7 @@ BEGIN
     from Match_Equipe
     where le_match = NEW.le_match;
 
-    IF nb_equipe > 2 THEN
+    IF nb_equipe >= 2 THEN
         SIGNAL SQLSTATE '80001' SET MESSAGE_TEXT='Match déjà complet avec 2 équipes';
     END IF;
 END//
@@ -55,7 +55,7 @@ BEGIN
     from Match_Equipe
     where un_match = NEW.un_match;
 
-    IF nb_eleve > 2 THEN
+    IF nb_eleve >= 2 THEN
         SIGNAL SQLSTATE '80001' SET MESSAGE_TEXT='Match déjà complet avec 2 équipes';
     END IF;
 END//
@@ -74,7 +74,7 @@ BEGIN
     from Match_Equipe
     where un_match = NEW.un_match;
 
-    IF nb_eleve > 2 THEN
+    IF nb_eleve >= 2 THEN
         SIGNAL SQLSTATE '80001' SET MESSAGE_TEXT='Match déjà complet avec 2 équipes';
     END IF;
 END//
