@@ -46,7 +46,7 @@ var NatationDAO = function(){
     };
 
     /**
-     * Find all musculation in the database
+     * Find all natation in the database
      * @param {function} callback
      * @returns {Natation[]}
      */ 
