@@ -76,7 +76,7 @@ var EleveDAO = function() {
      */
     this.findByName = function(name, callback) {
         this.use(null);
-        var sql6 = "SELECT * FROM Eleve WHERE nom= " + name + ";";
+        var sql6 = "SELECT * FROM Eleve WHERE nom= '" + name + "';";
         smt.query(sql6,callback);
     };
 
