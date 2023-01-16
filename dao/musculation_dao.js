@@ -4,7 +4,7 @@
 var Musculation = require('../models/musculation');
 var smt = require('./mysql_connection');
 
-var SportDAO = function(){
+var MusculationDAO = function(){
 
     /**
      * Insert a new musculation in the database
