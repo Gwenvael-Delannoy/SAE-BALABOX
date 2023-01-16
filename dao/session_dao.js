@@ -14,7 +14,7 @@ var SessionDAO = function(){
         */
      this.insert = function(session, callback){
         values = [session.getDate(), session.getStatut(), session.getHeure(), session.getIdentifiant(), session.getMdp(), session.getProfesseur(), session.getType(), session.getSport()];
-        var sql = "INSERT INTO Session (date_session, statut, heure, identifiant_con, mdp, professeur, type_session, le_sport) VALUES ($date_session, $statut, $heure, $identifiant_con, $mdp, $professeur, $type_session, $le_sport)";
+        var sql = "INSERT INTO Session (date_session, statut, heure, identifiant_con, mdp, professeur, type_session, le_sport) VALUES (?,?,?,?,?,?,?,?)";
         smt.query(sql, values ,callback);
     };
 
