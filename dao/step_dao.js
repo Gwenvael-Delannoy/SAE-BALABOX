@@ -4,7 +4,7 @@
 var Step = require('../models/step');
 var smt = require('./mysql_connection');
 
-var StepAO = function(){
+var StepDAO = function(){
 
     /**
      * Insert a new step in the database
@@ -79,5 +79,5 @@ var StepAO = function(){
         smt.query(sql8,callback);
     };
 };
-var step = new StepDAO();
-module.exports = step;
+var step_dao = new StepDAO();
+module.exports = step_dao;

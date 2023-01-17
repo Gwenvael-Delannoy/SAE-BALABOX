@@ -15,7 +15,7 @@ var EquipeDAO = function() {
     this.insert = function(equipe, callback) {
         this.use(null);
         values = [ equipe.getNbJoueurs(), equipe.getTotal()];
-        var sql = "INSERT INTO Equipe (nbJoueurs , total) VALUES (?,?)";
+        var sql = "INSERT INTO Equipe (nb_joueurs , total) VALUES (?,?)";
         smt.query(sql, values ,callback);
     };
 
@@ -29,7 +29,7 @@ var EquipeDAO = function() {
     this.update = function(key, equipe, callback) {
         this.use(null);
         values = [equipe.getNbJoueurs(), equipe.getTotal()];
-        var sql2 = "UPDATE Equipe SET nbJoueurs=?, total=? WHERE id_equipe= " + key + ";";
+        var sql2 = "UPDATE Equipe SET nb_joueurs=?, total=? WHERE id_equipe= " + key + ";";
         smt.query(sql2,values, callback);
     };
 
