@@ -16,7 +16,7 @@ var MatchDAO = function () {
         this.use(null);
         values = [match.getResultat1(), match.getResultat2(), match.getSession().getId()];
         var sql = "INSERT INTO Match (resultat_equipe_1, resultat_equipe_2, la_session) VALUES (?,?,?)";
-        smt.run(sql, values, callback);
+        smt.query(sql, values, callback);
     };
 
     /**
@@ -30,7 +30,7 @@ var MatchDAO = function () {
         this.use(null);
         values = [key1,key2];
         var sql = "INSERT INTO Match_Equipe (le_match, lequipe) VALUES (?,?)";
-        smt.run(sql, values, callback);
+        smt.query(sql, values, callback);
     }
 
     /**
@@ -44,7 +44,7 @@ var MatchDAO = function () {
         this.use(null);
         values = [key1,key2];
         var sql = "INSERT INTO Match_Eleve (un_match, leleve) VALUES (?,?)";
-        smt.run(sql, values, callback);
+        smt.query(sql, values, callback);
     }
 
     /**
@@ -54,7 +54,7 @@ var MatchDAO = function () {
     this.findAllMatch_Eleves = function(callback){
         this.use(null);
         var sql = "SELECT * FROM Match_Eleve";
-        smt.all(sql, callback);
+        smt.query(sql, callback);
     }
 
     /**
@@ -64,7 +64,7 @@ var MatchDAO = function () {
     this.findAllMatch_Equipes = function(callback){
         this.use(null);
         var sql = "SELECT * FROM Match_Equipe";
-        smt.all(sql, callback);
+        smt.query(sql, callback);
     }
 
     /**
@@ -75,7 +75,7 @@ var MatchDAO = function () {
     this.findMatch_ElevesByMatch = function(key,callback){
         this.use(null);
         var sql = "SELECT * FROM Match_Eleve WHERE un_match = " + key + ";";
-        smt.all(sql, callback);
+        smt.query(sql, callback);
     }
 
     /**
@@ -87,7 +87,7 @@ var MatchDAO = function () {
     this.findMatch_EquipesByMatch = function(key,callback){
         this.use(null);
         var sql = "SELECT * FROM Match_Equipe WHERE le_match = " + key + ";";
-        smt.all(sql, callback);
+        smt.query(sql, callback);
     }
     
     /**
@@ -99,7 +99,7 @@ var MatchDAO = function () {
     this.findMatch_EquipesByEquipe = function(key,callback){
         this.use(null);
         var sql = "SELECT * FROM Match_Equipe WHERE lequipe = " + key + ";";
-        smt.all(sql, callback);
+        smt.query(sql, callback);
     }
 
     /**
@@ -111,7 +111,7 @@ var MatchDAO = function () {
     this.deleteMatch_Eleve = function(key,callback){
         this.use(null);
         var sql = "DELETE FROM Match_Eleve WHERE un_match = " + key + ";";
-        smt.run(sql, callback);
+        smt.query(sql, callback);
     }
 
     /**
@@ -123,7 +123,7 @@ var MatchDAO = function () {
     this.deleteMatch_Equipe = function(key,callback){
         this.use(null);
         var sql = "DELETE FROM Match_Equipe WHERE le_match = " + key + ";";
-        smt.run(sql, callback);
+        smt.query(sql, callback);
     }
 
     /**
@@ -135,7 +135,7 @@ var MatchDAO = function () {
     this.deleteMatch_EleveByEleve = function(key,callback){
         this.use(null);
         var sql = "DELETE FROM Match_Eleve WHERE leleve = " + key + ";";
-        smt.run(sql, callback);
+        smt.query(sql, callback);
     }
 
     /**
@@ -147,7 +147,7 @@ var MatchDAO = function () {
     this.deleteMatch_EquipesByEquipe = function(key,callback){
         this.use(null);
         var sql = "DELETE FROM Match_Equipe WHERE lequipe = " + key + ";";
-        smt.run(sql, callback);
+        smt.query(sql, callback);
     }
 
     /**
@@ -160,7 +160,7 @@ var MatchDAO = function () {
     this.update = function (key, values, callback) {
         this.use(null);
         var sql2 = "UPDATE Match SET resultat_equipe_1=?,resultat_equipe_2=?,la_session=? WHERE id_match= " + key + ";";
-        smt.run(sql2, values, callback);
+        smt.query(sql2, values, callback);
     };
 
     /**
@@ -174,7 +174,7 @@ var MatchDAO = function () {
         this.deleteMatch_Equipe(key,callback);
         this.deleteMatch_Eleve(key,callback);
         var sql3 = "DELETE FROM Match WHERE id_match= " + key + ";";
-        smt.run(sql3, callback);
+        smt.query(sql3, callback);
     };
 
     /**
@@ -185,7 +185,7 @@ var MatchDAO = function () {
     this.findAll = function (callback) {
         this.use(null);
         var sql4 = "SELECT * FROM Match";
-        smt.all(sql4, callback);
+        smt.query(sql4, callback);
     };
 
     /**
@@ -197,7 +197,7 @@ var MatchDAO = function () {
     this.findByKey = function (key, callback) {
         this.use(null);
         var sql5 = "SELECT * FROM Match WHERE id_match= " + key + ";";
-        smt.get(sql5, callback);
+        smt.query(sql5, callback);
     };
 
     /**
@@ -209,7 +209,7 @@ var MatchDAO = function () {
     this.findBySession = function (key, callback) {
         this.use(null);
         var sql6 = "SELECT * FROM Match WHERE la_session= " + key + ";";
-        smt.all(sql6, callback);
+        smt.query(sql6, callback);
     };
 
     /**
