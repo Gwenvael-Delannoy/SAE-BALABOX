@@ -14,7 +14,7 @@ var MatchDAO = function () {
      */
     this.insert = function (match, callback) {
         this.use(null);
-        values = [match.getResultat1(), match.getResultat2(), match.getId()];
+        values = [match.getResultat1(), match.getResultat2(), match.getSession()];
         var sql = "INSERT INTO Match_ (resultat_equipe_1, resultat_equipe_2, la_session) VALUES (?,?,?)";
         smt.query(sql, values, callback);
     };
@@ -157,8 +157,10 @@ var MatchDAO = function () {
      * @param {function} callback
      * @returns {void}
      */
-    this.update = function (key, values, callback) {
+    this.update = function (match, callback) {
         this.use(null);
+        var values = [match.getResultat1(), match.getResultat2(), match.getSession()];
+        var key = match.getId();
         var sql2 = "UPDATE Match_ SET resultat_equipe_1=?,resultat_equipe_2=?,la_session=? WHERE id_match= " + key + ";";
         smt.query(sql2, values, callback);
     };
@@ -171,9 +173,9 @@ var MatchDAO = function () {
      */
     this.delete = function (key, callback) {
         this.use(null);
-        this.deleteMatch_Equipe(key,callback);
-        this.deleteMatch_Eleve(key,callback);
-        var sql3 = "DELETE FROM Match_ WHERE id_match= " + key + ";";
+        // this.deleteMatch_Equipe(key,null);
+        // this.deleteMatch_Eleve(key,null);
+        var sql3 = "DELETE FROM Match_ WHERE id_match=" + key + ";";
         smt.query(sql3, callback);
     };
 

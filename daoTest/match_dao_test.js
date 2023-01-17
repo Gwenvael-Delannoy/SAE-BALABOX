@@ -58,8 +58,11 @@ sport_dao.insert(sport, function(err, rows){
                                 var idEleve = rows[rows.length-1].id_eleve;
                                 eleve.setId(idEleve);
 
+
+                                //test Match
+
                                 match.init(1,2,session.getId());
-                                console.log(match.getSession());
+
                                 match_dao.findAll((err, rows) => {
                                     if(err) console.log(err);
 
@@ -78,8 +81,13 @@ sport_dao.insert(sport, function(err, rows){
                                             if(res1+1 == res2)console.log("Insertion réussie");
                                             else console.log("Insertion échoué");
                                             
+                                            match.setId(rows[rows.length-1].id_match);
+                                            
                                             console.log("\nPre Update :\n");
-                                            console.log(rows[rowsLength-1]);
+                                            console.log(rows[rows.length-1]);
+
+                                            match.setResultat1(3);
+                                            match.setResultat2(4);
 
                                             match_dao.update(match,function(err, rows){
                                                 if(err) console.log(err);
@@ -88,9 +96,9 @@ sport_dao.insert(sport, function(err, rows){
                                                     if(err) console.log(err);
 
                                                     console.log("\nPost Update :\n");
-                                                    console.log(rows[rowsLength-1]);
+                                                    console.log(rows[rows.length-1]);
 
-                                                    match_dao.delete(match,function(err, rows){
+                                                    match_dao.delete(match.getId(),function(err, rows){
                                                         if(err) console.log(err);
 
                                                         match_dao.findAll((err, rows) => {
