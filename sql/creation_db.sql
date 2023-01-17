@@ -132,7 +132,7 @@ CREATE TABLE Statistique(
     CONSTRAINT fk_Eleve_Statistique FOREIGN KEY (lEleve) REFERENCES Eleve(id_eleve)
 );
 -- For the some technical reason we have add an _ to avoid the error with the keyword "Match" who is a reserved word in MySQL
-CREATE TABLE Match_(
+CREATE TABLE Match(
     id_match INTEGER AUTO_INCREMENT, 
     resultat_equipe_1 INTEGER,
     resultat_equipe_2 INTEGER,

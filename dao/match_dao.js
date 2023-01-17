@@ -19,6 +19,62 @@ var MatchDAO = function () {
         smt.run(sql, values, callback);
     };
 
+    this.insertMatch_Equipe = function(key1,key2,callback){
+        this.use(null);
+        values = [key1,key2];
+        var sql = "INSERT INTO Match_Equipe (le_match, lequipe) VALUES (?,?)";
+        smt.run(sql, values, callback);
+    }
+
+    this.insertMatch_Eleve = function(key1,key2,callback){
+        this.use(null);
+        values = [key1,key2];
+        var sql = "INSERT INTO Match_Eleve (un_match, leleve) VALUES (?,?)";
+        smt.run(sql, values, callback);
+    }
+
+    this.findAllMatch_Eleves = function(callback){
+        this.use(null);
+        var sql = "SELECT * FROM Match_Eleve";
+        smt.all(sql, callback);
+    }
+
+    this.findAllMatch_Equipes = function(callback){
+        this.use(null);
+        var sql = "SELECT * FROM Match_Equipe";
+        smt.all(sql, callback);
+    }
+
+    this.findMatch_ElevesByMatch = function(key,callback){
+        this.use(null);
+        var sql = "SELECT * FROM Match_Eleve WHERE un_match = " + key + ";";
+        smt.all(sql, callback);
+    }
+
+    this.findMatch_EquipesByMatch = function(key,callback){
+        this.use(null);
+        var sql = "SELECT * FROM Match_Equipe WHERE le_match = " + key + ";";
+        smt.all(sql, callback);
+    }
+    
+    this.findMatch_EquipesByEquipe = function(key,callback){
+        this.use(null);
+        var sql = "SELECT * FROM Match_Equipe WHERE lequipe = " + key + ";";
+        smt.all(sql, callback);
+    }
+
+    this.deleteMatch_Eleve = function(key,callback){
+        this.use(null);
+        var sql = "DELETE FROM Match_Eleve WHERE un_match = " + key + ";";
+        smt.run(sql, callback);
+    }
+
+    this.deleteMatch_Equipe = function(key,callback){
+        this.use(null);
+        var sql = "DELETE FROM Match_Equipe WHERE le_match = " + key + ";";
+        smt.run(sql, callback);
+    }
+
     /**
      * Update a match in the database
      * @param {int} key
@@ -40,6 +96,8 @@ var MatchDAO = function () {
      */
     this.delete = function (key, callback) {
         this.use(null);
+        this.deleteMatch_Equipe(key,callback);
+        this.deleteMatch_Eleve(key,callback);
         var sql3 = "DELETE FROM Match WHERE id_match= " + key + ";";
         smt.run(sql3, callback);
     };
