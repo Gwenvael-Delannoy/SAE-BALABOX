@@ -62,6 +62,17 @@ var SessionDAO = function(){
         var sql5 = "SELECT * FROM Session WHERE id_session =?;";
         smt.query(sql5, key,callback);
     };
+
+    /**
+     * Find a session in the database by the id_connection
+     * @param {string} id_con 
+     * @param {function} callback 
+     * @return {Session}
+     */
+    this.FindByIdCon = function(id_con, callback){
+        var sql6 = "SELECT * FROM Session WHERE identifiant_con  = '" + id_con + "';";
+        smt.query(sql6, id_con, callback);
+    };
 };
 var sessionDAO = new SessionDAO();
 module.exports = sessionDAO;
