@@ -19,6 +19,13 @@ var MatchDAO = function () {
         smt.run(sql, values, callback);
     };
 
+    /**
+     * insert the association between a match and an equipe
+     * @param {int} key
+     * @param {int} match
+     * @param {function} callback
+     * @returns {void}
+     */
     this.insertMatch_Equipe = function(key1,key2,callback){
         this.use(null);
         values = [key1,key2];
@@ -26,6 +33,13 @@ var MatchDAO = function () {
         smt.run(sql, values, callback);
     }
 
+    /**
+     * insert the association between a match and an eleve
+     * @param {int} key1 
+     * @param {int} key2 
+     * @param {function} callback 
+     * @returns {void}
+     */
     this.insertMatch_Eleve = function(key1,key2,callback){
         this.use(null);
         values = [key1,key2];
@@ -33,45 +47,106 @@ var MatchDAO = function () {
         smt.run(sql, values, callback);
     }
 
+    /**
+     * find all the association between a match and an eleve
+     * @param {function} callback 
+     */
     this.findAllMatch_Eleves = function(callback){
         this.use(null);
         var sql = "SELECT * FROM Match_Eleve";
         smt.all(sql, callback);
     }
 
+    /**
+     * find all the association between a match and an equipe
+     * @param {function} callback 
+     */
     this.findAllMatch_Equipes = function(callback){
         this.use(null);
         var sql = "SELECT * FROM Match_Equipe";
         smt.all(sql, callback);
     }
 
+    /**
+     * find the association between a match and an eleve by the match
+     * @param {int} key 
+     * @param {function} callback 
+     */
     this.findMatch_ElevesByMatch = function(key,callback){
         this.use(null);
         var sql = "SELECT * FROM Match_Eleve WHERE un_match = " + key + ";";
         smt.all(sql, callback);
     }
 
+    /**
+     * find the association between a match and an equipes by the match
+     * @param {int} key
+     * @param {function} callback
+     * @returns {void}
+     */
     this.findMatch_EquipesByMatch = function(key,callback){
         this.use(null);
         var sql = "SELECT * FROM Match_Equipe WHERE le_match = " + key + ";";
         smt.all(sql, callback);
     }
     
+    /**
+     * find the association between a match and an equipes by the equipes
+     * @param {int} key
+     * @param {function} callback
+     * @returns {void}
+     */
     this.findMatch_EquipesByEquipe = function(key,callback){
         this.use(null);
         var sql = "SELECT * FROM Match_Equipe WHERE lequipe = " + key + ";";
         smt.all(sql, callback);
     }
 
+    /**
+     * delete the association between a match and an eleve by the match
+     * @param {int} key
+     * @param {function} callback
+     * @returns {void}
+     */
     this.deleteMatch_Eleve = function(key,callback){
         this.use(null);
         var sql = "DELETE FROM Match_Eleve WHERE un_match = " + key + ";";
         smt.run(sql, callback);
     }
 
+    /**
+     * delete the association between a match and an equipe by the match
+     * @param {int} key
+     * @param {function} callback
+     * @returns {void}
+     */
     this.deleteMatch_Equipe = function(key,callback){
         this.use(null);
         var sql = "DELETE FROM Match_Equipe WHERE le_match = " + key + ";";
+        smt.run(sql, callback);
+    }
+
+    /**
+     * delete the association between a match and an equipe by the equipe
+     * @param {int} key 
+     * @param {function} callback
+     * @returns {void}
+     */
+    this.deleteMatch_EleveByEleve = function(key,callback){
+        this.use(null);
+        var sql = "DELETE FROM Match_Eleve WHERE leleve = " + key + ";";
+        smt.run(sql, callback);
+    }
+
+    /**
+     * delete the association between a match and an equipe by the equipe
+     * @param {int} key
+     * @param {function} callback
+     * @returns {void}
+     */
+    this.deleteMatch_EquipesByEquipe = function(key,callback){
+        this.use(null);
+        var sql = "DELETE FROM Match_Equipe WHERE lequipe = " + key + ";";
         smt.run(sql, callback);
     }
 
