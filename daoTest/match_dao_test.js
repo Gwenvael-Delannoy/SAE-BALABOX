@@ -59,7 +59,7 @@ sport_dao.insert(sport, function(err, rows){
                                 eleve.setId(idEleve);
 
                                 match.init(1,2,session.getId());
-
+                                console.log(match.getSession());
                                 match_dao.findAll((err, rows) => {
                                     if(err) console.log(err);
 
@@ -116,16 +116,3 @@ sport_dao.insert(sport, function(err, rows){
         });
     });
 });
-
-// insertion session
-
-
-// insertion equipe
-
-
-// insertion eleve
-
-
-
-// test match DAO
-

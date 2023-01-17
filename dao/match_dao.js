@@ -14,8 +14,8 @@ var MatchDAO = function () {
      */
     this.insert = function (match, callback) {
         this.use(null);
-        values = [match.getResultat1(), match.getResultat2(), match.getSession().getId()];
-        var sql = "INSERT INTO Match (resultat_equipe_1, resultat_equipe_2, la_session) VALUES (?,?,?)";
+        values = [match.getResultat1(), match.getResultat2(), match.getId()];
+        var sql = "INSERT INTO Match_ (resultat_equipe_1, resultat_equipe_2, la_session) VALUES (?,?,?)";
         smt.query(sql, values, callback);
     };
 
@@ -159,7 +159,7 @@ var MatchDAO = function () {
      */
     this.update = function (key, values, callback) {
         this.use(null);
-        var sql2 = "UPDATE Match SET resultat_equipe_1=?,resultat_equipe_2=?,la_session=? WHERE id_match= " + key + ";";
+        var sql2 = "UPDATE Match_ SET resultat_equipe_1=?,resultat_equipe_2=?,la_session=? WHERE id_match= " + key + ";";
         smt.query(sql2, values, callback);
     };
 
@@ -173,7 +173,7 @@ var MatchDAO = function () {
         this.use(null);
         this.deleteMatch_Equipe(key,callback);
         this.deleteMatch_Eleve(key,callback);
-        var sql3 = "DELETE FROM Match WHERE id_match= " + key + ";";
+        var sql3 = "DELETE FROM Match_ WHERE id_match= " + key + ";";
         smt.query(sql3, callback);
     };
 
@@ -184,7 +184,7 @@ var MatchDAO = function () {
      */
     this.findAll = function (callback) {
         this.use(null);
-        var sql4 = "SELECT * FROM Match";
+        var sql4 = "SELECT * FROM Match_";
         smt.query(sql4, callback);
     };
 
@@ -196,7 +196,7 @@ var MatchDAO = function () {
      */
     this.findByKey = function (key, callback) {
         this.use(null);
-        var sql5 = "SELECT * FROM Match WHERE id_match= " + key + ";";
+        var sql5 = "SELECT * FROM Match_ WHERE id_match= " + key + ";";
         smt.query(sql5, callback);
     };
 
@@ -208,7 +208,7 @@ var MatchDAO = function () {
      */
     this.findBySession = function (key, callback) {
         this.use(null);
-        var sql6 = "SELECT * FROM Match WHERE la_session= " + key + ";";
+        var sql6 = "SELECT * FROM Match_ WHERE la_session= " + key + ";";
         smt.query(sql6, callback);
     };
 
