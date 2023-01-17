@@ -57,3 +57,4 @@ equipeDao.findAll((err, rows) => {
         });
     });
 });
+

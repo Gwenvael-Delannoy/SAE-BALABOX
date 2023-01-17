@@ -12,5 +12,6 @@ var resultat_dao = require('./resultat_dao.js');
 var statistique_dao = require('./statistique_dao.js');
 var step_dao = require('./step_dao.js');
 var voie_dao = require('./voie_dao.js');
+var eleve_dao = require('./eleve_dao.js');
 
-module.exports = {db: db_connection, match_dao: match_dao, session_dao: session_dao, sport_dao: sport_dao, equipe_dao: equipe_dao, acrosport_dao: acrosport_dao, escalade_dao: escalade_dao, figure_dao: figure_dao, musculation_dao: musculation_dao, natation_dao: natation_dao, resultat_dao: resultat_dao, statistique_dao: statistique_dao, step_dao: step_dao, voie_dao: voie_dao};
+module.exports = {db: db_connection, match_dao: match_dao, session_dao: session_dao, sport_dao: sport_dao, equipe_dao: equipe_dao, acrosport_dao: acrosport_dao, escalade_dao: escalade_dao, figure_dao: figure_dao, musculation_dao: musculation_dao, natation_dao: natation_dao, resultat_dao: resultat_dao, statistique_dao: statistique_dao, step_dao: step_dao, voie_dao: voie_dao, eleve_dao: eleve_dao};
