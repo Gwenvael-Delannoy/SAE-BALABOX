@@ -64,7 +64,7 @@ var SessionDAO = function(){
     };
 
     /**
-     * Find a session in the database by the id_connection
+     * Find a session in the database by the identifiant_connection
      * @param {string} id_con 
      * @param {function} callback 
      * @return {Session}
