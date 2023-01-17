@@ -18,7 +18,7 @@ class mysql_connection{
 
         this.connection.connect(function(err) {
             if (err) throw err;
-            else console.log("Connecter a la bas de donnee");
+            else console.log("Connecter a la base de donnee");
         });
     }
 
