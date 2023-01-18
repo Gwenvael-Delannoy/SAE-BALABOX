@@ -9,21 +9,33 @@
                 <img src="/images/image.jpeg" >
                 <h1>Section Sport</h1>
                 <label for="SIdentifiant">Identifiant Session : </label><br>
-                <input type="text" id="SIdentifiant" name="SIdentifiant"><br>
+                <input type="text" id="SIdentifiant" name="SIdentifiant" required><br>
+                
                 <label for="Spwd">Clé de Session : </label><br>
-                <input type="text" id="Spwd" name="Spwd">
+                <input type="text" id="Spwd" name="Spwd" required><br>
+                
+                <label for="SNomEleve">Nom : </label><br>
+                <input type="text" id="SNomEleve" name="SNomEleve" required><br>
+                
+                <label for="SPrenomEleve">Prenom : </label><br>
+                <input type="text" id="SPrenomEleve" name="SPrenomEleve" required><br>
+                
+                <label for="SClasseEleve">Classe : </label><br>
+                <input type="text" id="SClasseEleve" name="SClasseEleve" maxlength="3" required ><br>
+                
+                <button type="submit" name ="btn" value ="BtConnexion" >Connexion session </button>
                 <br>
-                <button type="submit" >Connexion session</button>
                 <br>
-                <br>
+                <% if (typeof professeur !== 'undefined' && professeur !== '') { %>
+                    <button type="submit" name ="btn" value ="BtAccesProf" >Accès professeur </button>
+                  <% } %>
+                    
             </form> 
             <div>
                 <!-- Afficher le message d'erreur s'il y en a un -->
                 <% if (message) { %>
                   <p style="color: red;"><%= message %></p>
                 <% } %>
-              </div>
-        <script> 
-        </script>
+            </div>
         </html>
 

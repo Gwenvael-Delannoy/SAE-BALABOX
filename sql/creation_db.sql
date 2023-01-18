@@ -102,7 +102,7 @@ CREATE TABLE Session(
     -- CONSTRAINTS
     CONSTRAINT pk_Session PRIMARY KEY (id_session),
     CONSTRAINT ck_statut CHECK (statut IN ("en cours", "terminer")),
-    CONSTRAINT ck_type_session CHECK (type_session IN ("tournois", "resultat")),
+    CONSTRAINT ck_type_session CHECK (type_session IN ("tournoi equipe","tournoi individuel", "resultat")),
     CONSTRAINT fk_Sport_Session FOREIGN KEY (le_sport) REFERENCES Sport(id_sport)
 );
 

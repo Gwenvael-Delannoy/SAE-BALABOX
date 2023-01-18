@@ -20,6 +20,7 @@ body {
   font-weight: 300;
   line-height: 1.8;
   margin: 100px;
+  text-align: center;
 }
 
 button {
@@ -46,4 +47,3 @@ p{
   border-radius: 12px;
 
 }
-
