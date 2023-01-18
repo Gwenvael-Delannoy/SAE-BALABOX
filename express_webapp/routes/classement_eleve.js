@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var eleve_dao = require('../models/dao/eleve_dao');
+var eleve_dao = require('../models/dao').eleve_dao;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
