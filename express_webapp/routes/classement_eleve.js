@@ -4,13 +4,13 @@ var eleve_dao = require('../models/dao/eleve_dao');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    var data = eleve_dao.findAll(function(err, rows, fields) {
+    var data = eleve_dao.findName(function(err, rows) {
       
         if (err) {
             console.log(err);
-            res.render('error', {message: err.message, error: err});
+            res.render('error', {message: err});
         } else {
-            res.render('classement_eleve', {title: 'Classement des élèves', eleves: rows});
+            res.render('classement_eleve', {eleves:rows});
         }
     });
 });
