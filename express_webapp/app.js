@@ -5,7 +5,8 @@ var logger = require('morgan');
 var favicon = require('serve-favicon');
 
 var indexRouter = require('./routes/index');
-var classement = require('./routes/classement');
+var classement_eleve = require('./routes/classement_eleve');
+var classement_equipe = require('./routes/classement_equipe');
 var resultat = require('./routes/resultat');
 
 
@@ -34,7 +35,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/classement', classement);
+app.use('/classement_eleve', classement_eleve);
+app.use('/classement_equipe', classement_equipe);
 app.use('/resultat', resultat);
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
