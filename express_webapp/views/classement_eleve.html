@@ -6,5 +6,25 @@
             </head>
             <body>
                 <h1>Classement</h1>
+
+                <form name="monFormulaire">
+                    <select name="myselect" id="myselecjt">
+                        <option value=""></option>
+                    </select>
+                    </form>
+                    <script>
+                        var t1 = eleves;
+
+
+
+                        var MonTableau = t1.prenom;
+                        //var MonTableau = ["donnée 1", "donnée 2", "donnée 3", "donnée 4"];
+                        document.monFormulaire.myselect.options.length = MonTableau.length;
+                        for (var j = 0; j < MonTableau.length; j++) {
+                                document.monFormulaire.myselect.options[j].value= MonTableau[j];
+                                document.monFormulaire.myselect.options[j].text= MonTableau[j];
+                        
+                        }
+                    </script>
             </body>
         </html>
