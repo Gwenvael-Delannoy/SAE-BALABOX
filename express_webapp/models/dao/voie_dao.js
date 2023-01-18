@@ -2,7 +2,7 @@
  * DAO for Voie
  */
 
-var Voie = require('../models/voie');
+var Voie = require('../voie');
 var smt = require('./mysql_connection');
 
 var VoieDAO = function() {

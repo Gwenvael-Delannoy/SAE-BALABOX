@@ -1,7 +1,7 @@
 /**
  * DAO for Equipe
  */
-var Equipe = require('../models/Equipe');
+var Equipe = require('../Equipe');
 var smt = require('./mysql_connection');
 
 var EquipeDAO = function() {

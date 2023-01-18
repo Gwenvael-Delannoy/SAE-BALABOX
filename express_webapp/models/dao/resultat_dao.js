@@ -2,7 +2,7 @@
  * DAO for Resultat
  */
 
-var Resultat = require('../models/resultat');
+var Resultat = require('../resultat');
 var smt = require('./mysql_connection');
 
 var ResultatDAO = function() {

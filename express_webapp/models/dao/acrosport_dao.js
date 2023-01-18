@@ -1,7 +1,7 @@
 /**
  * DAO for Acrosport
  */
-var Acrosport = require('../models/acrosport');
+var Acrosport = require('../acrosport');
 var smt = require('./mysql_connection');
 
 var AcrosportDAO = function() {

@@ -1,7 +1,7 @@
 /**
  * DAO for Musculation
  */
-var Musculation = require('../models/musculation');
+var Musculation = require('../musculation');
 var smt = require('./mysql_connection');
 
 var MusculationDAO = function(){

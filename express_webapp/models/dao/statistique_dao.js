@@ -1,7 +1,7 @@
 /**
  * DAO for Statistique
  */
-var Statistique = require('../models/statistique');
+var Statistique = require('../statistique');
 var smt = require('./mysql_connection');
 
 var StatistiqueDAO = function(){

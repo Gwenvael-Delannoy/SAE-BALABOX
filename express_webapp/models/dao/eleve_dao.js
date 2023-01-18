@@ -1,7 +1,7 @@
 /**
  * DAO for Eleve
  */
-var Eleve = require('../models/eleve');
+var Eleve = require('../eleve');
 var smt = require('./mysql_connection');
 
 var EleveDAO = function() {

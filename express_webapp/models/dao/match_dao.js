@@ -2,7 +2,7 @@
  * DAO for match.
  */
 
-var Match = require('../models/match');
+var Match = require('../match');
 var smt = require('./mysql_connection');
 
 var MatchDAO = function () {

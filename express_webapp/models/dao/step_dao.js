@@ -1,7 +1,7 @@
 /**
  * DAO for Musculation
  */
-var Step = require('../models/step');
+var Step = require('../step');
 var smt = require('./mysql_connection');
 
 var StepDAO = function(){

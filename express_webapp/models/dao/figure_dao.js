@@ -1,7 +1,7 @@
 /**
  * DAO for Figure
  */
-var Figure = require('../models/figure');
+var Figure = require('../figure');
 var smt = require('./mysql_connection');
 
 var FigureDAO = function() {

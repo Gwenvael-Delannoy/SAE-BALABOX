@@ -1,7 +1,7 @@
 /**
  * DAO for Natation
  */
-var Natation = require('../models/natation');
+var Natation = require('../natation');
 var smt = require('./mysql_connection');
 
 var NatationDAO = function(){

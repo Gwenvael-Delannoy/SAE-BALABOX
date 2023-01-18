@@ -1,7 +1,7 @@
 /**
  * DAO for Escalade
  */
-var Escalade = require('../models/escalade');
+var Escalade = require('../escalade');
 var smt = require('./mysql_connection');
 
 var EscaladeDAO = function() {
