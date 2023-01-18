@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+        <html>
+            <head>
+                <title>Section Sport</title>
+                <link rel="stylesheet" href="/stylesheets/style.css">
+            </head>
+            <form action='/' method='post'>
+                <br>
+                <img src="/images/image.jpeg" >
+                <h1>Section Sport</h1>
+                <label for="SIdentifiant">Identifiant Session : </label><br>
+                <input type="text" id="SIdentifiant" name="SIdentifiant"><br>
+                <label for="Spwd">Clé de Session : </label><br>
+                <input type="text" id="Spwd" name="Spwd">
+                <br>
+                <button type="submit" >Connexion session</button>
+                <br>
+                <br>
+            </form> 
+            <div>
+                <!-- Afficher le message d'erreur s'il y en a un -->
+                <% if (message) { %>
+                  <p style="color: red;"><%= message %></p>
+                <% } %>
+              </div>
+        <script> 
+        </script>
+        </html>
+
