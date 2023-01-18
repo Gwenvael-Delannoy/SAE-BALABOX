@@ -7,6 +7,8 @@ var favicon = require('serve-favicon');
 var indexRouter = require('./routes/index');
 var classement = require('./routes/classement');
 var resultat = require('./routes/resultat');
+var session = require('./routes/listeSession');
+var crSession = require('./routes/createSession');
 
 
 var app = express();
@@ -34,6 +36,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/session', session);
+app.use('/createSession', crSession);
 app.use('/classement', classement);
 app.use('/resultat', resultat);
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
