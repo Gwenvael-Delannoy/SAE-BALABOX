@@ -8,24 +8,31 @@
         <h1>Liste des Sessions</h1>
 
         <div id="add_tournament">
-            <img src="/images/icon_plus.png" width=5% height=10% onclick="replaceFunction()"/>
-
-            <script>        
-                function replaceFunction(){
-                    window.location.replace('/createSession');
-                }
-            </script>
-
+            <img src="/images/icon_plus.png" width=5% height=10% onclick="location.replace('/crSession');"/>
             <br>
-            Ajouter un tournoi
+            Ajouter une session
         </div>
-        <ul id="tournois"></ul>
-        <script>        
-            var newSession = function(){
-                var session = document.createElement('li');
-                session.innerHTML = element;
-                element = "<div> <p> Nom activité : </p><br><p> Nom activité : </p><br> </div>";
-                document.getElementById('tournois').appendChild(session);
+
+        <button onclick="addSession()">Ajouter une session</button>
+
+        <div id='session' class="box">   
+        </div>
+
+        <script>
+            
+
+            function addSession(){
+                const session = document.querySelector(".box");
+                var paramSession = document.getElementById("session");
+                var idSession = paramSession.childElementCount;
+                session.innerHTML += "<div id='"+ idSession +"' style='border: 1px solid black; padding: 10px;'> Sport : <br> Identifiant de connexion : "+ idSession +" <br> Date : <br> <img src='/images/icon_oeil.png' width=2% height=4% onclick='location.replace(`/crSession`);'/> <img src='/images/icon_crayon.png' width=2% height=4% onclick='location.replace(`/crSession`);'/> <img src='/images/icon_corbeille.png' width=2% height=4% onclick='removeSession("+ idSession +");'/> </div>";
+            }
+     
+            function removeSession(idSession)
+            {
+                var paramSession = document.getElementById("session");
+                var session = document.getElementById(idSession);
+                paramSession.removeChild(session);
             }
         </script>
     </body>
