@@ -20,7 +20,7 @@ expressWs.getWss().on('connection', function(ws) {
 });
 
 app.listen(3001, function () {
-  console.log('Ecoute port : 3001 ');
+  console.log('serveur port : 3001 ');
 })
 
 
