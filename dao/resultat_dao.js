@@ -43,7 +43,7 @@ var ResultatDAO = function() {
      */
     this.delete = function(key, callback) {
         this.use(null);
-        var sql3 = "DELETE FROM Resultat WHERE id_resultat= " + key + ";";
+        var sql3 = "DELETE FROM Resultat WHERE id_resultat=" + key + ";";
         smt.query(sql3, callback);
     };
 
@@ -66,7 +66,7 @@ var ResultatDAO = function() {
      */
     this.findByKey = function(key, callback) {
         this.use(null);
-        var sql5 = "SELECT * FROM Resultat WHERE id_resultat= " + key + ";";
+        var sql5 = "SELECT * FROM Resultat WHERE id_resultat=" + key + ";";
         smt.query(sql5, callback);
     };
 
