@@ -38,6 +38,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 
+app.use('/classement_eleve', classement_eleve);
+app.use('/classement_equipe', classement_equipe);
+app.use('/session', session);
+app.use('/crSession', crSession);
+
 app.use('/resultat', resultat);
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
