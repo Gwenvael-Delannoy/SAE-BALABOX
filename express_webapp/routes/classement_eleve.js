@@ -4,7 +4,7 @@ var eleve_dao = require('../models/dao/dataBase').eleve_dao;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-        /**eleve_dao.findName(function(err, rows) {
+        eleve_dao.findName(function(err, rows) {
       
         if (err) {
             console.log(err);
@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
             console.log('Bonjour success');
             res.render('classement_eleve', {eleves:rows});
         }
-    });*/res.render('classement_eleve');
+    });
 });
 
 module.exports = router;
