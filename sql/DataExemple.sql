@@ -17,7 +17,7 @@ INSERT INTO Sport(nom_sport,description_sport) VALUES ('Badminton', 'Marquer le 
 
 -- create a new session
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("en cours","test","test","Michelle Dupont","resultat",1);
-INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("en cours","test1","test1","Jack rihiad","tournois",6);
+INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("en cours","test1","test1","Jack rihiad","tournoi individuel",6);
 
 -- create an equipe 
 INSERT INTO Equipe(nb_joueurs,total) VALUES (30,5);

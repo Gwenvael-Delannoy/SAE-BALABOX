@@ -29,46 +29,51 @@ router.post('/', function(req, res, next) {
   if(req.body.btn == 'BtConnexion'){
     
     // Appeler la méthode de recherche de session
-    var session = session_dao.FindByIdCon(ideCon, function(err,rows) {
+    var session ;
+    session_dao.FindByIdCon(ideCon, function(err,rows) {
       if (err == 'ER_NO_DB_ERROR') {
         console.log('Erreur de connexion à la base de données');
       }
       else if (err == 'ER_NO_SUCH_TABLE') {
         console.log('Erreur de connexion à la table');
       }
-    });
-    if(session == null){
-      messageError = 'Identifiant incorrect ou inexistant';
-    }
-    else{
-      if(session.password == password){
-        message = 'Connexion réussie';
-
-        //en fonction de se qu'on recupere dans le process.env
-
-        //si c'est un eleve
-        // creer une object eleve et mettre les informations recupere dans le process.env
-
-        //si c'est un professeur
-        // ne fait rien car on a deja les informations dans la session
-
-
-        //renvoie la page en fonction du type de session
-        if(session.typeSession == 'tournoi equipe'){
-          res.render('classement_equipe');
-        }else if(session.typeSession == 'resultat'){
-          res.render('resultat');
-        }else if(session.typeSession == 'tournoi individuel'){
-          res.render('classement_eleve');
-        }
-      }
       else{
-        message = 'Mot de passe incorrect';
+        session = rows;
+        console.log(rows);
+        if(session == null){
+          messageError = 'Identifiant incorrect ou inexistant';
+        }
+        else{
+          if(session.password == password){
+            message = 'Connexion réussie';
+    
+            //en fonction de se qu'on recupere dans le process.env
+    
+            //si c'est un eleve
+            // creer une object eleve et mettre les informations recupere dans le process.env
+    
+            //si c'est un professeur
+            // ne fait rien car on a deja les informations dans la session
+    
+    
+            //renvoie la page en fonction du type de session
+            if(session.typeSession == 'tournoi equipe'){
+              res.render('classement_equipe');
+            }else if(session.typeSession == 'resultat'){
+              res.render('resultat');
+            }else if(session.typeSession == 'tournoi individuel'){
+              res.render('classement_eleve');
+            }
+          }
+          else{
+            message = 'Mot de passe incorrect';
+          }
+          res.render('index', { message: messageError });
+        }
+        console.log('Bouton connexion cliqué');
+        res.render('index', { message: messageError });
       }
-      res.render('index', { message: messageError });
-    }
-    console.log('Bouton connexion cliqué');
-    res.render('index', { message: messageError });
+    });
   }
   else if(req.body.btn == 'BtAccesProf'){
     res.render('session');
