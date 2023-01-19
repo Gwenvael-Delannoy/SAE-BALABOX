@@ -55,7 +55,7 @@ router.post('/', function(req, res, next) {
             if(session[0].type_session == 'tournoi equipe'){
               res.redirect('/classement_equipe?ses='+ session[0].id_session);
             }else if(session[0].type_session == 'resultat'){
-              res.redirect('/resultat?ses=' + session[0].id_session);
+              res.redirect('/resultat?idSport=' + session[0].le_sport);
             }else if(session[0].type_session == 'tournoi individuel' ){
               res.redirect('/classement_eleve?ses=' + session[0].id_session);
             }
