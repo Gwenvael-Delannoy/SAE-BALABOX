@@ -14,8 +14,8 @@ var EscaladeDAO = function() {
      */
     this.insert = function(escalade, callback) {
         this.use(null);
-        values = [ escalade.getAssureur(), escalade.getTotalDiff()];
-        var sql = "INSERT INTO Escalade (assureur, total_diff) VALUES (?,?)";
+        values = [escalade.getId, escalade.getAssureur(), escalade.getTotalDiff()];
+        var sql = "INSERT INTO Escalade (id_escalade,assureur, total_diff) VALUES (?,?,?)";
         smt.query(sql, values ,callback);
     };
 

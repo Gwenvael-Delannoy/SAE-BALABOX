@@ -13,6 +13,7 @@ var SessionDAO = function(){
         * @returns {void}
         */
      this.insert = function(session, callback){
+        this.use(null);
         values = [session.getDate(), session.getStatut(), session.getHeure(), session.getIdentifiant(), session.getMdp(), session.getProfesseur(), session.getType(), session.getSport()];
         var sql = "INSERT INTO Session (date_session, statut, heure, identifiant_con, mdp, professeur, type_session, le_sport) VALUES (?,?,?,?,?,?,?,?)";
         smt.query(sql, values ,callback);
@@ -26,6 +27,7 @@ var SessionDAO = function(){
      * @returns {void}
      */
     this.update = function(key, values, callback){
+        this.use(null);
         var sql2 = "UPDATE Session SET date_session=?,statut=?,heure=?,identifiant_con=?,mdp=?,professeur=?,type_session=?,le_sport=? WHERE id_session=?;";
         values.push(key);
         smt.query(sql2,values, callback);
@@ -38,6 +40,7 @@ var SessionDAO = function(){
      * @returns {void}
      */
     this.delete = function(key, callback){
+        this.use(null);
         var sql3 = "DELETE FROM Session WHERE id_session=?;";
         smt.query(sql3,key,callback);
     };
@@ -48,6 +51,7 @@ var SessionDAO = function(){
      * @returns {Session[]}
      */
     this.findAll = function(callback){
+        this.use(null);
         var sql4 = "SELECT * FROM Session";
         smt.query(sql4, callback);
     };
@@ -59,6 +63,7 @@ var SessionDAO = function(){
      * @returns {Session}
      */
     this.findByKey = function(key, callback){
+        this.use(null);
         var sql5 = "SELECT * FROM Session WHERE id_session =?;";
         smt.query(sql5, key,callback);
     };
@@ -70,8 +75,14 @@ var SessionDAO = function(){
      * @return {Session}
      */
     this.FindByIdCon = function(id_con, callback){
-        var sql6 = "SELECT * FROM Session WHERE identifiant_con  = '" + id_con + "';";
+        this.use(null);
+        var sql6 = "SELECT * FROM Session WHERE identifiant_con=?;";
         smt.query(sql6, id_con, callback);
+    };
+
+    this.use = function(callback){
+        var sql = "USE balabox_sport_db;";
+        smt.query(sql, callback);
     };
 };
 var sessionDAO = new SessionDAO();
