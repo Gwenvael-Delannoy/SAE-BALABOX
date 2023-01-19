@@ -1,10 +1,12 @@
 -- create an exemple of a new  sport , new session , new eleve
 
-
+DELETE FROM Match_eleve;
+DELETE FROM Match_;
 DELETE FROM Eleve;
 DELETE FROM Equipe;
 DELETE FROM Session;
 DELETE FROM Sport;
+
 
 
 -- create a new sport
@@ -27,7 +29,7 @@ INSERT INTO Eleve(nom,prenom,sexe,classe,total_points,l_equipe) VALUES ('Dupont'
 INSERT INTO Eleve(nom,prenom,sexe,classe,total_points,l_equipe) VALUES ('Jack','Remy','homme','6A',0,1);
 
 -- create a match
-INSERT INTO Macth(l_equipe1,l_equipe2,le_sport,la_session) VALUES (1,2,1,2);   
+INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,2);   
 
 INSERT INTO Match_eleve(un_match , leleve) VALUES (1,1);
 INSERT INTO Match_eleve(un_match , leleve) VALUES (1,2);
