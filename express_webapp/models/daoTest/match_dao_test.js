@@ -1,13 +1,13 @@
 var match_dao = require('../dao/match_dao.js');
-var match = require('../models/match.js');
+var match = require('../match.js');
 var session_dao = require('../dao/session_dao.js');
-var session = require('../models/session.js');
+var session = require('../session.js');
 var equipe_dao = require('../dao/equipe_dao.js');
-var equipe = require('../models/equipe.js');
+var equipe = require('../equipe.js');
 var eleve_dao = require('../dao/eleve_dao.js');
-var eleve = require('../models/eleve.js');
+var eleve = require('../eleve.js');
 var sport_dao = require('../dao/sport_dao.js');
-var sport = require('../models/sport.js');
+var sport = require('../sport.js');
 
 var match = new match();
 var session = new session();

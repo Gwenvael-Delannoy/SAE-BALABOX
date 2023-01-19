@@ -1,6 +1,6 @@
 var eleve_dao = require('../dao/dataBase.js').eleve_dao;
-var eleve = require('../models/eleve.js');
-var equipe = require('../models/equipe.js');
+var eleve = require('../eleve.js');
+var equipe = require('../equipe.js');
 var equipe_dao = require('../dao/dataBase.js').equipe_dao;
 
 var eleve = new eleve();

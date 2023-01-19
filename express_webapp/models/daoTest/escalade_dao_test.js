@@ -1,15 +1,15 @@
 var escalade_dao =require('../dao/dataBase').escalade_dao;
-var escalade = require('../models/escalade');
+var escalade = require('../escalade');
 var resultat_dao = require('../dao/dataBase').resultat_dao;
-var resultat = require('../models/resultat');
+var resultat = require('../resultat');
 var session_dao = require('../dao/dataBase').session_dao;
-var session = require('../models/session');
+var session = require('../session');
 var eleve_dao = require('../dao/dataBase').eleve_dao;
-var eleve = require('../models/eleve');
+var eleve = require('../eleve');
 var equipe_dao = require('../dao/dataBase').equipe_dao;
-var equipe = require('../models/equipe');
+var equipe = require('../equipe');
 var sport_dao = require('../dao/dataBase').sport_dao;
-var sport = require('../models/sport');
+var sport = require('../sport');
 
 var escalade = new escalade();
 var resultat = new resultat();

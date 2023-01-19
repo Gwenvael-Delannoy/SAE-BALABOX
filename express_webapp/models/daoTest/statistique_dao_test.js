@@ -1,8 +1,8 @@
 var statisque_dao = require('../dao/dataBase.js').statistique_dao;
-var statistique = require('../models/statistique.js');
-var eleve = require('../models/eleve.js');
+var statistique = require('../statistique.js');
+var eleve = require('../eleve.js');
 var eleve_dao = require('../dao/dataBase.js').eleve_dao;
-var equipe = require('../models/equipe.js');
+var equipe = require('../equipe.js');
 var equipe_dao = require('../dao/dataBase.js').equipe_dao;
 
 var statistique = new statistique();

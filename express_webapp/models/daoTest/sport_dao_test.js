@@ -3,7 +3,7 @@
  */
 
 var sportDao = require('../dao/dataBase').sport_dao;
-var sport = require('../models/sport');
+var sport = require('../sport');
 
 sport = new sport();
 sport.init("basketball","sport de basket");
