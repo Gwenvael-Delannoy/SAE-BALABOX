@@ -4,7 +4,7 @@
 
 -- Trigger: 1
 
-
+/*
 DELETE FROM Match_Eleve;
 DELETE FROM Match_Equipe;
 DELETE FROM Match_;
@@ -12,7 +12,7 @@ DELETE FROM Eleve;
 DELETE FROM Session;
 DELETE FROM Equipe;
 DELETE FROM Sport;
-
+*/
 
 INSERT INTO Sport VALUES (0,'Football', '');
 

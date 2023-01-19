@@ -29,7 +29,7 @@ router.post('/', function(req, res, next) {
   if(req.body.btn == 'BtConnexion'){
     
     // Appeler la méthode de recherche de session
-    var session ;
+    
     session_dao.FindByIdCon(ideCon, function(err,rows) {
       if (err == 'ER_NO_DB_ERROR') {
         console.log('Erreur de connexion à la base de données');
@@ -38,7 +38,7 @@ router.post('/', function(req, res, next) {
         console.log('Erreur de connexion à la table');
       }
       else{
-        session = rows;
+        var session = rows;
         console.log(rows);
         if(session == null){
           messageError = 'Identifiant incorrect ou inexistant';

@@ -76,7 +76,7 @@ var SessionDAO = function(){
      */
     this.FindByIdCon = function(id_con, callback){
         this.use(null);
-        var sql6 = "SELECT * FROM Session WHERE identifiant_con  = '" + id_con + "';";
+        var sql6 = "SELECT * FROM Session WHERE identifiant_con  =?;";
         smt.query(sql6, id_con, callback);
     };
     this.use = function(callback) {
