@@ -54,11 +54,11 @@ router.post('/', function(req, res, next) {
     
             //renvoie la page en fonction du type de session
             if(session[0].type_session == 'tournoi equipe'){
-              res.render('classement_equipe');
+              res.render('classement_equipe', {eleves :  ''});
             }else if(session[0].type_session == 'resultat'){
               res.render('resultat');
             }else if(session[0].type_session == 'tournoi individuel'){
-              res.render('classement_eleve');
+              res.render('classement_eleve',{eleves :  ''});
             }
           }
           else{
