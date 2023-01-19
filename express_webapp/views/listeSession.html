@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Liste des sessions</title>
+    </head>
+
+    <body>
+        <h1>Liste des Sessions</h1>
+
+        <div id="add_tournament">
+            <img src="/images/icon_plus.png" width=5% height=10% onclick="location.replace('/crSession');"/>
+            <br>
+            Ajouter une session
+        </div>
+
+        <div id='session'>
+            <% for(var i = 0; i < session.length; i++) { %> 
+                <form action='/listeSession' method='post' id=<%= session[i].id_session %> style='border: 1px solid black; padding: 10px;'>
+                  Sport : <%= session[i].nom_sport %>
+                  <br>
+                  Identifiant de connexion : <%= session[i].identifiant_con %>
+                  <br>
+                  Date : <%= session[i].date_session %>
+                  <br>
+                  <img name='view' src='/images/icon_oeil.png' width=2% height=4% onclick='location.replace(`/crSession`);'/>
+                  <img name='modif' src='/images/icon_crayon.png' width=2% height=4% onclick='location.replace(`/crSession`);'/>
+                  <button type='submit'>
+                      <img name='delete' src='/images/icon_corbeille.png' width=4% height=8% />
+                  </button>
+                </form>
+              <% } %>              
+        </div>
+    </body>
+</html>

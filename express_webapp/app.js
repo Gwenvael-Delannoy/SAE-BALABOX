@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var classement_eleve = require('./routes/classement_eleve');
 var classement_equipe = require('./routes/classement_equipe');
 var resultat = require('./routes/resultat');
-var session = require('./routes/listeSession');
+var listeSession = require('./routes/listeSession');
 var crSession = require('./routes/createSession');
 var foot = require('./routes/foot');
 
@@ -41,7 +41,7 @@ app.use('/', indexRouter);
 
 app.use('/classement_eleve', classement_eleve);
 app.use('/classement_equipe', classement_equipe);
-app.use('/session', session);
+app.use('/listeSession', listeSession);
 app.use('/crSession', crSession);
 app.use('/foot', foot);
 
