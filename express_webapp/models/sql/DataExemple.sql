@@ -16,10 +16,14 @@ INSERT INTO Sport(nom_sport,description_sport) VALUES ('Basket', 'Marquer le plu
 INSERT INTO Sport(nom_sport,description_sport) VALUES ('Handball', 'Marquer le plus de but possible');
 INSERT INTO Sport(nom_sport,description_sport) VALUES ('Volleyball', 'Marquer le plus de point possible');
 INSERT INTO Sport(nom_sport,description_sport) VALUES ('Badminton', 'Marquer le plus de point possible');
+INSERT INTO Sport(nom_sport,description_sport) VALUES ('Musculation', 'Renforcer on corps et s entretenir ');
+INSERT INTO Sport(nom_sport,description_sport) VALUES ('Natation', 'Nager le plus vite possible');
 
 -- create a new session
-INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("en cours","test","test","Michelle Dupont","resultat",1);
+INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("en cours","test","test","Michelle Dupont","tournoi individuel",1);
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("en cours","test1","test1","Jack rihiad","tournoi individuel",6);
+INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("en cours","test3","test3","JackIE rihr","resultat",7);
+INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("en cours","test4","test4","JA ri","resultat",8);
 
 -- create an equipe 
 INSERT INTO Equipe(nb_joueurs,total) VALUES (30,5);
