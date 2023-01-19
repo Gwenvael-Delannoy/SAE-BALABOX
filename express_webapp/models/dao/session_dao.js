@@ -80,6 +80,12 @@ var SessionDAO = function(){
         smt.query(sql6, id_con, callback);
     };
 
+    this.FindSessionProfSport = function(nomProf, callback){
+        this.use(null);
+        var sql7 = "SELECT * FROM Session, Sport WHERE professeur=? AND le_sport=id_sport;";
+        smt.query(sql7, nomProf, callback);
+    };
+
     this.use = function(callback){
         var sql = "USE balabox_sport_db;";
         smt.query(sql, callback);

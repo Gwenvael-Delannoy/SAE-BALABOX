@@ -15,24 +15,24 @@
 
         <button onclick="addSession()">Ajouter une session</button>
 
-        <div id='session' class="box">   
+        <div id='session' class="box">
         </div>
 
         <script>
-            
+
 
             function addSession(){
                 const session = document.querySelector(".box");
                 var paramSession = document.getElementById("session");
                 var idSession = paramSession.childElementCount;
-                session.innerHTML += "<div id='"+ idSession +"' style='border: 1px solid black; padding: 10px;'> Sport : <br> Identifiant de connexion : "+ idSession +" <br> Date : <br> <img src='/images/icon_oeil.png' width=2% height=4% onclick='location.replace(`/crSession`);'/> <img src='/images/icon_crayon.png' width=2% height=4% onclick='location.replace(`/crSession`);'/> <img src='/images/icon_corbeille.png' width=2% height=4% onclick='removeSession("+ idSession +");'/> </div>";
+                session.innerHTML += "<form action='/session' method='post' id='"+ idSession +"'' name='"+ idSession +"' style='border: 1px solid black; padding: 10px;'> Sport : <br> Identifiant de connexion : "+ idSession +" <br> Date : <br> <img name='view' src='/images/icon_oeil.png' width=2% height=4% onclick='location.replace(`/crSession`);'/> <img name='modif' src='/images/icon_crayon.png' width=2% height=4% onclick='location.replace(`/crSession`);'/> <button type='submit'> <img name='delete' src='/images/icon_corbeille.png' width=4% height=8% onclick='removeSession("+ idSession +");'/> </button> </form>";
             }
      
             function removeSession(idSession)
             {
                 var paramSession = document.getElementById("session");
                 var session = document.getElementById(idSession);
-                paramSession.removeChild(session);
+                session.remove();
             }
         </script>
     </body>
