@@ -14,7 +14,7 @@ var sport = require('../sport');
 var escalade = new escalade();
 var resultat = new resultat();
 var session = new session();
-var eleve = new eleve();
+var eleve1 = new eleve();
 var equipe = new equipe();
 var sport = new sport();
 
@@ -54,18 +54,18 @@ sport_dao.insert(sport, function(err, rows){
                         equipe.setId(idEquipe);
 
                         // insertion eleve
-                        eleve.init("BOURBIGOT","Tristan","homme","6a",1,equipe.getId());
-                        eleve_dao.insert(eleve, function(err, rows){
+                        eleve1.init("BOURBIGOT","Tristan","homme","6a",1,equipe.getId());
+                        eleve_dao.insert(eleve1, function(err, rows){
                             if(err) console.log(err);
 
                             eleve_dao.findAll((err, rows) => {
                                 if(err) console.log(err);
 
                                 var idEleve = rows[rows.length-1].id_eleve;
-                                eleve.setId(idEleve);
+                                eleve1.setId(idEleve);
 
                                 // insertion resultat
-                                resultat.init("16:32:00",20,93,"ceci est un test",session.getId(),eleve.getId());
+                                resultat.init("16:32:00",20,93,"ceci est un test",session.getId(),eleve1.getId());
                                 resultat_dao.insert(resultat, function(err, rows){
                                     if(err) console.log(err);
 
@@ -74,9 +74,10 @@ sport_dao.insert(sport, function(err, rows){
 
                                         var idResultat = rows[rows.length-1].id_resultat;
                                         resultat.setId(idResultat);
-
+                                        
                                         // insertion escalade
-                                        escalade.init(idResultat,eleve.getId(),25);
+                                        escalade.init(eleve1.getId(),25);
+                                        escalade.setId(idResultat);
                                         escalade_dao.findAll((err, rows) => {
                                             if(err) console.log(err);
                                         
@@ -134,7 +135,7 @@ sport_dao.insert(sport, function(err, rows){
                                                                     eleve_dao.delete(newEleve.getId(), function(err, rows){
                                                                         if(err) console.log(err);
                                                                     });
-                                                                    eleve_dao.delete(eleve.getId(), function(err, rows){
+                                                                    eleve_dao.delete(eleve1.getId(), function(err, rows){
                                                                         if(err) console.log(err);
                                                                     });
                                                                     equipe_dao.delete(equipe.getId(), function(err, rows){

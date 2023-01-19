@@ -1,84 +1,85 @@
 /**
- * DAO for Equipe
+ * DAO for Escalade
  */
-var Equipe = require('../Equipe');
+var Escalade = require('../escalade');
 var smt = require('./mysql_connection');
 
-var EquipeDAO = function() {
+var EscaladeDAO = function() {
 
     /**
-     * Inserter a new Equipe in the database
-     * @param {Equipe} equipe
+     * Insert a new escalade in the database
+     * @param {Escalade} escalade
      * @param {function} callback
      * @returns {void}
      */
-    this.insert = function(equipe, callback) {
+    this.insert = function(escalade, callback) {
         this.use(null);
-        values = [ equipe.getNbJoueurs(), equipe.getTotal()];
-        var sql = "INSERT INTO Equipe (nb_joueurs , total) VALUES (?,?)";
+        values = [escalade.getId(),escalade.getAssureur(), escalade.getTotalDiff()];
+        var sql = "INSERT INTO Escalade (id_escalade,assureur, total_diff) VALUES (?,?,?)";
         smt.query(sql, values ,callback);
     };
 
     /**
-     * Update a Equipe in the database
+     * Update a escalade in the database
      * @param {int} key
-     * @param {Equipe} equipe
+     * @param {Escalade} escalade
      * @param {function} callback
      * @returns {void}
      */
-    this.update = function(key, equipe, callback) {
+    this.update = function(escalade, callback) {
         this.use(null);
-        values = [equipe.getNbJoueurs(), equipe.getTotal()];
-        var sql2 = "UPDATE Equipe SET nb_joueurs=?, total=? WHERE id_equipe= " + key + ";";
-        smt.query(sql2,values, callback);
+        values = [escalade.getAssureur(), escalade.getTotalDiff(),escalade.getId()];
+        var sql2 = "UPDATE Escalade SET assureur=?, total_diff=? WHERE id_escalade=?;";
+        smt.query(sql2, values ,callback);
     };
 
     /**
-     * Delete a Equipe in the database
+     * Delete a escalade in the database
      * @param {int} key
      * @param {function} callback
      * @returns {void}
      */
     this.delete = function(key, callback) {
         this.use(null);
-        var sql3 = "DELETE FROM Equipe WHERE id_equipe= " + key + ";";
+        var sql3 = "DELETE FROM Escalade WHERE id_escalade= " + key + ";";
         smt.query(sql3, callback);
     };
 
     /**
-     * Find all Equipe in the database
+     * Find all escalade in the database
      * @param {function} callback
-     * @returns {Equipe[]}
+     * @returns {Escalade[]}
      */
     this.findAll = function(callback) {
         this.use(null);
-        var sql4 = "SELECT * FROM Equipe;";
+        var sql4 = "SELECT * FROM Escalade;";
         smt.query(sql4,  callback);
     };
 
     /**
-     * Find a Equipe in the database by the key of the Equipe
+     * Find a escalade in the database by the key of the escalade
      * @param {int} key
      * @param {function} callback
-     * @returns {Equipe}
+     * @returns {Escalade}
      */
     this.findByKey = function(key, callback) {
         this.use(null);
-        var sql5 = "SELECT * FROM Equipe WHERE id_equipe= " + key + ";";
+        var sql5 = "SELECT * FROM Escalade WHERE id_escalade= " + key + ";";
         smt.query(sql5, callback);
     };
 
-    this.use = function(callback) {
-        var sql7 = "USE balabox_sport_db;";
-        smt.query(sql7, callback);
-    }
-
-    this.deleteAll = function(callback) {
-        this.use(null);
-        var sql6 = "DELETE FROM Equipe;";
+    this.use = function(callback){
+        var sql6 = "USE balabox_sport_db;";
         smt.query(sql6, callback);
     };
+
+    this.deleteAll = function(callback){
+        this.use(null);
+        var sql7 = "DELETE FROM Escalade;";
+        smt.query(sql7, callback);
+    };
+
 };
 
-var equipe = new EquipeDAO();
-module.exports = equipe;
+var escalade = new EscaladeDAO();
+module.exports = escalade;
