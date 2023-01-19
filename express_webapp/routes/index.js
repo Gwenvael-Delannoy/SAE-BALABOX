@@ -8,7 +8,7 @@ var eleve = require('../models/eleve');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var qui_est_connecte = process.env.whoami;
-  var professeur ='';
+  var professeur ='zjz';
   if(qui_est_connecte == 'professeur'){
     professeur = 'professeur';
   }
@@ -51,14 +51,13 @@ router.post('/', function(req, res, next) {
             //si c'est un professeur
             // ne fait rien car on a deja les informations dans la session
     
-    
             //renvoie la page en fonction du type de session
             if(session[0].type_session == 'tournoi equipe'){
-              res.render('Classment_equipe');
+              res.redirect('/classement_equipe');
             }else if(session[0].type_session == 'resultat'){
-              res.render('resultat');
+              res.redirect('/resultat');
             }else if(session[0].type_session == 'tournoi individuel'){
-              res.render('classement_eleve',{eleves :  ''});
+              res.redirect('/classement_eleve');
             }
           }
           else{
@@ -71,7 +70,7 @@ router.post('/', function(req, res, next) {
     });
   }
   else if(req.body.btn == 'BtAccesProf'){
-    res.render('session');
+    res.redirect('/session');
   }
 });
 module.exports = router;
