@@ -31,7 +31,7 @@ sport_dao.insert(sport, function(err, rows){
         sport.setId(idSport);
 
         // insertion session
-        session.init("2023-01-16","en cours","16:32:00","tw24N","mdp","Tristan BOURBIGOT","tournois",sport.getId());
+        session.init("2023-01-16","en cours","16:32:00","tw24N","mdp","Tristan BOURBIGOT","tournoi equipe",sport.getId());
         session_dao.insert(session, function(err, rows){
             if(err) console.log(err);
         

@@ -17,7 +17,7 @@
     </div>
 
 
-    <form class="formulaire"> 
+    <form class="formulaire" action='/crSession' method='post'> 
         <label for="sport">Sport : </label><br>
         <select name="sport" id="sport">
             <% nom_sport.forEach(function(item) { %>
@@ -27,9 +27,9 @@
         </select><br><br>
         <label for="typeAct">Type d'activité : </label><br>
         <select name="typeAct" id="typeAct">
-            <option value="tournoisEquipe">tournoi equipe</option>
-            <option value="tournoisIndividuel">tournoi individuel</option>
-            <option value="résultat">résultat</option>
+            <option value="tournois equipe">tournoi equipe</option>
+            <option value="tournois individuel">tournoi individuel</option>
+            <option value="resultat">résultat</option>
         </select><br><br>
         <label for="IdCon">Identifiant de connection : </label><br>
         <input type="text" id="IdCon" name="IdCon" required><br><br>
@@ -37,7 +37,7 @@
         <input type="text" id="mdpCon" name="mdpCon" required><br><br>
 
         <button type="submit" name ="BtValide" value ="BtValide" id="BtValide">Validé</button>
-        <button type="submit" name ="BtAnnuler" value ="BtAnnuler" id="BtAnnuler">Annuler</button>
+        <button type="reset" name ="BtAnnuler" value ="BtAnnuler" id="BtAnnuler">Annuler</button>
     </form>
     
     
