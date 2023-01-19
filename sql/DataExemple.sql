@@ -1,5 +1,5 @@
 -- create an exemple of a new  sport , new session , new eleve
-
+use balabox_sport_db;
 
 DELETE FROM Eleve;
 DELETE FROM Equipe;
