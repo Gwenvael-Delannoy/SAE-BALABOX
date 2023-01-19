@@ -5,7 +5,8 @@ var eleve_dao = require('../models/dao/dataBase').eleve_dao;
 /* GET home page. qui renvoie la page et donne un tableau de string avec les prenom des eleve */
 router.get('/', function(req, res, next) {
         var data1;
-        eleve_dao.findName(function(err, rows) {
+        var session = sessionAct.id_session;
+        eleve_dao.findName2(session,function(err, rows) {
       
           if (err) {
               console.log(err);

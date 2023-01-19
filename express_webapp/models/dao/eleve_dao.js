@@ -86,6 +86,12 @@ var EleveDAO = function() {
         smt.query(sql6,callback);
     };
 
+    this.findName2 = function(session, callback) {
+        this.use(null);
+        var sql6 = "SELECT prenom FROM Eleve,Match_Eleve, Match_ WHERE id_eleve leleve AND un_match = id_match AND la_session= session;";
+        smt.query(sql6,callback);
+    };
+
 
 
     this.use = function(callback){
