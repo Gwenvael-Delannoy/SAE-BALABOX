@@ -2,7 +2,45 @@
     <head>
         <meta charset="utf-8">
         <title>Creation de Session</title>
-    </head>
+        <link rel="stylesheet" href="/stylesheets/create_session.css">
 
-    <h1>Creation de Session</h1>
+    </head>
+    <div class ="block">
+        <header class="header">
+            <img class="logo" src="/images/image.jpeg">
+               <a class="lienBoutton" href="/" ><input type = "button" value="déconnection"></a>
+        </header>
+    </div>
+    
+    <div class ="titre">
+        <h1>Nouvelle Activité</h1>
+    </div>
+
+
+    <form class="formulaire"> 
+        <label for="sport">Sport : </label><br>
+        <select name="sport" id="sport">
+            <% nom_sport.forEach(function(item) { %>
+                <option value="<%= item %>"><%= item %> </option>
+
+            <% }); %>
+        </select><br><br>
+        <label for="typeAct">Type d'activité : </label><br>
+        <select name="typeAct" id="typeAct">
+            <option value="tournoisEquipe">tournoi equipe</option>
+            <option value="tournoisIndividuel">tournoi individuel</option>
+            <option value="résultat">résultat</option>
+        </select><br><br>
+        <label for="IdCon">Identifiant de connection : </label><br>
+        <input type="text" id="IdCon" name="IdCon" required><br><br>
+        <label for="mdpCon">Mot de passe de connection : </label><br>
+        <input type="text" id="mdpCon" name="mdpCon" required><br><br>
+
+        <button type="submit" name ="BtValide" value ="BtValide" id="BtValide">Validé</button>
+        <button type="submit" name ="BtAnnuler" value ="BtAnnuler" id="BtAnnuler">Annuler</button>
+    </form>
+    
+    
+
+
 </html>
