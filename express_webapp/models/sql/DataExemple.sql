@@ -26,4 +26,8 @@ INSERT INTO Equipe(nb_joueurs,total) VALUES (30,5);
 INSERT INTO Eleve(nom,prenom,sexe,classe,total_points,l_equipe) VALUES ('Dupont','Michel','homme','6A',0,1);
 INSERT INTO Eleve(nom,prenom,sexe,classe,total_points,l_equipe) VALUES ('Jack','Remy','homme','6A',0,1);
 
+-- create a match
+INSERT INTO Macth(l_equipe1,l_equipe2,le_sport,la_session) VALUES (1,2,1,2);   
 
+INSERT INTO Match_eleve(un_match , leleve) VALUES (1,1);
+INSERT INTO Match_eleve(un_match , leleve) VALUES (1,2);
