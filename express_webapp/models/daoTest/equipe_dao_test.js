@@ -1,5 +1,5 @@
 var equipeDao = require('../dao/dataBase').equipe_dao;
-var equipe = require('../equipe');
+var equipe = require('../models/equipe');
 
 equipe = new equipe();
 equipe.init(5,10);
@@ -57,3 +57,4 @@ equipeDao.findAll((err, rows) => {
         });
     });
 });
+

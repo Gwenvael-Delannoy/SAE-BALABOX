@@ -3,7 +3,7 @@
  */
 
 var sportDao = require('../dao/dataBase').sport_dao;
-var sport = require('../sport');
+var sport = require('../models/sport');
 
 sport = new sport();
 sport.init("basketball","sport de basket");
@@ -37,7 +37,7 @@ sportDao.findAll((err, rows) => {
                 sportDao.update(id, sport, function(err, row){
                     if(err) console.log(err);
 
-                    sportDao.findByName(sport.getNomSport(), (err, row) => {
+                    sportDao.findByName(sport.getNom(), (err, row) => {
                         if(err) console.log(err);
                         console.log("\nPost Update :\n");
                         console.log(row[0]);
