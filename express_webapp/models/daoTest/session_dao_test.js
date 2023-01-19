@@ -3,9 +3,9 @@
  */
 
 var sessionDao = require('../dao/dataBase').session_dao;
-var session = require('../models/session');
+var session = require('../session');
 var sportDao = require('../dao/dataBase').sport_dao;
-var sport = require('../models/sport');
+var sport = require('../sport');
 
 sport = new sport();
 sport.init("basketball","sport de basket");

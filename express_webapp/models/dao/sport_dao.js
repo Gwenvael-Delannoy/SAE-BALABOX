@@ -14,7 +14,7 @@ var SportDAO = function(){
      */
     this.insert = function(sport, callback){
         this.use(null);
-        values = [sport.getNom(), sport.getDescription()];
+        values = [sport.getNomSport(), sport.getDescription()];
         var sql = "INSERT INTO Sport (nom_sport, description_sport) VALUES (?,?)";
         smt.query(sql, values ,callback);
     };
@@ -28,7 +28,7 @@ var SportDAO = function(){
      */
     this.update = function(key, sport, callback){
         this.use(null);
-        values = [sport.getNom(), sport.getDescription()];
+        values = [sport.getNomSport(), sport.getDescription()];
         var sql2 = "UPDATE Sport SET nom_sport=?,description_sport=? WHERE id_sport= " + key + ";";
         smt.query(sql2,values, callback);
     };
