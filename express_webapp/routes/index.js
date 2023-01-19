@@ -53,11 +53,11 @@ router.post('/', function(req, res, next) {
     
             //renvoie la page en fonction du type de session
             if(session[0].type_session == 'tournoi equipe'){
-              res.redirect('/classement_equipe');
+              res.redirect('/classement_equipe'+ session[0].id_session);
             }else if(session[0].type_session == 'resultat'){
-              res.redirect('/resultat');
-            }else if(session[0].type_session == 'tournoi individuel'){
-              res.redirect('/classement_eleve');
+              res.redirect('/resultat' + session[0].id_session);
+            }else if(session[0].type_session == 'tournoi individuel' ){
+              res.redirect('/classement_eleve' + session[0].id_session);
             }
           }
           else{
