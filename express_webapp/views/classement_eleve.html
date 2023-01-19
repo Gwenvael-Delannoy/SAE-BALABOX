@@ -5,27 +5,15 @@
                 <link rel="stylesheet" href="/stylesheets/style.css">
             </head>
             <body>
+                
                 <h1>Classement</h1>
 
-                <form name="monFormulaire">
-                    <select name="myselect" id="myselecjt">
-                        <option value=""></option>
-                    </select>
-                    </form>
-                    <script>
-                        var t1 = eleves;
+                    <select id="mySelect">
+                        <% eleves.forEach(function(item) { %>
+                            <option value="<%= item %>"><%= item %> </option>
 
-                        
-                        console.log('MonTableau');
-                        var MonTableau = t1;
-                        console.log(MonTableau);
-                        var MonTableau = ["donnée 1", "donnée 2", "donnée 3", "donnée 4"];
-                        document.monFormulaire.myselect.options.length = MonTableau.length;
-                        for (var j = 0; j < MonTableau.length; j++) {
-                                document.monFormulaire.myselect.options[j].value= MonTableau[j];
-                                document.monFormulaire.myselect.options[j].text= MonTableau[j];
-                        
-                        }
-                    </script>
+                        <% }); %>
+                    </select>
+                    
             </body>
         </html>
