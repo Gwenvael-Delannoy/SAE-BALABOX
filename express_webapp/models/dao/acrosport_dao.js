@@ -28,8 +28,8 @@ var AcrosportDAO = function() {
      */
     this.update = function(key, acrosport, callback) {
         this.use(null);
-        values = [acrosport.getId(), acrosport.getTotalPoint(), acrosport.getLesFigures()];
-        var sql2 = "UPDATE Acrosport SET total_point=?, lesFigures=? WHERE id_acrosport= " + key + ";";
+        values = [acrosport.getId(), acrosport.getTotalPoint()];
+        var sql2 = "UPDATE Acrosport SET total_point=? WHERE id_acrosport= " + key + ";";
         smt.query(sql2,values, callback);
     };
 

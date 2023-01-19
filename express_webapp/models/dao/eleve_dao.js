@@ -92,8 +92,11 @@ var EleveDAO = function() {
         smt.query(sql6,callback);
     };
 
-
-
+    this.findName3 = function(session, callback) {
+        this.use(null);
+        var sql7 = "SELECT nom,prenom FROM resultat,eleve WHERE la_session= " + session +" AND unEleve = id_eleve;";
+        smt.query(sql7,callback);
+    };
     this.use = function(callback){
         var sql7 = "USE balabox_sport_db;";
         smt.query(sql7, callback);

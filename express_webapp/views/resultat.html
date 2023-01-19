@@ -14,95 +14,189 @@
                 </div>
                 
                 <div class = "formulaire">
-                    <h1>Resultat</h1>
-                    <!-- Si le sport est une course  -->
-               
-                    <% if (sport == "course") { %>
-                        <form action='/resultat' method='post'>
-                            <label for="time">Temps (minutes) : </label>
-                            <input type="number" id="time" name="time" min="0" required><br>
-                        
-                            <label for="distance">Distance (km) : </label>
-                            <input type="number" id="distance" name="distance" min="0" step="0.01" required><br>
-                        
-                            <label for="freq_card">Fréquence cardiaque (bpm) : </label>
-                            <input type="number" id="freq_card" name="freq_card" min="0" required><br>
-                        
-                            <label for="complementaire">Informations complémentaires : </label>
-                            <textarea id="complementaire" name="complementaire"></textarea><br>
-                        
-                            <input type="hidden" name="sport" value="<%= sport %>">
-                            <input type="submit"value="Envoyer">
-                        </form>
+                    <h1>
+                        <% if (sport) { %>
+                            Résultat pour le sport : <%= sport %>
+                            <br>
+                        <% } %>
+                    </h1>
+                    <br>
+                    <% if (message) { %>
+                        <p><%= message %></p>
                     <% } %>
-
-                    <!-- Si le sport est de la natation -->
-                    <% if (sport == "Natation") { %>
-                        <form action='/resultat' method='post'>
-
-                            <label for="nomBassin">Nom du bassin: </label>
-                            <input type="text" id="nomBassin" name="nomBassin" required><br>
-
-                            <label for="styleNage">Style de nage : </label>
-                            <select id="styleNage" name="styleNage" >
-                                <option value="dos">Dos</option>
-                                <option value="brasse">Brasse</option>
-                                <option value="papillon">Papillon</option>
-                                <option value="4Nages">4 nages</option>
-                                <option value="crawl">Crawl</option>
-                            </select><br>
-
-                            <label for="distance">Distance (m) : </label>
-                            <input type="number" id="distance" name="distance" min="0" step="0.01" required><br>
-
-                            <label for="plongeons">Nombre de plongeons (Optionnel) : </label>
-                            <input type="number" id="plongeons" name="plongeons" min="0" required><br>
-
-                        
-                            <label for="complementaire">Informations complémentaires : </label>
-                            <textarea id="complementaire" name="complementaire"></textarea><br>
-                        
-                            <input type="hidden" name="sport" value="<%= sport %>">
-                            <input type="submit"value="Envoyer">
-                        </form>
-                    <% } %>
-
-                    <!-- Si le sport est de la musculation -->
-                    <% if (sport == "Musculation") { %>
-                        <form action='/resultat' method='post'>
-
-                            <label for="nomExercice">Nom de l'exercice : </label>
-                            <input type="text" id="nomExercice" name="nomExercice" required><br>
-
-                            <label for="nomMuscule">Nom du muscle travailler: </label>
-                            <input type="text" id="nomMuscule" name="nomMuscule" required><br>
-
-                            <label for="nbSeries">Nombre de séries : </label>
-                            <input type="number" id="nbSeries" name="nbSeries" min="0" required><br>
-
-                            <label for="nbRepetitions">Nombre de répétitions : </label>
-                            <input type="number" id="nbRepetitions" name="nbRepetitions" min="0" required><br>
-
-                            <label for="intensite">Intensité : </label>
-                            <input type="number" id="intensite" name="intensite" min="0" max="100" required><br>
-
-
-                            <label for="poids">Poids (kg) : </label>
-                            <input type="number" id="poids" name="poids" min="0" step="0.01" required><br>
-
-                            <label for="ressenti">Ressenti : </label>
-                            <textarea id="ressenti" name="ressenti"></textarea><br>
-                        
-                            <input type="hidden" name="sport" value="<%= sport %>">
-                            <input type="submit"value="Envoyer">
-                        </form>
-                    <% } %>
-
-
                     
-                </div>
- 
 
+                    <!-- Si le sport est une course  -->
                 
+                    <% if(!message ){ %>
+                
+                        <% if (sport == "Course") { %>
+
+                            <form action='/resultat' method='post'>
+                                <label for="time">Temps (minutes) : </label>
+                                <input type="number" id="time" name="time" min="0" required><br>
+                            
+                                <label for="distance">Distance (km) : </label>
+                                <input type="number" id="distance" name="distance" min="0" step="0.01" required><br>
+                            
+                                <label for="freq_card">Fréquence cardiaque (bpm) : </label>
+                                <input type="number" id="freq_card" name="freq_card" min="0" required><br>
+                            
+                                <label for="complementaire">Informations complémentaires : </label>
+                                <textarea id="complementaire" name="complementaire"></textarea><br>
+                            
+                                <input type="hidden" name="sport" value="<%= sport %>">
+                                <input type="submit"value="Envoyer">
+                                <br>
+                                <br>
+                            </form>
+                        <% } %>
+
+                        <!-- Si le sport est de la natation -->
+                        <% if (sport == "Natation") { %>
+                            <form action='/resultat' method='post'>
+
+                                <label for="nomBassin">Nom du bassin: </label>
+                                <input type="text" id="nomBassin" name="nomBassin" required><br>
+
+                                <label for="styleNage">Style de nage : </label>
+                                <select id="styleNage" name="styleNage" >
+                                    <option value="dos">Dos</option>
+                                    <option value="brasse">Brasse</option>
+                                    <option value="papillon">Papillon</option>
+                                    <option value="4Nages">4 nages</option>
+                                    <option value="crawl">Crawl</option>
+                                </select><br>
+
+                                <label for="distance">Distance (m) : </label>
+                                <input type="number" id="distance" name="distance" min="0" step="0.01" required><br>
+
+                                <label for="plongeons">Nombre de plongeons (Optionnel) : </label>
+                                <input type="number" id="plongeons" name="plongeons" min="0" required><br>
+
+                            
+                                <label for="complementaire">Informations complémentaires : </label>
+                                <textarea id="complementaire" name="complementaire"></textarea><br>
+                            
+                                <input type="hidden" name="sport" value="<%= sport %>">
+                                <input type="submit"value="Envoyer">
+                                <br>
+                                <br>
+                            </form>
+                        <% } %>
+
+                        <!-- Si le sport est de la musculation -->
+                        <% if (sport == "Musculation") { %>
+                            <form action='/resultat' method='post'>
+
+                                <label for="nomExercice">Nom de l'exercice : </label>
+                                <input type="text" id="nomExercice" name="nomExercice" required><br>
+
+                                <label for="nomMuscule">Nom du muscle travailler: </label>
+                                <input type="text" id="nomMuscule" name="nomMuscule" required><br>
+
+                                <label for="nbSeries">Nombre de séries : </label>
+                                <input type="number" id="nbSeries" name="nbSeries" min="0" required><br>
+
+                                <label for="nbRepetitions">Nombre de répétitions : </label>
+                                <input type="number" id="nbRepetitions" name="nbRepetitions" min="0" required><br>
+
+                                <label for="intensite">Intensité (%): </label>
+                                <input type="number" id="intensite" name="intensite" min="0" max="100" required><br>
+
+                                <label for="poids">Poids (kg) : </label>
+                                <input type="number" id="poids" name="poids" min="0" step="0.01" required><br>
+
+                                <label for="ressenti">Ressenti : </label>
+                                <textarea id="ressenti" name="ressenti"></textarea><br>
+                            
+                                <input type="hidden" name="sport" value="<%= sport %>">
+                                <input type="submit"value="Envoyer">
+                                <br>
+                                <br>
+                            </form>
+                        <% } %>
+
+                        <!-- Si le sport est de l'escalade -->
+                        <% if (sport == "Escalade") { %>
+                            <form action='/resultat' method='post'>
+                            
+                                <label for="eleve">Nom de l'élève Assureur: </label>
+                                <input type="text" id="eleve" name="eleve" required><br>
+
+                                <!-- En fonction des voies qu'on recupere en parametre , les afficher -->
+                                <label for="voie">Voie : </label>
+                                <select id="voie" name="voie" >
+                                    <% for (var i = 0; i < voies.length; i++) { %>
+                                        <option value="<%= voies[i] %>"><%= voies[i] %></option>
+                                    <% } %>
+                                </select><br>
+
+                                <label for="time">temps de monter(seconde) : </label>
+                                <input type="number" id="time" name="time" min="0" step="1" required><br>
+
+                                <label for="complementaire">Informations complémentaires : </label>
+                                <textarea id="complementaire" name="complementaire"></textarea><br>
+
+                                <input type="hidden" name="sport" value="<%= sport %>">
+                                <input type="submit"value="Envoyer">
+                                <br>
+                                <br>
+                            </form>
+                        <% } %>
+
+                        <!-- Si le sport est Acrosport -->
+                        <% if (sport == "Acrosport") { %>
+                            <form action='/resultat' method='post'>
+
+                                <label for="nombreFigure">Nombre de figure : </label>
+                                <input type="number" id="nombreFigure" name="nombreFigure" min="0" step="1" required><br>
+                                <button type="button" onclick="document.getElementById('nombreFigure').value = 0">Reset</button>
+                                <button type="button" onclick="document.getElementById('nombreFigure').value++">+</button>
+                                <button type="button" onclick="document.getElementById('nombreFigure').value--">-</button>
+                                <br>
+                                <br>
+                
+                                <input type="hidden" name="sport" value="<%= sport %>">
+                                <input type="submit"value="Envoyer">
+                                <br>
+                                <br>
+                            </form>
+                        <% } %>
+
+                        <!-- Si le sport est Step -->
+                        <% if (sport == "Step") { %>
+                            <form action='/resultat' method='post'>
+
+                                <label for="typeMobilite">Type de mobilité : </label>
+                                <input type="text" id="typeMobilite" name="typeMobilite" required><br>
+
+                                <label for="temps">Temps (seconde) : </label>
+                                <input type="number" id="temps" name="temps" min="0" step="1" required><br>
+
+                                <label for="freqCard">Fréquence cardiaque (Moyenne) : </label>
+                                <input type="number" id="freqCard" name="freqCard" min="0" step="1" required><br>
+
+                                <label for="paramIndv">Paramètre individuel : </label>
+                                <textarea id="paramIndv" name="paramIndv"></textarea><br>
+
+                                <label for="ressenti">Ressenti : </label>
+                                <textarea id="ressenti" name="ressenti"></textarea><br>
+
+                                <label for="bilanPerso">Bilan personnel : </label>
+                                <textarea id="bilanPerso" name="bilanPerso"></textarea><br>
+
+                                <label for="perspective">Perspective : </label>
+                                <textarea id="perspective" name="perspective"></textarea><br>
+
+
+                                <input type="hidden" name="sport" value="<%= sport %>">
+                                <input type="submit"value="Envoyer">
+                                <br>
+                                <br>
+                            </form>
+                        <% } %>
+                    <% } %>
+                </div>
             </body>
         </html>

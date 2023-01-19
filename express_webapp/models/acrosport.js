@@ -13,13 +13,12 @@ module.exports = class Acrosport {
     /**
      * init the object Acrosport
      * @param {int} total_point
-     * @param {Array} lesFigures
      * @returns {void}
      */
-    init (total_point, lesFigures){
+    init (total_point){
         this.id_acrosport = -1;
         this.total_point = total_point;
-        this.lesFigures = lesFigures;
+
     }
     /**
      * Get the id of the object Acrosport
@@ -36,13 +35,6 @@ module.exports = class Acrosport {
         return this.total_point;
     }
     /**
-     * Get the lesFigures of the object Acrosport
-     * @returns {Array}
-     */
-    getLesFigures(){
-        return this.lesFigures;
-    }
-    /**
      * Set the id of the object Acrosport
      * @param {int} id
      * @returns {void}
@@ -57,13 +49,5 @@ module.exports = class Acrosport {
      */
     setTotalPoint(total_point){
         this.total_point = total_point;
-    }
-    /**
-     * Set the lesFigures of the object Acrosport
-     * @param {Array} lesFigures
-     * @returns {void}
-     */
-    setLesFigures(lesFigures){
-        this.lesFigures = lesFigures;
     }
 }

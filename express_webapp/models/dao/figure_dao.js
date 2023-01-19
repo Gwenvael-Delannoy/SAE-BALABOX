@@ -67,6 +67,11 @@ var FigureDAO = function() {
         var sql5 = "SELECT * FROM Figure WHERE id_figure = " + key + ";";
         smt.query(sql5, callback);
     };
+    this.findByNom = function(nom, callback) {
+        this.use(null);
+        var sql6 = "SELECT * FROM Figure WHERE nom = " + nom + ";";
+        smt.query(sql6, callback);
+    };
 
     this.use = function(callback){
         var sql7 = "USE balabox_sport_db;";

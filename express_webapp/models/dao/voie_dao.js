@@ -15,8 +15,8 @@ var VoieDAO = function() {
      */
     this.insert = function(voie, callback) {
         this.use(null);
-        values = [voie.getDegDiffi];
-        var sql = "INSERT INTO Voie (deg_diffi) VALUES (?)";
+        values = [voie.getDegDiffi(), voie.getNomVoie()];
+        var sql = "INSERT INTO Voie (deg_diffi) VALUES (?,?)";
         smt.query(sql, values ,callback);
     };
 
@@ -29,8 +29,8 @@ var VoieDAO = function() {
      */
     this.update = function(key, voie, callback) {
         this.use(null);
-        values = [voie.getDegDiffi()];
-        var sql2 = "UPDATE Voie SET deg_diffi=? WHERE id_voie= " + key + ";";
+        values = [voie.getDegDiffi(), voie.getNomVoie()];
+        var sql2 = "UPDATE Voie SET nom_voie=?, deg_diffi=? WHERE id_voie= " + key + ";";
         smt.query(sql2,values, callback);
     };
 
@@ -68,7 +68,12 @@ var VoieDAO = function() {
         var sql5 = "SELECT * FROM Voie WHERE id_voie=" + key + ";";
         smt.query(sql5, callback);
     };
-
+    this.findByNom = function(nom, callback) {
+        this.use(null);
+        var sql6 = "SELECT * FROM Voie WHERE nom_voie=" + nom + ";";
+        smt.query(sql6, callback);
+    };
+    
     this.use = function(callback){
         var sql7 = "USE balabox_sport_db;";
         smt.query(sql7, callback);

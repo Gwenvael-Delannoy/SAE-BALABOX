@@ -12,7 +12,7 @@ module.exports = class Escalade {
     constructor() {}
     /**
      * init the object Escalade
-     * @param {Eleve} assureur
+     * @param {String} assureur
      * @param {int} total_diff
      * @returns {void}
      */
@@ -30,7 +30,7 @@ module.exports = class Escalade {
     }
     /**
      * Get the assureur of the object Escalade
-     * @returns {Eleve}
+     * @returns {String}
      */
     getAssureur(){
         return this.assureur;
@@ -52,7 +52,7 @@ module.exports = class Escalade {
     }
     /**
      * Set the assureur of the object Escalade
-     * @param {Eleve} assureur
+     * @param {String} assureur
      * @returns {void}
      */
     setAssureur(assureur){

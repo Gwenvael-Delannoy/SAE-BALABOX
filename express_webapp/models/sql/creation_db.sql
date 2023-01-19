@@ -17,30 +17,45 @@ ALTER USER 'balabox'@'localhost' IDENTIFIED WITH mysql_native_password BY 'balab
 USE balabox_sport_db;
 
 /**
+Schema relationel complet de la base de donnée:
+    Sport(id_sport (INTEGER), nom_sport (VARCHAR(30)), description_sport (VARCHAR(250))
 
-Schema relationel :
-Sport ( id_sport : int , nom_sport : String (NN ) , description_sport : String)
-Session ( id_session : int (1) , date : Date (NN) , statut : String (NN) , heure : Time (NN), identifiant_con : String (NN ) , mdp : String (NN ) , professeur : String (NN) , type_session : String (NN) 
-Equipe ( id_equipe : int (1) ,nb_Joueurs : int (NN), total : int )
-Eleve ( id_eleve : int (1), nom : String(2) , prénom : String (2) , sexe : String , classe :String(NN) , total_point : int )
-Match_(id_match : int (1) , resultat_1 : int , resultat_2 : int)
-Match_Equipe( le_match : int (1)@Match-id_match , lequipe : int (1) @Equipe-id_equipe)
-Match_Eleve(un_match : int (1) @Match-id_match, leleves : int(1) @ Eleve-id_equipe)
-Statistique(id_stats : int (1), intitule : String, stats : double, lEleve : int @Eleve-id_eleve)
-Resultat(id_resultat : int (1), le_match : int (1) @Match-id_match, leleve : int (1) @Eleve-id_eleve, lequipe : int (1) @Equipe-id_equipe, le_sport : int (1) @Sport-id_sport)
-Escalade(id_escalade : int (1), assureur : int @Eleve-id_eleve, total_diff : int)
-Voie (id_voie : int (1), nom_voie : String (NN), hauteur : int (NN), difficulte : int (NN), l_escalade : int (1) @Escalade-id_escalade)
-Escalade_voie (lEscalade : int (1) @Escalade-id_escalade, laVoie : int (1) @Voie-id_voie)
-Natation (id_natation : int (1)@Resultat-id_resultat ,style_nage : String , plongeons : int, nom_bassin : String  )
-Figure (id_figure : int (1), nom : String ,description String ,  point : int (NN))
-Acrosport (id_acrosport : int (1) @Resultat-id_resultat, total_point : int ,lesFigures : int @Figure-id_fig )
-Step (id_step : int (1) @Resultat-id_resultat,type_mobilite : String , ressenti : String , param_indv : String , bilan_perso : String , perspective : String)
-Musculation (id_musculation : int (1) @Resultat-id_resultat,muscle_travailler : String , temps_pause : Time ,series : int , nb_reps : int , intensite : int , charge : Double , ressenti : String )
+    Equipe(id_equipe (INTEGER), nb_joueurs (INTEGER), total (INTEGER))
+
+    Session(id_session (INTEGER), date_session (DATE), statut (VARCHAR(10)), heure (TIME), identifiant_con (VARCHAR(50)), mdp (VARCHAR(50)), professeur (VARCHAR(30)), type_session (VARCHAR(20)), le_sport (INTEGER))
+
+    Eleve(id_eleve (INTEGER), nom (VARCHAR(20)), prenom (VARCHAR(20)), sexe (VARCHAR(10)), classe (VARCHAR(50)), total_points (INTEGER), l_equipe (INTEGER))
+
+    Statistique(id_stats (INTEGER), intitule (VARCHAR(250)), stats (INTEGER), lEleve (INTEGER))
+
+    Match_(id_match (INTEGER), resultat_equipe_1 (INTEGER), resultat_equipe_2 (INTEGER), la_session (INTEGER))
+
+    Match_Equipe(le_match (INTEGER), lequipe (INTEGER))
+
+    Match_Eleve(le_match (INTEGER), le_eleve (INTEGER))
+
+    Musculation(id_musculation (INTEGER), nom_exo (VARCHAR(30)), nb_repetition (INTEGER), nb_series (INTEGER), id_sport (INTEGER))
+
+    Step(id_step (INTEGER), nom_chorégraphie (VARCHAR(30)), nb_passes (INTEGER), id_sport (INTEGER))
+    
+    Figure_Acrosport(id_figure (INTEGER), nom_figure (VARCHAR(30)), nb_personnes (INTEGER), id_sport (INTEGER))
+    
+    Acrosport(id_acrosport (INTEGER), nom_figure (VARCHAR(30)), nb_personnes (INTEGER), id_sport (INTEGER))
+
+    Figure(id_figure (INTEGER), nom_figure (VARCHAR(30)), nb_personnes (INTEGER), id_sport (INTEGER))
+
+    Natation(id_natation (INTEGER), nb_longueur (INTEGER), plongeons (INTEGER), id_sport (INTEGER))
+
+    Escalade_Voie(id_escalade_voie (INTEGER), nom_voie (VARCHAR(30)), cotation (VARCHAR(10)), id_sport (INTEGER))
+
+    Voie(id_voie (INTEGER), nom_voie (VARCHAR(30)), cotation (VARCHAR(10)), id_sport (INTEGER))
+
+    Escalade(id_escalade (INTEGER), nom_voie (VARCHAR(30)), cotation (VARCHAR(10)), id_sport (INTEGER))
 
 Contraintes textuelles :
 Session :
 DOM_statut = {en cours , terminer}
-DOM_type_session : {tournois , resultat}
+DOM_type_session : {tournoi individuel,tournoi equipe , resultat}
 Natation :
 DOM_plongeons : {0,1}
 Eleve:
@@ -54,6 +69,7 @@ trigger pour verifier qu'il y a bien 2 joueurs par match maximun
 
 DROP TABLE Musculation;
 DROP TABLE Step;
+DROP TABLE Figure_Acrosport;
 DROP TABLE Acrosport;
 DROP TABLE Figure;
 DROP TABLE Natation;
@@ -181,18 +197,18 @@ CREATE TABLE Resultat (
 
 CREATE TABLE Escalade (
     id_escalade INTEGER ,
-    assureur INTEGER,
+    assureur VARCHAR(50) NOT NULL,
     total_diff INTEGER,
 
     -- CONSTRAINTS
     CONSTRAINT pk_Escalade PRIMARY KEY (id_escalade),
-    CONSTRAINT fk_Escalade_Eleve FOREIGN KEY (assureur) REFERENCES Eleve(id_eleve),
     CONSTRAINT fk_Escalade_Resultat FOREIGN KEY (id_escalade) REFERENCES Resultat(id_resultat)
 
 );
 
 CREATE TABLE Voie (
     id_voie INTEGER AUTO_INCREMENT,
+    nom_voie VARCHAR(50) NOT NULL,
     deg_diffi INTEGER NOT NULL,
 
     -- CONSTRAINT
@@ -234,12 +250,19 @@ CREATE TABLE Figure (
 CREATE TABLE Acrosport (
     id_acrosport INTEGER ,
     total_point INTEGER,
-    lesFigures INTEGER,
 
     -- CONSTRAINTS
     CONSTRAINT pk_Acrosport PRIMARY KEY (id_acrosport),
-    CONSTRAINT fk_Acrosport_Eleve FOREIGN KEY (id_acrosport) REFERENCES Resultat(id_resultat),
-    CONSTRAINT fk_Acrosport_Figure FOREIGN KEY (lesFigures) REFERENCES Figure(id_figure)
+    CONSTRAINT fk_Acrosport_Eleve FOREIGN KEY (id_acrosport) REFERENCES Resultat(id_resultat)
+);
+CREATE TABLE Figure_Acrosport (
+    lAcrosport INTEGER , 
+    laFigure INTEGER,    
+
+    -- CONSTRAINTS
+    CONSTRAINT fk_Acrosport_Figure FOREIGN KEY (lAcrosport) REFERENCES Acrosport(id_acrosport),
+    CONSTRAINT fk_Figure_Acrosport FOREIGN KEY (laFigure) REFERENCES Figure(id_figure),
+    CONSTRAINT pk_Acrosport_Figure PRIMARY KEY (lAcrosport, laFigure)
 );
 
 CREATE TABLE Step (
