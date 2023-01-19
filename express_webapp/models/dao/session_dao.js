@@ -80,6 +80,12 @@ var SessionDAO = function(){
         smt.query(sql6, id_con, callback);
     };
 
+    /**
+     * Find a session with his sport in the database by the professeur
+     * @param {string} nomProf 
+     * @param {function} callback 
+     * @return {Session}
+     */
     this.FindSessionProfSport = function(nomProf, callback){
         this.use(null);
         var sql7 = "SELECT * FROM Session, Sport WHERE professeur=? AND le_sport=id_sport;";
