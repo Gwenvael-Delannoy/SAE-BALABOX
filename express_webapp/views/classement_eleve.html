@@ -7,13 +7,16 @@
             <body>
                 
                 <h1>Classement</h1>
-
+                    <h3>Faire un match contre :</h3>
                     <select id="mySelect">
                         <% eleves.forEach(function(item) { %>
                             <option value="<%= item %>"><%= item %> </option>
                         <% }); %>
                     </select>
-                    <button id="entre">Entré   </button>
+                    <form action='/'  method='post'>
+                            <button id="entre">Entré</button>
+                    </form>
+                    
 
             </body>
         </html>
