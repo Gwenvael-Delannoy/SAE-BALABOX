@@ -37,7 +37,7 @@ sportDao.findAll((err, rows) => {
                 sportDao.update(id, sport, function(err, row){
                     if(err) console.log(err);
 
-                    sportDao.findByName(sport.getNom(), (err, row) => {
+                    sportDao.findByName(sport.getNomSport(), (err, row) => {
                         if(err) console.log(err);
                         console.log("\nPost Update :\n");
                         console.log(row[0]);

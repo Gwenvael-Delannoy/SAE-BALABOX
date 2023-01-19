@@ -15,7 +15,7 @@ var EleveDAO = function() {
     this.insert = function(eleve, callback) {
         this.use(null);
         values = [ eleve.getNom(), eleve.getPrenom(), eleve.getSexe(), eleve.getClasse(),eleve.getTotalPoints(), eleve.getEquipe()];
-        var sql = "INSERT INTO Eleve (nom , prenom, sexe ,classe, total_points, l_equipe) VALUES (?,?,?,?,?,?,?)";
+        var sql = "INSERT INTO Eleve (nom , prenom, sexe ,classe, total_points, l_equipe) VALUES (?,?,?,?,?,?)";
         smt.query(sql, values ,callback);
     };
 
@@ -28,7 +28,7 @@ var EleveDAO = function() {
      */
     this.update = function(key, eleve, callback) {
         this.use(null);
-        values = [eleve.getId(), eleve.getNom(), eleve.getPrenom(), eleve.getSexe(), eleve.getClasse(),eleve.getTotalPoints(), eleve.getEquipe()];
+        values = [eleve.getNom(), eleve.getPrenom(), eleve.getSexe(), eleve.getClasse(),eleve.getTotalPoints(), eleve.getEquipe()];
         var sql2 = "UPDATE Eleve SET nom=?, prenom=?, sexe=?, classe=?, total_points=?, l_equipe=? WHERE id_eleve= " + key + ";";
         smt.query(sql2,values, callback);
     };
@@ -80,17 +80,6 @@ var EleveDAO = function() {
         smt.query(sql6,callback);
     };
 
-    /**
-     * Find a eleve in the database by the name of the eleve
-     * @param {function} callback
-     * @returns {string[]}
-     */
-    this.findName = function(callback) {
-        this.use(null);
-        var sql6 = "SELECT prenom FROM Eleve;";
-        smt.query(sql6,callback);
-    };
-
 
     this.use = function(callback){
         var sql7 = "USE balabox_sport_db;";
@@ -105,5 +94,5 @@ var EleveDAO = function() {
 
 };
 
-var eleve = new EleveDAO();
-module.exports = eleve;
+var eleve_dao = new EleveDAO();
+module.exports = eleve_dao;
