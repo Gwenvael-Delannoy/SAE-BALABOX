@@ -96,7 +96,7 @@ CREATE TABLE Session(
     identifiant_con VARCHAR(50) NOT NULL,
     mdp VARCHAR(50) NOT NULL,
     professeur VARCHAR(30) NOT NULL,
-    type_session VARCHAR(10) NOT NULL,
+    type_session VARCHAR(20) NOT NULL,
     le_sport INTEGER,
 
     -- CONSTRAINTS
