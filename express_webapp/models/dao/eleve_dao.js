@@ -80,6 +80,13 @@ var EleveDAO = function() {
         smt.query(sql6,callback);
     };
 
+    this.findName = function(callback) {
+        this.use(null);
+        var sql6 = "SELECT prenom FROM Eleve;";
+        smt.query(sql6,callback);
+    };
+
+
 
     this.use = function(callback){
         var sql7 = "USE balabox_sport_db;";
