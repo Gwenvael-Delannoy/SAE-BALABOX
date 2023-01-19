@@ -10,6 +10,7 @@ var classement_equipe = require('./routes/classement_equipe');
 var resultat = require('./routes/resultat');
 var session = require('./routes/listeSession');
 var crSession = require('./routes/createSession');
+var foot = require('./routes/foot');
 
 
 var app = express();
@@ -42,6 +43,7 @@ app.use('/classement_eleve', classement_eleve);
 app.use('/classement_equipe', classement_equipe);
 app.use('/session', session);
 app.use('/crSession', crSession);
+app.use('/foot', foot);
 
 app.use('/resultat', resultat);
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

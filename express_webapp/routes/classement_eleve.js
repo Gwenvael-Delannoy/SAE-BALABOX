@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/', function(req, res, next) {
-    render('classement_eleve');
+    res.render('foot');
 });
 
 
