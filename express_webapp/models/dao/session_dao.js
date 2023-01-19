@@ -92,6 +92,18 @@ var SessionDAO = function(){
         smt.query(sql7, nomProf, callback);
     };
 
+    /**
+     * Delete a session in the database
+     * @param {int} key
+     * @param {function} callback
+     * @returns {void}
+     */
+    this.deleteAll = function(key, callback){
+        this.use(null);
+        var sql3 = "DELETE FROM Musculation, Step, Acrosport, Figure, Natation, Escalade_Voie, Voie, Escalade, Resultat, Match_Eleve, Match_Equipe, Match_, Statistique, Eleve, Session, Equipe, Sport WHERE id_session=?;";
+        smt.query(sql3,key,callback);
+    };
+
     this.use = function(callback){
         var sql = "USE balabox_sport_db;";
         smt.query(sql, callback);

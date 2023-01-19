@@ -24,8 +24,8 @@
                   <br>
                   <img name='view' src='/images/icon_oeil.png' width=2% height=4% onclick='location.replace(`/crSession`);'/>
                   <img name='modif' src='/images/icon_crayon.png' width=2% height=4% onclick='location.replace(`/crSession`);'/>
-                  <button type='submit'>
-                      <img name='delete' src='/images/icon_corbeille.png' width=4% height=8% />
+                  <button name="delete" value=<%= session[i].id_session %> type='submit'>
+                      <img src='/images/icon_corbeille.png' width=4% height=8% />
                   </button>
                 </form>
               <% } %>              

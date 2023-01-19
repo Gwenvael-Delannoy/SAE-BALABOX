@@ -7,20 +7,29 @@ var session_dao =  require('../models/dao/dataBase').session_dao;
 router.get('/', function(req, res, next) {
   session_dao.FindSessionProfSport("Jack rihiad" ,function(err,rows) {
     if (err ) {
-      console.log(err);
+      res.render(err);
     }
     else{
-      console.log(rows);
       res.render('listeSession',{session : rows});
     }
   });
 });
 
 router.post('/', function(req, res, next) {
+
+  var id = req.body.delete;
+
+  session_dao.deleteAll(id, function(err, rows) {
+    if (err) res.render(err);
+    else {
+      console.log("delete");
+      res.redirect('listeSession');
+    }
+  });
   
-  res.render('classment_eleve');
   
   
+
 });
 
 module.exports = router;
