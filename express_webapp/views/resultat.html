@@ -168,21 +168,27 @@
                                     <br>
                                     <br>
                                 <% } %>
-                                <% var nbfig = parseInt(nombreFigure);
-                                    var figure = figures
-                                    if(afficher){ %>
-                                       
-                                        <!-- afficher le nombre de figure en fonction du nombre de figure -->
-                                        <label for="figure">Figure : </label>
-                                        <select id="figure" name="figure" >
-                                            <% for (var i = 0; i < figure.length i++) { %>
+                                <%  var nbfig = parseInt(nombreFigure);
+                                var figure = figures;
+                                var i = 0;
+                                var j=0;
+                                
+                                if(afficher){ %>
+                                
+                                    <% while( j < nbfig ) { %>
+                                        <label for="figure<%= j %>">Figure <%= j+1 %> : </label>
+                                        <select id="figure<%= j %>" name="figure<%= j %>">
+                                            <% while(i < figure.length ) { %>
                                                 <option value="<%= figures[i] %>"><%= figures[i] %></option>
+                                                <% i++; %>
                                             <% } %>
                                         </select><br>
-                                        
-                                        <input type="submit" name="action" value="Envoyer">
+                                        <% i = 0; %>
+                                        <% j++; %>
                                     <% } %>
+                                    <input type="submit" name="action" value="Envoyer">
                                 <% } %>
+                            
                             </form>
                         <% } %>
 
