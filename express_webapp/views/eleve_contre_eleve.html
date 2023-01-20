@@ -2,7 +2,7 @@
     <head>
         <meta charset="utf-8">
         <title>Creation de Session</title>
-        <link rel="stylesheet" href="/stylesheets/create_session.css">
+        <link rel="stylesheet" href="/stylesheets/eleveVsEleve.css">
 
     </head>
     <div class ="block">
@@ -10,6 +10,53 @@
             <img class="logo" src="/images/image.jpeg">
                <a class="lienBoutton" href="/" ><input type = "button" value="déconnection"></a>
         </header>
+
+        <div class ="titre">
+            <h1>Match contre Eleve</h1>
     </div>
     
+    <div class="terrain">
+        <canvas class="canvas" width="300" height="500"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.querySelector('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // terrain de basminton 
+        ctx.fillStyle = '#000000';
+        // bordure du terrain
+        ctx.fillRect(20, 20, 5, 460);
+        ctx.fillRect(275, 20, 5, 460);
+        ctx.fillRect(20, 20, 260, 5);
+        ctx.fillRect(20, 475, 260, 5);
+
+        // ligne de service
+        ctx.fillRect(20, 240, 260, 5);
+
+        // couloir
+        ctx.fillRect(20, 50, 260, 5);
+        ctx.fillRect(20, 445, 260, 5);
+        ctx.fillRect(50, 20, 5, 460);
+        ctx.fillRect(245, 20, 5, 460);
+
+        // carré de service
+        ctx.fillRect(20, 180, 260, 5);
+        ctx.fillRect(20, 300, 260, 5);
+        ctx.fillRect(150, 20, 5, 160);
+        ctx.fillRect(150, 300, 5, 180);
+
+        document.addEventListener('click',drawCircle,false);
+
+        function drawCircle(e){
+            var x = e.pageX - canvas.offsetLeft;
+            var y = e.pageY - canvas.offsetTop;
+            ctx.beginPath();
+            ctx.arc(x,y,5,0,2*Math.PI);
+            ctx.fillStyle = 'green';
+            ctx.fill();
+        }
+
+    </script>
+
 </html>
