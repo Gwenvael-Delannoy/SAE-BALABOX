@@ -11,6 +11,7 @@ var resultat = require('./routes/resultat');
 var listeSession = require('./routes/listeSession');
 var crSession = require('./routes/createSession');
 var foot = require('./routes/foot');
+var eleveVsEleve = require('./routes/eleveVsEleve');
 
 
 var app = express();
@@ -44,6 +45,7 @@ app.use('/classement_equipe', classement_equipe);
 app.use('/listeSession', listeSession);
 app.use('/crSession', crSession);
 app.use('/foot', foot);
+app.use('/eleveVsEleve', eleveVsEleve);
 
 app.use('/resultat', resultat);
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
