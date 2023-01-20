@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
           else{
             var figures = rows;
             const data = figures.map(figures => figures.nom + " |" + figures.description + " |" + figures.point);
-            res.render('resultat', {sport : nom_sport,figures : data , message : ''});
+            res.render('resultat', {sport : nom_sport,figures : data , message : '', afficher : ''});
           }
         });
       }
@@ -39,7 +39,7 @@ router.get('/', function(req, res, next) {
           else{
             var voies = rows;
             const data = voies.map(voies => voies.nom_voie + '|' + voies.deg_diffi);
-            res.render('resultat', {sport : nom_sport, voies : data , message : ''});
+            res.render('resultat', {sport : nom_sport, voies : data , message : '', afficher : ''});
           }
         });
       }
@@ -52,29 +52,49 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   var nom_sport = req.body.sport;
-  console.log(nom_sport);
+  
   if(nom_sport == 'Acrosport'){
-    var nom_figure = req.body.nom_figure;
-    var description = req.body.description;
-    var point = req.body.point;
-    figure_dao.findByNom(nom_figure, function(err,rows) {
-      if(err){
-        res.render('error',{message : err});
-      }
-      else{
-        var figure = rows;
-        if(figure.length == 0){
-          console.log('figure non existante');
+
+    if(req.body.action == 'Envoyer'){
+      var nom_figure = req.body.figure;
+      var description = req.body.description;
+      var point = req.body.point;
+
+      figure_dao.findByNom(nom_figure, function(err,rows) {
+        if(err){
+          res.render('error',{message : err});
         }
         else{
-          console.log('figure existante , id : ' + figure[0].id_figure);
+          var figure = rows;
+          if(figure.length == 0){
+            console.log('figure non existante');
+          }
+          else{
+            message= 'figure existante , id : ' + figure[0].id_figure;
+            res.render('resultat',{sport: nom_sport ,message : message});
+          }
         }
+      });
+    }
+    else if(req.body.action == 'Remplir'){
+      var nombreFigure = req.body.nombreFigure;
+      var figurestab = [];
+      console.log(req.body.figures);
+      if (req.body.figures || typeof req.body.figures !== 'undefined'){
+        figurestab = req.body.figures.split(',');
       }
-    });
+      
+      res.render('resultat',{sport: nom_sport ,figures : figurestab ,nombreFigure : nombreFigure , message : '' , afficher : true});
+    }
   }
   else if( nom_sport == 'Escalade'){
-    var nom_voie = req.body.nom_voie;
-    var deg_diffi = req.body.deg_diffi;
+
+    var la_voie = req.body.voie;
+    //spliter la_voie à partir du | et récupèrer le premier élément
+    var nom_voie = la_voie.split('|')[0];
+    var deg_diffi = la_voie.split('|')[1];
+    var assureur = req.body.assureur;
+
     voie_dao.findByNom(nom_voie, function(err,rows) {
       if(err){
         res.render('error',{message : err});
@@ -85,7 +105,8 @@ router.post('/', function(req, res, next) {
           console.log('voie non existante');
         }
         else{
-          console.log('voie existante , id : ' + voie[0].id_voie);
+          message= 'voie existante , id : ' + voie[0].id_voie;
+          res.render('resultat',{sport: nom_sport ,message : message, afficher : ''});
         }
       }
     });

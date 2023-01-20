@@ -70,7 +70,7 @@ var VoieDAO = function() {
     };
     this.findByNom = function(nom, callback) {
         this.use(null);
-        var sql6 = "SELECT * FROM Voie WHERE nom_voie=" + nom + ";";
+        var sql6 = "SELECT * FROM Voie WHERE nom_voie='" + nom + "';";
         smt.query(sql6, callback);
     };
     
