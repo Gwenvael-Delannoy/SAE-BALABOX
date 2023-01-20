@@ -25,15 +25,15 @@ router.post('/', function(req, res, next) {
 
   console.log(type_session);
   
-  session = new session();
+  var sess = new session();
 
   sport_dao.findByName(sport, function(err, rows) {
     if (err) res.render('error', {message: err});
     else {
   
-        session.init(null,"en cours",null,idCon,mdp,1/*valeur par défeaut en attente des autre groupes*/,type_session,rows[0].id_sport);
+      sess.init(null,"en cours",null,idCon,mdp,1/*valeur par défeaut en attente des autre groupes*/,type_session,rows[0].id_sport);
 
-        session_dao.insert(session, function(err, rows) {
+        session_dao.insert(sess, function(err, rows) {
           if (err) res.render('error', {message: err});
           else res.redirect('listeSession');
         });
