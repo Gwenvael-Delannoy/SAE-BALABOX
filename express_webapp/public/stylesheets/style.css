@@ -8,7 +8,8 @@ h1 {
   color: #030303;
 }
 
-form{
+.formulaire{
+  display: block;
   padding : auto ;
   text-align: center;
   background-color: #ffffff;

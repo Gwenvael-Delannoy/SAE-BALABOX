@@ -4,7 +4,7 @@
                 <title>Section Sport</title>
                 <link rel="stylesheet" href="/stylesheets/style.css">
             </head>
-            <form action='/' method='post'>
+            <form class ="formulaire" action='/' method='post'>
                 <br>
                 <img class="img" src="/images/image.jpeg" >
                 <h1>Section Sport</h1>
@@ -15,21 +15,22 @@
                 <input type="text" id="Spwd" name="Spwd" required><br>
                 
                 <label for="SNomEleve">Nom : </label><br>
-                <input type="text" id="SNomEleve" name="SNomEleve" required><br>
+                <input type="text" id="SNomEleve" name="SNomEleve" ><br>
                 
                 <label for="SPrenomEleve">Prenom : </label><br>
-                <input type="text" id="SPrenomEleve" name="SPrenomEleve" required><br>
+                <input type="text" id="SPrenomEleve" name="SPrenomEleve" ><br>
                 
                 <label for="SClasseEleve">Classe : </label><br>
-                <input type="text" id="SClasseEleve" name="SClasseEleve" maxlength="3" required ><br>
+                <input type="text" id="SClasseEleve" name="SClasseEleve" maxlength="3"  ><br>
                 
                 <button type="submit" name ="btn" value ="BtConnexion" >Connexion session </button>
                 <br>
                 <br>
+            </form> 
+            <form action='/' method='post'>
                 <% if (typeof professeur !== 'undefined' && professeur !== '') { %>
                     <button type="submit" name ="btn" value ="BtAccesProf" >Accès professeur </button>
-                  <% } %>
-                    
+                <% } %>
             </form> 
             <div>
                 <!-- Afficher le message d'erreur s'il y en a un -->
