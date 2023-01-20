@@ -101,3 +101,28 @@ Terrain
     margin-left: auto;
     margin-right: auto;
 }
+
+
+/*
+terminer
+*/
+
+.terminer {
+    margin-top: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.terminer #terminerB {
+    background-color: #ff9955;
+    color: #ffffff;
+    font-size: 16px;
+    height: 40px;
+    border: #ffffff;
+    border-radius: 12px;
+}
+
+.terminer #terminerB:hover{
+    background-color : #ff7b00;
+    color : #e6e3e3;
+}
