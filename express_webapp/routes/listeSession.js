@@ -19,17 +19,26 @@ router.post('/', function(req, res, next) {
 
   var id = req.body.delete;
 
-  session_dao.deleteAll(id, function(err, rows) {
-    if (err) res.render(err);
-    else {
-      console.log("delete");
-      res.redirect('listeSession');
+  session_dao.findByKey(id, function(err, row) {
+    if(row.type_session == 'resultat'){
+      session_dao.deleteResultat(id, function(err) {
+        if (err) res.render(err);
+        else {
+          console.log("delete");
+          res.redirect('listeSession');
+        }
+      });
+
+    } else {
+      session_dao.deleteTournois(id, function(err) {
+        if (err) res.render(err);
+        else {
+          console.log("delete");
+          res.redirect('listeSession');
+        }
+      });
     }
   });
-  
-  
-  
-
 });
 
 module.exports = router;
