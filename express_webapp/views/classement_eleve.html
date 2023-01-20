@@ -2,20 +2,27 @@
         <html>
             <head>
                 <title>Classement</title>
-                <link rel="stylesheet" href="/stylesheets/style.css">
+                <link rel="stylesheet" href="/stylesheets/classement_eleve.css">
             </head>
             <body>
-                
-                <h1>Classement</h1>
-                    <h3>Faire un match contre :</h3>
-                    <select id="mySelect">
-                        <% eleves.forEach(function(item) { %>
-                            <option value="<%= item %>"><%= item %> </option>
-                        <% }); %>
-                    </select>
-                    <form action='/classement_eleve'  method='post'>
-                            <button id="entre">Entré</button>
-                    </form>
+                <div class ="block">
+                    <header class="header">
+                        <img class="logo" src="/images/image.jpeg">
+                           <a class="lienBoutton" href="/" ><input type = "button" value="déconnection"></a>
+                    </header>
+                </div>
+                <div class="jsp">
+                    <h1 class="titre">Classement</h1>
+                        <h3 class="tritre2">Faire un match contre :</h3>
+                        <select id="mySelect">
+                            <% eleves.forEach(function(item) { %>
+                                <option value="<%= item %>"><%= item %> </option>
+                            <% }); %>
+                        </select>
+                        <form class="formulaire" action='/classement_eleve'  method='post'>
+                                <button class="bouton" id="entre">Entré</button>
+                        </form>
+                </div>
                     
 
             </body>

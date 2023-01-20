@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/', function(req, res, next) {
-    res.render('eleveVsEleve');
+    res.render('eleve_contre_eleve');
 });
 
 
