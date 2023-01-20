@@ -16,11 +16,19 @@
     </div>
     
     <div class="terrain">
-        <div class ="scoreBord">
-            <div class="scoreBordNom">Vous</div>
-            <div class="scoreBordNom">Tristan</div>
+        <div id="scorebord" class ="scoreBord">
+            <div class="scoreBordNom scoreBordNom1">Vous</div>
+            <div class="scoreBordNom scoreBordNom2">Tristan</div>
             <div class="scoreBordScore">0</div>
             <div class="scoreBordScore">0</div>
+            <div class="scoreBordControl">
+                <button class="scoreBordControlB">-</button>
+                <button class="scoreBordControlB">+</button>
+            </div>
+            <div class="scoreBordControl">
+                <button class="scoreBordControlB">-</button>
+                <button class="scoreBordControlB">+</button>
+            </div>
         </div>
         <canvas class="canvas" width="300" height="500"></canvas>
     </div>
@@ -62,6 +70,43 @@
             ctx.fillStyle = 'green';
             ctx.fill();
         }
+
+        let scoreBord = document.querySelector('.scoreBord');
+        let scoreBordScore = document.querySelectorAll('.scoreBordScore');
+        let scoreBordControl = document.querySelectorAll('.scoreBordControl');
+        let scoreBordControlB = document.querySelectorAll('.scoreBordControlB');
+                
+        
+        let score1 = 0;
+        let score2 = 0;
+
+        scoreBordScore[0].innerHTML = score1;
+        scoreBordScore[1].innerHTML = score2;
+
+        scoreBordControlB[0].addEventListener('click', function(){
+            if(score1 > 0){
+                score1--;
+                scoreBordScore[0].innerHTML = score1;
+            }
+        });
+
+        scoreBordControlB[1].addEventListener('click', function(){
+            score1++;
+            scoreBordScore[0].innerHTML = score1;
+        });
+
+        scoreBordControlB[2].addEventListener('click', function(){
+            if(score2 > 0){
+                score2--;
+                scoreBordScore[1].innerHTML = score2;
+            }
+        });
+
+        scoreBordControlB[3].addEventListener('click', function(){
+            score2++;
+            scoreBordScore[1].innerHTML = score2;
+        });
+
 
     </script>
 

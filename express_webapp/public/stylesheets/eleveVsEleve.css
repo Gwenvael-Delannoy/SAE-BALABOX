@@ -48,48 +48,47 @@ Points
 */
 
 .titre {
+    font-family: Arial, Helvetica, sans-serif;
     text-align: center;
 }
 
 .terrain .scoreBord {
+    font-family: Arial, Helvetica, sans-serif;
     display: grid;
     margin-left: auto;
     margin-right: auto;
-    height: 50px;
     grid-template-columns: 1fr 1fr;
     text-align: center;
     width: 300px;
 }
 
-/* 
-.terrain .point {
-    display : flex;
-    justify-content: center;
+.terrain .scoreBord .scoreBordScore,
+.terrain .scoreBord .scoreBordNom {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
 }
 
-.terrain .point .pointAf1{
-    text-align: center;
-    width: 20px;
-    height: 20px;
-    background-color: #f1f1f1;
-    border : 1px solid #000000;
+.scoreBord .scoreBordNom {
+    border-bottom: 1px solid #000000;
 }
 
-.terrain .point .pointAf2{
-    text-align: center;
-    width: 20px;
-    height: 20px;
-    background-color: #f1f1f1;
-    border : 1px solid #000000;
+.scoreBord .scoreBordControl{
+    display: flex;
 }
 
-.terrain .point p{
-    margin: 10px;
-} */
+.scoreBord .scoreBordControl .scoreBordControlB{
+    flex-grow: 1;
+    border: none;
+    background-color: #dddddd;
+    color: #000000;
+    font-size: 20px;
+}
 
-/* 
-Terrain
-*/
+.scoreBord .scoreBordControl .scoreBordControlB:hover{
+    background-color: #a3a3a3;
+    color: #ffffff;
+}
 
 .terrain .canvas {
     /* border: 1px solid black; */
