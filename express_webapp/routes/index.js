@@ -8,7 +8,7 @@ var eleve = require('../models/eleve');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var qui_est_connecte = process.env.whoami;
-  var professeur ='';
+  var professeur ='oui';
   if(qui_est_connecte == 'professeur'){
     professeur = 'professeur';
   }
@@ -72,7 +72,7 @@ router.post('/', function(req, res, next) {
     });
   }
   else if(req.body.btn == 'BtAccesProf'){
-    res.redirect('/session');
+    res.redirect('/listeSession');
   }
 });
 module.exports = router;
