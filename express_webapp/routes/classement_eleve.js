@@ -6,7 +6,6 @@ var eleve_dao = require('../models/dao/dataBase').eleve_dao;
 router.get('/', function(req, res, next) {
         var data1;
         var session = req.query.ses;
-        console.log('Bonjour :' +session);
         eleve_dao.findName2(session,function(err, rows) {
       
           if (err) {
