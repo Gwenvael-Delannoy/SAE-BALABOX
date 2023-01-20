@@ -10,6 +10,7 @@
             <img class="logo" src="/images/image.jpeg">
                <a class="lienBoutton" href="/" ><input type = "button" value="déconnection"></a>
         </header>
+    </div>
 
     <div class ="titre">
             <h1>Match contre Eleve</h1>
@@ -32,6 +33,16 @@
         </div>
         <canvas class="canvas" width="300" height="500"></canvas>
     </div>
+
+    <div class="terminer">
+        <form action="/eleveVsEleve" method="post">
+            <input type="hidden" name="score1" value="terminer" id="scoreOne">
+            <input type="hidden" name="score2" value="terminer" id="scoreTwo">
+            <input type="submit" value="Terminer le Match" id="terminerB">
+        </form>
+    </div>
+    
+
 
     <script>
         const canvas = document.querySelector('canvas');
@@ -60,6 +71,7 @@
         ctx.fillRect(150, 20, 5, 160);
         ctx.fillRect(150, 300, 5, 180);
 
+        // dessine un cercle la ou on clique sur le canvas
         document.addEventListener('click',drawCircle,false);
 
         function drawCircle(e){
@@ -71,6 +83,7 @@
             ctx.fill();
         }
 
+        // Gestion du scoreboard
         let scoreBord = document.querySelector('.scoreBord');
         let scoreBordScore = document.querySelectorAll('.scoreBordScore');
         let scoreBordControl = document.querySelectorAll('.scoreBordControl');
@@ -105,6 +118,16 @@
         scoreBordControlB[3].addEventListener('click', function(){
             score2++;
             scoreBordScore[1].innerHTML = score2;
+        });
+
+        // envoie les scores dans le formulaire
+        let scoreOne = document.querySelector('#scoreOne');
+        let scoreTwo = document.querySelector('#scoreTwo');
+        let terminerB = document.querySelector('#terminerB');
+
+        terminerB.addEventListener('click', function(){
+            scoreOne.value = score1;
+            scoreTwo.value = score2;
         });
 
 

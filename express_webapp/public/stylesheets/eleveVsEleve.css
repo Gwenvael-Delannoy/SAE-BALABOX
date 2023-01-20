@@ -42,9 +42,6 @@ Header
     color : #e6e3e3;
 }
 
-/* 
-Points
-*/
 
 .titre {
     margin-top: 100px;
@@ -52,6 +49,10 @@ Points
     text-align: center;
 }
 
+
+/* 
+ScoreBoard
+*/
 .terrain .scoreBord {
     font-family: Arial, Helvetica, sans-serif;
     display: grid;
@@ -90,6 +91,9 @@ Points
     color: #ffffff;
 }
 
+/* 
+Terrain
+*/
 .terrain .canvas {
     /* border: 1px solid black; */
     margin-top: 20px;

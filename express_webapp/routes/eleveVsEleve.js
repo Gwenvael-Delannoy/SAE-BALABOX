@@ -6,5 +6,8 @@ router.get('/', function(req, res, next) {
     res.render('eleve_contre_eleve');
 });
 
+router.post('/', function(req, res, next) {
+    console.log(req.body.score1);
+});
 
 module.exports = router;
