@@ -16,11 +16,13 @@
     </div>
     <body>
 
-        <div class="ajout" id="add_tournament">
-            <img src="/images/icon_plus.png" width=5% height=10% onclick="location.replace('/crSession');"/>
+        <form class="ajout" action='/listeSession' method="post" id="add_tournament">
+            <button class="boutonAjout" name="action" value="add" type='submit'>
+                <img src='/images/icon_plus.png' width=100% height=100% />
+            </button>
             <br>
             Ajouter une session
-        </div>
+        </form>
 
         <div id='session'>
             <% for(var i = 0; i < session.length; i++) { %> 
@@ -32,13 +34,13 @@
                     Date : <%= session[i].date_session %>
                     <br>
                     <button name="action" value="view" type='submit'>
-                        <img src='/images/icon_oeil.png' width=80% height=100% />
+                        <img src='/images/icon_oeil.png' width=100% height=100% />
                     </button>
                     <button name="action" value="update" type='submit'>
-                        <img src='/images/icon_crayon.png' width=80% height=100% />
+                        <img src='/images/icon_crayon.png' width=100% height=100% />
                     </button>
                     <button name="delete" value=<%= session[i].id_session %> type='submit'>
-                        <img src='/images/icon_corbeille.png' width=80% height=100% />
+                        <img src='/images/icon_corbeille.png' width=100% height=100% />
                     </button>
                     <input type='hidden' name='id' value=<%= session[i].id_session %>>
                 </form>

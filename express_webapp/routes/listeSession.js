@@ -17,6 +17,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
+  if(req.body.action == 'add') {
+    res.redirect('crSession');
+
+  }
 
   var id = req.body.id;
   console.log(id);
@@ -33,28 +37,8 @@ router.post('/', function(req, res, next) {
         res.redirect('/resultat?ses='+id+'&idSport='+id_sport+'');
     
       } else {
-    
-        session_dao.findByKey(id, function(err, row) {
-    
-          if(row[0].type_session== 'resultat'){
-            session_dao.deleteResultat(id, function(err) {
-              if (err) res.render("error", {message: err});
-              else {
-                console.log("delete");
-                res.redirect('listeSession');
-              }
-            });
-      
-          } else {
-            session_dao.deleteTournois(id, function(err) {
-              if (err) res.render("error", {message: err});
-              else {
-                console.log("delete");
-                res.redirect('listeSession');
-              }
-            });
-          }
-        });
+        
+        res.redirect('listeSession');
       }
     }
   });
