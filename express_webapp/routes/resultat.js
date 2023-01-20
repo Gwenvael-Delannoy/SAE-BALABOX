@@ -126,4 +126,5 @@ router.post('/', function(req, res, next) {
     res.render('resultat',{sport: nom_sport ,message : 'Valeur non envoyée !' , afficher : '' , session : session});
   }
 });
+module.exports = router;
 
