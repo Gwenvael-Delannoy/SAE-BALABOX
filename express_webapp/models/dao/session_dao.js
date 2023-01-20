@@ -100,7 +100,7 @@ var SessionDAO = function(){
      */
     this.deleteResultat = function(key, callback){
         this.use(null);
-        var sql10 = "DELETE FROM Session, Resultat, Musculation, Escalade, Natation, Acrosport, Step, Figure_Acrosport, Figure, Escalade_Voie, Voie WHERE id_resultat = id_musculation OR id_resultat = id_escalade OR id_escalade = lEscalade OR id_voie = laVoie OR id_resultat = id_natation OR id_resultat = id_acrosport OR id_acrosport = lAcrosport OR id_figure = laFigure OR id_resultat = id_step AND la_session = id_session AND id_session ="+key+";";
+        var sql10 = "SET FOREIGN_KEY_CHECKS = 0;"+"DELETE * FROM Escalade JOIN Resultat ON Escalade.id_escalade = Resultat.id_resultat WHERE Resultat.la_session = "+key+";"+"DELETE * FROM Natation JOIN Resultat ON Natation.id_natation = Resultat.id_resultat WHERE Resultat.la_session = "+key+";"+"DELETE Acrosport FROM Acrosport JOIN Resultat ON Acrosport.id_acrosport = Resultat.id_resultat WHERE Resultat.la_session = "+key+";"+"DELETE * FROM Figure_Acrosport JOIN Acrosport ON Figure_Acrosport.lAcrosport = Acrosport.id_acrosport JOIN Resultat ON Acrosport.id_acrosport = Resultat.id_resultat WHERE Resultat.la_session = "+key+";"+"DELETE * FROM Escalade_Voie JOIN Escalade ON Escalade_Voie.lEscalade = Escalade.id_escalade JOIN Resultat ON Escalade.id_escalade = Resultat.id_resultat WHERE Resultat.la_session = "+key+";"+"DELETE * FROM Step JOIN Resultat ON Step.id_step = Resultat.id_resultat WHERE Resultat.la_session = "+key+";"+"DELETE FROM Resultat WHERE la_session = "+key+";"+"DELETE * FROM Session WHERE id_session="+key+";"+"SET FOREIGN_KEY_CHECKS = 1;";
         smt.query(sql10,callback);
     };
 
@@ -110,7 +110,7 @@ var SessionDAO = function(){
      * @param {function} callback
      * @returns {void}
      */
-    this.deleteResultat = function(key, callback){
+    this.deleteTournoi = function(key, callback){
         this.use(null);
         var sql10 = "DELETE FROM Session, Resultat, Musculation, Escalade, Natation, Acrosport, Step, Figure_Acrosport, Figure, Escalade_Voie, Voie WHERE id_resultat = id_musculation OR id_resultat = id_escalade OR id_escalade = lEscalade OR id_voie = laVoie OR id_resultat = id_natation OR id_resultat = id_acrosport OR id_acrosport = lAcrosport OR id_figure = laFigure OR id_resultat = id_step AND la_session = id_session AND id_session ="+key+";";
         smt.query(sql10,callback);
