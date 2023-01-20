@@ -172,21 +172,26 @@
                                 var figure = figures;
                                 var i = 0;
                                 var j=0;
-                                
+
                                 if(afficher){ %>
-                                
-                                    <% while( j < nbfig ) { %>
-                                        <label for="figure<%= j %>">Figure <%= j+1 %> : </label>
-                                        <select id="figure<%= j %>" name="figure<%= j %>">
-                                            <% while(i < figure.length ) { %>
-                                                <option value="<%= figures[i] %>"><%= figures[i] %></option>
-                                                <% i++; %>
-                                            <% } %>
-                                        </select><br>
-                                        <% i = 0; %>
-                                        <% j++; %>
+                                    <% if (nbfig == 0) { %>
+                                        <p>Vous n'avez pas choisi de nombre de figure figure</p>
                                     <% } %>
-                                    <input type="submit" name="action" value="Envoyer">
+                                    <% if (nbfig > 0) { %>
+                                        <% while( j < nbfig ) { %>
+                                            <label for="figure<%= j %>">Figure <%= j+1 %> : </label>
+                                            <select id="figure<%= j %>" name="figure<%= j %>">
+                                                <% while(i < figure.length ) { %>
+                                                    <option value="<%= figures[i] %>"><%= figures[i] %></option>
+                                                    <% i++; %>
+                                                <% } %>
+                                            </select><br>
+                                            <% i = 0; %>
+                                            <% j++; %>
+                                        <% } %>
+                                        <input type="submit" name="action" value="Envoyer">
+                                    <% } %>
+                                   <input type="submit" name="action" value="Retour">
                                 <% } %>
                             
                             </form>

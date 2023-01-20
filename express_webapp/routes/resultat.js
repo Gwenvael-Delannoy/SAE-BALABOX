@@ -96,6 +96,9 @@ router.post('/', function(req, res, next) {
       }
       res.redirect('/resultat?ses='+session+'&nombreFigure='+nombreFigure + '&afficher=oui' + '&idSport='+id_sport);
     }
+    else if(req.body.action == 'Retour'){
+      res.redirect('/resultat?ses='+session+'&idSport='+id_sport+'&nom_sport='+nom_sport);
+    }
   }
   else if( nom_sport == 'Escalade'){
 
