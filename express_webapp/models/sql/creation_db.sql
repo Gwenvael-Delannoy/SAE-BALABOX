@@ -34,23 +34,23 @@ Schema relationel complet de la base de donnée:
 
     Match_Eleve(le_match (INTEGER), le_eleve (INTEGER))
 
-    Musculation(id_musculation (INTEGER), nom_exo (VARCHAR(30)), nb_repetition (INTEGER), nb_series (INTEGER), id_sport (INTEGER))
+    Musculation(id_musculation (INTEGER), muscle_travailler (VARCHAR(50)), temps_pause (INTEGER), series (INTEGER), nb_reps (INTEGER), intensite (INTEGER), charge (INTEGER), ressenti (VARCHAR(250)), id_sport (INTEGER))
 
-    Step(id_step (INTEGER), nom_chorégraphie (VARCHAR(30)), nb_passes (INTEGER), id_sport (INTEGER))
+    Step(id_step (INTEGER), type_mobilite (VARCHAR(50)), ressenti (VARCHAR(250)), param_indv (VARCHAR(250)), bilan_perso (VARCHAR(250)), perspective (VARCHAR(250)), id_sport (INTEGER))
     
-    Figure_Acrosport(id_figure (INTEGER), nom_figure (VARCHAR(30)), nb_personnes (INTEGER), id_sport (INTEGER))
+    Figure_Acrosport(lAcrosport (INTEGER) , laFigure (INTEGER))
     
-    Acrosport(id_acrosport (INTEGER), nom_figure (VARCHAR(30)), nb_personnes (INTEGER), id_sport (INTEGER))
+    Acrosport(id_acrosport (INTEGER),  total_point (INTEGER))
 
-    Figure(id_figure (INTEGER), nom_figure (VARCHAR(30)), nb_personnes (INTEGER), id_sport (INTEGER))
+    Figure(id_figure (INTEGER), nom (VARCHAR(50)),description (VARCHAR(250)), point(INTEGER))
 
-    Natation(id_natation (INTEGER), nb_longueur (INTEGER), plongeons (INTEGER), id_sport (INTEGER))
+    Natation(id_natation (INTEGER), style_nage (VARCHAR(50)), plongeons (INTEGER), nom_bassin (VARCHAR(50)))
 
-    Escalade_Voie(id_escalade_voie (INTEGER), nom_voie (VARCHAR(30)), cotation (VARCHAR(10)), id_sport (INTEGER))
+    Escalade_Voie(lEscalade INTEGER , laVoie INTEGER)
 
-    Voie(id_voie (INTEGER), nom_voie (VARCHAR(30)), cotation (VARCHAR(10)), id_sport (INTEGER))
+    Voie(id_voie(INTEGER), nom_voie (VARCHAR(50)), deg_diffi (INTEGER))
 
-    Escalade(id_escalade (INTEGER), nom_voie (VARCHAR(30)), cotation (VARCHAR(10)), id_sport (INTEGER))
+    Escalade(id_escalade (INTEGER), assureur (VARCHAR(50)), total_diff (INTEGER))
 
 Contraintes textuelles :
 Session :

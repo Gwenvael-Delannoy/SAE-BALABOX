@@ -44,8 +44,8 @@ INSERT INTO Eleve(nom,prenom,sexe,classe,total_points,l_equipe) VALUES ('Jack','
 -- creer un match
 INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,2);   
 
-INSERT INTO Match_eleve(un_match , leleve) VALUES (1,1);
-INSERT INTO Match_eleve(un_match , leleve) VALUES (1,2);
+INSERT INTO Match_Eleve(un_match , leleve) VALUES (1,1);
+INSERT INTO Match_Eleve(un_match , leleve) VALUES (1,2);
 
 -- creer un resultat
 INSERT INTO Resultat(la_session,unEleve)VALUES(5,1);

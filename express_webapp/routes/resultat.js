@@ -9,6 +9,13 @@ var voie_dao = require('../models/dao/dataBase').voie_dao;
 router.get('/', function(req, res, next) {
   
   var idsport = req.query.idSport;
+  var session = req.query.ses;
+  var nombreFigure ='';
+  var afficher ='';
+  if(req.query.nombreFigure !== undefined || req.query.afficher !== undefined ){
+    nombreFigure = req.query.nombreFigure;
+    afficher = req.query.afficher;
+  }
 
   sport_dao.findByKey(idsport, function(err,rows) {
     if (err ) {
@@ -27,7 +34,7 @@ router.get('/', function(req, res, next) {
           else{
             var figures = rows;
             const data = figures.map(figures => figures.nom + " |" + figures.description + " |" + figures.point);
-            res.render('resultat', {sport : nom_sport,figures : data , message : '', afficher : ''});
+            res.render('resultat', {sport : nom_sport,  id_sport : idsport,figures : data , message : '', afficher : afficher , session : session , nombreFigure : nombreFigure});
           }
         });
       }
@@ -39,12 +46,12 @@ router.get('/', function(req, res, next) {
           else{
             var voies = rows;
             const data = voies.map(voies => voies.nom_voie + '|' + voies.deg_diffi);
-            res.render('resultat', {sport : nom_sport, voies : data , message : '', afficher : ''});
+            res.render('resultat', {sport : nom_sport,id_sport : idsport, voies : data , message : '', session : session});
           }
         });
       }
       else{
-        res.render('resultat', {sport : nom_sport,message : ''});
+        res.render('resultat', {sport : nom_sport,message : '', afficher : '', session : session});
       }
     }
   }); 
@@ -52,6 +59,9 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   var nom_sport = req.body.sport;
+  var id_sport = req.body.id_sport;
+  var session = req.body.session;
+
   
   if(nom_sport == 'Acrosport'){
 
@@ -78,18 +88,19 @@ router.post('/', function(req, res, next) {
     }
     else if(req.body.action == 'Remplir'){
       var nombreFigure = req.body.nombreFigure;
+      console.log(nombreFigure);
       var figurestab = [];
       console.log(req.body.figures);
       if (req.body.figures || typeof req.body.figures !== 'undefined'){
         figurestab = req.body.figures.split(',');
       }
-      
-      res.render('resultat',{sport: nom_sport ,figures : figurestab ,nombreFigure : nombreFigure , message : '' , afficher : true});
+      res.redirect('/resultat?ses='+session+'&nombreFigure='+nombreFigure + '&afficher=oui' + '&idSport='+id_sport);
     }
   }
   else if( nom_sport == 'Escalade'){
 
     var la_voie = req.body.voie;
+    console.log(session);
     //spliter la_voie à partir du | et récupèrer le premier élément
     var nom_voie = la_voie.split('|')[0];
     var deg_diffi = la_voie.split('|')[1];
@@ -106,14 +117,13 @@ router.post('/', function(req, res, next) {
         }
         else{
           message= 'voie existante , id : ' + voie[0].id_voie;
-          res.render('resultat',{sport: nom_sport ,message : message, afficher : ''});
+          res.render('resultat',{sport: nom_sport ,message : message, afficher : '' , session : session});
         }
       }
     });
   }
   else{
-    res.render('resultat',{sport: nom_sport ,message : 'Valeur non envoyée !'});
+    res.render('resultat',{sport: nom_sport ,message : 'Valeur non envoyée !' , afficher : '' , session : session});
   }
 });
 
-module.exports = router;
