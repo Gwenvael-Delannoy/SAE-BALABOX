@@ -43,11 +43,53 @@ Header
     color : #e6e3e3;
 }
 
+/* 
+Points
+*/
 
 .titre {
     text-align: center;
 }
 
+.terrain .scoreBord {
+    display: grid;
+    margin-left: auto;
+    margin-right: auto;
+    height: 50px;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    width: 300px;
+}
+
+/* 
+.terrain .point {
+    display : flex;
+    justify-content: center;
+}
+
+.terrain .point .pointAf1{
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    background-color: #f1f1f1;
+    border : 1px solid #000000;
+}
+
+.terrain .point .pointAf2{
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    background-color: #f1f1f1;
+    border : 1px solid #000000;
+}
+
+.terrain .point p{
+    margin: 10px;
+} */
+
+/* 
+Terrain
+*/
 
 .terrain .canvas {
     /* border: 1px solid black; */
