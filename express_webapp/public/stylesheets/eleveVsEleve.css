@@ -91,12 +91,48 @@ ScoreBoard
     color: #ffffff;
 }
 
+.terrain .scoreBord .point{
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.terrain .scoreBord .point .pointB{
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    font-size: 15px;
+    background-color: rgb(0, 218, 0);
+    color: #ffffff;
+    border: none;
+}
+
+
+
+.terrain .scoreBord .point .fauteB{
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    font-size: 15px;
+    border: none;
+    color: #ffffff;
+    background-color: red;
+    
+}
+
+.terrain .scoreBord .point p{
+    margin-right: 10px;
+    margin-left: 10px;
+    font-size: 15px;
+}
+
 /* 
 Terrain
 */
 .terrain .canvas {
     /* border: 1px solid black; */
-    margin-top: 20px;
+    margin-top: 10px;
     display : block;
     margin-left: auto;
     margin-right: auto;
