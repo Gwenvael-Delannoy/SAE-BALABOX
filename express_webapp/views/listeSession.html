@@ -1,13 +1,22 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Liste des sessions</title>
+        <title>Liste des Sessions</title>
+        <link rel="stylesheet" href="/stylesheets/listeSession.css">
+
     </head>
+    <div class ="block">
+        <header class="header">
+            <img class="logo" src="/images/image.jpeg">
+               <a class="lienBoutton" href="/" ><input type = "button" value="Retour"></a>
+        </header>
 
+        <div class ="titre">
+            <h1>Liste des Sessions</h1>
+    </div>
     <body>
-        <h1>Liste des Sessions</h1>
 
-        <div id="add_tournament">
+        <div class="ajout" id="add_tournament">
             <img src="/images/icon_plus.png" width=5% height=10% onclick="location.replace('/crSession');"/>
             <br>
             Ajouter une session
@@ -16,17 +25,22 @@
         <div id='session'>
             <% for(var i = 0; i < session.length; i++) { %> 
                 <form action='/listeSession' method='post' id=<%= session[i].id_session %> style='border: 1px solid black; padding: 10px;'>
-                  Sport : <%= session[i].nom_sport %>
-                  <br>
-                  Identifiant de connexion : <%= session[i].identifiant_con %>
-                  <br>
-                  Date : <%= session[i].date_session %>
-                  <br>
-                  <img name='view' src='/images/icon_oeil.png' width=2% height=4% onclick='location.replace(`/crSession`);'/>
-                  <img name='modif' src='/images/icon_crayon.png' width=2% height=4% onclick='location.replace(`/crSession`);'/>
-                  <button name="delete" value=<%= session[i].id_session %> type='submit'>
-                      <img src='/images/icon_corbeille.png' width=4% height=8% />
-                  </button>
+                    Sport : <%= session[i].nom_sport %>
+                    <br>
+                    Identifiant de connexion : <%= session[i].identifiant_con %>
+                    <br>
+                    Date : <%= session[i].date_session %>
+                    <br>
+                    <button name="action" value="view" type='submit'>
+                        <img src='/images/icon_oeil.png' width=80% height=100% />
+                    </button>
+                    <button name="action" value="update" type='submit'>
+                        <img src='/images/icon_crayon.png' width=80% height=100% />
+                    </button>
+                    <button name="delete" value=<%= session[i].id_session %> type='submit'>
+                        <img src='/images/icon_corbeille.png' width=80% height=100% />
+                    </button>
+                    <input type='hidden' name='id' value=<%= session[i].id_session %>>
                 </form>
               <% } %>              
         </div>
