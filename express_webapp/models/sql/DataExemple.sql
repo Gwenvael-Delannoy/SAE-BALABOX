@@ -51,9 +51,6 @@ INSERT INTO Match_Eleve(un_match , leleve) VALUES (1,2);
 INSERT INTO Resultat(la_session,unEleve)VALUES(5,1);
 INSERT INTO Resultat(la_session,unEleve)VALUES(5,2);
 
-INSERT INTO Escalade(id_escalade, assureur, total_diff)VALUES(1,"Michel", 2);
-
-INSERT INTO Escalade_Voie(lEscalade, laVoie)VALUES(1,1);
 
 -- creer des voies d'escalade
 INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('La redoutable',10);
@@ -62,6 +59,11 @@ INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('La pente',12);
 INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('La roue tournante',13);
 INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('L enfer',14);
 
+
+INSERT INTO Escalade(id_escalade, assureur, total_diff)VALUES(1,"Michel", 2);
+
+INSERT INTO Escalade_Voie(lEscalade, laVoie)VALUES(1,1);
+
 -- creer des figures d'acrosport
 INSERT INTO Figure(nom,description,point) VALUES ('figure 1','figure 1',1);
 INSERT INTO Figure(nom,description,point) VALUES ('figure 2','figure 2',2);
@@ -69,4 +71,4 @@ INSERT INTO Figure(nom,description,point) VALUES ('figure 3','figure 3',3);
 INSERT INTO Figure(nom,description,point) VALUES ('figure 4','figure 4',4);
 
 
-SELECT * FROM Resultat, Escalade, Escalade_Voie, Voie WHERE id_resultat = id_escalade AND id_escalade = lEscalade AND id_voie = laVoie AND id_session =5;
+SELECT * FROM Resultat, Escalade, Escalade_Voie, Voie WHERE id_resultat = id_escalade AND id_escalade = lEscalade AND id_voie = laVoie ;
