@@ -4,7 +4,7 @@ var router = express.Router();
 var session_dao =  require('../models/dao/dataBase').session_dao;
 
 
-/* GET home page. */
+/* Recuperer la page qui liste toutes les session créer par le professeur connecté . */
 router.get('/', function(req, res, next) {
   session_dao.FindSessionProfSport("Raul Adrien",function(err,rows) {
     if (err ) {

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var eleve_dao = require('../models/dao/dataBase').eleve_dao;
 
-/* GET home page. qui renvoie la page et donne un tableau de string avec les prenom des eleve */
+/* Recupere la page de classement des eleves et qui renvoie un tableau de string avec les prenoms des eleves */
 router.get('/', function(req, res, next) {
         var data1;
         var session = req.query.ses;

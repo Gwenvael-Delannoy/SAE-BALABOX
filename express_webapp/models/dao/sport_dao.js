@@ -1,5 +1,5 @@
 /**
- * DAO for Sport
+ * DAO pour Sport
  */
 var Sport = require('../sport');
 var smt = require('./mysql_connection');
@@ -7,7 +7,7 @@ var smt = require('./mysql_connection');
 var SportDAO = function(){
 
     /**
-     * Insert a new sport in the database
+     * Inserer un nouveau sport dans la base de données
      * @param {Sport} sport
      * @param {function} callback
      * @returns {void}
@@ -20,7 +20,7 @@ var SportDAO = function(){
     };
 
     /**
-     * Update a sport in the database
+     * Mettre à jour un sprot dans la base de données
      * @param {int} key
      * @param {Sport} sport
      * @param {function} callback
@@ -34,7 +34,7 @@ var SportDAO = function(){
     };
 
     /**
-     * Delete a sport in the database
+     * Supprimer un sport de la base de données
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -46,7 +46,7 @@ var SportDAO = function(){
     };
 
     /**
-     * Find all sport in the database
+     * Trouver toutes les sports présentes dans la base de données
      * @param {function} callback
      * @returns {Sport[]}
      */ 
@@ -57,7 +57,7 @@ var SportDAO = function(){
     };
 
     /**
-     * Find a sport in the database by the key of the sport
+     * Trouver un sport dans la base de données par son identifiant
      * @param {int} key
      * @param {function} callback
      * @returns {Sport}
@@ -69,7 +69,7 @@ var SportDAO = function(){
     };
 
     /**
-     * Find a sport in the database by the name of the sport
+     * Trouver un sport dans la base de données par son nom
      * @param {string} name
      * @param {function} callback
      * @returns {Sport}
@@ -79,12 +79,18 @@ var SportDAO = function(){
         var sql6 = "SELECT * FROM Sport WHERE nom_sport= '" + name + "';";
         smt.query(sql6,callback);
     };
-
+    /**
+     * Utiliser la bonne base de données
+     * @param {function} callback
+     */
     this.use = function(callback){
         var sql7 = "USE balabox_sport_db;";
         smt.query(sql7, callback);
     };
-
+    /**
+     * Supprimer toutes les sports dans la base de données
+     * @param {function} callback
+     */
     this.deleteAll = function(callback){
         this.use(null);
         var sql8 = "DELETE FROM Sport;";

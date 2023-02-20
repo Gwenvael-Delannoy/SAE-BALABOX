@@ -1,5 +1,5 @@
 /**
- * DAO for Equipe
+ * DAO pour Equipe
  */
 var Equipe = require('../Equipe');
 var smt = require('./mysql_connection');
@@ -7,7 +7,7 @@ var smt = require('./mysql_connection');
 var EquipeDAO = function() {
 
     /**
-     * Inserter a new Equipe in the database
+     * Inserer une nouvelle équipe dans la base de données
      * @param {Equipe} equipe
      * @param {function} callback
      * @returns {void}
@@ -20,7 +20,7 @@ var EquipeDAO = function() {
     };
 
     /**
-     * Update a Equipe in the database
+     * Mettre à jour une equipe dans la base de données
      * @param {int} key
      * @param {Equipe} equipe
      * @param {function} callback
@@ -34,7 +34,7 @@ var EquipeDAO = function() {
     };
 
     /**
-     * Delete a Equipe in the database
+     * Supprimer une equipe de la base de données
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -46,7 +46,7 @@ var EquipeDAO = function() {
     };
 
     /**
-     * Find all Equipe in the database
+     * Trouver toutes les equipes présentes dans la base de données 
      * @param {function} callback
      * @returns {Equipe[]}
      */
@@ -57,7 +57,7 @@ var EquipeDAO = function() {
     };
 
     /**
-     * Find a Equipe in the database by the key of the Equipe
+     * Trouver une equipe dans la base de données par son identifiant
      * @param {int} key
      * @param {function} callback
      * @returns {Equipe}
@@ -68,11 +68,18 @@ var EquipeDAO = function() {
         smt.query(sql5, callback);
     };
 
+    /**
+     * Utiliser la bonne base de données
+     * @param {function} callback
+     */
     this.use = function(callback) {
         var sql7 = "USE balabox_sport_db;";
         smt.query(sql7, callback);
     }
-
+    /**
+     * Supprimer toutes les equipes dans la base de données
+     * @param {function} callback
+     */
     this.deleteAll = function(callback) {
         this.use(null);
         var sql6 = "DELETE FROM Equipe;";

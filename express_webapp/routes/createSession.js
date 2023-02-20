@@ -4,7 +4,7 @@ var sport_dao = require('../models/dao/dataBase').sport_dao;
 var session_dao = require('../models/dao/dataBase').session_dao;
 var session = require('../models/session');
 
-/* GET home page. */
+/* Recuperer la page de creation de session. */
 router.get('/', function(req, res, next) {
   var data1;
   sport_dao.findAll(function(err, rows) {

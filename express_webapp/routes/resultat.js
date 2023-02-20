@@ -5,7 +5,7 @@ var acrosport_dao = require('../models/dao/dataBase').acrosport_dao;
 var figure_dao = require('../models/dao/dataBase').figure_dao;
 var voie_dao = require('../models/dao/dataBase').voie_dao;
 
-/* GET home page. */
+/* Recuperer la page qui permet la saisie des resultats sportifs en faisant la differenciation pour chaque sport. */
 router.get('/', function(req, res, next) {
   
   var idsport = req.query.idSport;
@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
 
   sport_dao.findByKey(idsport, function(err,rows) {
     if (err ) {
-      messageError ='Connexion a la base de donnée impossible';
+      messageError ='Connexion à la base de donnée impossible';
     }
     else{
       var sport = rows;

@@ -1,5 +1,5 @@
 /**
- * DAO for Figure
+ * DAO pour Figure
  */
 var Figure = require('../figure');
 var smt = require('./mysql_connection');
@@ -7,7 +7,7 @@ var smt = require('./mysql_connection');
 var FigureDAO = function() {
 
     /**
-     * Insert a new figure in the database
+     * Inserer une nouvelle figure dans la base de données
      * @param {Figure} figure
      * @param {function} callback
      * @returns {void}
@@ -20,7 +20,7 @@ var FigureDAO = function() {
     };
 
     /**
-     * Update a figure in the database
+     *  Mettre à jour une figure dans la base de données
      * @param {int} key
      * @param {Figure} figure
      * @param {function} callback
@@ -34,7 +34,7 @@ var FigureDAO = function() {
     };
     
     /**
-     * Delete a figure in the database
+     * Supprimer une figure de la base de données
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -46,7 +46,7 @@ var FigureDAO = function() {
     };
 
     /**
-     * Find all figure in the database
+     * Trouver toutes les figures présentes dans la base de données 
      * @param {function} callback
      * @returns {Figure[]}
      */
@@ -57,7 +57,7 @@ var FigureDAO = function() {
     };
 
     /**
-     * Find a figure in the database by the key of the figure
+     * Trouver une figure dans la base de données par son identifiant
      * @param {int} key
      * @param {function} callback
      * @returns {Figure}
@@ -67,17 +67,30 @@ var FigureDAO = function() {
         var sql5 = "SELECT * FROM Figure WHERE id_figure = " + key + ";";
         smt.query(sql5, callback);
     };
+        /**
+     * Trouver une figure dans la base de données par son nom
+     * @param {int} key
+     * @param {function} callback
+     * @returns {Figure}
+     */
     this.findByNom = function(nom, callback) {
         this.use(null);
         var sql6 = "SELECT * FROM Figure WHERE nom = " + nom + ";";
         smt.query(sql6, callback);
     };
 
+    /**
+     * Utiliser la bonne base de données
+     * @param {function} callback
+     */
     this.use = function(callback){
         var sql7 = "USE balabox_sport_db;";
         smt.query(sql7, callback);
     };
-
+    /**
+     * Supprimer toutes les figures dans la base de données
+     * @param {function} callback
+     */
     this.deleteAll = function(callback){
         this.use(null);
         var sql8 = "DELETE FROM Figure;";

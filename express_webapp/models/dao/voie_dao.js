@@ -1,5 +1,5 @@
 /**
- * DAO for Voie
+ * DAO pour Voie
  */
 
 var Voie = require('../voie');
@@ -8,7 +8,7 @@ var smt = require('./mysql_connection');
 var VoieDAO = function() {
 
     /**
-     * Insert a new Voie in the database
+     * Inserer une nouvelle voie d'escalade dans la base de données
      * @param {Voie} voie
      * @param {function} callback
      * @returns {void}
@@ -21,7 +21,7 @@ var VoieDAO = function() {
     };
 
     /**
-     * Updates the Voie in the database
+     * Mettre à jour une voie dans la base de données
      * @param {int} key
      * @param {Voie} voie
      * @param {function} callback
@@ -35,7 +35,7 @@ var VoieDAO = function() {
     };
 
     /**
-     * Delete a Voie in the database
+     * Supprimer une voie de la base de données
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -47,7 +47,7 @@ var VoieDAO = function() {
     };
 
     /**
-     * Find all Voie in the database
+     * Trouver toutes les voies présentes dans la base de données
      * @param {function} callback
      * @returns {Voie[]}
      */
@@ -58,7 +58,7 @@ var VoieDAO = function() {
     }
 
     /**
-     * Find a Voie in the database by the key of the Voie
+     * Trouver une voie dans la base de données par son identifiant
      * @param {int} key
      * @param {function} callback
      * @returns {Voie}
@@ -68,17 +68,30 @@ var VoieDAO = function() {
         var sql5 = "SELECT * FROM Voie WHERE id_voie=" + key + ";";
         smt.query(sql5, callback);
     };
+        /**
+     * Trouver une voie dans la base de données par son nom
+     * @param {int} key
+     * @param {function} callback
+     * @returns {Voie}
+     */
     this.findByNom = function(nom, callback) {
         this.use(null);
         var sql6 = "SELECT * FROM Voie WHERE nom_voie='" + nom + "';";
         smt.query(sql6, callback);
     };
     
+    /**
+     * Utiliser la bonne base de données
+     * @param {function} callback
+     */
     this.use = function(callback){
         var sql7 = "USE balabox_sport_db;";
         smt.query(sql7, callback);
     };
-
+    /**
+     * Supprimer toutes les voies dans la base de données
+     * @param {function} callback
+     */
     this.deleteAll = function(callback){
         this.use(null);
         var sql8 = "DELETE FROM Voie;";

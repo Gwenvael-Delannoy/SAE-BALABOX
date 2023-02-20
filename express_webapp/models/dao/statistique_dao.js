@@ -1,5 +1,5 @@
 /**
- * DAO for Statistique
+ * DAO pour Statistique
  */
 var Statistique = require('../statistique');
 var smt = require('./mysql_connection');
@@ -7,7 +7,7 @@ var smt = require('./mysql_connection');
 var StatistiqueDAO = function(){
 
     /**
-     * Insert a new Statistique in the database
+     * Inserer une nouvelle statisitque dans la base de données
      * @param {Statistique} statistique
      * @param {function} callback
      * @returns {void}
@@ -20,7 +20,7 @@ var StatistiqueDAO = function(){
     };
 
     /**
-     * Update a Statistique in the database
+     * Mettre à jour une statistique dans la base de données
      * @param {int} key
      * @param {Statistique} statistique
      * @param {function} callback
@@ -34,7 +34,7 @@ var StatistiqueDAO = function(){
     };
 
     /**
-     * Delete a Statistique in the database
+     * Supprimer une statistique de la base de données
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -46,7 +46,7 @@ var StatistiqueDAO = function(){
     };
 
     /**
-     * Find all Statistique in the database
+     * Trouver toutes les statistiques présentes dans la base de données 
      * @param {function} callback
      * @returns {Statistique[]}
      */ 
@@ -57,7 +57,7 @@ var StatistiqueDAO = function(){
     };
 
     /**
-     * Find a Statistique in the database by the key of the Statistique
+     * Trouver une statistique dans la base de données par son identifiant
      * @param {int} key
      * @param {function} callback
      * @returns {Statistique}
@@ -68,11 +68,18 @@ var StatistiqueDAO = function(){
         smt.query(sql5,callback);
     };
 
+    /**
+     * Utiliser la bonne base de données
+     * @param {function} callback
+     */
     this.use = function(callback){
         var sql7 = "USE balabox_sport_db;";
         smt.query(sql7, callback);
     };
-
+    /**
+     * Supprimer toutes les statistiques dans la base de données
+     * @param {function} callback
+     */
     this.deleteAll = function(callback){
         this.use(null);
         var sql8 = "DELETE FROM Statistique;";

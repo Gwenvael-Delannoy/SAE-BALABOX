@@ -6,7 +6,7 @@
 -- @VERSION 1.0
 
 /**
-* Create the database and configure it.
+* Creer une base de données et la configurer
 */
 
 CREATE DATABASE IF NOT EXISTS balabox_sport_db;

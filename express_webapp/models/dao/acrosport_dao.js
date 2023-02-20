@@ -1,5 +1,5 @@
 /**
- * DAO for Acrosport
+ * DAO Pour Acrosport
  */
 var Acrosport = require('../acrosport');
 var smt = require('./mysql_connection');
@@ -7,20 +7,20 @@ var smt = require('./mysql_connection');
 var AcrosportDAO = function() {
 
     /**
-     * Insert a new Acrosport in the database
+     * Insérer un nouveau Acrosport dans la base de données
      * @param {Acrosport} acrosport
      * @param {function} callback
      * @returns {void}
      */
     this.insert = function(acrosport, callback) {
         this.use(null);
-        values = [ acrosport.getTotalPoint(), acrosport.getLesFigures()];
-        var sql = "INSERT INTO Acrosport (total_point  , lesFigures) VALUES (?,?)";
-        smt.query(sql, values ,callback);
+        var valeurs = [acrosport.getTotalPoint(), acrosport.getLesFigures()];
+        var sql = "INSERT INTO Acrosport (total_point, lesFigures) VALUES (?, ?)";
+        smt.query(sql, valeurs, callback);
     };
 
     /**
-     * Update a Acrosport in the database
+     * Mettre à jour un Acrosport dans la base de données
      * @param {int} key
      * @param {Acrosport} acrosport
      * @param {function} callback
@@ -28,55 +28,65 @@ var AcrosportDAO = function() {
      */
     this.update = function(key, acrosport, callback) {
         this.use(null);
-        values = [acrosport.getId(), acrosport.getTotalPoint()];
-        var sql2 = "UPDATE Acrosport SET total_point=? WHERE id_acrosport= " + key + ";";
-        smt.query(sql2,values, callback);
+        var valeurs = [acrosport.getId(), acrosport.getTotalPoint()];
+        var sql = "UPDATE Acrosport SET total_point=? WHERE id_acrosport=" + key + ";";
+        smt.query(sql, valeurs, callback);
     };
 
     /**
-     * Delete a Acrosport in the database
+     * Supprimer un Acrosport dans la base de données
      * @param {int} key
      * @param {function} callback
      * @returns {void}
      */
     this.delete = function(key, callback) {
         this.use(null);
-        var sql3 = "DELETE FROM Acrosport WHERE id_acrosport= " + key + ";";
-        smt.query(sql3, callback);
+        var sql = "DELETE FROM Acrosport WHERE id_acrosport=" + key + ";";
+        smt.query(sql, callback);
     };
 
     /**
-     * Find all Acrosport in the database
+     * Trouver tous les Acrosport dans la base de données
      * @param {function} callback
      * @returns {Acrosport[]}
      */
     this.findAll = function(callback) {
         this.use(null);
-        var sql4 = "SELECT * FROM Acrosport;";
-        smt.query(sql4,  callback);
+        var sql = "SELECT * FROM Acrosport;";
+        smt.query(sql, callback);
     }
 
     /**
-     * Find a Acrosport in the database by the key of the Acrosport
+     * Trouver un Acrosport dans la base de données par la clé de l'Acrosport
      * @param {int} key
      * @param {function} callback
      * @returns {Acrosport}
      */
     this.findByKey = function(key, callback) {
         this.use(null);
-        var sql5 = "SELECT * FROM Acrosport WHERE id_acrosport= " + key + ";";
-        smt.query(sql5, callback);
+        var sql = "SELECT * FROM Acrosport WHERE id_acrosport=" + key + ";";
+        smt.query(sql, callback);
     };
 
-    this.use = function(callback){
-        var sql7 = "USE balabox_sport_db;";
-        smt.query(sql7, callback);
+    /**
+     * Utiliser la base de données balabox_sport_db
+     * @param {function} callback
+     * @returns {void}
+     */
+    this.use = function(callback) {
+        var sql = "USE balabox_sport_db;";
+        smt.query(sql, callback);
     };
 
-    this.deleteAll = function(callback){
+    /**
+     * Supprimer tous les Acrosport dans la base de données
+     * @param {function} callback
+     * @returns {void}
+     */
+    this.deleteAll = function(callback) {
         this.use(null);
-        var sql8 = "DELETE FROM Acrosport;";
-        smt.query(sql8,callback);
+        var sql = "DELETE FROM Acrosport;";
+        smt.query(sql, callback);
     };
 };
 

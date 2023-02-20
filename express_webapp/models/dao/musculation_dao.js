@@ -1,5 +1,5 @@
 /**
- * DAO for Musculation
+ * DAO pour Musculation
  */
 var Musculation = require('../musculation');
 var smt = require('./mysql_connection');
@@ -7,7 +7,7 @@ var smt = require('./mysql_connection');
 var MusculationDAO = function(){
 
     /**
-     * Insert a new musculation in the database
+     * Inserer une nouvelle donnée musculation dans la base de données
      * @param {Musculation} musculation
      * @param {function} callback
      * @returns {void}
@@ -20,7 +20,7 @@ var MusculationDAO = function(){
     };
 
     /**
-     * Update a musculation in the database
+     * Mettre à jour une donnée musculation dans la base de données
      * @param {int} key
      * @param {Musculation} musculation
      * @param {function} callback
@@ -34,7 +34,7 @@ var MusculationDAO = function(){
     };
 
     /**
-     * Delete a musculation in the database
+     * Supprimer une donnée musculation de la base de données
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -46,7 +46,7 @@ var MusculationDAO = function(){
     };
 
     /**
-     * Find all musculation in the database
+     * Trouver toutes les données musculation présentes dans la base de données 
      * @param {function} callback
      * @returns {Musculation[]}
      */ 
@@ -57,7 +57,7 @@ var MusculationDAO = function(){
     };
 
     /**
-     * Find a musculation in the database by the key of the musculation
+     * Trouver une donnée musculation dans la base de données par son identifiant
      * @param {int} key
      * @param {function} callback
      * @returns {Musculation}
@@ -67,12 +67,18 @@ var MusculationDAO = function(){
         var sql5 = "SELECT * FROM Musculation WHERE id_musculation = " + key + ";";
         smt.query(sql5,callback);
     };
-
+    /**
+     * Utiliser la bonne base de données
+     * @param {function} callback
+     */
     this.use = function(callback){
         var sql7 = "USE balabox_sport_db;";
         smt.query(sql7, callback);
     };
-
+    /**
+     * Supprimer toutes les données musculation dans la base de données
+     * @param {function} callback
+     */
     this.deleteAll = function(callback){
         this.use(null);
         var sql8 = "DELETE FROM Musculation;";

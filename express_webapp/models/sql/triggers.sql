@@ -1,5 +1,5 @@
 -----------
--- trigger to if there is 2 teams per match
+-- trigger pour tester qu'il n'y est pas plus de deux equipes par match.
 -----------
 DROP TRIGGER IF EXISTS trig_match_equipe_insert;
 

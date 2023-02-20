@@ -1,5 +1,5 @@
 /**
- * DAO for session
+ * DAO pour session
  */
 var Session = require('../session');
 var smt = require('./mysql_connection');
@@ -7,7 +7,7 @@ var smt = require('./mysql_connection');
 var SessionDAO = function(){
     
     /**
-        * Insert a new session in the database
+        * Inserer une nouvelle session dans la base de données
         * @param {Session} session
         * @param {function} callback
         * @returns {void}
@@ -20,7 +20,7 @@ var SessionDAO = function(){
     };
 
     /**
-     * Update a session in the database
+     * Mettre à jour une session dans la base de données
      * @param {int} key
      * @param {Session} session
      * @param {function} callback
@@ -34,7 +34,7 @@ var SessionDAO = function(){
     };
 
     /**
-     * Delete a session in the database
+     * Supprimer une session de la base de données
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -46,7 +46,7 @@ var SessionDAO = function(){
     };
 
     /**
-     * Find all session in the database
+     * Trouver toutes les sessions présentes dans la base de données 
      * @param {function} callback
      * @returns {Session[]}
      */
@@ -57,7 +57,7 @@ var SessionDAO = function(){
     };
 
     /**
-     * Find a session in the database by the key of the session
+     * Trouver une session dans la base de données par son identifiant
      * @param {int} key
      * @param {function} callback
      * @returns {Session}
@@ -69,7 +69,7 @@ var SessionDAO = function(){
     };
 
     /**
-     * Find a session in the database by the id_connection
+     * Trouver une session dans la base de données par son identifiant de connection
      * @param {string} id_con 
      * @param {function} callback 
      * @return {Session}
@@ -81,7 +81,7 @@ var SessionDAO = function(){
     };
 
     /**
-     * Find a session with his sport in the database by the professeur
+     * Trouver une session dans la base de données avec le nom du professeur et le sport
      * @param {string} nomProf 
      * @param {function} callback 
      * @return {Session}
@@ -93,7 +93,7 @@ var SessionDAO = function(){
     };
 
     /**
-     * Delete a session of type 'resultat' in the database
+     * Supprimer une session de la base de données où la saisie est seulement des resultats
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -105,7 +105,7 @@ var SessionDAO = function(){
     };
 
     /**
-     * Delete a session of type 'tournois' in the database
+     * Supprimer une session de la base de données où la saisie est seulement des tournois
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -115,7 +115,10 @@ var SessionDAO = function(){
         var sql10 = "DELETE FROM Session, Resultat, Musculation, Escalade, Natation, Acrosport, Step, Figure_Acrosport, Figure, Escalade_Voie, Voie WHERE id_resultat = id_musculation OR id_resultat = id_escalade OR id_escalade = lEscalade OR id_voie = laVoie OR id_resultat = id_natation OR id_resultat = id_acrosport OR id_acrosport = lAcrosport OR id_figure = laFigure OR id_resultat = id_step AND la_session = id_session AND id_session ="+key+";";
         smt.query(sql10,callback);
     };
-
+    /**
+     * Utiliser la bonne base de données
+     * @param {function} callback
+     */
     this.use = function(callback){
         var sql = "USE balabox_sport_db;";
         smt.query(sql, callback);

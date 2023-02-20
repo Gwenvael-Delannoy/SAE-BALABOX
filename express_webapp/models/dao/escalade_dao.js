@@ -1,5 +1,5 @@
 /**
- * DAO for Escalade
+ * DAO pour Escalade
  */
 var Escalade = require('../escalade');
 var smt = require('./mysql_connection');
@@ -7,7 +7,7 @@ var smt = require('./mysql_connection');
 var EscaladeDAO = function() {
 
     /**
-     * Insert a new escalade in the database
+     * Inserer une nouvelle donnée escalade dans la base de données
      * @param {Escalade} escalade
      * @param {function} callback
      * @returns {void}
@@ -20,7 +20,7 @@ var EscaladeDAO = function() {
     };
 
     /**
-     * Update a escalade in the database
+     * Mettre à jour une donnée escalade dans la base de données
      * @param {int} key
      * @param {Escalade} escalade
      * @param {function} callback
@@ -34,7 +34,7 @@ var EscaladeDAO = function() {
     };
 
     /**
-     * Delete a escalade in the database
+     * Supprimer une donnée escalade de la base de données
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -46,7 +46,7 @@ var EscaladeDAO = function() {
     };
 
     /**
-     * Find all escalade in the database
+     * Trouver toutes les données escalade présentes dans la base de données
      * @param {function} callback
      * @returns {Escalade[]}
      */
@@ -57,7 +57,7 @@ var EscaladeDAO = function() {
     };
 
     /**
-     * Find a escalade in the database by the key of the escalade
+     * Trouver une donnée escalade dans la base de données par son identifiant
      * @param {int} key
      * @param {function} callback
      * @returns {Escalade}
@@ -67,12 +67,18 @@ var EscaladeDAO = function() {
         var sql5 = "SELECT * FROM Escalade WHERE id_escalade= " + key + ";";
         smt.query(sql5, callback);
     };
-
+    /**
+     * Utiliser la bonne base de données
+     * @param {function} callback
+     */
     this.use = function(callback){
         var sql6 = "USE balabox_sport_db;";
         smt.query(sql6, callback);
     };
-
+    /**
+     * Supprimer toutes les données escalade de la base de données
+     * @param {function} callback
+     */
     this.deleteAll = function(callback){
         this.use(null);
         var sql7 = "DELETE FROM Escalade;";

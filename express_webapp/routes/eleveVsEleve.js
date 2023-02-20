@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+/* Recuperer la page de match entre deux eleves. */
 router.get('/', function(req, res, next) {
     res.render('eleve_contre_eleve');
 });

@@ -1,5 +1,5 @@
 /**
- * DAO for match.
+ * DAO pour match.
  */
 
 var Match = require('../match');
@@ -7,7 +7,7 @@ var smt = require('./mysql_connection');
 
 var MatchDAO = function () {
     /**
-     * Insert a new match in the database
+     * Inserer un nouveau match dans la base de données
      * @param {Match} match
      * @param {function} callback
      * @returns {void}
@@ -20,7 +20,7 @@ var MatchDAO = function () {
     };
 
     /**
-     * insert the association between a match and an equipe
+     * Inserer une nouvelle association entre un match et une equipe
      * @param {int} key
      * @param {int} match
      * @param {function} callback
@@ -34,7 +34,7 @@ var MatchDAO = function () {
     }
 
     /**
-     * insert the association between a match and an eleve
+     * Inserer une nouvelle association entre un match et un eleve
      * @param {int} key1 
      * @param {int} key2 
      * @param {function} callback 
@@ -48,7 +48,7 @@ var MatchDAO = function () {
     }
 
     /**
-     * find all the association between a match and an eleve
+     * Trouver toutes les match présentes dans la base de données pour un eleve
      * @param {function} callback 
      */
     this.findAllMatch_Eleves = function(callback){
@@ -58,7 +58,7 @@ var MatchDAO = function () {
     }
 
     /**
-     * find all the association between a match and an equipe
+     * Trouver toutes les match présentes dans la base de données pour une equipe
      * @param {function} callback 
      */
     this.findAllMatch_Equipes = function(callback){
@@ -68,7 +68,7 @@ var MatchDAO = function () {
     }
 
     /**
-     * find the association between a match and an eleve by the match
+     * Trouver un match pour un eleve par son identifiant de match
      * @param {int} key 
      * @param {function} callback 
      */
@@ -79,7 +79,7 @@ var MatchDAO = function () {
     }
 
     /**
-     * find the association between a match and an equipes by the match
+     * Trouver un match pour une equipe par son identifiant de match
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -91,7 +91,7 @@ var MatchDAO = function () {
     }
     
     /**
-     * find the association between a match and an equipes by the equipes
+     * Trouver un match pour une equipe par son identifiant de l'equipe
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -103,7 +103,7 @@ var MatchDAO = function () {
     }
 
     /**
-     * delete the association between a match and an eleve by the match
+     * Supprimer un match pour un eleve de la base de données par l'identifiant du match
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -115,7 +115,7 @@ var MatchDAO = function () {
     }
 
     /**
-     * delete the association between a match and an equipe by the match
+     * Supprimer un match pour une equipe de la base de données par l'identifiant du match
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -127,7 +127,7 @@ var MatchDAO = function () {
     }
 
     /**
-     * delete the association between a match and an equipe by the equipe
+     * Supprimer un match pour un eleve de la base de données par l'identifiant de l'eleve
      * @param {int} key 
      * @param {function} callback
      * @returns {void}
@@ -139,7 +139,7 @@ var MatchDAO = function () {
     }
 
     /**
-     * delete the association between a match and an equipe by the equipe
+     * Supprimer un match pour une equipe de la base de données par l'identifiant de l'equipe
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -151,7 +151,7 @@ var MatchDAO = function () {
     }
 
     /**
-     * Update a match in the database
+     * Mettre à jour un match dans la base de données
      * @param {int} key
      * @param {Match} match
      * @param {function} callback
@@ -166,7 +166,7 @@ var MatchDAO = function () {
     };
 
     /**
-     * Delete a match in the database
+     * Supprimer un match de la base de données
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -180,7 +180,7 @@ var MatchDAO = function () {
     };
 
     /**
-     * Find all match in the database
+     * Trouver tout les match présents dans la base de données
      * @param {function} callback
      * @returns {Match[]}
      */
@@ -191,7 +191,7 @@ var MatchDAO = function () {
     };
 
     /**
-     * Find a match in the database by the key of the match
+     * Trouver un match dans la base de données par son identifiant
      * @param {int} key
      * @param {function} callback
      * @returns {Match}
@@ -203,7 +203,7 @@ var MatchDAO = function () {
     };
 
     /**
-     * Find all match in the database by the key of the session
+     * Trouver les matchs dans la base de données par sa session
      * @param {int} key
      * @param {function} callback
      * @returns {Match[]}
@@ -215,9 +215,8 @@ var MatchDAO = function () {
     };
 
     /**
-     * Use the database balabox_sport_db
+     * Utiliser la bonne base de données
      * @param {function} callback
-     * @returns {void}
      */
     this.use = function(callback){
         var sql7 = "USE balabox_sport_db;";

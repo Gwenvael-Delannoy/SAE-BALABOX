@@ -5,7 +5,7 @@ var eleve_dao =  require('../models/dao/dataBase').eleve_dao;
 var eleve = require('../models/eleve');
 
 
-/* GET home page. */
+/* Recuperer la page d'accueuil. */
 router.get('/', function(req, res, next) {
   var qui_est_connecte = process.env.whoami;
   var professeur ='oui';

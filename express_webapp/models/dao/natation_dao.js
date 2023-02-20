@@ -1,5 +1,5 @@
 /**
- * DAO for Natation
+ * DAO pour Natation
  */
 var Natation = require('../natation');
 var smt = require('./mysql_connection');
@@ -7,7 +7,7 @@ var smt = require('./mysql_connection');
 var NatationDAO = function(){
 
     /**
-     * Insert a new natation in the database
+     * Inserer une nouvelle donnée natation dans la base de données
      * @param {Natation} natation
      * @param {function} callback
      * @returns {void}
@@ -20,7 +20,7 @@ var NatationDAO = function(){
     };
 
     /**
-     * Update a natation in the database
+     * Mettre à jour une donnée natation dans la base de données
      * @param {int} key
      * @param {Natation} natation
      * @param {function} callback
@@ -34,7 +34,7 @@ var NatationDAO = function(){
     };
 
     /**
-     * Delete a natation in the database
+     * Supprimer une donnée natation de la base de données
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -46,7 +46,7 @@ var NatationDAO = function(){
     };
 
     /**
-     * Find all natation in the database
+     * Trouver toutes les données natation présentes dans la base de données
      * @param {function} callback
      * @returns {Natation[]}
      */ 
@@ -57,7 +57,7 @@ var NatationDAO = function(){
     };
 
     /**
-     * Find a natation in the database by the key of the natation
+     * Trouver une donnée natation dans la base de données par son identifiant
      * @param {int} key
      * @param {function} callback
      * @returns {Natation}
@@ -67,12 +67,18 @@ var NatationDAO = function(){
         var sql5 = "SELECT * FROM Natation WHERE id_natation = " + key + ";";
         smt.query(sql5,callback);
     };
-
+    /**
+     * Utiliser la bonne base de données
+     * @param {function} callback
+     */
     this.use = function(callback){
         var sql7 = "USE balabox_sport_db;";
         smt.query(sql7, callback);
     };
-
+    /**
+     * Supprimer toutes les doonnées natation dans la base de données
+     * @param {function} callback
+     */
     this.deleteAll = function(callback){
         this.use(null);
         var sql8 = "DELETE FROM Natation;";

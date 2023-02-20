@@ -1,5 +1,5 @@
 /**
- * DAO for Musculation
+ * DAO pour Step
  */
 var Step = require('../step');
 var smt = require('./mysql_connection');
@@ -7,7 +7,7 @@ var smt = require('./mysql_connection');
 var StepDAO = function(){
 
     /**
-     * Insert a new step in the database
+     * Inserer une nouvelle donnée step dans la base de données
      * @param {Step} step
      * @param {function} callback
      * @returns {void}
@@ -20,7 +20,7 @@ var StepDAO = function(){
     };
 
     /**
-     * Update a Step in the database
+     *  Mettre à jour une donnée step dans la base de données
      * @param {int} key
      * @param {Step} step
      * @param {function} callback
@@ -34,7 +34,7 @@ var StepDAO = function(){
     };
 
     /**
-     * Delete a Step in the database
+     * Supprimer une donnée step de la base de données
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -46,7 +46,7 @@ var StepDAO = function(){
     };
 
     /**
-     * Find all step in the database
+     * Trouver toutes les données step présentes dans la base de données 
      * @param {function} callback
      * @returns {Step[]}
      */ 
@@ -57,7 +57,7 @@ var StepDAO = function(){
     };
 
     /**
-     * Find a step in the database by the key of the step
+     * Trouver une donnée step dans la base de données par son identifiant
      * @param {int} key
      * @param {function} callback
      * @returns {Step}
@@ -67,12 +67,18 @@ var StepDAO = function(){
         var sql5 = "SELECT * FROM Step WHERE id_step = " + key + ";";
         smt.query(sql5,callback);
     };
-
+    /**
+     * Utiliser la bonne base de données
+     * @param {function} callback
+     */
     this.use = function(callback){
         var sql7 = "USE balabox_sport_db;";
         smt.query(sql7, callback);
     };
-
+    /**
+     * Supprimer toutes les données step dans la base de données
+     * @param {function} callback
+     */
     this.deleteAll = function(callback){
         this.use(null);
         var sql8 = "DELETE FROM Step;";

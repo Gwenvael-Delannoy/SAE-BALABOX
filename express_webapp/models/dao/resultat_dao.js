@@ -1,5 +1,5 @@
 /**
- * DAO for Resultat
+ * DAO pour Resultat
  */
 
 var Resultat = require('../resultat');
@@ -9,7 +9,7 @@ var ResultatDAO = function() {
 
 
     /**
-     * Insert a new Resultat in the database
+     * Inserer un nouveau resultat dans la base de données
      * @param {Resultat} resultat
      * @param {function} callback
      * @returns {void}
@@ -22,7 +22,7 @@ var ResultatDAO = function() {
     };
 
     /**
-     * Update a Resultat in the database
+     * Mettre à jour un resultat dans la base de données
      * @param {int} key
      * @param {Resultat} resultat
      * @param {function} callback
@@ -36,7 +36,7 @@ var ResultatDAO = function() {
     };
 
     /**
-     * Delete a Resultat in the database
+     * Supprimer un resultat de la base de données
      * @param {int} key
      * @param {function} callback
      * @returns {void}
@@ -48,7 +48,7 @@ var ResultatDAO = function() {
     };
 
     /**
-     * Find all Resultat in the database
+     * Trouver tout les resultats présent dans la base de données 
      * @param {function} callback
      * @returns {Resultat[]}
      */
@@ -59,7 +59,7 @@ var ResultatDAO = function() {
     };
 
     /**
-     * Find all Resultat in the database by the key of the Resultat
+     * Trouver un resultat dans la base de données par son identifiant
      * @param {int} key
      * @param {function} callback
      * @returns {Resultat}
@@ -70,11 +70,19 @@ var ResultatDAO = function() {
         smt.query(sql5, callback);
     };
 
+    /**
+     * Utiliser la bonne base de données
+     * @param {function} callback
+     */
     this.use = function(callback) {
         var sql7 = "USE balabox_sport_db;";
         smt.query(sql7, callback);
     };
 
+    /**
+     * Supprimer tout les resultats dans la base de données
+     * @param {function} callback
+     */
     this.deleteAll = function(callback) {
         this.use(null);
         var sql6 = "DELETE FROM Resultat;";

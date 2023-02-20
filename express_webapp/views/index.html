@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+        <!-- Page d'accueille , page où on se connecte à une session-->
         <html>
             <head>
                 <title>Section Sport</title>
@@ -27,6 +28,7 @@
                 <br>
                 <br>
             </form> 
+            <!-- Afficher la section specifique aux professeurs-->
             <form action='/' method='post'>
                 <% if (typeof professeur !== 'undefined' && professeur !== '') { %>
                     <button type="submit" name ="btn" value ="BtAccesProf" >Accès professeur </button>
