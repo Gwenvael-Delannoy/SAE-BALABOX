@@ -14,8 +14,8 @@ var NatationDAO = function(){
      */
     this.insert = function(natation, callback){
         this.use(null);
-        values = [natation.getStyleNage() , natation.getPlongeons() , natation.getNomBassin()];
-        var sql = "INSERT INTO Natation (style_nage , plongeons , nom_bassin) VALUES (?,?,?)";
+        values = [natation.getId(),natation.getStyleNage() , natation.getPlongeons() , natation.getNomBassin()];
+        var sql = "INSERT INTO Natation (id_natation,style_nage , plongeons , nom_bassin) VALUES (?,?,?,?)";
         smt.query(sql, values ,callback);
     };
 

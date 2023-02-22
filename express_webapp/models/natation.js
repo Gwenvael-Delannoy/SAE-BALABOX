@@ -33,6 +33,13 @@ module.exports = class Natation {
         this.id_natation = id;
     }
     /**
+     * Get the id of the object Natation
+     * @returns {int}
+     */
+    getId(){
+        return this.id_natation;
+    }
+    /**
      * Get the style_nage of the object Natation
      * @returns {String}
      */
