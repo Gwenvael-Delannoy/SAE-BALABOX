@@ -111,6 +111,13 @@ sport_dao.insert(sport, function(err, rows){
 
                                                             console.log("post update : ");
                                                             console.log(rows[rows.length-1]);
+
+                                                            if(rows[rows.length-1].style_nage == "croll"){
+                                                                console.log("update réussie");
+                                                            }
+                                                            else{
+                                                                console.log("update échouée");
+                                                            }
                                                         
                                                             // delete natation
                                                             natation_dao.delete(idResultat, function(err, rows){

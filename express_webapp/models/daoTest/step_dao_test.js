@@ -112,6 +112,13 @@ sport_dao.insert(sport, function(err, rows){
 
                                                             console.log("post update :\n");
                                                             console.log(rows[0]);
+
+                                                            if(rows[0].type_mobilite == "test2"){
+                                                                console.log("update réussi");
+                                                            }
+                                                            else{
+                                                                console.log("update échoué");
+                                                            }
                                                         
                                                             // delete step
                                                             step_dao.delete(step.getId(), function(err, rows){
