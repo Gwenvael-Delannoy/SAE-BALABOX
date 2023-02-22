@@ -14,8 +14,8 @@ var AcrosportDAO = function() {
      */
     this.insert = function(acrosport, callback) {
         this.use(null);
-        var valeurs = [acrosport.getTotalPoint(), acrosport.getLesFigures()];
-        var sql = "INSERT INTO Acrosport (total_point, lesFigures) VALUES (?, ?)";
+        var valeurs = [acrosport.getId(),acrosport.getTotalPoint()];
+        var sql = "INSERT INTO Acrosport (id_acrosport,total_point) VALUES (?,?)";
         smt.query(sql, valeurs, callback);
     };
 
@@ -28,7 +28,7 @@ var AcrosportDAO = function() {
      */
     this.update = function(key, acrosport, callback) {
         this.use(null);
-        var valeurs = [acrosport.getId(), acrosport.getTotalPoint()];
+        var valeurs = [acrosport.getTotalPoint()];
         var sql = "UPDATE Acrosport SET total_point=? WHERE id_acrosport=" + key + ";";
         smt.query(sql, valeurs, callback);
     };

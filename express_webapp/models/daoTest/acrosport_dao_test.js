@@ -1,5 +1,5 @@
-var musculation_dao = require('../dao/dataBase').musculation_dao;
-var musculation = require('../musculation');
+var acrosport_dao = require('../dao/dataBase').acrosport_dao;
+var acrosport = require('../acrosport');
 var resultat_dao = require('../dao/dataBase').resultat_dao;
 var resultat = require('../resultat');
 var session_dao = require('../dao/dataBase').session_dao;
@@ -11,7 +11,7 @@ var equipe = require('../equipe');
 var sport_dao = require('../dao/dataBase').sport_dao;
 var sport = require('../sport');
 
-var musculation = new musculation();
+var acrosport = new acrosport();
 var resultat = new resultat();
 var session = new session();
 var eleve1 = new eleve();
@@ -76,66 +76,60 @@ sport_dao.insert(sport, function(err, rows){
                                         var idResultat = rows[rows.length-1].id_resultat;
                                         resultat.setId(idResultat);
 
-                                        // insertion musculation
-                                        musculation.init("pompes",20,3,10,5,10,"tres bien");
-                                        musculation.setId(idResultat);
-                                        musculation_dao.findAll((err, rows) => {
+                                        // insertion acrosport
+                                        acrosport.init(20);
+                                        acrosport.setId(idResultat);
+                                        acrosport_dao.findAll((err, rows) => {
                                             if(err) console.log(err);
 
                                             var res1 = rows.length;
-                                            musculation_dao.insert(musculation, function(err, rows){
+                                            acrosport_dao.insert(acrosport, function(err, rows){
                                                 if(err) console.log(err);
 
-                                                musculation_dao.findAll((err, rows) => {
+                                                acrosport_dao.findAll((err, rows) => {
                                                     if(err) console.log(err);
 
                                                     var res2 = rows.length;
                                                     if(res1+1 == res2){
-                                                        console.log("insertion réussie");
+                                                        console.log("insertion acrosport OK");
                                                     }
                                                     else{
-                                                        console.log("insertion échouée");
+                                                        console.log("insertion acrosport KO");
                                                     }
-                                                    
-                                                    // update musculation
+                                                
+                                                    // update acrosport
+                                                    acrosport.setTotalPoint(30);
 
                                                     console.log("pre update :\n");
-                                                    console.log(rows[rows.length-1]);
+                                                    console.log(acrosport);
 
-                                                    musculation.setTempsPause(3);
-                                                    musculation.setSeries(10);
-                                                    musculation.setNbReps(5);
-
-                                                    musculation_dao.update(idResultat,musculation, function(err, rows){
+                                                    acrosport_dao.update(idResultat,acrosport, function(err, rows){
                                                         if(err) console.log(err);
 
-                                                        musculation_dao.findByKey(idResultat,(err, rows) => {
+                                                        acrosport_dao.findByKey(idResultat,(err, rows) => {
                                                             if(err) console.log(err);
-                                                            
                                                             console.log("post update :\n");
                                                             console.log(rows[0]);
-
-                                                            if(rows[0].temps_pause == 3 && rows[0].series == 10 && rows[0].nb_reps == 5){
-                                                                console.log("update réussie");
+                                                            if(rows[0].total_point == 30){
+                                                                console.log("update réussi");
                                                             }
                                                             else{
                                                                 console.log("update échouée");
                                                             }
 
-                                                            // delete musculation
-
-                                                            musculation_dao.delete(idResultat, function(err, rows){
+                                                            // delete acrosport
+                                                            acrosport_dao.delete(idResultat, function(err, rows){
                                                                 if(err) console.log(err);
 
-                                                                musculation_dao.findAll((err, rows) => {
+                                                                acrosport_dao.findAll((err, rows) => {
                                                                     if(err) console.log(err);
 
                                                                     var res3 = rows.length;
-                                                                    if(res1 == res3){
-                                                                        console.log("suppression réussie");
+                                                                    if(res3 == res1){
+                                                                        console.log("delete acrosport OK");
                                                                     }
                                                                     else{
-                                                                        console.log("suppression échouée");
+                                                                        console.log("delete acrosport KO");
                                                                     }
                                                                 });
                                                                 resultat_dao.delete(resultat.getId(), function(err){
@@ -169,3 +163,4 @@ sport_dao.insert(sport, function(err, rows){
         });
     });
 });
+                                                            
