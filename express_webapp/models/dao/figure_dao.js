@@ -28,7 +28,7 @@ var FigureDAO = function() {
      */
     this.update = function(key, figure, callback) {
         this.use(null);
-        values = [figure.getId(), figure.getNom(), figure.getDescription(), figure.getPoint()];
+        values = [figure.getNom(), figure.getDescription(), figure.getPoint()];
         var sql2 = "UPDATE Figure SET nom=?, description=?, point=? WHERE id_figure= " + key + ";";
         smt.query(sql2,values, callback);
     };
