@@ -15,8 +15,8 @@ var VoieDAO = function() {
      */
     this.insert = function(voie, callback) {
         this.use(null);
-        values = [voie.getDegDiffi(), voie.getNomVoie()];
-        var sql = "INSERT INTO Voie (deg_diffi) VALUES (?,?)";
+        values = [voie.getNomVoie(),voie.getDegDiffi()];
+        var sql = "INSERT INTO Voie (nom_voie,deg_diffi) VALUES (?,?)";
         smt.query(sql, values ,callback);
     };
 
@@ -29,7 +29,7 @@ var VoieDAO = function() {
      */
     this.update = function(key, voie, callback) {
         this.use(null);
-        values = [voie.getDegDiffi(), voie.getNomVoie()];
+        values = [voie.getNomVoie(),voie.getDegDiffi()];
         var sql2 = "UPDATE Voie SET nom_voie=?, deg_diffi=? WHERE id_voie= " + key + ";";
         smt.query(sql2,values, callback);
     };
