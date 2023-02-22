@@ -14,8 +14,8 @@ var StepDAO = function(){
      */
     this.insert = function(step, callback){
         this.use(null);
-        values = [step.getTypeMobilite() , step.getRessenti() , step.getParamIndv() , step.getBilanPerso() , step.getPerspective()];
-        var sql = "INSERT INTO Step (type_mobilite, ressenti, param_indv, bilan_perso, perspective) VALUES (?,?,?,?,?)";
+        values = [step.getId(),step.getTypeMobilite() , step.getRessenti() , step.getParamIndv() , step.getBilanPerso() , step.getPerspective()];
+        var sql = "INSERT INTO Step (id_step,type_mobilite, ressenti, param_indv, bilan_perso, perspective) VALUES (?,?,?,?,?,?)";
         smt.query(sql, values ,callback);
     };
 
@@ -41,7 +41,7 @@ var StepDAO = function(){
      */
     this.delete = function(key, callback){
         this.use(null);
-        var sql3 = "DELETE FROM Step WHERE id_step = " + key + ";";
+        var sql3 = "DELETE FROM Step WHERE id_step ="+key+";";
         smt.query(sql3,callback);
     };
 
