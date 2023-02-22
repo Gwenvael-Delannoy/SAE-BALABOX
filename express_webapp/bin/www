@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('express-webapp:server');
 var http = require('http');
+var Websocket = require('ws');
 
 /**
  * Get port from environment and store in Express.
@@ -20,14 +21,20 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var wbs = new Websocket.Server({server:server});
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port,() => console.log('Listening on port : 3000'));
 server.on('error', onError);
 server.on('listening', onListening);
+
+wbs.on('connection',function connection(ws){
+  console.log('Nouvelle connection');
+  ws.send('Bienvenue nouveau client');
+});
 
 /**
  * Normalize a port into a number, string, or false.

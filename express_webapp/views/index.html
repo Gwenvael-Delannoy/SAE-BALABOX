@@ -40,5 +40,16 @@
                   <p style="color: red;"><%= message %></p>
                 <% } %>
             </div>
+            <script>
+                var socket = new WebSocket('ws:localhost:3000');
+
+                socket.addEventListener('open',function() {
+                    console.log('connecter au server');
+                });
+
+                socket.addEventListener('message',function(event){
+                    console.log(event.data);
+                });
+            </script>
         </html>
 

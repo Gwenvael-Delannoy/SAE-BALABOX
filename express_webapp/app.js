@@ -16,19 +16,6 @@ var error = require('./routes/error');
 
 
 var app = express();
-var expressWs = require('express-ws')(app);
-
-expressWs.getWss().on('connection', function(ws) {
-  ws.on('message', function(msg) {
-    console.log(msg);
-  });
-  console.log('socket', expressWs.getWss().clients);
-});
-
-app.listen(3001, function () {
-  console.log('serveur port : 3001 ');
-})
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
