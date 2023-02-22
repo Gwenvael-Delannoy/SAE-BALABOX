@@ -14,8 +14,8 @@ var MusculationDAO = function(){
      */
     this.insert = function(musculation, callback){
         this.use(null);
-        values = [musculation.getMuscleTravailler(), musculation.getTempsPause(), musculation.getSeries(), musculation.getNbReps(), musculation.getIntensite(), musculation.getCharge(), musculation.getRessenti()];
-        var sql = "INSERT INTO Musculation (muscle_travailler , temps_pause , series , nb_reps , intensite , charge , ressenti) VALUES (?,?,?,?,?,?,?)";
+        values = [musculation.getId(),musculation.getMuscleTravailler(), musculation.getTempsPause(), musculation.getSeries(), musculation.getNbReps(), musculation.getIntensite(), musculation.getCharge(), musculation.getRessenti()];
+        var sql = "INSERT INTO Musculation (id_musculation,muscle_travailler , temps_pause , series , nb_reps , intensite , charge , ressenti) VALUES (?,?,?,?,?,?,?,?)";
         smt.query(sql, values ,callback);
     };
 

@@ -1,5 +1,5 @@
-var natation_dao = require('../dao/dataBase').natation_dao;
-var natation = require('../natation');
+var musculation_dao = require('../dao/dataBase').musculation_dao;
+var musculation = require('../musculation');
 var resultat_dao = require('../dao/dataBase').resultat_dao;
 var resultat = require('../resultat');
 var session_dao = require('../dao/dataBase').session_dao;
@@ -11,7 +11,7 @@ var equipe = require('../equipe');
 var sport_dao = require('../dao/dataBase').sport_dao;
 var sport = require('../sport');
 
-var natation = new natation();
+var musculation = new musculation();
 var resultat = new resultat();
 var session = new session();
 var eleve1 = new eleve();
@@ -76,74 +76,75 @@ sport_dao.insert(sport, function(err, rows){
                                         var idResultat = rows[rows.length-1].id_resultat;
                                         resultat.setId(idResultat);
 
-                                        // insertion natation
-                                        natation.init("papillon",5,"bassin olympique");
-                                        natation.setId(idResultat);
-                                        natation_dao.findAll((err, rows) => {
+                                        // insertion musculation
+                                        musculation.init("pompes",20,3,10,5,10,"tres bien");
+                                        musculation.setId(idResultat);
+                                        musculation_dao.findAll((err, rows) => {
                                             if(err) console.log(err);
 
                                             var res1 = rows.length;
-
-                                            natation_dao.insert(natation, function(err, rows){
+                                            musculation_dao.insert(musculation, function(err, rows){
                                                 if(err) console.log(err);
 
-                                                natation_dao.findAll((err, rows) => {
+                                                musculation_dao.findAll((err, rows) => {
                                                     if(err) console.log(err);
 
                                                     var res2 = rows.length;
-
-                                                    if(res1 == res2){
-                                                        console.log("test insert natation : OK");
+                                                    if(res1+1 == res2){
+                                                        console.log("insertion réussie");
                                                     }
                                                     else{
-                                                        console.log("test insert natation : KO");
+                                                        console.log("insertion échouée");
                                                     }
+                                                    
+                                                    // update musculation
 
-                                                    // update natation
-                                                    console.log("pre update : ");
+                                                    console.log("pre update :\n");
                                                     console.log(rows[rows.length-1]);
-                                                    natation.setStyleNage("croll");
-                                                    natation_dao.update(idResultat,natation, function(err, rows){
+
+                                                    musculation.setTempsPause(3);
+                                                    musculation.setSeries(10);
+                                                    musculation.setRepetitions(5);
+
+                                                    musculation_dao.update(musculation, function(err, rows){
                                                         if(err) console.log(err);
 
-                                                        natation_dao.findAll((err, rows) => {
+                                                        musculation_dao.findByKey(idResultat,(err, rows) => {
                                                             if(err) console.log(err);
+                                                            
+                                                            console.log("post update :\n");
+                                                            console.log(rows[0]);
 
-                                                            console.log("post update : ");
-                                                            console.log(rows[rows.length-1]);
-                                                        
-                                                            // delete natation
-                                                            natation_dao.delete(idResultat, function(err, rows){
+                                                            // delete musculation
+
+                                                            musculation_dao.delete(musculation, function(err, rows){
                                                                 if(err) console.log(err);
 
-                                                                natation_dao.findAll((err, rows) => {
+                                                                musculation_dao.findAll((err, rows) => {
                                                                     if(err) console.log(err);
 
                                                                     var res3 = rows.length;
-
                                                                     if(res1 == res3){
                                                                         console.log("suppression réussie");
                                                                     }
                                                                     else{
                                                                         console.log("suppression échouée");
                                                                     }
-                                                                    
-                                                                    // suppression des données de test
-                                                                    resultat_dao.delete(resultat.getId(), function(err){
-                                                                        if(err) console.log(err);
-                                                                    });
-                                                                    eleve_dao.delete(eleve1.getId(), function(err, rows){
-                                                                        if(err) console.log(err);
-                                                                    });
-                                                                    equipe_dao.delete(equipe.getId(), function(err, rows){
-                                                                        if(err) console.log(err);
-                                                                    });
-                                                                    session_dao.delete(session.getId(), function(err, rows){
-                                                                        if(err) console.log(err);
-                                                                    });
-                                                                    sport_dao.delete(sport.getId(),function(err){
-                                                                        if(err) console.log(err);
-                                                                    });
+                                                                });
+                                                                resultat_dao.delete(resultat.getId(), function(err){
+                                                                    if(err) console.log(err);
+                                                                });
+                                                                eleve_dao.delete(eleve1.getId(), function(err, rows){
+                                                                    if(err) console.log(err);
+                                                                });
+                                                                equipe_dao.delete(equipe.getId(), function(err, rows){
+                                                                    if(err) console.log(err);
+                                                                });
+                                                                session_dao.delete(session.getId(), function(err, rows){
+                                                                    if(err) console.log(err);
+                                                                });
+                                                                sport_dao.delete(sport.getId(),function(err){
+                                                                    if(err) console.log(err);
                                                                 });
                                                             });
                                                         });
