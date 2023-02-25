@@ -3,16 +3,27 @@ var router = express.Router();
 var session_dao =  require('../models/dao/dataBase').session_dao;
 var eleve_dao =  require('../models/dao/dataBase').eleve_dao;
 var eleve = require('../models/eleve');
+//import api 
+//var api = require_once(_ROOT_.'/config.php');
 
 
 /* Recuperer la page d'accueuil. */
 router.get('/', function(req, res, next) {
-  var qui_est_connecte = process.env.whoami;
-  var professeur ='oui';
-  if(qui_est_connecte == 'professeur'){
+
+  var message ='';
+  var professeur ='';
+  //requeter l'api avec /authentified et on recuepre le role et on regarde si s'est un professer ou non
+  /**
+   var role = (appel api);
+   //dechiffrement du JWT TOKEN avec la clé public
+
+   if(role =='False'){
+    message = 'Vous n avez pas accès à se service , merci de vous connecter avant'.
+   }else if(role == 2 ||role == 3 ){
     professeur = 'professeur';
-  }
-  res.render('index',{ message: '', professeur : professeur });
+   }
+   */
+  res.render('index',{ message: message, professeur : professeur });
 });
 
 router.post('/', function(req, res, next) {
