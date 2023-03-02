@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Gestion des équipes</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Gestion des équipes</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Nom de l'équipe</th>
+            <th>Nombre de joueurs</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="team in teams" :key="team.id">
+            <td>{{ team.name }}</td>
+            <td>{{ team.nbPlayers }}</td>
+            <td>{{ team.total }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button v-if="!addingTeam" @click="showAddTeamForm()">Ajouter une équipe</button>
+      <div v-if="addingTeam">
+        <form  action='/gestionEquipe' method='post'>
+          <label>Nom de l'équipe:</label>
+          <input type="text" v-model="newTeamName" />
+          <label>Membres de l'équipe:</label>
+          <ul>
+            <li v-for="eleve in eleves" :key="eleve.id">
+              <label>
+                <input type="checkbox" v-model="selectedStudents" :value="eleve.id" />
+                    {{ eleve.nom }} {{ eleve.prenom }}
+              </label>
+            </li>
+          </ul>
+          <button type="submit" @click.prevent="addTeam()">Ajouter</button>
+          <button type="button" @click="cancelAddTeam()">Annuler</button>
+        </form>
+      </div>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                teams: [], // Ajout de la propriété 'teams'
+                addingTeam: false,
+                newTeamName: "",
+                eleves: [], // Ajout de la propriété 'eleves'
+                selectedStudents: [],
+                };
+            },
+            
+            methods: {
+                showAddTeamForm() {
+                this.addingTeam = true;
+                },
+                cancelAddTeam() {
+                this.addingTeam = false;
+                this.newTeamName = "";
+                this.selectedStudents = [];
+                },
+                addTeam() {
+                const newTeam = {
+                    name: this.newTeamName,
+                    nbPlayers: this.selectedStudents.length,
+                    total: this.selectedStudents.reduce(
+                    (total, studentId) =>
+                        total + this.eleves.find((s) => s.id === studentId).nom.length,
+                    ),
+                };
+                this.teams.push(newTeam);
+                this.addingTeam = false;
+                this.newTeamName = "";
+                this.selectedStudents =[];
+                },
+            },
+        });
+      </script>      
+    </body>
+</html>

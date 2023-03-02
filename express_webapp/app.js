@@ -12,6 +12,7 @@ var listeSession = require('./routes/listeSession');
 var crSession = require('./routes/createSession');
 var foot = require('./routes/foot');
 var eleveVsEleve = require('./routes/eleveVsEleve');
+var gestionEquipe = require('./routes/gestion_equipe');
 var error = require('./routes/error');
 
 
@@ -34,6 +35,7 @@ app.use('/listeSession', listeSession);
 app.use('/crSession', crSession);
 app.use('/foot', foot);
 app.use('/eleveVsEleve', eleveVsEleve);
+app.use('/gestionEquipe', gestionEquipe);
 app.use('/error', error);
 
 app.use('/resultat', resultat);

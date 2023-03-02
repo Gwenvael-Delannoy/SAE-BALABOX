@@ -10,8 +10,6 @@ router.get('/error', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 
-    var email = req.body.email;
-    var password = req.body.password;
         
 });
   module.exports = router;
