@@ -59,7 +59,10 @@ router.post('/', function(req, res, next) {
     
             //si c'est un eleve
             // creer une object eleve et mettre les informations recupere dans le process.env
-
+            /**
+             INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (0,0,1);   
+             INSERT INTO Match_Eleve(un_match , leleve) VALUES (1,1);
+             */
     
             //si c'est un professeur
             // ne fait rien car on a deja les informations dans la session

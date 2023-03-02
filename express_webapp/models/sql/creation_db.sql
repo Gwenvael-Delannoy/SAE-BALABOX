@@ -104,6 +104,9 @@ CREATE TABLE Equipe(
     CONSTRAINT pk_Equipe PRIMARY KEY (id_equipe)   
 );
 
+/** Equipe par defaut qui contiendra tout les eleves en cas de tournois individuel ou des resultats*/
+INSERT INTO Equipe(nb_joueurs,total) VALUES (1000,0);
+
 CREATE TABLE Session(
     id_session INTEGER AUTO_INCREMENT, 
     date_session DATE DEFAULT(CURRENT_DATE),
