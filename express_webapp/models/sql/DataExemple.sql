@@ -70,5 +70,5 @@ INSERT INTO Figure(nom,description,point) VALUES ('figure 2','figure 2',2);
 INSERT INTO Figure(nom,description,point) VALUES ('figure 3','figure 3',3);
 INSERT INTO Figure(nom,description,point) VALUES ('figure 4','figure 4',4);
 
-
+SELECT * FROM Eleve;
 SELECT * FROM Resultat, Escalade, Escalade_Voie, Voie WHERE id_resultat = id_escalade AND id_escalade = lEscalade AND id_voie = laVoie ;
