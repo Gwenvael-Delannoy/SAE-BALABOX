@@ -1,9 +1,15 @@
 var express = require('express');
+const resultat = require('../models/dao/resultat_dao');
 var router = express.Router();
 var sport_dao = require('../models/dao/dataBase').sport_dao;
 var acrosport_dao = require('../models/dao/dataBase').acrosport_dao;
 var figure_dao = require('../models/dao/dataBase').figure_dao;
 var voie_dao = require('../models/dao/dataBase').voie_dao;
+var natation_dao = require('../models/dao/dataBase').natation_dao;
+var escalade_dao = require('../models/dao/dataBase').escalade_dao;
+var musculation_dao = require('../models/dao/dataBase').musculation_dao;
+var step_dao = require('../models/dao/dataBase').step_dao;
+
 
 /* Recuperer la page qui permet la saisie des resultats sportifs en faisant la differenciation pour chaque sport. */
 router.get('/', function(req, res, next) {
@@ -125,9 +131,24 @@ router.post('/', function(req, res, next) {
       }
     });
   }
-  else{
-    res.render('resultat',{sport: nom_sport ,message : 'Valeur non envoyée !' , afficher : '' , session : session});
+  else if(nom_sport == 'Natation'){
+    //insertion dans la base de donnée
+
   }
+  else{
+
+  }
+  envoieDonnees({donnees: {nom_sport: nom_sport, id_sport: id_sport, session: session}});
+
 });
+
+function envoieDonneesProf(donnees) {
+  //websocket avec /prof
+  const socket = new WebSocket('ws://localhost:3000/prof');
+  wsProf.send(JSON.stringify({type: 'resultat', data: donnees}));
+
+}
 module.exports = router;
+
+
 

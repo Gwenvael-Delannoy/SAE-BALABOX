@@ -41,15 +41,21 @@
                 <% } %>
             </div>
             <script>
-                var socket = new WebSocket('ws:localhost:3000');
+                //Si on est un professeur on se connecte au serveur prof, sinon on se connecte au serveur eleve
+                var professeur = "<%= professeur %>";
+                var socket;
 
-                socket.addEventListener('open',function() {
-                    console.log('connecter au server');
+                if (typeof professeur !== 'undefined' && professeur !== '') {
+                    socket = new WebSocket('ws://localhost:3000/professeur');
+                } 
+                else {
+                    socket = new WebSocket('ws://localhost:3000/eleve');
+                }
+                socket.addEventListener('open', function () {
+                    console.log('Connecté au serveur');
                 });
-
-                socket.addEventListener('message',function(event){
+                socket.addEventListener('message', function (event) {
                     console.log(event.data);
                 });
-                exports.socket = socket;
             </script>
         </html>

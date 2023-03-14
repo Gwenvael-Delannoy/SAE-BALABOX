@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /**
  * Module dependencies.
  */
@@ -21,7 +19,10 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-var wbs = new Websocket.Server({server:server});
+var wbs = new Websocket.Server({server:server,path:'/eleve'});
+var wbsProf = new Websocket.Server({server:server,path:'/professeur'});
+
+
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -32,8 +33,15 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 wbs.on('connection',function connection(ws){
-  console.log('Nouvelle connection');
+  console.log('Connection eleve');
   ws.send('Bienvenue nouveau client');
+
+
+});
+wbsProf.on('connection',function connection(ws){
+  console.log('Connection prof');
+  ws.send('Bienvenue nouveau client');
+
 });
 
 /**
