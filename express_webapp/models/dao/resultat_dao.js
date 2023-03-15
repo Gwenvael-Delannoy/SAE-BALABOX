@@ -71,6 +71,18 @@ var ResultatDAO = function() {
     };
 
     /**
+     * Trouver un resultat dans la base de données par sa session
+     * @param {int} key
+     * @param {function} callback
+     * @returns {Resultat}
+     */
+    this.findBySession = function(key, callback) {
+        this.use(null);
+        var sql5 = "SELECT * FROM Resultat WHERE la_session = " + key + ";";
+        smt.query(sql5, callback);
+    };
+
+    /**
      * Utiliser la bonne base de données
      * @param {function} callback
      */

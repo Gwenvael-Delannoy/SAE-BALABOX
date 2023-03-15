@@ -2,6 +2,11 @@ var express = require('express');
 const session = require('express-session');
 var router = express.Router();
 var session_dao =  require('../models/dao/dataBase').session_dao;
+var resultat_dao =  require('../models/dao/dataBase').resultat_dao;
+var sport_dao = require('../models/dao/dataBase').sport_dao;
+var musculation_dao = require('../models/dao/dataBase').musculation_dao;
+var natation_dao = require('../models/dao/dataBase').natation_dao;
+var step_dao = require('../models/dao/dataBase').step_dao;
 
 
 /* Recuperer la page qui liste toutes les session créer par le professeur connecté . */
@@ -23,12 +28,12 @@ router.post('/', function(req, res, next) {
   }
 
   var id = req.body.id;
-  console.log(id);
 
   session_dao.findByKey(id, function(err, row) {
     if (err) res.render("error", {message: err});
     else {
       var id_sport = row[0].le_sport;
+      var type_session = row[0].type_session;      
 
       if(req.body.action == 'update') {
         res.redirect('crSession');
@@ -37,8 +42,122 @@ router.post('/', function(req, res, next) {
         res.redirect('/resultat?ses='+id+'&idSport='+id_sport+'');
     
       } else {
-        
-        res.redirect('listeSession');
+
+        if(type_session == "resultat") {
+          sport_dao.findByKey(id_sport, function(err, row) {
+            var nom_sport = row[0].nom_sport;
+
+            if (err) res.render("error", {message: err});
+            else{
+              if (nom_sport == "Musculation"){
+                resultat_dao.findBySession(id, function(err, rows) {
+                  if (err) res.render("error", {message: err});
+                  else{
+
+                    var nbRows = rows.length;
+
+                    rows.forEach(function(row, index) {
+
+                      var id_resultat = row.id_resultat;
+              
+                      musculation_dao.delete(id_resultat, function(err, row) {
+                        if (err) res.render("error", {message: err});
+                        else {
+                          var i = index;
+                          resultat_dao.delete(id_resultat, function(err, row) {
+                            if (err) res.render("error", {message: err});
+                            else {
+                              
+                              if(i == nbRows-1){
+                                session_dao.delete(id, function(err, row) {
+                                  if (err) {
+                                    res.render("error", {message: err});
+                                  } else {
+                                    console.log("session supprimer");
+                                  }
+                                });
+                              }
+                            }
+                          });
+                        }
+                      });
+                    });
+                  }
+                });
+              } else if (nom_sport == "Natation"){
+                resultat_dao.findBySession(id, function(err, rows) {
+                    if (err) res.render("error", {message: err});
+                    else{
+                        console.log(rows);
+                        var nbRows = rows.length;
+
+                        rows.forEach(function(row, index) {
+
+                            var id_resultat = row.id_resultat;
+                            natation_dao.delete(id_resultat, function(err, row) {
+                                if (err) res.render("error", {message: err});
+                                else {
+                                    var i = index;
+                                    resultat_dao.delete(id_resultat, function(err, row) {
+                                        if (err) res.render("error", {message: err});
+                                        else {
+                                            if(i == nbRows-1){
+                                                session_dao.delete(id, function(err, row) {
+                                                    if (err) {
+                                                        res.render("error", {message: err});
+                                                    } else {
+                                                        res.redirect('listeSession');
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        });
+                    }
+                });
+            } else if (nom_sport == "Step") {
+
+                resultat_dao.findBySession(id, function(err, rows) {
+                  if (err) res.render("error", {message: err});
+                  else{
+                    var nbRows = rows.length;
+              
+                    rows.forEach(function(row, index) {
+
+                      var id_resultat = row.id_resultat;
+              
+                      step_dao.delete(id_resultat, function(err, row) {
+                        if (err) res.render("error", {message: err});
+                        else {
+                          var i = index;
+                          resultat_dao.delete(id_resultat, function(err, row) {
+                            if (err) res.render("error", {message: err});
+                            else {
+                              
+                              if(i == nbRows-1){
+                                session_dao.delete(id, function(err, row) {
+                                  if (err) {
+                                    res.render("error", {message: err});
+                                  } else {
+                                    res.redirect('listeSession');
+                                  }
+                                });
+                              }
+                            }
+                          });
+                        }
+                      });
+                    });
+                  }
+                });
+              }
+            }
+          });
+        } else {
+
+        }
       }
     }
   });
