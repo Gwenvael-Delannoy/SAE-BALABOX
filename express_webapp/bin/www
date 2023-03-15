@@ -34,8 +34,13 @@ wssEleve.on('connection', function connection(ws) {
   console.log('Connection eleve');
   ws.send('Bienvenue nouveau client');
 
-ws.on('classement', function incoming(message) {
-  ws.send('classement');
+  ws.on('message', function incoming(message) {
+    if (message === 'classement') {
+      // Action à effectuer lorsque le client envoie le message 'classement'
+      console.log('Demande de classement reçue depuis le client');
+      ws.send('Renvoi du classement au client');
+    }
+  });
 
 });
 
