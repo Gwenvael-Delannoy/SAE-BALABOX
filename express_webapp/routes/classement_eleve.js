@@ -12,6 +12,17 @@ router.get('/', function(req, res, next) {
               console.log(err);
               res.render('error', {message: err});
           } else {
+
+                /**const socket = new WebSocket('ws://localhost:3000/eleve');
+
+                socket.addEventListener('open', function (event) {
+                socket.send('classement');
+                });
+
+                socket.addEventListener('message', function (event) {
+                console.log('Réponse du serveur : ' + event.data);
+                });*/
+
               console.log(rows);
               data1 = rows;
               const data2 = data1.map(data1 => data1.prenom);
