@@ -18,9 +18,8 @@
                     <h1 class="titre">Classement</h1>
                         <h3 class="tritre2">Faire un match contre :</h3>
                         <select id="mySelect">
-                            <% eleves.forEach(function(item) { %>
-                                <option value="<%= item %>"><%= item %> </option>
-                            <% }); %>
+                            <option v-for="eleve in Eleves" >{{eleve.nom}}</option>
+
                         </select>
                         <form class="formulaire" action='/classement_eleve'  method='post'>
                                 <button class="bouton" id="entre">Entré</button>
@@ -32,10 +31,31 @@
                 new Vue({
                     el: '#app',
                     data: {
+                        Eleves: [],
+                        ws : null,
                         
                     },
+                    created() {
+                        this.connect();
+                    },
+
                     methods: {
+                        connect: function() {
+                            this.ws = new WebSocket('ws://localhost:3000/eleve');
+                            
+                            this.ws.onmessage = function(event) {
+                                eleve=JSON.parse(event.data)
+                                this.Eleves.push(eleve);
+
+                            }.bind(this);
+                        },
+
+                        classement
                         
+                        
+                    },
+                    mounted: function() {
+                        this.connect();  
                     }
                 })
             </script>
