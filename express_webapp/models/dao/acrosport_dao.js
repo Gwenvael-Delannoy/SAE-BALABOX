@@ -46,6 +46,18 @@ var AcrosportDAO = function() {
     };
 
     /**
+     * Supprimer un Figure_Acrosport dans la base de données
+     * @param {int} key
+     * @param {function} callback
+     * @returns {void}
+     */
+    this.deleteFigure_acrosport = function(key, callback) {
+        this.use(null);
+        var sql = "DELETE FROM Figure_Acrosport WHERE lAcrosport=" + key + ";";
+        smt.query(sql, callback);
+    };
+
+    /**
      * Trouver tous les Acrosport dans la base de données
      * @param {function} callback
      * @returns {Acrosport[]}

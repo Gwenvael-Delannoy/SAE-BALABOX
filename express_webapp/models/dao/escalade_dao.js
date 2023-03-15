@@ -46,6 +46,18 @@ var EscaladeDAO = function() {
     };
 
     /**
+     * Supprimer une donnée escalade_voie de la base de données
+     * @param {int} key
+     * @param {function} callback
+     * @returns {void}
+     */
+    this.deleteEscalade_voie = function(key, callback) {
+        this.use(null);
+        var sql3 = "DELETE FROM Escalade_Voie WHERE lEscalade= " + key + ";";
+        smt.query(sql3, callback);
+    };
+
+    /**
      * Trouver toutes les données escalade présentes dans la base de données
      * @param {function} callback
      * @returns {Escalade[]}

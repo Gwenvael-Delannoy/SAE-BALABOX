@@ -63,6 +63,21 @@ INSERT INTO Resultat(la_session,unEleve)VALUES(9,3);
 INSERT INTO Resultat(la_session,unEleve)VALUES(9,4);
 INSERT INTO Resultat(la_session,unEleve)VALUES(10,5);
 INSERT INTO Resultat(la_session,unEleve)VALUES(10,6);
+INSERT INTO Resultat(la_session,unEleve)VALUES(8,1);
+INSERT INTO Resultat(la_session,unEleve)VALUES(6,1);
+
+
+-- creer des figures d'acrosport
+INSERT INTO Figure(nom,description,point) VALUES ('figure 1','figure 1',1);
+INSERT INTO Figure(nom,description,point) VALUES ('figure 2','figure 2',2);
+INSERT INTO Figure(nom,description,point) VALUES ('figure 3','figure 3',3);
+INSERT INTO Figure(nom,description,point) VALUES ('figure 4','figure 4',4);
+
+-- creer un resultat acrosport
+
+INSERT INTO Acrosport(id_acrosport)VALUES(10);
+
+INSERT INTO Figure_Acrosport(lAcrosport,laFigure)VALUES(10,1);
 
 -- creer un resultat step
 
@@ -71,13 +86,13 @@ INSERT INTO Step (id_step) VALUES (4);
 
 -- creer un resultat musculation
 
-INSERT INTO Musculation (id_step) VALUES (5);
-INSERT INTO Musculation (id_step) VALUES (6);
+INSERT INTO Musculation (id_musculation) VALUES (5);
+INSERT INTO Musculation (id_musculation) VALUES (6);
 
 -- creer un resultat natation
 
-INSERT INTO Natation (id_step) VALUES (7);
-INSERT INTO Natation (id_step) VALUES (8);
+INSERT INTO Natation (id_natation) VALUES (7);
+INSERT INTO Natation (id_natation) VALUES (8);
 
 -- creer des voies d'escalade
 INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('La redoutable',10);
@@ -91,15 +106,16 @@ INSERT INTO Escalade(id_escalade, assureur, total_diff)VALUES(1,"Michel", 2);
 
 INSERT INTO Escalade_Voie(lEscalade, laVoie)VALUES(1,1);
 
--- creer des figures d'acrosport
-INSERT INTO Figure(nom,description,point) VALUES ('figure 1','figure 1',1);
-INSERT INTO Figure(nom,description,point) VALUES ('figure 2','figure 2',2);
-INSERT INTO Figure(nom,description,point) VALUES ('figure 3','figure 3',3);
-INSERT INTO Figure(nom,description,point) VALUES ('figure 4','figure 4',4);
+
 
 SELECT * FROM Eleve;
 SELECT * FROM Resultat, Escalade, Escalade_Voie, Voie WHERE id_resultat = id_escalade AND id_escalade = lEscalade AND id_voie = laVoie;
 
 SELECT * FROM Session, Resultat, Step WHERE id_session = la_session AND id_resultat = id_step;
 
-SELECT * FROM Session, Resultat, Musculation WHERE id_session = la_session AND id_resultat = id_musculation;
+SELECT * FROM Session, Resultat, Sport WHERE id_session = la_session AND le_sport=id_sport AND nom_sport="Course";
+SELECT * FROM Session, Resultat, Sport WHERE id_session = la_session AND le_sport=id_sport AND la_session=8;
+
+SELECT * FROM Session, Resultat, Acrosport WHERE id_session = la_session AND id_resultat=id_acrosport ;
+SELECT * FROM Acrosport;
+SELECT * FROM Resultat, Acrosport WHERE id_resultat=id_acrosport ;

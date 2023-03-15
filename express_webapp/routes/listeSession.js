@@ -7,6 +7,8 @@ var sport_dao = require('../models/dao/dataBase').sport_dao;
 var musculation_dao = require('../models/dao/dataBase').musculation_dao;
 var natation_dao = require('../models/dao/dataBase').natation_dao;
 var step_dao = require('../models/dao/dataBase').step_dao;
+var acrosport_dao = require('../models/dao/dataBase').acrosport_dao;
+var escalade_dao = require('../models/dao/dataBase').escalade_dao;
 
 
 /* Recuperer la page qui liste toutes les session créer par le professeur connecté . */
@@ -73,7 +75,7 @@ router.post('/', function(req, res, next) {
                                   if (err) {
                                     res.render("error", {message: err});
                                   } else {
-                                    console.log("session supprimer");
+                                    res.redirect('listeSession');
                                   }
                                 });
                               }
@@ -86,38 +88,38 @@ router.post('/', function(req, res, next) {
                 });
               } else if (nom_sport == "Natation"){
                 resultat_dao.findBySession(id, function(err, rows) {
-                    if (err) res.render("error", {message: err});
-                    else{
-                        console.log(rows);
-                        var nbRows = rows.length;
+                  if (err) res.render("error", {message: err});
+                  else{
+                    console.log(rows);
+                    var nbRows = rows.length;
 
-                        rows.forEach(function(row, index) {
+                    rows.forEach(function(row, index) {
 
-                            var id_resultat = row.id_resultat;
-                            natation_dao.delete(id_resultat, function(err, row) {
-                                if (err) res.render("error", {message: err});
-                                else {
-                                    var i = index;
-                                    resultat_dao.delete(id_resultat, function(err, row) {
-                                        if (err) res.render("error", {message: err});
-                                        else {
-                                            if(i == nbRows-1){
-                                                session_dao.delete(id, function(err, row) {
-                                                    if (err) {
-                                                        res.render("error", {message: err});
-                                                    } else {
-                                                        res.redirect('listeSession');
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    });
-                                }
-                            });
-                        });
-                    }
+                      var id_resultat = row.id_resultat;
+                      natation_dao.delete(id_resultat, function(err, row) {
+                        if (err) res.render("error", {message: err});
+                        else {
+                          var i = index;
+                          resultat_dao.delete(id_resultat, function(err, row) {
+                            if (err) res.render("error", {message: err});
+                            else {
+                              if(i == nbRows-1){
+                                session_dao.delete(id, function(err, row) {
+                                  if (err) {
+                                      res.render("error", {message: err});
+                                  } else {
+                                      res.redirect('listeSession');
+                                  }
+                                });
+                              }
+                            }
+                          });
+                        }
+                      });
+                    });
+                  }
                 });
-            } else if (nom_sport == "Step") {
+              } else if (nom_sport == "Step") {
 
                 resultat_dao.findBySession(id, function(err, rows) {
                   if (err) res.render("error", {message: err});
@@ -147,6 +149,116 @@ router.post('/', function(req, res, next) {
                               }
                             }
                           });
+                        }
+                      });
+                    });
+                  }
+                });
+              } else if (nom_sport == "Acrosport") {
+                resultat_dao.findBySession(id, function(err, rows) {
+                  if (err) res.render("error", {message: err});
+                  else{
+                    var nbRows = rows.length;
+              
+                    rows.forEach(function(row, index) {
+
+                      var id_resultat = row.id_resultat;
+
+              
+                      acrosport_dao.deleteFigure_acrosport(id_resultat, function(err, row) {
+                        if (err) res.render("error", {message: err});
+                        else {
+                          var i = index;
+                          acrosport_dao.delete(id_resultat, function(err, row) {
+                            if (err) res.render("error", {message: err});
+                            else {
+                              resultat_dao.delete(id_resultat, function(err, row) {
+                                if (err) res.render("error", {message: err});
+                                else {
+                                  
+                                  if(i == nbRows-1){
+                                    session_dao.delete(id, function(err, row) {
+                                      if (err) {
+                                        res.render("error", {message: err});
+                                      } else {
+                                        res.redirect('listeSession');
+                                      }
+                                    });
+                                  }
+                                }
+                              });
+                            }
+                          });
+                        }
+                      });
+                    });
+                  }
+                });
+              } else if (nom_sport == "Escalade") {
+
+                resultat_dao.findBySession(id, function(err, rows) {
+                  if (err) res.render("error", {message: err});
+                  else{
+                    var nbRows = rows.length;
+              
+                    rows.forEach(function(row, index) {
+
+                      var id_resultat = row.id_resultat;
+
+              
+                      escalade_dao.deleteEscalade_voie(id_resultat, function(err, row) {
+                        if (err) res.render("error", {message: err});
+                        else {
+                          var i = index;
+                          escalade_dao.delete(id_resultat, function(err, row) {
+                            if (err) res.render("error", {message: err});
+                            else {
+                              resultat_dao.delete(id_resultat, function(err, row) {
+                                if (err) res.render("error", {message: err});
+                                else {
+                                  
+                                  if(i == nbRows-1){
+                                    session_dao.delete(id, function(err, row) {
+                                      if (err) {
+                                        res.render("error", {message: err});
+                                      } else {
+                                        res.redirect('listeSession');
+                                      }
+                                    });
+                                  }
+                                }
+                              });
+                            }
+                          });
+                        }
+                      });
+                    });
+                  }
+                });
+              } else  if (nom_sport == "Course") {
+                resultat_dao.findBySession(id, function(err, rows) {
+                  if (err) res.render("error", {message: err});
+                  else{
+                    var nbRows = rows.length;
+              
+                    rows.forEach(function(row, index) {
+
+                      var id_resultat = row.id_resultat;
+                      
+                      
+                      resultat_dao.delete(id_resultat, function(err, row) {
+                        if (err) res.render("error", {message: err});
+                        else {
+                          var i = index;
+                          if(i == nbRows-1){
+                            session_dao.delete(id, function(err, row) {
+                              if (err) {
+                                res.render("error", {message: err});
+                              } else {
+                                res.redirect('listeSession');
+                              }
+                            });
+                          }
                         }
                       });
                     });

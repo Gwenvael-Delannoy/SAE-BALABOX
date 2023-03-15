@@ -256,7 +256,7 @@ CREATE TABLE Acrosport (
 
     -- CONSTRAINTS
     CONSTRAINT pk_Acrosport PRIMARY KEY (id_acrosport),
-    CONSTRAINT fk_Acrosport_Eleve FOREIGN KEY (id_acrosport) REFERENCES Resultat(id_resultat)
+    CONSTRAINT fk_Acrosport_Resultat FOREIGN KEY (id_acrosport) REFERENCES Resultat(id_resultat)
 );
 CREATE TABLE Figure_Acrosport (
     lAcrosport INTEGER , 
