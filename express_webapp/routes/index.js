@@ -43,7 +43,7 @@ router.post('/', function(req, res, next) {
     var classeEleve = req.body.SClasseEleve;
 
         // Connexion au websocket pour l eleve
-        wss = new WebSocket('ws://localhost:3000/eleve');
+        wss = new WebSocket('ws://localhost:3001');
         console.log("ok2");
         wss.onopen = function () {
           console.log('Connexion websocket établie pour l eleve.');
@@ -60,7 +60,7 @@ router.post('/', function(req, res, next) {
 
   }else if(role == 2 ||role == 3) {
     // Connexion au websocket pour le professeur
-    wss = new WebSocket('ws://localhost:3000/professeur');
+    wss = new WebSocket('ws://localhost:3002');
     console.log("ok3");
     wss.onopen = function () {
       console.log('Connexion websocket établie pour le professeur.');
@@ -114,7 +114,6 @@ router.post('/', function(req, res, next) {
                   //recupere le prenom de l'eleve de la base de donnée si il existe 
                   if(eleve_req.length != 0){
                     prenomEleveBdd = eleve_req[0].prenom;
-                    console.log("entree dans le if");
                   }
                   //check si l'eleve existe deja dans la base de donnée ou non meme s'il a le meme nom mais pas le meme prenom*
                   if(eleve_req.length == 0 && prenomEleveBdd != prenomEleve){
@@ -135,7 +134,7 @@ router.post('/', function(req, res, next) {
                   }
                   console.log("ok5");
                   // Envoi d'un message vers le serveur WebSocket de l'élève
-                  wss.send('eleve',JSON.stringify({
+                  wss.send(JSON.stringify({
                     type: 'info_eleve',
                     nom: nomEleve,
                     prenom: prenomEleve,

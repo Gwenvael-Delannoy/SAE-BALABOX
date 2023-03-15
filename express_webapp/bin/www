@@ -27,49 +27,42 @@ server.listen(port,() => console.log('Listening on port : 3000'));
 server.on('error', onError);
 server.on('listening', onListening);
 
-const wssEleve = new Websocket.Server({ noServer: true });
-const wssProfesseur = new Websocket.Server({ noServer: true });
+const wssEleve = new Websocket.Server({ port: 3001 });
+const wssProfesseur = new Websocket.Server({ port: 3002 });
 
-const eleves = []; // tableau global pour stocker les informations des élèves
+var eleves = []; // tableau global pour stocker les informations des élèves
 
 wssEleve.on('connection', function connection(ws) {
   console.log('Connection eleve');
   ws.send('Bienvenue nouveau client');
 
   // Gérer les messages reçus
-  ws.on('message', function incoming(message,data) {
-    if (message === 'classement') {
-      ws.send(eleves);
-    }
-    else if (message === 'eleve'){
-      //afficher les données dans data qui sont des json
-      var tab = JSON.parse(data);
-      console.log(tab);
-      eleves.push(tab);
+  ws.on('message', function incoming(message) {
+    try {
+      var data = JSON.parse(message);
+      console.log('Données reçues:');
+      console.log(data);
+      eleves.push(data);
+      console.log('Données stockées:');
+      console.log(eleves);
+      //envoie les données a tous les clients
+      wssEleve.clients.forEach(function each(client) {
+        if (client.readyState === Websocket.OPEN) {
+          client.send(eleves);
+        }
+      });
+    } catch (error) {
+      console.error('Erreur lors de l\'analyse JSON:', error.message);
+      return;
     }
   });
 });
+
 
 wssProfesseur.on('connection', function connection(ws) {
   console.log('Connection professeur');
   ws.send('Bienvenue nouveau client');
 
-});
-
-app.on('upgrade', function upgrade(request, socket, head) {
-  const pathname = new URL(request.url, `http://${request.headers.host}`).pathname;
-
-  if (pathname === '/eleve') {
-    wssEleve.handleUpgrade(request, socket, head, function done(ws) {
-      wssEleve.emit('connection', ws, request);
-    });
-  } else if (pathname === '/professeur') {
-    wssProfesseur.handleUpgrade(request, socket, head, function done(ws) {
-      wssProfesseur.emit('connection', ws, request);
-    });
-  } else {
-    socket.destroy();
-  }
 });
 
 /**
