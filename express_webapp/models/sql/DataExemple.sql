@@ -1,11 +1,11 @@
 -- exemple de script d'utilisation (données fictives)
 
-DELETE FROM Match_Eleve;
+/*DELETE FROM Match_Eleve;
 DELETE FROM Match_;
 DELETE FROM Eleve;
 DELETE FROM Equipe;
 DELETE FROM Session;
-DELETE FROM Sport;
+DELETE FROM Sport;*/
 
 
 
@@ -32,6 +32,8 @@ INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport)
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("en cours","test6","test6","Raul Adrien","resultat",10);
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("en cours","test7","test7","Raul Adrien","resultat",11);
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("en cours","test8","test8","Raul Adrien","resultat",12);
+INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("en cours","test9","test9","Raul Adrien","resultat",7);
+INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("en cours","test10","test10","Raul Adrien","resultat",8);
 
 
 -- creer une equipe
@@ -40,6 +42,11 @@ INSERT INTO Equipe(nb_joueurs,total) VALUES (30,5);
 -- creer un eleve
 INSERT INTO Eleve(nom,prenom,sexe,classe,total_points,l_equipe) VALUES ('Dupont','Michel','homme','6A',0,1);
 INSERT INTO Eleve(nom,prenom,sexe,classe,total_points,l_equipe) VALUES ('Jack','Remy','homme','6A',0,1);
+INSERT INTO Eleve(nom,prenom,sexe,classe,total_points,l_equipe) VALUES ('Pierre','Pierre','homme','6A',0,1);
+INSERT INTO Eleve(nom,prenom,sexe,classe,total_points,l_equipe) VALUES ('Jean','Jean','homme','6A',0,1);
+INSERT INTO Eleve(nom,prenom,sexe,classe,total_points,l_equipe) VALUES ('Michel','Michel','homme','6A',0,1);
+INSERT INTO Eleve(nom,prenom,sexe,classe,total_points,l_equipe) VALUES ('Jack','Jack','homme','6A',0,1);
+
 
 -- creer un match
 INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,2);   
@@ -50,7 +57,27 @@ INSERT INTO Match_Eleve(un_match , leleve) VALUES (1,2);
 -- creer un resultat
 INSERT INTO Resultat(la_session,unEleve)VALUES(5,1);
 INSERT INTO Resultat(la_session,unEleve)VALUES(5,2);
+INSERT INTO Resultat(la_session,unEleve)VALUES(7,1);
+INSERT INTO Resultat(la_session,unEleve)VALUES(7,2);
+INSERT INTO Resultat(la_session,unEleve)VALUES(9,3);
+INSERT INTO Resultat(la_session,unEleve)VALUES(9,4);
+INSERT INTO Resultat(la_session,unEleve)VALUES(10,5);
+INSERT INTO Resultat(la_session,unEleve)VALUES(10,6);
 
+-- creer un resultat step
+
+INSERT INTO Step (id_step) VALUES (3);
+INSERT INTO Step (id_step) VALUES (4);
+
+-- creer un resultat musculation
+
+INSERT INTO Musculation (id_step) VALUES (5);
+INSERT INTO Musculation (id_step) VALUES (6);
+
+-- creer un resultat natation
+
+INSERT INTO Natation (id_step) VALUES (7);
+INSERT INTO Natation (id_step) VALUES (8);
 
 -- creer des voies d'escalade
 INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('La redoutable',10);
@@ -71,4 +98,8 @@ INSERT INTO Figure(nom,description,point) VALUES ('figure 3','figure 3',3);
 INSERT INTO Figure(nom,description,point) VALUES ('figure 4','figure 4',4);
 
 SELECT * FROM Eleve;
-SELECT * FROM Resultat, Escalade, Escalade_Voie, Voie WHERE id_resultat = id_escalade AND id_escalade = lEscalade AND id_voie = laVoie ;
+SELECT * FROM Resultat, Escalade, Escalade_Voie, Voie WHERE id_resultat = id_escalade AND id_escalade = lEscalade AND id_voie = laVoie;
+
+SELECT * FROM Session, Resultat, Step WHERE id_session = la_session AND id_resultat = id_step;
+
+SELECT * FROM Session, Resultat, Musculation WHERE id_session = la_session AND id_resultat = id_musculation;
