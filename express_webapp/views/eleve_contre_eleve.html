@@ -91,17 +91,106 @@
         ctx.fillRect(150, 20, 5, 160);
         ctx.fillRect(150, 300, 5, 180);
 
-        // dessine un cercle la ou on clique sur le canvas
-        document.addEventListener('click',drawCircle,false);
+        // gestion des scores
+        let pointB1 = document.querySelector('.pointB1');
+        let pointB2 = document.querySelector('.pointB2');
+        let fauteB1 = document.querySelector('.fauteB1');
+        let fauteB2 = document.querySelector('.fauteB2');
+        
+        pointB1.addEventListener('click',drawPointB1,false);
+        pointB2.addEventListener('click',drawPointB2,false);
+        fauteB1.addEventListener('click',drawFauteB1,false);
+        fauteB2.addEventListener('click',drawFauteB2,false);
 
-        function drawCircle(e){
-            var x = e.pageX - canvas.offsetLeft;
-            var y = e.pageY - canvas.offsetTop;
-            ctx.beginPath();
-            ctx.arc(x,y,5,0,2*Math.PI);
-            ctx.fillStyle = 'green';
-            ctx.fill();
-        }
+            // gestion des points
+            // point 1
+            function drawPointB1(e){
+                document.removeEventListener('click',drawCirclePB2,false);
+                document.removeEventListener('click',drawCircleFB2,false);
+                document.removeEventListener('click',drawCircleFB1,false);
+                document.addEventListener('click',drawCirclePB1,false);
+                score1--;
+            }
+
+            function drawCirclePB1(e){
+                var x = e.pageX - canvas.offsetLeft;
+                var y = e.pageY - canvas.offsetTop;
+                ctx.beginPath();
+                ctx.arc(x,y,5,0,2*Math.PI);
+                ctx.fillStyle = 'green';
+                ctx.fill();
+                if(x > 20 && x < 280 && y > 20 && y < 480 ){
+                    score1++;
+                    scoreBordScore[0].innerHTML = score1;
+                }
+            }
+
+            // point 2
+            function drawPointB2(e){
+                document.removeEventListener('click',drawCirclePB1,false);
+                document.removeEventListener('click',drawCircleFB1,false);
+                document.removeEventListener('click',drawCircleFB2,false);
+                document.addEventListener('click',drawCirclePB2,false);
+                score2--;
+            }
+
+            function drawCirclePB2(e){
+                var x = e.pageX - canvas.offsetLeft;
+                var y = e.pageY - canvas.offsetTop;
+                ctx.beginPath();
+                ctx.arc(x,y,5,0,2*Math.PI);
+                ctx.fillStyle = 'blue';
+                ctx.fill();
+                if(x > 20 && x < 280 && y > 20 && y < 480 ){
+                    score2++;
+                    scoreBordScore[1].innerHTML = score2;
+                }
+            }
+
+            // gestion des fautes
+            //  Faute 1
+            function drawFauteB1(e){
+                document.removeEventListener('click',drawCirclePB1,false);
+                document.removeEventListener('click',drawCirclePB2,false);
+                document.removeEventListener('click',drawCircleFB2,false);
+                document.addEventListener('click',drawCircleFB1,false);
+                score2--;
+            }
+
+            function drawCircleFB1(e){
+                var x = e.pageX - canvas.offsetLeft;
+                var y = e.pageY - canvas.offsetTop;
+                ctx.beginPath();
+                ctx.arc(x,y,5,0,2*Math.PI);
+                ctx.fillStyle = 'red';
+                ctx.fill();
+                if(x > 20 && x < 280 && y > 20 && y < 480 ){
+                    score2++;
+                    scoreBordScore[1].innerHTML = score2;
+                }
+            }
+
+            // Faute 2
+            function drawFauteB2(e){
+                document.removeEventListener('click',drawCirclePB1,false);
+                document.removeEventListener('click',drawCirclePB2,false);
+                document.removeEventListener('click',drawCircleFB1,false);
+                document.addEventListener('click',drawCircleFB2,false);
+                score1--;
+            }
+
+            function drawCircleFB2(e){
+                var x = e.pageX - canvas.offsetLeft;
+                var y = e.pageY - canvas.offsetTop;
+                ctx.beginPath();
+                ctx.arc(x,y,5,0,2*Math.PI);
+                ctx.fillStyle = 'yellow';
+                ctx.fill();
+                if(x > 20 && x < 280 && y > 20 && y < 480 ){
+                    score1++;
+                    scoreBordScore[0].innerHTML = score1;
+                }
+            }
 
         // Gestion du scoreboard
         let scoreBord = document.querySelector('.scoreBord');
