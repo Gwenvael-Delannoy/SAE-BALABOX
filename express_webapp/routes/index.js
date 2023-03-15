@@ -3,6 +3,7 @@ var router = express.Router();
 var session_dao =  require('../models/dao/dataBase').session_dao;
 var eleve_dao =  require('../models/dao/dataBase').eleve_dao;
 var Eleve = require('../models/eleve');
+var WebSocket = require('ws');
 //import api 
 //var api = require_once(_ROOT_.'/config.php');
 
@@ -11,7 +12,7 @@ var Eleve = require('../models/eleve');
 router.get('/', function(req, res, next) {
 
   var message ='';
-  var professeur ='zfef';
+  var professeur ='';
   //requeter l'api avec /authentified et on recuepre le role et on regarde si s'est un professer ou non
   /**
    var role = (appel api);
@@ -28,16 +29,50 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 
-  var role = 2 //(appel api);
+  var role = 4 //(appel api);
   //dechiffrement du JWT TOKEN avec la clé public
 
   var ideCon= req.body.SIdentifiant;
   var pwd = req.body.Spwd;
   var messageError = '';
+  var wss ;
+  console.log("ok");
   if(role == 4 ||role == 5 ){
     var nomEleve = req.body.SNomEleve;
     var prenomEleve = req.body.SPrenomEleve;
     var classeEleve = req.body.SClasseEleve;
+
+        // Connexion au websocket pour l eleve
+        wss = new WebSocket('ws://localhost:3000/eleve');
+        console.log("ok2");
+        wss.onopen = function () {
+          console.log('Connexion websocket établie pour l eleve.');
+        };
+    
+        wss.onerror = function (error) {
+          console.log('Erreur websocket : ', error);
+        };
+    
+        wss.onclose = function () {
+          console.log('Déconnexion websocket pour l eleve.');
+        };
+
+
+  }else if(role == 2 ||role == 3) {
+    // Connexion au websocket pour le professeur
+    wss = new WebSocket('ws://localhost:3000/professeur');
+    console.log("ok3");
+    wss.onopen = function () {
+      console.log('Connexion websocket établie pour le professeur.');
+    };
+
+    wss.onerror = function (error) {
+      console.log('Erreur websocket : ', error);
+    };
+
+    wss.onclose = function () {
+      console.log('Déconnexion websocket pour le professeur.');
+    };
   }
 
   //savoir sur quel bouton on a cliqué en renvoyant le nom du bouton
@@ -94,12 +129,21 @@ router.post('/', function(req, res, next) {
                       }
                       else{
                         console.log('nouveau eleve cree');
+
                       }
                     });
                   }
+                  console.log("ok5");
+                  // Envoi d'un message vers le serveur WebSocket de l'élève
+                  wss.send('eleve',JSON.stringify({
+                    type: 'info_eleve',
+                    nom: nomEleve,
+                    prenom: prenomEleve,
+                    classe: classeEleve,
+                    session: session[0].id_session
+                  }));
                 }
               });
-
             }
               
             //renvoie la page en fonction du type de session

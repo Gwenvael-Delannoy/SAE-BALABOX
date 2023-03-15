@@ -30,18 +30,24 @@ server.on('listening', onListening);
 const wssEleve = new Websocket.Server({ noServer: true });
 const wssProfesseur = new Websocket.Server({ noServer: true });
 
+const eleves = []; // tableau global pour stocker les informations des élèves
+
 wssEleve.on('connection', function connection(ws) {
   console.log('Connection eleve');
   ws.send('Bienvenue nouveau client');
 
-  ws.on('message', function incoming(message) {
+  // Gérer les messages reçus
+  ws.on('message', function incoming(message,data) {
     if (message === 'classement') {
-      // Action à effectuer lorsque le client envoie le message 'classement'
-      console.log('Demande de classement reçue depuis le client');
-      ws.send('Renvoi du classement au client');
+      ws.send(eleves);
+    }
+    else if (message === 'eleve'){
+      //afficher les données dans data qui sont des json
+      var tab = JSON.parse(data);
+      console.log(tab);
+      eleves.push(tab);
     }
   });
-
 });
 
 wssProfesseur.on('connection', function connection(ws) {
