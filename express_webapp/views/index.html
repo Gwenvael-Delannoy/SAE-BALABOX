@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-        <!-- Page d'accueille , page où on se connecte à une session-->
-        <html>
-            <head>
-                <title>Section Sport</title>
-                <link rel="stylesheet" href="/stylesheets/style.css">
-            </head>
+    <!-- Page d'accueille , page où on se connecte à une session-->
+    <html>
+        <head>
+            <title>Section Sport</title>
+            <link rel="stylesheet" href="/stylesheets/style.css">
+        </head>
+        <body>
+            <% if (professeur) { %>
+
+            <!-- Afficher la section specifique aux professeurs-->
+            
+            <form class ="formulaire" action='/' method='post'>
+                <br>
+                <img class="img" src="/images/image.jpeg" >
+                <h1>Section Sport</h1>
+                <label for="SIdentifiant">Identifiant Session : </label><br>
+                <input type="text" id="SIdentifiant" name="SIdentifiant" required><br>
+                    
+                <label for="Spwd">Clé de Session : </label><br>
+                <input type="text" id="Spwd" name="Spwd" required><br>
+
+                <button type="submit" name ="btn" value ="BtConnexion" >Connexion session </button>
+                    
+                <button type="submit" name ="btn" value ="BtAccesProf" >Accès professeur </button>
+            </form>
+
+            <% } else { %>
             <form class ="formulaire" action='/' method='post'>
                 <br>
                 <img class="img" src="/images/image.jpeg" >
@@ -27,13 +48,8 @@
                 <button type="submit" name ="btn" value ="BtConnexion" >Connexion session </button>
                 <br>
                 <br>
-            </form> 
-            <!-- Afficher la section specifique aux professeurs-->
-            <form action='/' method='post'>
-                <% if (typeof professeur !== 'undefined' && professeur !== '') { %>
-                    <button type="submit" name ="btn" value ="BtAccesProf" >Accès professeur </button>
-                <% } %>
-            </form> 
+            </form>  
+            <% } %>
             <div>
                 <!-- Afficher le message d'erreur s'il y en a un -->
                 <% if (message) { %>
@@ -41,21 +57,11 @@
                 <% } %>
             </div>
             <script>
-                //Si on est un professeur on se connecte au serveur prof, sinon on se connecte au serveur eleve
-                var professeur = "<%= professeur %>";
-                var socket;
 
-                if (typeof professeur !== 'undefined' && professeur !== '') {
-                    socket = new WebSocket('ws://localhost:3000/professeur');
-                } 
-                else {
-                    socket = new WebSocket('ws://localhost:3000/eleve');
-                }
-                socket.addEventListener('open', function () {
-                    console.log('Connecté au serveur');
-                });
-                socket.addEventListener('message', function (event) {
-                    console.log(event.data);
-                });
+                
+
+
+
+
             </script>
         </html>

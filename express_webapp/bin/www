@@ -19,11 +19,6 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-var wbs = new Websocket.Server({server:server,path:'/eleve'});
-var wbsProf = new Websocket.Server({server:server,path:'/professeur'});
-
-
-
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -32,16 +27,38 @@ server.listen(port,() => console.log('Listening on port : 3000'));
 server.on('error', onError);
 server.on('listening', onListening);
 
-wbs.on('connection',function connection(ws){
+const wssEleve = new Websocket.Server({ noServer: true });
+const wssProfesseur = new Websocket.Server({ noServer: true });
+
+wssEleve.on('connection', function connection(ws) {
   console.log('Connection eleve');
   ws.send('Bienvenue nouveau client');
 
+ws.on('classement', function incoming(message) {
+  ws.send('classement');
 
 });
-wbsProf.on('connection',function connection(ws){
-  console.log('Connection prof');
+
+wssProfesseur.on('connection', function connection(ws) {
+  console.log('Connection professeur');
   ws.send('Bienvenue nouveau client');
 
+});
+
+app.on('upgrade', function upgrade(request, socket, head) {
+  const pathname = new URL(request.url, `http://${request.headers.host}`).pathname;
+
+  if (pathname === '/eleve') {
+    wssEleve.handleUpgrade(request, socket, head, function done(ws) {
+      wssEleve.emit('connection', ws, request);
+    });
+  } else if (pathname === '/professeur') {
+    wssProfesseur.handleUpgrade(request, socket, head, function done(ws) {
+      wssProfesseur.emit('connection', ws, request);
+    });
+  } else {
+    socket.destroy();
+  }
 });
 
 /**

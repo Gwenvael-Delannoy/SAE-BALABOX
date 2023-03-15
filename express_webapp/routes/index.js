@@ -11,7 +11,7 @@ var Eleve = require('../models/eleve');
 router.get('/', function(req, res, next) {
 
   var message ='';
-  var professeur ='';
+  var professeur ='zfef';
   //requeter l'api avec /authentified et on recuepre le role et on regarde si s'est un professer ou non
   /**
    var role = (appel api);
@@ -28,13 +28,17 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 
+  var role = 2 //(appel api);
+  //dechiffrement du JWT TOKEN avec la clé public
+
   var ideCon= req.body.SIdentifiant;
   var pwd = req.body.Spwd;
-  var nomEleve = req.body.SNomEleve;
-  var prenomEleve = req.body.SPrenomEleve;
-  var classeEleve = req.body.SClasseEleve;
   var messageError = '';
-
+  if(role == 4 ||role == 5 ){
+    var nomEleve = req.body.SNomEleve;
+    var prenomEleve = req.body.SPrenomEleve;
+    var classeEleve = req.body.SClasseEleve;
+  }
 
   //savoir sur quel bouton on a cliqué en renvoyant le nom du bouton
   if(req.body.btn == 'BtConnexion'){
@@ -59,8 +63,8 @@ router.post('/', function(req, res, next) {
             messageError = 'Connexion réussie';    
             //en fonction de se qu'on recupere dans le process.env
 
-            var role = 4 //(appel api);
-            //dechiffrement du JWT TOKEN avec la clé public
+            
+
             if( role == 4 || role == 5){
 
               //check si l'eleve existe deja dans la base de donnée
@@ -95,6 +99,7 @@ router.post('/', function(req, res, next) {
                   }
                 }
               });
+
             }
               
             //renvoie la page en fonction du type de session
