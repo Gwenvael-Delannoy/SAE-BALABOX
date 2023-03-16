@@ -34,12 +34,15 @@ router.post('/', function(req, res, next) {
 
   var ideCon= req.body.SIdentifiant;
   var pwd = req.body.Spwd;
+  var nomEleve = '';
+  var prenomEleve = '';
+  var classeEleve='';
   var messageError = '';
   var wss ;
   if(role == 4 ||role == 5 ){
-    var nomEleve = req.body.SNomEleve;
-    var prenomEleve = req.body.SPrenomEleve;
-    var classeEleve = req.body.SClasseEleve;
+    nomEleve = req.body.SNomEleve;
+    prenomEleve = req.body.SPrenomEleve;
+    classeEleve = req.body.SClasseEleve;
 
         // Connexion au websocket pour l eleve
         wss = new WebSocket('ws://localhost:3001');
@@ -57,6 +60,11 @@ router.post('/', function(req, res, next) {
 
 
   }else if(role == 2 ||role == 3) {
+
+    nomEleve = "professeur";
+    prenomEleve = "professeur";
+    classeEleve = "professeur";
+
     // Connexion au websocket pour le professeur
     wss = new WebSocket('ws://localhost:3002');
     wss.onopen = function () {
@@ -93,14 +101,6 @@ router.post('/', function(req, res, next) {
 
           //check si la session est en cours
           if(session[0].statut == 'en cours'){
-
-            //check si c'est un eleve ou un professeur
-            if( role == 2 || role == 3){
-              var nomEleve = "professeur";
-              var prenomEleve = "professeur";
-              var classeEleve = "professeur";
-              
-            }
 
             //check si l'eleve ou le professeur(connecté en tant qu'eleve pour pouvoir etre aussi dans la session si besoin) existe deja dans la base de donnée
             eleve_dao.findByName(nomEleve, function(err,rows) {

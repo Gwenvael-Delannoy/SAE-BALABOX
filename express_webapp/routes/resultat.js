@@ -88,6 +88,12 @@ router.post('/', function(req, res, next) {
           else{
             message= 'figure existante , id : ' + figure[0].id_figure;
             res.render('resultat',{sport: nom_sport ,message : message});
+
+            //insertion dans la base de donnée
+
+            //envoyer les données au professeur
+            envoieDonneesProf({sport : nom_sport, session : session ,nom_figure : nom_figure,description : description ,point : point});
+
           }
         }
       });
@@ -101,6 +107,7 @@ router.post('/', function(req, res, next) {
         figurestab = req.body.figures.split(',');
       }
       res.redirect('/resultat?ses='+session+'&nombreFigure='+nombreFigure + '&afficher=oui' + '&idSport='+id_sport);
+      
     }
     else if(req.body.action == 'Retour'){
       res.redirect('/resultat?ses='+session+'&idSport='+id_sport+'&nom_sport='+nom_sport);
@@ -109,11 +116,11 @@ router.post('/', function(req, res, next) {
   else if( nom_sport == 'Escalade'){
 
     var la_voie = req.body.voie;
-    console.log(session);
     //spliter la_voie à partir du | et récupèrer le premier élément
     var nom_voie = la_voie.split('|')[0];
     var deg_diffi = la_voie.split('|')[1];
     var assureur = req.body.assureur;
+    var complementaire = req.body.complementaire;
 
     voie_dao.findByNom(nom_voie, function(err,rows) {
       if(err){
@@ -122,31 +129,60 @@ router.post('/', function(req, res, next) {
       else{
         var voie = rows;
         if(voie.length == 0){
-          console.log('voie non existante');
+          res.render('error',{message : 'voie non existante'});
         }
         else{
-          message= 'voie existante , id : ' + voie[0].id_voie;
+          message= 'Données envoyées';
           res.render('resultat',{sport: nom_sport ,message : message, afficher : '' , session : session});
+
+          //insertion dans la base de donnée
+            
+          //envoyer les données au professeur
+          envoieDonneesProf({sport : nom_sport, session : session ,la_voie :nom_voie ,deg_diffi : deg_diffi ,assureur : assureur , complementaire : complementaire});
         }
       }
     });
   }
   else if(nom_sport == 'Natation'){
     //insertion dans la base de donnée
+    res.render('resultat',{sport: nom_sport ,message : 'insertion dans la base de donnée', afficher : '' , session : session});
+
+    //envoyer les données au professeur
+    envoieDonneesProf({sport : nom_sport, id_sport : id_sport, session : session});
+
+  }
+  else if(nom_sport == 'Musculation'){
+    //insertion dans la base de donnée
+    res.render('resultat',{sport: nom_sport ,message : 'insertion dans la base de donnée', afficher : '' , session : session});
+
+    //envoyer les données au professeur
+    envoieDonneesProf({sport : nom_sport, id_sport : id_sport, session : session});
+
+  }
+  else if(nom_sport == 'Step'){
+    //insertion dans la base de donnée
+    res.render('resultat',{sport: nom_sport ,message : 'insertion dans la base de donnée', afficher : '' , session : session});
+    
+    //envoyer les données au professeur
+    envoieDonneesProf({sport : nom_sport, id_sport : id_sport, session : session});
 
   }
   else{
+    res.render('error',{message : 'Sport non reconnu'});
 
   }
-  envoieDonnees({donnees: {nom_sport: nom_sport, id_sport: id_sport, session: session}});
 
 });
 
 function envoieDonneesProf(donnees) {
-  //websocket avec /prof
-  const socket = new WebSocket('ws://localhost:3000/prof');
-  wsProf.send(JSON.stringify({type: 'resultat', data: donnees}));
+  var WebSocket = require('ws');
+  var wss;
 
+  // Connexion au websocket du professeur
+  wss = new WebSocket('ws://localhost:3002');
+  wss.on('open', function open() {
+    wss.send(JSON.stringify({type: 'resultat', data: donnees}));
+  });
 }
 module.exports = router;
 

@@ -23,6 +23,7 @@
                     <br>
                     <% if (message) { %>
                         <p><%= message %></p>
+                        <button onclick="goBack()">Nouveau resultat</button>
                     <% } %>
                     
 
@@ -46,6 +47,8 @@
                                 <textarea id="complementaire" name="complementaire"></textarea><br>
                             
                                 <input type="hidden" name="sport" value="<%= sport %>">
+                                <input type="hidden" name="session" value="<%= session %>" >
+                                <input type="hidden" name="id_sport" value="<%= id_sport %>" >
                                 <input type="submit" name="action" value="Envoyer">
                                 <br>
                                 <br>
@@ -79,6 +82,8 @@
                                 <textarea id="complementaire" name="complementaire"></textarea><br>
                             
                                 <input type="hidden" name="sport" value="<%= sport %>">
+                                <input type="hidden" name="session" value="<%= session %>" >
+                                <input type="hidden" name="id_sport" value="<%= id_sport %>" >
                                 <input type="submit" name="action" value="Envoyer">
                                 <br>
                                 <br>
@@ -111,6 +116,8 @@
                                 <textarea id="ressenti" name="ressenti"></textarea><br>
                             
                                 <input type="hidden" name="sport" value="<%= sport %>">
+                                <input type="hidden" name="session" value="<%= session %>" >
+                                <input type="hidden" name="id_sport" value="<%= id_sport %>" >
                                 <input type="submit" name="action" value="Envoyer">
                                 <br>
                                 <br>
@@ -139,6 +146,8 @@
                                 <textarea id="complementaire" name="complementaire"></textarea><br>
 
                                 <input type="hidden" name="sport" value="<%= sport %>">
+                                <input type="hidden" name="session" value="<%= session %>" >
+                                <input type="hidden" name="id_sport" value="<%= id_sport %>" >
                                 <input type="submit" name="action" value="Envoyer">
                                 <br>
                                 <br>
@@ -224,6 +233,8 @@
 
 
                                 <input type="hidden" name="sport" value="<%= sport %>">
+                                <input type="hidden" name="session" value="<%= session %>" >
+                                <input type="hidden" name="id_sport" value="<%= id_sport %>" >
                                 <input type="submit" name="action" value="Envoyer">
                                 <br>
                                 <br>
@@ -231,5 +242,10 @@
                         <% } %>
                     <% } %>
                 </div>
+                <script>
+                    function goBack() {
+                        window.history.back();
+                    }
+                </script>
             </body>
         </html>
