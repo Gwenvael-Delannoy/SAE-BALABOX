@@ -21,8 +21,8 @@
                 <input type="text" id="Spwd" name="Spwd" required><br>
 
                 <button type="submit" name ="btn" value ="BtConnexion" >Connexion session </button>
-                    
-                <button type="submit" name ="btn" value ="BtAccesProf" >Accès professeur </button>
+                
+                <button type="button" name ="btn" onclick="window.location.href='/listeSession';" value ="BtAccesProf" >Accès professeur </button>
             </form>
 
             <% } else { %>
@@ -56,12 +56,4 @@
                   <p style="color: red;"><%= message %></p>
                 <% } %>
             </div>
-            <script>
-
-                
-
-
-
-
-            </script>
         </html>
