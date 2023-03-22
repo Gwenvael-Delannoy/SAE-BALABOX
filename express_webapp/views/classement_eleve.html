@@ -56,7 +56,7 @@
                     noms.push(eleve.nom + ' ' + eleve.prenom);
                     }
                 }
-                this.nomEleves = noms;
+                this.updateNomEleves(noms);
                 }.bind(this));
             },
             //permet de mettre a jour les données quand le serveur envoie des données
@@ -72,9 +72,14 @@
                     noms.push(eleve.nom + ' ' + eleve.prenom);
                     }
                 }
-                this.nomEleves = noms;
+                this.updateNomEleves(noms);
                 }.bind(this));
             },
+            methods: {
+                updateNomEleves(noms) {
+                    this.nomEleves = noms;
+                }
+            }
             });
         </script>
     </body>
