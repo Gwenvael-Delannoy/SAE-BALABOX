@@ -14,8 +14,8 @@ var EleveDAO = function() {
      */
     this.insert = function(eleve, callback) {
         this.use(null);
-        const values = [eleve.getNom(), eleve.getPrenom(), eleve.getSexe(), eleve.getClasse(), eleve.getTotalPoints(), eleve.getEquipe()];
-        const sql = "INSERT INTO Eleve (nom, prenom, sexe, classe, total_points, l_equipe) VALUES (?, ?, ?, ?, ?, ?)";
+        const values = [eleve.getNom(), eleve.getPrenom(), eleve.getSexe(), eleve.getClasse(), eleve.getTotalPoints()];
+        const sql = "INSERT INTO Eleve (nom, prenom, sexe, classe, total_points, l_equipe) VALUES (?, ?, ?, ?, ?)";
         smt.query(sql, values, callback);
     };
 
@@ -28,8 +28,8 @@ var EleveDAO = function() {
      */
     this.update = function(key, eleve, callback) {
         this.use(null);
-        const values = [eleve.getNom(), eleve.getPrenom(), eleve.getSexe(), eleve.getClasse(), eleve.getTotalPoints(), eleve.getEquipe()];
-        const sql = "UPDATE Eleve SET nom=?, prenom=?, sexe=?, classe=?, total_points=?, l_equipe=? WHERE id_eleve= " + key + ";";
+        const values = [eleve.getNom(), eleve.getPrenom(), eleve.getSexe(), eleve.getClasse(), eleve.getTotalPoints()];
+        const sql = "UPDATE Eleve SET nom=?, prenom=?, sexe=?, classe=?, total_points=? WHERE id_eleve= " + key + ";";
         smt.query(sql, values, callback);
     };
 

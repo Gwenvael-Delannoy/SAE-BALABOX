@@ -40,12 +40,12 @@ INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport)
 INSERT INTO Equipe(nb_joueurs,total) VALUES (30,5);
 
 -- creer un eleve
-INSERT INTO Eleve(nom,prenom,sexe,classe,total_points,l_equipe) VALUES ('Dupont','Michel','homme','6A',0,1);
-INSERT INTO Eleve(nom,prenom,sexe,classe,total_points,l_equipe) VALUES ('Jack','Remy','homme','6A',0,1);
-INSERT INTO Eleve(nom,prenom,sexe,classe,total_points,l_equipe) VALUES ('Pierre','Pierre','homme','6A',0,1);
-INSERT INTO Eleve(nom,prenom,sexe,classe,total_points,l_equipe) VALUES ('Jean','Jean','homme','6A',0,1);
-INSERT INTO Eleve(nom,prenom,sexe,classe,total_points,l_equipe) VALUES ('Michel','Michel','homme','6A',0,1);
-INSERT INTO Eleve(nom,prenom,sexe,classe,total_points,l_equipe) VALUES ('Jack','Jack','homme','6A',0,1);
+INSERT INTO Eleve(nom,prenom,sexe,classe,total_points) VALUES ('Dupont','Michel','homme','6A',0);
+INSERT INTO Eleve(nom,prenom,sexe,classe,total_points) VALUES ('Jack','Remy','homme','6A',0);
+INSERT INTO Eleve(nom,prenom,sexe,classe,total_points) VALUES ('Pierre','Pierre','homme','6A',0);
+INSERT INTO Eleve(nom,prenom,sexe,classe,total_points) VALUES ('Jean','Jean','homme','6A',0);
+INSERT INTO Eleve(nom,prenom,sexe,classe,total_points) VALUES ('Michel','Michel','homme','6A',0);
+INSERT INTO Eleve(nom,prenom,sexe,classe,total_points) VALUES ('Jack','Jack','homme','6A',0);
 
 
 -- creer un match

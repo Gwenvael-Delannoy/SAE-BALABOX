@@ -24,7 +24,9 @@ Schema relationel complet de la base de donnée:
 
     Session(id_session (INTEGER), date_session (DATE), statut (VARCHAR(10)), heure (TIME), identifiant_con (VARCHAR(50)), mdp (VARCHAR(50)), professeur (VARCHAR(30)), type_session (VARCHAR(20)), le_sport (INTEGER))
 
-    Eleve(id_eleve (INTEGER), nom (VARCHAR(20)), prenom (VARCHAR(20)), sexe (VARCHAR(10)), classe (VARCHAR(50)), total_points (INTEGER), l_equipe (INTEGER))
+    Eleve(id_eleve (INTEGER), nom (VARCHAR(20)), prenom (VARCHAR(20)), sexe (VARCHAR(10)), classe (VARCHAR(50)), total_points (INTEGER))
+
+    Eleve_Equipe(l_eleve (INTEGER), l_equipe (INTEGER))
 
     Statistique(id_stats (INTEGER), intitule (VARCHAR(250)), stats (INTEGER), lEleve (INTEGER))
 
@@ -66,7 +68,6 @@ trigger pour verifier qu'il y a bien 2 equipes par match maximun
 trigger pour verifier qu'il y a bien 2 joueurs par match maximun
 
 */
-
 DROP TABLE Musculation;
 DROP TABLE Step;
 DROP TABLE Figure_Acrosport;
@@ -81,6 +82,7 @@ DROP TABLE Match_Eleve;
 DROP TABLE Match_Equipe;
 DROP TABLE Match_;
 DROP TABLE Statistique;
+DROP TABLE Eleve_Equipe;
 DROP TABLE Eleve;
 DROP TABLE Session;
 DROP TABLE Equipe;
@@ -103,9 +105,6 @@ CREATE TABLE Equipe(
     -- CONSTRAINT
     CONSTRAINT pk_Equipe PRIMARY KEY (id_equipe)   
 );
-
-/** Equipe par defaut qui contiendra tout les eleves en cas de tournois individuel ou des resultats*/
-INSERT INTO Equipe(nb_joueurs,total) VALUES (1000,0);
 
 CREATE TABLE Session(
     id_session INTEGER AUTO_INCREMENT, 
@@ -132,12 +131,20 @@ CREATE TABLE Eleve(
     sexe VARCHAR(10),
     classe VARCHAR(50) NOT NULL,
     total_points INTEGER,   
-    l_equipe INTEGER,
 
     -- CONSTRAINTS
     CONSTRAINT pk_Eleve PRIMARY KEY (id_eleve),
-    CONSTRAINT ck_sexe CHECK (sexe IN ("homme", "femme")),
-    CONSTRAINT fk_Equipe_Eleve FOREIGN KEY (l_equipe) REFERENCES Equipe(id_equipe)
+    CONSTRAINT ck_sexe CHECK (sexe IN ("homme", "femme"))
+);
+
+CREATE TABLE Eleve_Equipe(
+    l_eleve INTEGER,  
+    l_equipe INTEGER,
+    
+    -- CONSTRAINTS
+    CONSTRAINT fk_Eleve_Equipe FOREIGN KEY (l_eleve) REFERENCES Eleve(id_eleve),
+    CONSTRAINT fk_Equipe_Eleve FOREIGN KEY (l_equipe) REFERENCES Equipe(id_equipe),
+    CONSTRAINT pk_Eleve_Equipe PRIMARY KEY (l_eleve, l_equipe)
 );
 
 CREATE TABLE Statistique(

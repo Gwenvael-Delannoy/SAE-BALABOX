@@ -7,7 +7,6 @@
     sexe
     classe
     total_points
-    l'equipe
  */
 module.exports = class Eleve {
     /**
@@ -21,17 +20,15 @@ module.exports = class Eleve {
      * @param {*} sexe
      * @param {*} classe
      * @param {*} total_points
-     * @param {*} equipe
      * @returns {void}
      */
-    init (nom, prenom, sexe, classe, total_points, equipe){
+    init (nom, prenom, sexe, classe, total_points){
         this.id_eleve = -1;
         this.nom = nom;
         this.prenom = prenom;
         this.sexe = sexe;
         this.classe = classe;
         this.total_points = total_points;
-        this.l_equipe = equipe;
     }
     /**
      * Get the id of the object Eleve
@@ -74,13 +71,6 @@ module.exports = class Eleve {
      */
     getTotalPoints(){
         return this.total_points;
-    }
-    /**
-     * Get the equipe of the object Eleve
-     * @returns {Equipe}
-     */
-    getEquipe(){
-        return this.l_equipe;
     }
     /**
      * Set the id of the object Eleve
@@ -129,13 +119,5 @@ module.exports = class Eleve {
      */
     setTotalPoints(total_points){
         this.total_points = total_points;
-    }
-    /**
-     * Set the equipe of the object Eleve
-     * @param {*} equipe
-     * @returns {void}
-     */
-    setEquipe(equipe){
-        this.l_equipe = equipe;
     }
 }
