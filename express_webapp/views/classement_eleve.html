@@ -18,8 +18,8 @@
 
             <div class="jsp">
             <h1 class="titre">Classement</h1>
-            <h3 class="tritre2">Faire un match contre :</h3>
-            <select id="mySelect">
+            <h3 class="titre2">Faire un match contre :</h3>
+            <select id="mySelect" v-model="EleveSelect">
                 <option v-for="nom in nomEleves">{{ nom }}</option>
             </select>
             <form class="formulaire" action='/classement_eleve' method='post'>
@@ -30,27 +30,51 @@
         
         
         <script>
-        new Vue({
+            const ws = new WebSocket('ws://localhost:3001');
+
+            new Vue({
             el: '#app',
             data: {
-                session : 2,
-                nomEleves: []
+                session: '',
+                nomEleves: [],
             },
-            created: function () {
-                    const socket = new WebSocket('ws://localhost:3000');
-                    socket.addEventListener('message', function (event) {
-                        const infoEleve = JSON.parse(event.data);
-                        const noms = [];
-                        console.log(infoEleve + "infoEleve");
-                        for (const eleve of infoEleve) {
-                            if (eleve.session === 2) {
-                                noms.push(eleve.nom);
-                            }
-                        }
-                        this.nomEleves = noms;
-                    }.bind(this));
+            created: function() {
+                // Écouter les événements de la connexion WebSocket
+                ws.addEventListener('open', function(event) {
+                console.log('Connexion WebSocket ouverte');
+                ws.send(JSON.stringify({ type: 'getTabEleve', session: 2 }));
+                });
+
+                ws.addEventListener('message', function(event) {
+                console.log('Données reçues:');
+                console.log(JSON.parse(event.data));
+                const infoEleve = JSON.parse(event.data);
+                const noms = [];
+                console.log(infoEleve + 'infoEleve');
+                for (const eleve of infoEleve) {
+                    if (eleve.session === 2) {
+                    noms.push(eleve.nom + ' ' + eleve.prenom);
+                    }
                 }
-            
+                this.nomEleves = noms;
+                }.bind(this));
+            },
+            //permet de mettre a jour les données quand le serveur envoie des données
+            mouted: function() {
+                ws.addEventListener('message', function(event) {
+                console.log('Données reçues:');
+                console.log(JSON.parse(event.data));
+                const infoEleve = JSON.parse(event.data);
+                const noms = [];
+                console.log(infoEleve + 'infoEleve');
+                for (const eleve of infoEleve) {
+                    if (eleve.session === 2) {
+                    noms.push(eleve.nom + ' ' + eleve.prenom);
+                    }
+                }
+                this.nomEleves = noms;
+                }.bind(this));
+            },
             });
         </script>
     </body>

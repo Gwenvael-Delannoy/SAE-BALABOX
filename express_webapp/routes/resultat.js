@@ -57,7 +57,7 @@ router.get('/', function(req, res, next) {
         });
       }
       else{
-        res.render('resultat', {sport : nom_sport,message : '', afficher : '', session : session});
+        res.render('resultat', {sport : nom_sport,id_sport : idsport,message : '', afficher : '', session : session});
       }
     }
   }); 

@@ -31,7 +31,7 @@ const wssEleve = new Websocket.Server({ port: 3001 });
 const wssProfesseur = new Websocket.Server({ port: 3002 });
 
 var eleves = []; // tableau global pour stocker les informations des élèves
-var resultats_eleve = []; // tableau global pour stocker les résultats des élèves
+var resultats_eleves = []; // tableau global pour stocker les résultats des élèves
 
 wssEleve.on('connection', function connection(ws) {
   console.log('Connection eleve');
@@ -43,15 +43,20 @@ wssEleve.on('connection', function connection(ws) {
       var data = JSON.parse(message);
       console.log('Données reçues:');
       console.log(data);
-      eleves.push(data);
-      console.log('Données stockées:');
-      console.log(eleves);
-      //envoie les données a tous les clients
-      wssEleve.clients.forEach(function each(client) {
-        if (client.readyState === Websocket.OPEN) {
-          client.send(eleves);
-        }
-      });
+       
+      if(data.type == 'info_eleve'){
+        eleves.push(data);
+        console.log('Données stockées:');
+        console.log(eleves);
+      }
+      else if(data.type == 'getTabEleve'){
+        console.log('Envoi des données des élèves');
+        ws.send(JSON.stringify(eleves));
+      }
+      else if(data.type == 'getTabResultat'){
+        console.log('Envoi des données des résultats');
+        ws.send(JSON.stringify(resultats_eleves));
+      }
     } catch (error) {
       console.error('Erreur lors de l\'analyse JSON:', error.message);
       return;
