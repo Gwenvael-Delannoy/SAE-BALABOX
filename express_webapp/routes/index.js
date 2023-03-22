@@ -110,13 +110,17 @@ router.post('/', function(req, res, next) {
               else{
                 var eleve_req = rows;
                 var prenomEleveBdd = '';
+                var nomEleveBdd = '';
+                var classeEleveBdd = '';
         
                 //recupere le prenom de l'eleve de la base de donnée si il existe 
                 if(eleve_req.length != 0){
                   prenomEleveBdd = eleve_req[0].prenom;
+                  nomEleveBdd = eleve_req[0].nom;
+                  classeEleveBdd = eleve_req[0].classe;
                 }
                 //check si l'eleve existe deja dans la base de donnée ou non meme s'il a le meme nom mais pas le meme prenom*
-                if(eleve_req.length == 0 && prenomEleveBdd != prenomEleve){
+                if(eleve_req.length == 0 || (prenomEleveBdd != prenomEleve && nomEleveBdd != nomEleve && classeEleveBdd != classeEleve)){
                   //si l'eleve n'existe pas on l'ajoute dans la base de donnée
                   var eleve = new Eleve();
                   //(nom, prenom, sexe, classe, total_points, equipe){
@@ -131,16 +135,15 @@ router.post('/', function(req, res, next) {
 
                     }
                   });
-
-                  // Envoi d'un message vers le serveur WebSocket de l'élève
-                  wss.send(JSON.stringify({
-                    type: 'info_eleve',
-                    nom: nomEleve,
-                    prenom: prenomEleve,
-                    classe: classeEleve,
-                    session: session[0].id_session
-                  }));
                 }
+                // Envoi d'un message vers le serveur WebSocket de l'élève
+                wss.send(JSON.stringify({
+                  type: 'info_eleve',
+                  nom: nomEleve,
+                  prenom: prenomEleve,
+                  classe: classeEleve,
+                  session: session[0].id_session
+                }));
               }
             });
               
