@@ -67,30 +67,101 @@
     <script>
         const canvas = document.querySelector('canvas');
         const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#000000';
 
         // terrain de basminton 
-        ctx.fillStyle = '#000000';
+        
+        // // bordure du terrain
+        // ctx.fillRect(20, 20, 5, 460);
+        // ctx.fillRect(275, 20, 5, 460);
+        // ctx.fillRect(20, 20, 260, 5);
+        // ctx.fillRect(20, 475, 260, 5);
+
+        // // ligne de service
+        // ctx.fillRect(20, 240, 260, 5);
+
+        // // couloir
+        // ctx.fillRect(20, 50, 260, 5);
+        // ctx.fillRect(20, 445, 260, 5);
+        // ctx.fillRect(50, 20, 5, 460);
+        // ctx.fillRect(245, 20, 5, 460);
+
+        // // carré de service
+        // ctx.fillRect(20, 180, 260, 5);
+        // ctx.fillRect(20, 300, 260, 5);
+        // ctx.fillRect(147.5, 20, 5, 160);
+        // ctx.fillRect(147.5, 300, 5, 180);
+
+
+        // terrain de tennis de table
+        
         // bordure du terrain
-        ctx.fillRect(20, 20, 5, 460);
-        ctx.fillRect(275, 20, 5, 460);
-        ctx.fillRect(20, 20, 260, 5);
-        ctx.fillRect(20, 475, 260, 5);
+        // ctx.fillRect(20, 20, 5, 460);
+        // ctx.fillRect(275, 20, 5, 460);
+        // ctx.fillRect(20, 20, 260, 5);
+        // ctx.fillRect(20, 475, 260, 5);
 
-        // ligne de service
-        ctx.fillRect(20, 240, 260, 5);
+        // // fillet
+        // ctx.fillRect(20, 240, 260, 5);
 
-        // couloir
-        ctx.fillRect(20, 50, 260, 5);
-        ctx.fillRect(20, 445, 260, 5);
-        ctx.fillRect(50, 20, 5, 460);
-        ctx.fillRect(245, 20, 5, 460);
+        // // carré de service
+        // ctx.fillRect(147.5, 20, 5, 460);
+        
 
-        // carré de service
-        ctx.fillRect(20, 180, 260, 5);
-        ctx.fillRect(20, 300, 260, 5);
-        ctx.fillRect(150, 20, 5, 160);
-        ctx.fillRect(150, 300, 5, 180);
 
+        // terrain handball
+
+        // // bordure du terrain
+        // ctx.fillRect(20, 20, 5, 460);
+        // ctx.fillRect(275, 20, 5, 460);
+        // ctx.fillRect(20, 20, 260, 5);
+        // ctx.fillRect(20, 475, 260, 5);
+
+        // // ligne de millieu de terrain
+        // ctx.fillRect(20, 240, 260, 2);
+
+        // // cage
+        // ctx.fillRect(135,10,25,5);
+        // ctx.fillRect(135,10,5,10);
+        // ctx.fillRect(160,10,5,10);
+        // ctx.fillRect(135,485,25,5);
+        // ctx.fillRect(135,480,5,10);
+        // ctx.fillRect(160,480,5,10);
+        
+        // // zone de but
+        // ctx.beginPath();
+        // ctx.ellipse(150,22.5 ,100,70,0,0, Math.PI);
+        // ctx.closePath();
+        // ctx.stroke();
+        // ctx.beginPath();
+        // ctx.ellipse(150,477.5 ,100,70,0,Math.PI, 0);
+        // ctx.closePath();
+        // ctx.stroke();
+
+        // // ligne de jet franc
+        // ctx.setLineDash([5, 5]);
+        // ctx.beginPath();
+        // ctx.ellipse(150,477.5 ,125,95,0,Math.PI, 0);
+        // ctx.closePath();
+        // ctx.stroke();
+        // ctx.setLineDash([5, 5]);
+        // ctx.beginPath();
+        // ctx.ellipse(150,22.5 ,125,95,0,0, Math.PI);
+        // ctx.closePath();
+        // ctx.stroke();
+
+        // // ligne de jet de 7m
+        // ctx.fillRect(145,100,10,2);
+        // ctx.fillRect(145,400,10,2);
+
+        // // limite gardien
+        // ctx.fillRect(147.5,70,5,2);
+        // ctx.fillRect(147.5,430,5,2);
+
+
+  
+
+        
         // gestion des scores
         let pointB1 = document.querySelector('.pointB1');
         let pointB2 = document.querySelector('.pointB2');
