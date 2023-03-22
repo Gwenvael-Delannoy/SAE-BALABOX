@@ -123,8 +123,8 @@ router.post('/', function(req, res, next) {
                 if(eleve_req.length == 0 || (prenomEleveBdd != prenomEleve && nomEleveBdd != nomEleve && classeEleveBdd != classeEleve)){
                   //si l'eleve n'existe pas on l'ajoute dans la base de donnée
                   var eleve = new Eleve();
-                  //(nom, prenom, sexe, classe, total_points, equipe){
-                  eleve.init(nomEleve,prenomEleve,"homme",classeEleve,0,1);
+                  //(nom, prenom, sexe, classe, total_points){
+                  eleve.init(nomEleve,prenomEleve,"homme",classeEleve);
                   eleve_dao.insert(eleve, function(err,rows) {
                     if (err ) {
                       messageError =err;
