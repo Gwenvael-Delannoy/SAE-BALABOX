@@ -33,29 +33,26 @@
         new Vue({
             el: '#app',
             data: {
-            eleves: [],
-            ws: null,
-            },
-            created() {
-            this.connect();
-            },
-            methods: {
-            connect: function() {
-                this.ws = new WebSocket('ws://localhost:3000/eleve');
-                this.ws.onmessage = function(event) {
-                const data = JSON.parse(event.data[1]);
-                if (Array.isArray(data)) {
-                    this.eleves = data;
-                } else {
-                    console.error("Données reçues du serveur ne sont pas un tableau.");
-                }
-                }.bind(this);
-            }
+                eleves: []
             },
             mounted: function() {
-            this.connect();
+                var self = this;
+                var ws = new WebSocket('ws://localhost:3000/classement_eleve');
+                ws.onmessage = function(event) {
+                try {
+                    var data = JSON.parse(event.data);
+                    if (Array.isArray(data)) {
+                    self.eleves = data;
+                    } else {
+                    console.error("Données reçues du serveur ne sont pas un tableau.");
+                    }
+                } catch (e) {
+                    console.error(e);
+                    console.log(event.data);
+                }
+                };
             }
-        });
+            });
         </script>
     </body>
 </html>
