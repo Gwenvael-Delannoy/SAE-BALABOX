@@ -48,6 +48,13 @@ wssEleve.on('connection', function connection(ws) {
         eleves.push(data);
         console.log('Données stockées:');
         console.log(eleves);
+
+        //envoie les données a tous les clients
+        wssEleve.clients.forEach(function each(client) {
+          if (client.readyState === Websocket.OPEN) {
+            client.send(JSON.stringify(eleves));
+          }
+        });
       }
       else if(data.type == 'getTabEleve'){
         console.log('Envoi des données des élèves');

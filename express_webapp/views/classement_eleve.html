@@ -41,39 +41,22 @@
             created: function() {
                 // Écouter les événements de la connexion WebSocket
                 ws.addEventListener('open', function(event) {
-                console.log('Connexion WebSocket ouverte');
-                ws.send(JSON.stringify({ type: 'getTabEleve', session: 2 }));
+                    console.log('Connexion WebSocket ouverte');
+                    ws.send(JSON.stringify({ type: 'getTabEleve', session: 2 }));
                 });
 
                 ws.addEventListener('message', function(event) {
-                console.log('Données reçues:');
-                console.log(JSON.parse(event.data));
-                const infoEleve = JSON.parse(event.data);
-                const noms = [];
-                console.log(infoEleve + 'infoEleve');
-                for (const eleve of infoEleve) {
-                    if (eleve.session === 2) {
-                    noms.push(eleve.nom + ' ' + eleve.prenom);
+                    console.log('Données reçues:');
+                    console.log(JSON.parse(event.data));
+                    const infoEleve = JSON.parse(event.data);
+                    const noms = [];
+                    console.log(infoEleve + 'infoEleve');
+                    for (const eleve of infoEleve) {
+                        if (eleve.session === 2) {
+                        noms.push(eleve.nom + ' ' + eleve.prenom);
+                        }
                     }
-                }
-                this.updateNomEleves(noms);
-                }.bind(this));
-            },
-            //permet de mettre a jour les données quand le serveur envoie des données
-            mounted: function() {
-                console.log('mouted!!!!!!!!!!!!!!!!!!!!!!!!!!')
-                ws.addEventListener('message', function(event) {
-                console.log('Données reçues:');
-                console.log(JSON.parse(event.data));
-                const infoEleve = JSON.parse(event.data);
-                const noms = [];
-                console.log(infoEleve + 'infoEleve');
-                for (const eleve of infoEleve) {
-                    if (eleve.session === 2) {
-                    noms.push(eleve.nom + ' ' + eleve.prenom);
-                    }
-                }
-                this.updateNomEleves(noms);
+                    this.updateNomEleves(noms);
                 }.bind(this));
             },
             destroyed: function() {
