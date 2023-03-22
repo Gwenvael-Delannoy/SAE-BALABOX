@@ -36,6 +36,20 @@
                 session : 2,
                 nomEleves: []
             },
+            created: function () {
+                    const socket = new WebSocket('ws://localhost:3000');
+                    socket.addEventListener('message', function (event) {
+                        const infoEleve = JSON.parse(event.data);
+                        const noms = [];
+                        console.log(infoEleve + "infoEleve");
+                        for (const eleve of infoEleve) {
+                            if (eleve.session === 2) {
+                                noms.push(eleve.nom);
+                            }
+                        }
+                        this.nomEleves = noms;
+                    }.bind(this));
+                }
             
             });
         </script>
