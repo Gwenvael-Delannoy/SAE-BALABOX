@@ -15,7 +15,7 @@ var EleveDAO = function() {
     this.insert = function(eleve, callback) {
         this.use(null);
         const values = [eleve.getNom(), eleve.getPrenom(), eleve.getSexe(), eleve.getClasse(), eleve.getTotalPoints()];
-        const sql = "INSERT INTO Eleve (nom, prenom, sexe, classe, total_points, l_equipe) VALUES (?, ?, ?, ?, ?)";
+        const sql = "INSERT INTO Eleve (nom, prenom, sexe, classe, total_points) VALUES (?, ?, ?, ?, ?)";
         smt.query(sql, values, callback);
     };
 
