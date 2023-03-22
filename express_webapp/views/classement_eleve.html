@@ -20,7 +20,7 @@
             <h1 class="titre">Classement</h1>
             <h3 class="tritre2">Faire un match contre :</h3>
             <select id="mySelect">
-                <option v-for="eleve in eleves">{{eleve.nom}}</option>
+                <option v-for="nom in nomEleves">{{ nom }}</option>
             </select>
             <form class="formulaire" action='/classement_eleve' method='post'>
                 <button class="bouton" id="entre">Entré</button>
@@ -33,25 +33,10 @@
         new Vue({
             el: '#app',
             data: {
-                eleves: []
+                session : 2,
+                nomEleves: []
             },
-            mounted: function() {
-                var self = this;
-                var ws = new WebSocket('ws://localhost:3000/classement_eleve');
-                ws.onmessage = function(event) {
-                try {
-                    var data = JSON.parse(event.data);
-                    if (Array.isArray(data)) {
-                    self.eleves = data;
-                    } else {
-                    console.error("Données reçues du serveur ne sont pas un tableau.");
-                    }
-                } catch (e) {
-                    console.error(e);
-                    console.log(event.data);
-                }
-                };
-            }
+            
             });
         </script>
     </body>
