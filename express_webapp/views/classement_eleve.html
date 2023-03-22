@@ -19,7 +19,7 @@
             <div class="jsp">
             <h1 class="titre">Classement</h1>
             <h3 class="titre2">Faire un match contre :</h3>
-            <select id="mySelect" v-model="EleveSelect">
+            <select id="mySelect" v-model="updateNomEleves">
                 <option v-for="nom in nomEleves">{{ nom }}</option>
             </select>
             <form class="formulaire" action='/classement_eleve' method='post'>
@@ -60,7 +60,8 @@
                 }.bind(this));
             },
             //permet de mettre a jour les données quand le serveur envoie des données
-            mouted: function() {
+            mounted: function() {
+                console.log('mouted!!!!!!!!!!!!!!!!!!!!!!!!!!')
                 ws.addEventListener('message', function(event) {
                 console.log('Données reçues:');
                 console.log(JSON.parse(event.data));
@@ -74,6 +75,10 @@
                 }
                 this.updateNomEleves(noms);
                 }.bind(this));
+            },
+            destroyed: function() {
+                // Fermer la connexion WebSocket lorsque la vue est détruite
+                ws.close();
             },
             methods: {
                 updateNomEleves(noms) {
