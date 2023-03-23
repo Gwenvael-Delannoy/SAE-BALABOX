@@ -34,6 +34,7 @@ INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport)
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("en cours","test8","test8","Raul Adrien","resultat",12);
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("en cours","test9","test9","Raul Adrien","resultat",7);
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("en cours","test10","test10","Raul Adrien","resultat",8);
+INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("terminer","test11","test11","Raul Adrien","resultat",8);
 
 
 -- creer une equipe

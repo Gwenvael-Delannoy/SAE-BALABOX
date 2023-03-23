@@ -1,22 +1,47 @@
 var express = require('express');
 var router = express.Router();
+var equipe_dao =  require('../models/dao/dataBase').equipe_dao;
+//import api 
+//var api = require_once(_ROOT_.'/config.php');
 
 
 /* GET error page. */
 router.get('/', function(req, res, next) {
+  var professeur ='';
+  var idSession = req.query.idSession;
+  var ws = new WebSocket('ws://localhost:3002');
+  //requeter l'api avec /authentified et on recuepre le role et on regarde si s'est un professer ou non
+  /**
+   var role = (appel api);
+   //dechiffrement du JWT TOKEN avec la clé public
 
-    var teams = [
-        {name:"eq1" , nbPlayers :20 , total : 20},
-        {name:"eq2" , nbPlayers :20 , total : 20},
-        {name:"eq3" , nbPlayers :20 , total : 20}
-    ];
-    var eleves = [
-        {nom:"nom1" , prenom:"prenom1" , sexe:"sexe1" , classe:"classe1" , total_points:20 , l_equipe:1},
-        {nom:"nom2" , prenom:"prenom2" , sexe:"sexe2" , classe:"classe2" , total_points:20 , l_equipe:1}
+   if(role =='False'){
+    message = 'Vous n avez pas accès à se service , merci de vous connecter avant'.
+   }else if(role == 2 ||role == 3 ){
+    professeur = 'professeur';
+   }*/   
 
-    ];
-    var idSession = 0;
-    res.render('gestion_equipe', {teams: teams, eleves: eleves, idSession: idSession });
+
+   //recuperer les equipes de la session
+    equipe_dao.getEquipeSession(idSession,function(err, rows){
+      if(err){
+        res.render('error', {message: 'Erreur lors de la récupération des équipes de la session'});
+      }
+      else{
+        for (var i = 0; i < rows.length; i++) {
+          ws.send(JSON.stringify({
+              type: 'equipe_session',
+              id_equipe: rows[i].id_equipe,  
+              nb_joueurs: rows[i].nb_joueurs,
+              total: rows[i].total,
+              id_session: idSession
+              }
+            )
+          );
+        } 
+      }
+    });
+    res.render('gestion_equipe', {idSession: idSession, professeur: professeur});
   });
 
 router.post('/', function(req, res, next) {

@@ -67,6 +67,13 @@ var EquipeDAO = function() {
         var sql5 = "SELECT * FROM Equipe WHERE id_equipe= " + key + ";";
         smt.query(sql5, callback);
     };
+    this.findEquipeSession = function(key, callback) {
+        this.use(null);
+        //on recupere les equipes de la session grace a des jointures avec match_equipe , match et equipe
+        var sql6 = "SELECT * FROM Equipe WHERE id_equipe IN (SELECT id_equipe FROM Match_equipe WHERE id_match IN (SELECT id_match FROM Match WHERE id_session = " + key + "));";
+        smt.query(sql6, callback);
+    };
+
 
     /**
      * Utiliser la bonne base de données

@@ -18,8 +18,8 @@
         </thead>
         <tbody>
           <tr v-for="team in teams" :key="team.id">
-            <td>{{ team.name }}</td>
-            <td>{{ team.nbPlayers }}</td>
+            <td>{{ team.id_equipe }}</td>
+            <td>{{ team.nb_joueurs }}</td>
             <td>{{ team.total }}</td>
           </tr>
         </tbody>
@@ -34,7 +34,7 @@
             <li v-for="eleve in eleves" :key="eleve.id">
               <label>
                 <input type="checkbox" v-model="selectedStudents" :value="eleve.id" />
-                    {{ eleve.nom }} {{ eleve.prenom }}
+                    {{ eleve }}
               </label>
             </li>
           </ul>
@@ -44,6 +44,7 @@
       </div>
     </div>
     <script>
+      const ws = new WebSocket('ws://localhost:3001');
         new Vue({
             el: '#app',
             data() {
@@ -54,30 +55,61 @@
                 eleves: [], // Ajout de la propriété 'eleves'
                 selectedStudents: [],
                 };
+            },created: function() {
+                // Écouter les événements de la connexion WebSocket
+                ws.addEventListener('open', function(event) {
+                    console.log('Connexion WebSocket ouverte');
+                    ws.send(JSON.stringify({ type: 'getTabEleve', session: 2 }));
+                    ws.send(JSON.stringify({ type: 'getTabEquipe', session: 2 }));
+                });
+
+                ws.addEventListener('message', function(event) {
+                    console.log('Données reçues:');
+                    console.log(JSON.parse(event.data));
+                    if(data.type == 'info_eleve'){
+                        const infoEleve = JSON.parse(event.data);
+                        const noms = [];
+                        console.log(infoEleve + 'infoEleve');
+                        for (const eleve of infoEleve) {
+                            if (eleve.session === 2) {
+                            noms.push(eleve.nom + ' ' + eleve.prenom);
+                            }
+                        }
+                        this.eleves = noms;
+                    }
+                    if(data.type == 'equipe_session'){
+                        const equipeSession = JSON.parse(event.data);
+                        const equipes = [];
+                        console.log(equipeSession + 'equipeSession');
+                        for (const equipe of equipeSession) {
+                            if (equipe.session === 2) {
+                            equipes.push(equipe);
+                            }
+                        }
+                        this.teams = equipes;
+                    }
+                }.bind(this));
             },
-            
             methods: {
                 showAddTeamForm() {
-                this.addingTeam = true;
+                  this.addingTeam = true;
+                  console.log(this.eleves);
                 },
                 cancelAddTeam() {
-                this.addingTeam = false;
-                this.newTeamName = "";
-                this.selectedStudents = [];
+                  this.addingTeam = false;
+                  this.newTeamName = "";
+                  this.selectedStudents = [];
                 },
                 addTeam() {
-                const newTeam = {
-                    name: this.newTeamName,
-                    nbPlayers: this.selectedStudents.length,
-                    total: this.selectedStudents.reduce(
-                    (total, studentId) =>
-                        total + this.eleves.find((s) => s.id === studentId).nom.length,
-                    ),
-                };
-                this.teams.push(newTeam);
-                this.addingTeam = false;
-                this.newTeamName = "";
-                this.selectedStudents =[];
+                  const newTeam = {
+                      name: this.newTeamName,
+                      nbPlayers: this.selectedStudents.length,
+                      total: 0,
+                  };
+                  this.teams.push(newTeam);
+                  this.addingTeam = false;
+                  this.newTeamName = "";
+                  this.selectedStudents =[];
                 },
             },
         });

@@ -32,6 +32,7 @@ const wssProfesseur = new Websocket.Server({ port: 3002 });
 
 var eleves = []; // tableau global pour stocker les informations des élèves
 var resultats_eleves = []; // tableau global pour stocker les résultats des élèves
+var equipes = []; // tableau global pour stocker les équipes
 
 wssEleve.on('connection', function connection(ws) {
   console.log('Connection eleve');
@@ -55,14 +56,26 @@ wssEleve.on('connection', function connection(ws) {
             client.send(JSON.stringify(eleves));
           }
         });
+        wssProfesseur.clients.forEach(function each(client) {
+          if (client.readyState === Websocket.OPEN) {
+            client.send(JSON.stringify(eleves));
+          }
+        });
+      }
+      else if(data.type == 'resultat_eleve'){
+        resultats_eleves.push(data);
+        console.log('Données stockées:');
+        console.log(resultats_eleves);
+
+        wssProfesseur.clients.forEach(function each(client) {
+          if (client.readyState === Websocket.OPEN) {
+            client.send(JSON.stringify(resultats_eleves));
+          }
+        });
       }
       else if(data.type == 'getTabEleve'){
         console.log('Envoi des données des élèves');
         ws.send(JSON.stringify(eleves));
-      }
-      else if(data.type == 'getTabResultat'){
-        console.log('Envoi des données des résultats');
-        ws.send(JSON.stringify(resultats_eleves));
       }
     } catch (error) {
       console.error('Erreur lors de l\'analyse JSON:', error.message);
@@ -78,18 +91,43 @@ wssProfesseur.on('connection', function connection(ws) {
   
   // Gérer les messages reçus
   ws.on('message', function incoming(message) {
+
+    var data = JSON.parse(message);
+    console.log('Données reçues:');
+    console.log(data);
+
     try {
-      var data = JSON.parse(message);
-      if(data.type == 'resultat'){
-        resultats_eleve.push(data.data);
+      if(data.type == 'getTabEleve'){
+        console.log('Envoi des données des élèves au professeur');
+        ws.send(JSON.stringify(eleves));
+      }
+      else if(data.type == 'getTabResultat'){
+        console.log('Envoi des données des resultats élèves au professeur');
+        ws.send(JSON.stringify(resultats_eleves));
+      }
+      else if(data.type == 'getTabEquipe'){
+        console.log('Envoi des données des équipes au professeur');
+        ws.send(JSON.stringify(equipes));
+      }
+      else if(data.type == 'equipe_session'){
+        const equipe = data;
+        equipes.push(equipe);
         console.log('Données stockées:');
-        console.log(resultats_eleve);
+        console.log(equipes);
+
         //envoie les données a tous les clients
+        wssEleve.clients.forEach(function each(client) {
+          if (client.readyState === Websocket.OPEN) {
+            client.send(JSON.stringify(equipes));
+          }
+        }
+        );
         wssProfesseur.clients.forEach(function each(client) {
           if (client.readyState === Websocket.OPEN) {
-            client.send(resultats_eleve);
+            client.send(JSON.stringify(equipes));
           }
-        });
+        }
+        );
       }
     }
     catch (error) {
