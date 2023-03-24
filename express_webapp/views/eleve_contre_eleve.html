@@ -159,7 +159,28 @@
         // ctx.fillRect(147.5,430,5,2);
 
 
-  
+        // terrain de foot
+
+        // bordure du terrain
+        ctx.fillRect(20, 20, 5, 460);
+        ctx.fillRect(275, 20, 5, 460);
+        ctx.fillRect(20, 20, 260, 5);
+        ctx.fillRect(20, 475, 260, 5);
+        
+        // ligne de millieu de terrain
+        ctx.fillRect(20, 240, 260, 2);
+
+        // cage
+        ctx.fillRect(135,10,25,5);
+        ctx.fillRect(135,10,5,10);
+        ctx.fillRect(160,10,5,10);
+        ctx.fillRect(135,485,25,5);
+        ctx.fillRect(135,480,5,10);
+        ctx.fillRect(160,480,5,10);
+        
+        // surface de réparation
+        ctx.fillRect(120,40,60,2);
+        ctx.fillRect(120,460,60,2);
 
         
         // gestion des scores
@@ -180,7 +201,6 @@
                 document.removeEventListener('click',drawCircleFB2,false);
                 document.removeEventListener('click',drawCircleFB1,false);
                 document.addEventListener('click',drawCirclePB1,false);
-                score1--;
             }
 
             function drawCirclePB1(e){
@@ -190,7 +210,7 @@
                 ctx.arc(x,y,5,0,2*Math.PI);
                 ctx.fillStyle = 'green';
                 ctx.fill();
-                if(x > 20 && x < 280 && y > 20 && y < 480 ){
+                if(x > 0 && x < 300 && y > 0 && y < 500 ){
                     score1++;
                     scoreBordScore[0].innerHTML = score1;
                 }
@@ -202,7 +222,6 @@
                 document.removeEventListener('click',drawCircleFB1,false);
                 document.removeEventListener('click',drawCircleFB2,false);
                 document.addEventListener('click',drawCirclePB2,false);
-                score2--;
             }
 
             function drawCirclePB2(e){
@@ -212,7 +231,7 @@
                 ctx.arc(x,y,5,0,2*Math.PI);
                 ctx.fillStyle = 'blue';
                 ctx.fill();
-                if(x > 20 && x < 280 && y > 20 && y < 480 ){
+                if(x > 0 && x < 300 && y > 0 && y < 500 ){
                     score2++;
                     scoreBordScore[1].innerHTML = score2;
                 }
@@ -225,7 +244,6 @@
                 document.removeEventListener('click',drawCirclePB2,false);
                 document.removeEventListener('click',drawCircleFB2,false);
                 document.addEventListener('click',drawCircleFB1,false);
-                score2--;
             }
 
             function drawCircleFB1(e){
@@ -235,7 +253,7 @@
                 ctx.arc(x,y,5,0,2*Math.PI);
                 ctx.fillStyle = 'red';
                 ctx.fill();
-                if(x > 20 && x < 280 && y > 20 && y < 480 ){
+                if(x > 0 && x < 300 && y > 0 && y < 500 ){
                     score2++;
                     scoreBordScore[1].innerHTML = score2;
                 }
@@ -247,7 +265,6 @@
                 document.removeEventListener('click',drawCirclePB2,false);
                 document.removeEventListener('click',drawCircleFB1,false);
                 document.addEventListener('click',drawCircleFB2,false);
-                score1--;
             }
 
             function drawCircleFB2(e){
@@ -257,7 +274,7 @@
                 ctx.arc(x,y,5,0,2*Math.PI);
                 ctx.fillStyle = 'yellow';
                 ctx.fill();
-                if(x > 20 && x < 280 && y > 20 && y < 480 ){
+                if(x > 0 && x < 300 && y > 0 && y < 500 ){
                     score1++;
                     scoreBordScore[0].innerHTML = score1;
                 }
