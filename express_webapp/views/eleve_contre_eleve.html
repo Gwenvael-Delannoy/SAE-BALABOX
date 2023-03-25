@@ -159,94 +159,156 @@
         // ctx.fillRect(147.5,430,5,2);
 
 
-        
+
         // terrain de foot
+
+        // // bordure du terrain
+        // ctx.fillRect(20, 20, 5, 460);
+        // ctx.fillRect(275, 20, 5, 460);
+        // ctx.fillRect(20, 20, 260, 5);
+        // ctx.fillRect(20, 475, 260, 5);
+        
+        // // ligne de millieu de terrain
+        // ctx.fillRect(20, 240, 260, 2);
+        // ctx.beginPath()
+        // ctx.arc(150, 240, 40, 0, Math.PI * 2, true);
+        // ctx.closePath();
+        // ctx.stroke();
+        // ctx.beginPath();
+        // ctx.arc(150, 241, 3, 0, Math.PI * 2, true);
+        // ctx.closePath();
+        // ctx.fill();
+
+
+        // // cage
+        // ctx.fillRect(135,10,25,5);
+        // ctx.fillRect(135,10,5,10);
+        // ctx.fillRect(160,10,5,10);
+        // ctx.fillRect(135,485,25,5);
+        // ctx.fillRect(135,480,5,10);
+        // ctx.fillRect(160,480,5,10);
+        
+        // // surface de réparation
+        // ctx.fillRect(120,40,60,2);
+        // ctx.fillRect(120,460,60,2);
+        // ctx.fillRect(120,20,2,20);
+        // ctx.fillRect(178,20,2,20);
+        // ctx.fillRect(120,460,2,20);
+        // ctx.fillRect(178,460,2,20);
+
+        // ctx.fillRect(90,80,120,2);
+        // ctx.fillRect(90,420,120,2);
+
+        // ctx.fillRect(90,20,2,60);
+        // ctx.fillRect(208,20,2,60);
+
+        // ctx.fillRect(90,420,2,60);
+        // ctx.fillRect(208,420,2,60);
+
+        // ctx.beginPath();
+        // ctx.arc(150, 70, 30, 0.35, Math.PI-0.35, false);
+        // ctx.closePath();
+        // ctx.stroke();
+
+        // ctx.beginPath();
+        // ctx.arc(150, 432, 30, Math.PI+0.35, 2*Math.PI-0.35, false);
+        // ctx.closePath();
+        // ctx.stroke();
+
+        // //ligne 11m
+        // ctx.beginPath();
+        // ctx.arc(150, 60, 2, 0, Math.PI * 2, true);
+        // ctx.closePath();
+        // ctx.fill();
+        // ctx.beginPath();
+        // ctx.arc(150, 442, 2, 0, Math.PI * 2, true);
+        // ctx.closePath();
+        // ctx.fill();
+
+        // //corner
+        // ctx.beginPath();
+        // ctx.arc(27, 27, 5, 0, Math.PI*2, true);
+        // ctx.closePath();
+        // ctx.stroke();
+
+        // ctx.beginPath();
+        // ctx.arc(273, 27, 5, 0, Math.PI*2, true);
+        // ctx.closePath();
+        // ctx.stroke();
+
+        // ctx.beginPath();
+        // ctx.arc(27, 473, 5, 0, Math.PI*2, true);
+        // ctx.closePath();
+        // ctx.stroke();
+
+        // ctx.beginPath();
+        // ctx.arc(273, 473, 5, 0, Math.PI*2, true);
+        // ctx.closePath();
+        // ctx.stroke();
+
+
+        // Terrain de basket
 
         // bordure du terrain
         ctx.fillRect(20, 20, 5, 460);
         ctx.fillRect(275, 20, 5, 460);
         ctx.fillRect(20, 20, 260, 5);
         ctx.fillRect(20, 475, 260, 5);
-        
+
         // ligne de millieu de terrain
         ctx.fillRect(20, 240, 260, 2);
         ctx.beginPath()
         ctx.arc(150, 240, 40, 0, Math.PI * 2, true);
         ctx.closePath();
         ctx.stroke();
+
+
+        // ligne de 3 points
         ctx.beginPath();
-        ctx.arc(150, 241, 3, 0, Math.PI * 2, true);
-        ctx.closePath();
-        ctx.fill();
-
-
-        // cage
-        ctx.fillRect(135,10,25,5);
-        ctx.fillRect(135,10,5,10);
-        ctx.fillRect(160,10,5,10);
-        ctx.fillRect(135,485,25,5);
-        ctx.fillRect(135,480,5,10);
-        ctx.fillRect(160,480,5,10);
-        
-        // surface de réparation
-        ctx.fillRect(120,40,60,2);
-        ctx.fillRect(120,460,60,2);
-        ctx.fillRect(120,20,2,20);
-        ctx.fillRect(178,20,2,20);
-        ctx.fillRect(120,460,2,20);
-        ctx.fillRect(178,460,2,20);
-
-        ctx.fillRect(90,80,120,2);
-        ctx.fillRect(90,420,120,2);
-
-        ctx.fillRect(90,20,2,60);
-        ctx.fillRect(208,20,2,60);
-
-        ctx.fillRect(90,420,2,60);
-        ctx.fillRect(208,420,2,60);
-
-        ctx.beginPath();
-        ctx.arc(150, 70, 30, 0.35, Math.PI-0.35, false);
-        ctx.closePath();
+        ctx.fillRect(60, 25, 2, 20);
+        ctx.fillRect(238, 25, 2, 20);
+        ctx.arc(150, 40, 89, 0, Math.PI , false);
         ctx.stroke();
+        ctx.closePath();
 
         ctx.beginPath();
-        ctx.arc(150, 432, 30, Math.PI+0.35, 2*Math.PI-0.35, false);
-        ctx.closePath();
+        ctx.fillRect(60, 455, 2, 20);
+        ctx.fillRect(238, 455, 2, 20);
+        ctx.arc(150, 460, 89, Math.PI, 0 , false);
         ctx.stroke();
+        ctx.closePath();
 
-        //ligne 11m
-        ctx.beginPath();
-        ctx.arc(150, 60, 2, 0, Math.PI * 2, true);
-        ctx.closePath();
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(150, 442, 2, 0, Math.PI * 2, true);
-        ctx.closePath();
-        ctx.fill();
+        // couloire des lancer franc
+        ctx.fillRect(125, 25, 1, 75);
+        ctx.fillRect(174, 25, 1, 75);
+        ctx.fillRect(125,95,50,1);
+        ctx.fillRect(125, 405, 1, 75);
+        ctx.fillRect(174, 405, 1, 75);
+        ctx.fillRect(125, 405, 50, 1);
 
-        //corner
         ctx.beginPath();
-        ctx.arc(27, 27, 5, 0, Math.PI*2, true);
-        ctx.closePath();
+        ctx.arc(150, 95, 25,0, Math.PI*2, false);
         ctx.stroke();
+        ctx.closePath();
 
         ctx.beginPath();
-        ctx.arc(273, 27, 5, 0, Math.PI*2, true);
-        ctx.closePath();
+        ctx.arc(150, 405, 25,0, Math.PI*2, false);
         ctx.stroke();
+        ctx.closePath();
 
+        // pagner 
+        ctx.fillRect(140, 35, 20, 1);
+        ctx.fillRect(150, 35, 1, 2);
         ctx.beginPath();
-        ctx.arc(27, 473, 5, 0, Math.PI*2, true);
-        ctx.closePath();
+        ctx.arc(150.5, 42, 4, 0, Math.PI*2, false);
         ctx.stroke();
-
+        ctx.closePath();
+        ctx.fillRect(140, 465, 20, 1);
+        ctx.fillRect(150, 463, 1, 2);
         ctx.beginPath();
-        ctx.arc(273, 473, 5, 0, Math.PI*2, true);
-        ctx.closePath();
+        ctx.arc(150.5, 458, 4, 0, Math.PI*2, false);
         ctx.stroke();
-
-
+        ctx.closePath();
 
 
 
