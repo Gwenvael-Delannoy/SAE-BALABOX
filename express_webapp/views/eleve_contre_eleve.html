@@ -159,6 +159,7 @@
         // ctx.fillRect(147.5,430,5,2);
 
 
+        
         // terrain de foot
 
         // bordure du terrain
@@ -169,6 +170,15 @@
         
         // ligne de millieu de terrain
         ctx.fillRect(20, 240, 260, 2);
+        ctx.beginPath()
+        ctx.arc(150, 240, 40, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(150, 241, 3, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.fill();
+
 
         // cage
         ctx.fillRect(135,10,25,5);
@@ -181,7 +191,66 @@
         // surface de réparation
         ctx.fillRect(120,40,60,2);
         ctx.fillRect(120,460,60,2);
+        ctx.fillRect(120,20,2,20);
+        ctx.fillRect(178,20,2,20);
+        ctx.fillRect(120,460,2,20);
+        ctx.fillRect(178,460,2,20);
 
+        ctx.fillRect(90,80,120,2);
+        ctx.fillRect(90,420,120,2);
+
+        ctx.fillRect(90,20,2,60);
+        ctx.fillRect(208,20,2,60);
+
+        ctx.fillRect(90,420,2,60);
+        ctx.fillRect(208,420,2,60);
+
+        ctx.beginPath();
+        ctx.arc(150, 70, 30, 0.35, Math.PI-0.35, false);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(150, 432, 30, Math.PI+0.35, 2*Math.PI-0.35, false);
+        ctx.closePath();
+        ctx.stroke();
+
+        //ligne 11m
+        ctx.beginPath();
+        ctx.arc(150, 60, 2, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(150, 442, 2, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.fill();
+
+        //corner
+        ctx.beginPath();
+        ctx.arc(27, 27, 5, 0, Math.PI*2, true);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(273, 27, 5, 0, Math.PI*2, true);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(27, 473, 5, 0, Math.PI*2, true);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(273, 473, 5, 0, Math.PI*2, true);
+        ctx.closePath();
+        ctx.stroke();
+
+
+
+
+
+// ###############################################################################################################
         
         // gestion des scores
         let pointB1 = document.querySelector('.pointB1');
