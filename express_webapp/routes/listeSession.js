@@ -9,6 +9,7 @@ var natation_dao = require('../models/dao/dataBase').natation_dao;
 var step_dao = require('../models/dao/dataBase').step_dao;
 var acrosport_dao = require('../models/dao/dataBase').acrosport_dao;
 var escalade_dao = require('../models/dao/dataBase').escalade_dao;
+var match_dao = require('../models/dao/dataBase').match_dao;
 
 
 /* Recuperer la page qui liste toutes les session créer par le professeur connecté . */
@@ -58,6 +59,16 @@ router.post('/', function(req, res, next) {
 
                     var nbRows = rows.length;
 
+                    if(nbRows == 0){
+                      session_dao.delete(id, function(err, row) {
+                        if (err) {
+                          res.render("error", {message: err});
+                        } else {
+                          res.redirect('listeSession');
+                        }
+                      });
+                    }
+
                     rows.forEach(function(row, index) {
 
                       var id_resultat = row.id_resultat;
@@ -90,8 +101,17 @@ router.post('/', function(req, res, next) {
                 resultat_dao.findBySession(id, function(err, rows) {
                   if (err) res.render("error", {message: err});
                   else{
-                    console.log(rows);
                     var nbRows = rows.length;
+
+                    if(nbRows == 0){
+                      session_dao.delete(id, function(err, row) {
+                        if (err) {
+                          res.render("error", {message: err});
+                        } else {
+                          res.redirect('listeSession');
+                        }
+                      });
+                    }
 
                     rows.forEach(function(row, index) {
 
@@ -125,6 +145,16 @@ router.post('/', function(req, res, next) {
                   if (err) res.render("error", {message: err});
                   else{
                     var nbRows = rows.length;
+
+                    if(nbRows == 0){
+                      session_dao.delete(id, function(err, row) {
+                        if (err) {
+                          res.render("error", {message: err});
+                        } else {
+                          res.redirect('listeSession');
+                        }
+                      });
+                    }
               
                     rows.forEach(function(row, index) {
 
@@ -159,6 +189,16 @@ router.post('/', function(req, res, next) {
                   if (err) res.render("error", {message: err});
                   else{
                     var nbRows = rows.length;
+
+                    if(nbRows == 0){
+                      session_dao.delete(id, function(err, row) {
+                        if (err) {
+                          res.render("error", {message: err});
+                        } else {
+                          res.redirect('listeSession');
+                        }
+                      });
+                    }
               
                     rows.forEach(function(row, index) {
 
@@ -200,6 +240,16 @@ router.post('/', function(req, res, next) {
                   if (err) res.render("error", {message: err});
                   else{
                     var nbRows = rows.length;
+
+                    if(nbRows == 0){
+                      session_dao.delete(id, function(err, row) {
+                        if (err) {
+                          res.render("error", {message: err});
+                        } else {
+                          res.redirect('listeSession');
+                        }
+                      });
+                    }
               
                     rows.forEach(function(row, index) {
 
@@ -240,6 +290,16 @@ router.post('/', function(req, res, next) {
                   if (err) res.render("error", {message: err});
                   else{
                     var nbRows = rows.length;
+
+                    if(nbRows == 0){
+                      session_dao.delete(id, function(err, row) {
+                        if (err) {
+                          res.render("error", {message: err});
+                        } else {
+                          res.redirect('listeSession');
+                        }
+                      });
+                    }
               
                     rows.forEach(function(row, index) {
 
@@ -267,8 +327,113 @@ router.post('/', function(req, res, next) {
               }
             }
           });
+        } else if(type_session == "tournoi equipe") {
+
+          console.log("tournoi equipe");
+            
+          match_dao.findBySession(id, function(err, rows) {
+            if(err){
+              session_dao.delete(id, function(err, row) {
+                if (err) {
+                  res.render("error", {message: err});
+                } else {
+                  res.redirect('listeSession');
+                }
+              });
+            }
+            else{
+              var nbRows = rows.length;
+
+              if(nbRows == 0){
+                session_dao.delete(id, function(err, row) {
+                  if (err) {
+                    res.render("error", {message: err});
+                  } else {
+                    res.redirect('listeSession');
+                  }
+                });
+              }
+        
+              rows.forEach(function(row, index) {
+
+                var id_match = row.id_match;
+
+                match_dao.deleteMatch_Equipe(id_match, function(err, row) {
+
+                  if (err) res.render("error", {message: err});
+                  else {
+                    var i = index;
+                    
+                    match_dao.delete(id_match, function(err, row) {
+                      if (err) res.render("error", {message: err});
+                      else {
+                        if(i == nbRows-1){
+                          session_dao.delete(id, function(err, row) {
+                            if (err) {
+                              res.render("error", {message: err});
+                            } else {
+                              res.redirect('listeSession');
+                            }
+                          });
+                        }
+                      }
+                    });
+                  }
+                });
+        
+              });
+            }
+          });
         } else {
 
+          console.log("tournoi eleve");
+
+          match_dao.findBySession(id, function(err, rows) {
+            if (err) {
+              res.render("error", {message: err});
+            }
+            else{
+              var nbRows = rows.length;
+
+              if(nbRows == 0){
+                session_dao.delete(id, function(err, row) {
+                  if (err) {
+                    res.render("error", {message: err});
+                  } else {
+                    res.redirect('listeSession');
+                  }
+                });
+              }
+        
+              rows.forEach(function(row, index) {
+
+                var id_match = row.id_match;
+
+                match_dao.deleteMatch_Eleve(id_match, function(err, row) {
+
+                  if (err) res.render("error", {message: err});
+                  else {
+                    var i = index;
+                    
+                    match_dao.delete(id_match, function(err, row) {
+                      if (err) res.render("error", {message: err});
+                      else {
+                        if(i == nbRows-1){
+                          session_dao.delete(id, function(err, row) {
+                            if (err) {
+                              res.render("error", {message: err});
+                            } else {
+                              res.redirect('listeSession');
+                            }
+                          });
+                        }
+                      }
+                    });
+                  }
+                });
+              });
+            }
+          });
         }
       }
     }

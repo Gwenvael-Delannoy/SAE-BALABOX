@@ -35,10 +35,15 @@ INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport)
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("en cours","test9","test9","Raul Adrien","resultat",7);
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("en cours","test10","test10","Raul Adrien","resultat",8);
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("terminer","test11","test11","Raul Adrien","resultat",8);
-
+INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("terminer","test12","test12","Raul Adrien","tournoi individuel",1);
+INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("terminer","test13","test13","Raul Adrien","tournoi equipe",3);
+INSERT INTO Session(statut,identifiant_con,mdp,professeur,type_session,le_sport) VALUES ("terminer","test14","test14","Raul Adrien","resultat",10);
 
 -- creer une equipe
 INSERT INTO Equipe(nb_joueurs,total) VALUES (30,5);
+
+INSERT INTO Equipe(nb_joueurs,total) VALUES (2,0);
+INSERT INTO Equipe(nb_joueurs,total) VALUES (2,0);
 
 -- creer un eleve
 INSERT INTO Eleve(nom,prenom,sexe,classe,total_points) VALUES ('Dupont','Michel','homme','6A',0);
@@ -49,11 +54,21 @@ INSERT INTO Eleve(nom,prenom,sexe,classe,total_points) VALUES ('Michel','Michel'
 INSERT INTO Eleve(nom,prenom,sexe,classe,total_points) VALUES ('Jack','Jack','homme','6A',0);
 
 
+INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (1,2);
+INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (2,2);
+INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (3,3);
+INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (4,3);
+
 -- creer un match
-INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,2);   
+INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,1);
 
 INSERT INTO Match_Eleve(un_match , leleve) VALUES (1,1);
 INSERT INTO Match_Eleve(un_match , leleve) VALUES (1,2);
+
+INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,13);
+
+INSERT INTO Match_Equipe(le_match , lequipe) VALUES (1,2);
+INSERT INTO Match_Equipe(le_match , lequipe) VALUES (1,3);
 
 -- creer un resultat
 INSERT INTO Resultat(la_session,unEleve)VALUES(5,1);

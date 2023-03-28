@@ -68,6 +68,7 @@ trigger pour verifier qu'il y a bien 2 equipes par match maximun
 trigger pour verifier qu'il y a bien 2 joueurs par match maximun
 
 */
+
 DROP TABLE Musculation;
 DROP TABLE Step;
 DROP TABLE Figure_Acrosport;
