@@ -35,14 +35,17 @@
             new Vue({
             el: '#app',
             data: {
-                session: '',
+                session: '<%=idSession%>',
                 nomEleves: [],
             },
             created: function() {
                 // Écouter les événements de la connexion WebSocket
+                const ses = this.session;
+                const sesInt = parseInt(ses);
+                
                 ws.addEventListener('open', function(event) {
                     console.log('Connexion WebSocket ouverte');
-                    ws.send(JSON.stringify({ type: 'getTabEleve', session: 2 }));
+                    ws.send(JSON.stringify({ type: 'getTabEleve', session: sesInt }));
                 });
 
                 ws.addEventListener('message', function(event) {
@@ -52,7 +55,7 @@
                     const noms = [];
                     console.log(infoEleve + 'infoEleve');
                     for (const eleve of infoEleve) {
-                        if (eleve.session === 2) {
+                        if (eleve.session === sesInt) {
                         noms.push(eleve.nom + ' ' + eleve.prenom);
                         }
                     }
