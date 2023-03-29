@@ -91,26 +91,22 @@ var EleveDAO = function() {
         smt.query(sql6,callback);
     };
     
+
+
     /**
-     * Trouver le nom d'un eleve dans un match dans la base de données
-     * @param {function} callback
-     * @returns {string}
-     */
-    this.findName2 = function(session, callback) {
-        this.use(null);
-        var sql6 = "SELECT prenom FROM Eleve,Match_Eleve, Match_ WHERE id_eleve = leleve AND un_match = id_match AND la_session= " + session +";";
-        smt.query(sql6,callback);
-    };
-    /**
-     * Trouver le nom d'un eleve dans une session dans la base de données
+     * Trouver le nom prenom et le total point et le nombre de match des eleves par ordre croissant du total point dans une session dans la base de données
+     * @param session string
      * @param {function} callback
      * @returns {string[]}
      */
-    this.findName3 = function(session, callback) {
+    this.findName4 = function(session, callback) {
         this.use(null);
-        var sql7 = "SELECT nom,prenom FROM resultat,eleve WHERE la_session= " + session +" AND unEleve = id_eleve;";
+        var sql7 = "SELECT id_eleve, nom, prenom, total_points, COUNT(*) AS nb_match FROM Eleve, Match_Eleve, Match_ WHERE id_eleve = leleve AND un_match = id_match AND la_session= " + session +" GROUP BY id_eleve ORDER BY total_points;";
         smt.query(sql7,callback);
-    };
+    }
+        
+
+
     /**
      * Utiliser la bonne base de données
      * @param {function} callback

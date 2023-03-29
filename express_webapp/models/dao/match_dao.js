@@ -102,6 +102,13 @@ var MatchDAO = function () {
         smt.query(sql, callback);
     }
 
+
+    this.findAllMatchSes = function (id, callback) {
+        this.use(null);
+        var sql = "SELECT * FROM Match_ WHERE la_session = " + id + ";";
+        smt.query(sql, callback);
+    };
+
     /**
      * Supprimer un match pour un eleve de la base de données par l'identifiant du match
      * @param {int} key

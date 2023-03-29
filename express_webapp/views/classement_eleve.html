@@ -26,9 +26,32 @@
                 <button class="bouton" id="entre">Entré</button>
             </form>
             </div>
+
+            <div class = tab>
+                <table>
+                    <thead>
+                      <tr>
+                        <th>Position</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>Points</th>
+                        <th>Nombre de match</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(eleve, index) in classement" :key="eleve.id">
+                        <td>{{ index + 1 }}</td>
+                        <td>{{ eleve.nom }}</td>
+                        <td>{{ eleve.prenom }}</td>
+                        <td>{{ eleve.total_points }}</td>
+                        <td>{{ eleve.nb_match }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
         </div>
         
-        
+         
         <script>
             const ws = new WebSocket('ws://localhost:3001');
 
@@ -37,6 +60,7 @@
             data: {
                 session: '<%=idSession%>',
                 nomEleves: [],
+                classement: '<%=classement%>'
             },
             created: function() {
                 // Écouter les événements de la connexion WebSocket
@@ -60,7 +84,10 @@
                         }
                     }
                     this.updateNomEleves(noms);
+                    this.toStringClassement();
                 }.bind(this));
+
+
             },
             destroyed: function() {
                 // Fermer la connexion WebSocket lorsque la vue est détruite
@@ -69,6 +96,19 @@
             methods: {
                 updateNomEleves(noms) {
                     this.nomEleves = noms;
+                },
+
+                toStringClassement() {
+                    for (const eleve of this.classement) {
+                        eleve.nom = eleve.getNom();
+                        eleve.prenom = eleve.getPrenom();
+                        eleve.total_points = eleve.getTotalPoints();
+                        eleve.nb_match = eleve.nb_match + '';
+
+                        console.log(eleve.nom + ' : nom   ' + eleve.prenom + ' : prenom   ' + eleve.total_points + ' : points   ' + eleve.nb_match+ " : nb_match");
+                    }
+
+                    
                 }
             }
             });
