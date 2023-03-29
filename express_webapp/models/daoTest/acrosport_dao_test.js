@@ -42,112 +42,97 @@ sport_dao.insert(sport, function(err, rows){
                 var idSession = rows[rows.length-1].id_session;
                 session.setId(idSession);
 
-                // insertion equipe
-                equipe.init(5,10);
-
-                equipe_dao.insert(equipe, function(err, rows){
+                // insertion eleve
+                eleve1.init("BOURBIGOT","Tristan","homme","6a",1);
+                eleve_dao.insert(eleve1, function(err, rows){
                     if(err) console.log(err);
 
-                    equipe_dao.findAll((err, rows) => {
+                    eleve_dao.findAll((err, rows) => {
                         if(err) console.log(err);
 
-                        var idEquipe = rows[rows.length-1].id_equipe;
-                        equipe.setId(idEquipe);
+                        var idEleve = rows[rows.length-1].id_eleve;
+                        eleve1.setId(idEleve);
 
-                        // insertion eleve
-                        eleve1.init("BOURBIGOT","Tristan","homme","6a",1,equipe.getId());
-                        eleve_dao.insert(eleve1, function(err, rows){
+                        // insertion resultat
+                        resultat.init("16:32:00",20,93,"ceci est un test",session.getId(),eleve1.getId());
+                        resultat_dao.insert(resultat, function(err, rows){
                             if(err) console.log(err);
 
-                            eleve_dao.findAll((err, rows) => {
+                            resultat_dao.findAll((err, rows) => {
                                 if(err) console.log(err);
 
-                                var idEleve = rows[rows.length-1].id_eleve;
-                                eleve1.setId(idEleve);
+                                var idResultat = rows[rows.length-1].id_resultat;
+                                resultat.setId(idResultat);
 
-                                // insertion resultat
-                                resultat.init("16:32:00",20,93,"ceci est un test",session.getId(),eleve1.getId());
-                                resultat_dao.insert(resultat, function(err, rows){
+                                // insertion acrosport
+                                acrosport.init(idResultat,20);
+                                acrosport_dao.findAll((err, rows) => {
                                     if(err) console.log(err);
 
-                                    resultat_dao.findAll((err, rows) => {
+                                    var res1 = rows.length;
+                                    acrosport_dao.insert(acrosport, function(err, rows){
                                         if(err) console.log(err);
 
-                                        var idResultat = rows[rows.length-1].id_resultat;
-                                        resultat.setId(idResultat);
-
-                                        // insertion acrosport
-                                        acrosport.init(20);
-                                        acrosport.setId(idResultat);
                                         acrosport_dao.findAll((err, rows) => {
                                             if(err) console.log(err);
 
-                                            var res1 = rows.length;
-                                            acrosport_dao.insert(acrosport, function(err, rows){
+                                            var res2 = rows.length;
+                                            if(res1+1 == res2){
+                                                console.log("insertion acrosport OK");
+                                            }
+                                            else{
+                                                console.log("insertion acrosport KO");
+                                            }
+                                        
+                                            // update acrosport
+                                            acrosport.setTotalPoint(30);
+
+                                            console.log("pre update :\n");
+                                            console.log(acrosport);
+
+                                            acrosport_dao.update(idResultat,acrosport, function(err, rows){
                                                 if(err) console.log(err);
 
-                                                acrosport_dao.findAll((err, rows) => {
+                                                acrosport_dao.findByKey(idResultat,(err, rows) => {
                                                     if(err) console.log(err);
-
-                                                    var res2 = rows.length;
-                                                    if(res1+1 == res2){
-                                                        console.log("insertion acrosport OK");
+                                                    console.log("post update :\n");
+                                                    console.log(rows[0]);
+                                                    if(rows[0].total_point == 30){
+                                                        console.log("update réussi");
                                                     }
                                                     else{
-                                                        console.log("insertion acrosport KO");
+                                                        console.log("update échouée");
                                                     }
-                                                
-                                                    // update acrosport
-                                                    acrosport.setTotalPoint(30);
 
-                                                    console.log("pre update :\n");
-                                                    console.log(acrosport);
-
-                                                    acrosport_dao.update(idResultat,acrosport, function(err, rows){
+                                                    // delete acrosport
+                                                    acrosport_dao.delete(idResultat, function(err, rows){
                                                         if(err) console.log(err);
 
-                                                        acrosport_dao.findByKey(idResultat,(err, rows) => {
+                                                        acrosport_dao.findAll((err, rows) => {
                                                             if(err) console.log(err);
-                                                            console.log("post update :\n");
-                                                            console.log(rows[0]);
-                                                            if(rows[0].total_point == 30){
-                                                                console.log("update réussi");
+
+                                                            var res3 = rows.length;
+                                                            if(res3 == res1){
+                                                                console.log("delete acrosport OK");
                                                             }
                                                             else{
-                                                                console.log("update échouée");
+                                                                console.log("delete acrosport KO");
                                                             }
-
-                                                            // delete acrosport
-                                                            acrosport_dao.delete(idResultat, function(err, rows){
-                                                                if(err) console.log(err);
-
-                                                                acrosport_dao.findAll((err, rows) => {
-                                                                    if(err) console.log(err);
-
-                                                                    var res3 = rows.length;
-                                                                    if(res3 == res1){
-                                                                        console.log("delete acrosport OK");
-                                                                    }
-                                                                    else{
-                                                                        console.log("delete acrosport KO");
-                                                                    }
-                                                                });
-                                                                resultat_dao.delete(resultat.getId(), function(err){
-                                                                    if(err) console.log(err);
-                                                                });
-                                                                eleve_dao.delete(eleve1.getId(), function(err, rows){
-                                                                    if(err) console.log(err);
-                                                                });
-                                                                equipe_dao.delete(equipe.getId(), function(err, rows){
-                                                                    if(err) console.log(err);
-                                                                });
-                                                                session_dao.delete(session.getId(), function(err, rows){
-                                                                    if(err) console.log(err);
-                                                                });
-                                                                sport_dao.delete(sport.getId(),function(err){
-                                                                    if(err) console.log(err);
-                                                                });
-                                                            });
+                                                        });
+                                                        resultat_dao.delete(resultat.getId(), function(err){
+                                                            if(err) console.log(err);
+                                                        });
+                                                        eleve_dao.delete(eleve1.getId(), function(err, rows){
+                                                            if(err) console.log(err);
+                                                        });
+                                                        equipe_dao.delete(equipe.getId(), function(err, rows){
+                                                            if(err) console.log(err);
+                                                        });
+                                                        session_dao.delete(session.getId(), function(err, rows){
+                                                            if(err) console.log(err);
+                                                        });
+                                                        sport_dao.delete(sport.getId(),function(err){
+                                                            if(err) console.log(err);
                                                         });
                                                     });
                                                 });

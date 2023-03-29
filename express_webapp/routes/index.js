@@ -7,6 +7,7 @@ var WebSocket = require('ws');
 //import api 
 //var api = require_once(_ROOT_.'/config.php');
 
+var professeur ='';
 
 /* Recuperer la page d'accueuil. */
 router.get('/', function(req, res, next) {
@@ -63,7 +64,7 @@ router.post('/', function(req, res, next) {
 
     nomEleve = "professeur";
     prenomEleve = "professeur";
-    classeEleve = "professeur";
+    classeEleve = "pf";
 
     // Connexion au websocket pour le professeur
     wss = new WebSocket('ws://localhost:3002');
@@ -85,14 +86,14 @@ router.post('/', function(req, res, next) {
   session_dao.FindByIdCon(ideCon, function(err,rows) {
     if (err ) {
       messageError ='Connexion a la base de donnée impossible'
-      res.render('index', { message: messageError });
+      res.render('index', { message: messageError, professeur : professeur });
     }
     else{
       var session = rows;
 
       if(session == null || session == undefined || session == ''){
         messageError = 'Identifiant incorrect ou inexistant';
-        res.render('index', { message: messageError });
+        res.render('index', { message: messageError, professeur : professeur });
       }
       else{
 
@@ -151,18 +152,18 @@ router.post('/', function(req, res, next) {
             if(session[0].type_session == 'tournoi equipe'){
               res.redirect('/classement_equipe?ses='+ session[0].id_session);
             }else if(session[0].type_session == 'resultat'){
-              res.redirect('/resultat?idSport=' + session[0].le_sport + '&ses=' + session[0].id_session);
+              res.redirect('/resultat?idSport=' + session[0].le_sport + '&ses=' + session[0].id_session + '&nom=' + nomEleve + '&prenom=' + prenomEleve + '&classe=' + classeEleve);
             }else if(session[0].type_session == 'tournoi individuel' ){
               res.redirect('/classement_eleve?ses=' + session[0].id_session);
             }
           }
           else{
             messageError = 'Session terminée';
-            res.render('error', { message: messageError });
+            res.render('index', { message: messageError, professeur : professeur });
           }
         }else{
           messageError = 'Mot de passe incorrect';
-          res.render('error', { message: messageError });
+          res.render('index', { message: messageError, professeur : professeur });
         }
       }
     }

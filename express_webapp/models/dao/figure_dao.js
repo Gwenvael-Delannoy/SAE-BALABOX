@@ -75,7 +75,7 @@ var FigureDAO = function() {
      */
     this.findByNom = function(nom, callback) {
         this.use(null);
-        var sql6 = "SELECT * FROM Figure WHERE nom = " + nom + ";";
+        var sql6 = "SELECT * FROM Figure WHERE nom = '" + nom + "';";
         smt.query(sql6, callback);
     };
 

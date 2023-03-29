@@ -20,6 +20,22 @@ var AcrosportDAO = function() {
     };
 
     /**
+     * Insérer un nouveau Figure_Acrosport dans la base de données
+     * @param {int} id_acrosport
+     * @param {int} id_figure
+     * @param {function} callback
+     * @returns {void}
+     */
+
+    this.insertFigure_acrosport = function(id_acrosport,id_figure, callback) {
+        this.use(null);
+        var valeurs = [id_acrosport,id_figure];
+        var sql = "INSERT INTO Figure_Acrosport (lAcrosport,laFigure) VALUES (?,?)";
+        smt.query(sql, valeurs, callback);
+    };
+
+
+    /**
      * Mettre à jour un Acrosport dans la base de données
      * @param {int} key
      * @param {Acrosport} acrosport

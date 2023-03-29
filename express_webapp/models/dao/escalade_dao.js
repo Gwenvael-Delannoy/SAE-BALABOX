@@ -20,6 +20,20 @@ var EscaladeDAO = function() {
     };
 
     /**
+     * Inserer une nouvelle donnée escalade_voie dans la base de données
+     * @param {Escalade} escalade
+     * @param {Voie} voie
+     * @param {function} callback
+     * @returns {void}
+     */
+    this.insertEscalade_voie = function(id_escalade,id_voie, callback) {
+        this.use(null);
+        values = [id_escalade,id_voie];
+        var sql = "INSERT INTO Escalade_Voie (lEscalade, laVoie) VALUES (?,?)";
+        smt.query(sql, values ,callback);
+    };
+
+    /**
      * Mettre à jour une donnée escalade dans la base de données
      * @param {int} key
      * @param {Escalade} escalade

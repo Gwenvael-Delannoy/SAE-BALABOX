@@ -3,7 +3,6 @@
  * Attributs of the database : 
  * id_acrosport
  * total_point
- * lesFigures
  */
 module.exports = class Acrosport {
     /**
@@ -15,8 +14,8 @@ module.exports = class Acrosport {
      * @param {int} total_point
      * @returns {void}
      */
-    init (total_point){
-        this.id_acrosport = -1;
+    init (id , total_point){
+        this.id_acrosport = id;
         this.total_point = total_point;
 
     }

@@ -23,7 +23,9 @@
                     <br>
                     <% if (message) { %>
                         <p><%= message %></p>
-                        <button onclick="goBack()">Nouveau resultat</button>
+                        <form action='/resultat' method='post'>
+                            <input type="submit" name="action" value="Nouveau résultat" >
+                        </form>
                     <% } %>
                     
 
@@ -46,9 +48,6 @@
                                 <label for="complementaire">Informations complémentaires : </label>
                                 <textarea id="complementaire" name="complementaire"></textarea><br>
                             
-                                <input type="hidden" name="sport" value="<%= sport %>">
-                                <input type="hidden" name="session" value="<%= session %>" >
-                                <input type="hidden" name="id_sport" value="<%= id_sport %>" >
                                 <input type="submit" name="action" value="Envoyer">
                                 <br>
                                 <br>
@@ -81,9 +80,6 @@
                                 <label for="complementaire">Informations complémentaires : </label>
                                 <textarea id="complementaire" name="complementaire"></textarea><br>
                             
-                                <input type="hidden" name="sport" value="<%= sport %>">
-                                <input type="hidden" name="session" value="<%= session %>" >
-                                <input type="hidden" name="id_sport" value="<%= id_sport %>" >
                                 <input type="submit" name="action" value="Envoyer">
                                 <br>
                                 <br>
@@ -115,9 +111,6 @@
                                 <label for="ressenti">Ressenti : </label>
                                 <textarea id="ressenti" name="ressenti"></textarea><br>
                             
-                                <input type="hidden" name="sport" value="<%= sport %>">
-                                <input type="hidden" name="session" value="<%= session %>" >
-                                <input type="hidden" name="id_sport" value="<%= id_sport %>" >
                                 <input type="submit" name="action" value="Envoyer">
                                 <br>
                                 <br>
@@ -139,15 +132,15 @@
                                     <% } %>
                                 </select><br>
 
-                                <label for="time">temps de monter(seconde) : </label>
-                                <input type="number" id="time" name="time" min="0" step="1" required><br>
-
+                                <label for="minutes">Minutes : ( 0 si Nean) </label>
+                                <input type="number" id="minutes" name="minutes" min="0" max="59" step="1" required><br>
+                                
+                                <label for="seconds">Secondes : </label>
+                                <input type="number" id="seconds" name="seconds" min="0" max="59" step="1" required><br>
+                                
                                 <label for="complementaire">Informations complémentaires : </label>
                                 <textarea id="complementaire" name="complementaire"></textarea><br>
 
-                                <input type="hidden" name="sport" value="<%= sport %>">
-                                <input type="hidden" name="session" value="<%= session %>" >
-                                <input type="hidden" name="id_sport" value="<%= id_sport %>" >
                                 <input type="submit" name="action" value="Envoyer">
                                 <br>
                                 <br>
@@ -160,7 +153,7 @@
                                 
                                 <% if(afficher == ''){ %>
                                     <!-- afficher le compteur et le bloquer pour pas qu'on puisse aller sous 0-->        
-                                    <label for="nombreFigure">Nombre de figure : </label>
+                                    <label for="nombreFigure">Nombre de figure(s) : </label>
                                     <input type="number" id="nombreFigure" name="nombreFigure" min="0" step="1" required readonly><br>
 
                                     <!-- modification du compteur-->
@@ -169,10 +162,6 @@
                                     <!-- checker si nombreFigure n'est pas a 0 avant d'effectuer la soustraction-->
                                     <button type="button" onclick="if (document.getElementById('nombreFigure').value > 0) {document.getElementById('nombreFigure').value--}">-</button>
                                 
-                                    <input type="hidden" name="sport" value="<%= sport %>" >
-                                    <input type="hidden" name="id_sport" value="<%= id_sport %>" >
-                                    <input type="hidden" name="session" value="<%= session %>" >
-                                    <input type="hidden" name="figure" value="<%= figures%>" >
                                     <input type="submit" name="action" value="Remplir">
                                     <br>
                                     <br>
@@ -198,6 +187,7 @@
                                             <% i = 0; %>
                                             <% j++; %>
                                         <% } %>
+                                        <input type="hidden" name="nbfig" value="<%= nbfig %>">
                                         <input type="submit" name="action" value="Envoyer">
                                     <% } %>
                                    <input type="submit" name="action" value="Retour">
@@ -231,10 +221,6 @@
                                 <label for="perspective">Perspective : </label>
                                 <textarea id="perspective" name="perspective"></textarea><br>
 
-
-                                <input type="hidden" name="sport" value="<%= sport %>">
-                                <input type="hidden" name="session" value="<%= session %>" >
-                                <input type="hidden" name="id_sport" value="<%= id_sport %>" >
                                 <input type="submit" name="action" value="Envoyer">
                                 <br>
                                 <br>
@@ -242,10 +228,5 @@
                         <% } %>
                     <% } %>
                 </div>
-                <script>
-                    function goBack() {
-                        window.history.back();
-                    }
-                </script>
             </body>
         </html>
