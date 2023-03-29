@@ -106,7 +106,15 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/', function(req, res, next) {
-    res.render('eleve_contre_eleve');
+    idSession = req.body.idSession;
+    NomAdversaire = req.body.NomAdversaire;
+    if(NomAdversaire == ''){
+        res.render('error',{message : "Veuillez choisir un adversaire"});
+    }else{
+        res.render('eleve_contre_eleve', { idSession : idSession, NomAdversaire : NomAdversaire});
+        console.log("idSession :" +idSession+ "\nNomAdversaire :" +NomAdversaire);
+    }
+    
 });
 
 

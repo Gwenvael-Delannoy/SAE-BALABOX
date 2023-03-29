@@ -23,6 +23,8 @@
                 <option v-for="nom in nomEleves">{{ nom }}</option>
             </select>
             <form class="formulaire" action='/classement_eleve' method='post'>
+                <input type="hidden" name="idSession" value="terminer" id="idSession">
+                <input type="hidden" name="NomAdversaire" value="terminer" id="NomAdversaire">
                 <button class="bouton" id="entre">Entré</button>
             </form>
             </div>
@@ -111,6 +113,15 @@
                     
                 }
             }
+            });
+
+            let form = document.querySelector('#entre');
+            let select = document.querySelector('#NomAdversaire');
+            let idSession = document.querySelector('#idSession');
+
+            form.addEventListener('click', function(event) {
+                select.value = document.querySelector('#mySelect').value;
+                idSession.value = '<%=idSession%>';
             });
         </script>
     </body>
