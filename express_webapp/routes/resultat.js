@@ -384,6 +384,3 @@ function envoieDonneesProf(donnees) {
   });
 }
 module.exports = router;
-
-
-

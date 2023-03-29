@@ -2,8 +2,10 @@ var express = require('express');
 var router = express.Router();
 var session_dao =  require('../models/dao/dataBase').session_dao;
 var eleve_dao =  require('../models/dao/dataBase').eleve_dao;
+var sport_dao =  require('../models/dao/dataBase').sport_dao;
 var Eleve = require('../models/eleve');
 var WebSocket = require('ws');
+
 //import api 
 //var api = require_once(_ROOT_.'/config.php');
 
@@ -96,66 +98,82 @@ router.post('/', function(req, res, next) {
         res.render('index', { message: messageError, professeur : professeur });
       }
       else{
+        
 
         //check si le mot de passe est correct
         if(session[0].mdp == pwd){
 
           //check si la session est en cours
           if(session[0].statut == 'en cours'){
+            
+            var type_ses = '';
 
-            //check si l'eleve ou le professeur(connecté en tant qu'eleve pour pouvoir etre aussi dans la session si besoin) existe deja dans la base de donnée
-            eleve_dao.findByName(nomEleve, function(err,rows) {
+            //recupere le type de la session
+            sport_dao.findByKey(session[0].le_sport, function(err,rows) {
               if (err ) {
-                messageError ='Connexion a la base de donnée impossible'
+                messageError =err
+                res.render('error', { message: messageError});
               }
               else{
-                var eleve_req = rows;
-                var prenomEleveBdd = '';
-                var nomEleveBdd = '';
-                var classeEleveBdd = '';
-        
-                //recupere le prenom de l'eleve de la base de donnée si il existe 
-                if(eleve_req.length != 0){
-                  prenomEleveBdd = eleve_req[0].prenom;
-                  nomEleveBdd = eleve_req[0].nom;
-                  classeEleveBdd = eleve_req[0].classe;
-                }
-                //check si l'eleve existe deja dans la base de donnée ou non meme s'il a le meme nom mais pas le meme prenom*
-                if(eleve_req.length == 0 || (prenomEleveBdd != prenomEleve && nomEleveBdd != nomEleve && classeEleveBdd != classeEleve)){
-                  //si l'eleve n'existe pas on l'ajoute dans la base de donnée
-                  var eleve = new Eleve();
-                  //(nom, prenom, sexe, classe, total_points){
-                  eleve.init(nomEleve,prenomEleve,"homme",classeEleve);
-                  eleve_dao.insert(eleve, function(err,rows) {
-                    if (err ) {
-                      messageError =err;
-                      console.log(messageError);
+                type_ses= rows[0].type_session;
+                console.log('type de la session : '+type_ses);
+                console.log('type de la session : '+type_ses);
+                //check si l'eleve ou le professeur(connecté en tant qu'eleve pour pouvoir etre aussi dans la session si besoin) existe deja dans la base de donnée
+                eleve_dao.findByName(nomEleve, function(err,rows) {
+                  if (err ) {
+                    messageError ='Connexion a la base de donnée impossible'
+                  }
+                  else{
+                    var eleve_req = rows;
+                    var prenomEleveBdd = '';
+                    var nomEleveBdd = '';
+                    var classeEleveBdd = '';
+            
+                    //recupere le prenom de l'eleve de la base de donnée si il existe 
+                    if(eleve_req.length != 0){
+                      prenomEleveBdd = eleve_req[0].prenom;
+                      nomEleveBdd = eleve_req[0].nom;
+                      classeEleveBdd = eleve_req[0].classe;
                     }
-                    else{
-                      console.log('nouveau eleve/professeur connecter en tant qu eleve cree ');
-
+                    //check si l'eleve existe deja dans la base de donnée ou non meme s'il a le meme nom mais pas le meme prenom*
+                    if(eleve_req.length == 0 || (prenomEleveBdd != prenomEleve && nomEleveBdd != nomEleve && classeEleveBdd != classeEleve)){
+                      //si l'eleve n'existe pas on l'ajoute dans la base de donnée
+                      var eleve = new Eleve();
+                      //(nom, prenom, sexe, classe, total_points){
+                      eleve.init(nomEleve,prenomEleve,"homme",classeEleve);
+                      eleve_dao.insert(eleve, function(err,rows) {
+                        if (err ) {
+                          messageError =err;
+                          console.log(messageError);
+                        }
+                        else{
+                          console.log('nouveau eleve/professeur connecter en tant qu eleve cree ');
+    
+                        }
+                      });
                     }
-                  });
+                    // Envoi d'un message vers le serveur WebSocket de l'élève
+                    wss.send(JSON.stringify({
+                      type: 'info_eleve',
+                      nom: nomEleve,
+                      prenom: prenomEleve,
+                      classe: classeEleve,
+                      session: session[0].id_session
+                    }));
+                  }
+                });
+                  
+                //renvoie la page en fonction du type de session
+                console.log('type de la session : '+type_ses);
+                if(type_ses == 'tournoi equipe'){
+                  res.redirect('/classement_equipe?ses='+ session[0].id_session);
+                }else if(type_ses == 'resultat'){
+                  res.redirect('/resultat?idSport=' + session[0].le_sport + '&ses=' + session[0].id_session + '&nom=' + nomEleve + '&prenom=' + prenomEleve + '&classe=' + classeEleve);
+                }else if(type_ses == 'tournoi individuel' ){
+                  res.redirect('/classement_eleve?ses=' + session[0].id_session);
                 }
-                // Envoi d'un message vers le serveur WebSocket de l'élève
-                wss.send(JSON.stringify({
-                  type: 'info_eleve',
-                  nom: nomEleve,
-                  prenom: prenomEleve,
-                  classe: classeEleve,
-                  session: session[0].id_session
-                }));
               }
             });
-              
-            //renvoie la page en fonction du type de session
-            if(session[0].type_session == 'tournoi equipe'){
-              res.redirect('/classement_equipe?ses='+ session[0].id_session);
-            }else if(session[0].type_session == 'resultat'){
-              res.redirect('/resultat?idSport=' + session[0].le_sport + '&ses=' + session[0].id_session + '&nom=' + nomEleve + '&prenom=' + prenomEleve + '&classe=' + classeEleve);
-            }else if(session[0].type_session == 'tournoi individuel' ){
-              res.redirect('/classement_eleve?ses=' + session[0].id_session);
-            }
           }
           else{
             messageError = 'Session terminée';

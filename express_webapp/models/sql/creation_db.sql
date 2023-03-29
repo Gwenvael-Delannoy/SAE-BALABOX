@@ -32,9 +32,9 @@ Schema relationel complet de la base de donnée:
 
     Match_(id_match (INTEGER), resultat_equipe_1 (INTEGER), resultat_equipe_2 (INTEGER), la_session (INTEGER))
 
-    Match_Equipe(le_match (INTEGER), lequipe (INTEGER))
+    Match_Equipe(le_match (INTEGER), lequipe (INTEGER),gagnant (INTEGER))
 
-    Match_Eleve(le_match (INTEGER), le_eleve (INTEGER))
+    Match_Eleve(le_match (INTEGER), le_eleve (INTEGER),gagnant (INTEGER))
 
     Musculation(id_musculation (INTEGER), muscle_travailler (VARCHAR(50)), temps_pause (INTEGER), series (INTEGER), nb_reps (INTEGER), intensite (INTEGER), charge (INTEGER), ressenti (VARCHAR(250)), id_sport (INTEGER))
 
@@ -175,6 +175,7 @@ CREATE TABLE Match_(
 CREATE TABLE Match_Equipe(
     le_match INTEGER,  
     lequipe INTEGER,
+    gagnant INTEGER,
     
     -- CONSTRAINTS
     CONSTRAINT fk_Match_Equipe FOREIGN KEY (le_match) REFERENCES Match_(id_match),
@@ -185,6 +186,7 @@ CREATE TABLE Match_Equipe(
 CREATE TABLE Match_Eleve(
     un_match INTEGER,   
     leleve INTEGER,
+    gagnant INTEGER,
 
     -- CONSTRAINTS
     CONSTRAINT fk_Match_Eleve FOREIGN KEY (un_match) REFERENCES Match_(id_match),

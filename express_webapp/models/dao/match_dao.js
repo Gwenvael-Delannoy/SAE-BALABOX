@@ -23,13 +23,14 @@ var MatchDAO = function () {
      * Inserer une nouvelle association entre un match et une equipe
      * @param {int} key
      * @param {int} match
+     * @param {int} point
      * @param {function} callback
      * @returns {void}
      */
-    this.insertMatch_Equipe = function(key1,key2,callback){
+    this.insertMatch_Equipe = function(key1,key2,point,callback){
         this.use(null);
-        values = [key1,key2];
-        var sql = "INSERT INTO Match_Equipe (le_match, lequipe) VALUES (?,?)";
+        values = [key1,key2,point];
+        var sql = "INSERT INTO Match_Equipe (le_match, lequipe,gagnant) VALUES (?,?,?)";
         smt.query(sql, values, callback);
     }
 
@@ -37,16 +38,31 @@ var MatchDAO = function () {
      * Inserer une nouvelle association entre un match et un eleve
      * @param {int} key1 
      * @param {int} key2 
+     * @param {int} point
      * @param {function} callback 
      * @returns {void}
      */
-    this.insertMatch_Eleve = function(key1,key2,callback){
+    this.insertMatch_Eleve = function(key1,key2,point,callback){
         this.use(null);
-        values = [key1,key2];
-        var sql = "INSERT INTO Match_Eleve (un_match, leleve) VALUES (?,?)";
+        values = [key1,key2,point];
+        var sql = "INSERT INTO Match_Eleve (un_match, leleve,gagnant) VALUES (?,?,?)";
         smt.query(sql, values, callback);
     }
 
+    /**
+     * Mettre à jour un match dans la base de données
+     * @param {int} key
+     * @param {Match} match
+     * @param {function} callback
+     * @returns {void}
+     */
+    this.update = function (match, callback) {
+        this.use(null);
+        var values = [match.getResultat1(), match.getResultat2(), match.getSession()];
+        var key = match.getId();
+        var sql2 = "UPDATE Match_ SET resultat_equipe_1=?,resultat_equipe_2=?,la_session=? WHERE id_match= " + key + ";";
+        smt.query(sql2, values, callback);
+    };
     /**
      * Trouver toutes les match présentes dans la base de données pour un eleve
      * @param {function} callback 
@@ -156,22 +172,6 @@ var MatchDAO = function () {
         var sql = "DELETE FROM Match_Equipe WHERE lequipe = " + key + ";";
         smt.query(sql, callback);
     }
-
-    /**
-     * Mettre à jour un match dans la base de données
-     * @param {int} key
-     * @param {Match} match
-     * @param {function} callback
-     * @returns {void}
-     */
-    this.update = function (match, callback) {
-        this.use(null);
-        var values = [match.getResultat1(), match.getResultat2(), match.getSession()];
-        var key = match.getId();
-        var sql2 = "UPDATE Match_ SET resultat_equipe_1=?,resultat_equipe_2=?,la_session=? WHERE id_match= " + key + ";";
-        smt.query(sql2, values, callback);
-    };
-
     /**
      * Supprimer un match de la base de données
      * @param {int} key
