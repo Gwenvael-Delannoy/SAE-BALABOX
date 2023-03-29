@@ -8,7 +8,7 @@ var sportDao = require('../dao/dataBase').sport_dao;
 var sport = require('../sport');
 
 sport = new sport();
-sport.init("basketball","sport de basket");
+sport.init("basketball","sport de basket","tournoi equipe");
 
 sportDao.insert(sport, function(err, rows){
     if(err) console.log(err);
@@ -20,7 +20,7 @@ sportDao.insert(sport, function(err, rows){
         sport.setId(id);
 
         session = new session();
-        session.init("2023-01-16","en cours","16:32:00","tw24N","mdp","Tristan BOURBIGOT","tournois",id);
+        session.init("2023-01-16","en cours","16:32:00","tw24N","mdp","Tristan BOURBIGOT",id);
 
         sessionDao.findAll((err, rows) => {
             if(err) console.log(err);
@@ -48,7 +48,7 @@ sportDao.insert(sport, function(err, rows){
                         session.setDate("2024-01-16");
                         session.setStatut("terminer");
 
-                        var values = [session.getDate(), session.getStatut(), session.getHeure(), session.getIdentifiant(), session.getMdp(), session.getProfesseur(), session.getType(), session.getSport()];
+                        var values = [session.getDate(), session.getStatut(), session.getHeure(), session.getIdentifiant(), session.getMdp(), session.getProfesseur(), session.getSport()];
         
                         sessionDao.update(id, values, function(err, row){
                             if(err) console.log(err);

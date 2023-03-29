@@ -6,7 +6,7 @@ var sportDao = require('../dao/dataBase').sport_dao;
 var sport = require('../sport');
 
 sport = new sport();
-sport.init("basketball","sport de basket");
+sport.init("basketball","sport de basket","tournoi equipe");
 
 sportDao.findAll((err, rows) => {
     if(err) console.log(err);
@@ -33,6 +33,7 @@ sportDao.findAll((err, rows) => {
 
                 sport.setNomSport("football");
                 sport.setDescription("sport de foot");
+                sport.setType("tournoi equipe");
 
                 sportDao.update(id, sport, function(err, row){
                     if(err) console.log(err);

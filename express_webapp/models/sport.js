@@ -15,10 +15,11 @@ module.exports = class Sport {
    * @param {*} nom 
    * @param {*} descri 
    */
-  init (nom , descri){
+  init (nom , descri, type){
     this.id_sport = -1;
     this.nom_sport = nom;
     this.description_sport = descri;
+    this.type_session = type;
   }
   /**
    * Get the id of the sport
@@ -41,6 +42,15 @@ module.exports = class Sport {
   getDescription(){
     return this.description_sport
   }
+
+  /**
+   * Get the type of the session
+   * @returns {string}
+   */
+  getType(){
+    return this.type_session;
+  }
+
   /**
    * Set the id of the sport
    * @param {int} id
@@ -65,11 +75,20 @@ module.exports = class Sport {
   setDescription(descri){
     this.description_sport = descri;
   }
+
+  /**
+  * Set the type of the session
+  * @param {string} type
+  * @returns {void}
+  */
+  setType(type){
+    this.type_session = type;
+  }
   /**
    * Convert the object to a string
    * @returns {string}
    */
   toString(){
-    return "Sport : " + this.id_sport + " " + this.nom_sport + " " + this.description_sport;
+    return "Sport : " + this.id_sport + " " + this.nom_sport + " " + this.description_sport +" type_session : " + this.type_session;
   }
 }

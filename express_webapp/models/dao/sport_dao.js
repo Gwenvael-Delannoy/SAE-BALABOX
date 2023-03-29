@@ -14,8 +14,8 @@ var SportDAO = function(){
      */
     this.insert = function(sport, callback){
         this.use(null);
-        values = [sport.getNomSport(), sport.getDescription()];
-        var sql = "INSERT INTO Sport (nom_sport, description_sport) VALUES (?,?)";
+        values = [sport.getNomSport(), sport.getDescription(), sport.getType()];
+        var sql = "INSERT INTO Sport (nom_sport, description_sport, type_session) VALUES (?,?,?)";
         smt.query(sql, values ,callback);
     };
 
@@ -29,7 +29,7 @@ var SportDAO = function(){
     this.update = function(key, sport, callback){
         this.use(null);
         values = [sport.getNomSport(), sport.getDescription()];
-        var sql2 = "UPDATE Sport SET nom_sport=?,description_sport=? WHERE id_sport= " + key + ";";
+        var sql2 = "UPDATE Sport SET nom_sport=?,description_sport=?,type_session=? WHERE id_sport= " + key + ";";
         smt.query(sql2,values, callback);
     };
 

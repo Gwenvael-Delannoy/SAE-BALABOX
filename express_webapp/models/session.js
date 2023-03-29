@@ -24,10 +24,9 @@ module.exports = class Session {
      * @param {*} identifiant
      * @param {*} mdp
      * @param {*} professeur
-     * @param {*} type
      * @param {*} sport
      */
-    init (date, statut, heure, identifiant, mdp, professeur, type, sport){
+    init (date, statut, heure, identifiant, mdp, professeur, sport){
         this.id_session = -1;
         this.date_session = date;
         this.statut = statut;
@@ -35,7 +34,6 @@ module.exports = class Session {
         this.identifiant_con = identifiant;
         this.mdp = mdp;
         this.professeur = professeur;
-        this.type_session = type;
         this.le_sport = sport;
     }
 
@@ -93,14 +91,6 @@ module.exports = class Session {
      */
     getProfesseur(){
         return this.professeur;
-    }
-
-    /**
-     * Get the type of the session
-     * @returns {string}
-     */
-    getType(){
-        return this.type_session;
     }
 
     /**
@@ -175,15 +165,6 @@ module.exports = class Session {
     }
 
     /**
-     * Set the type of the session
-     * @param {string} type
-     * @returns {void}
-     */
-    setType(type){
-        this.type_session = type;
-    }
-
-    /**
      * Set the sport of the session
      * @param {string} sport
      * @returns {void}
@@ -192,7 +173,7 @@ module.exports = class Session {
         this.le_sport = sport;
     }
     toString(){
-        return "id_session : " + this.id_session + " date_session : " + this.date_session + " statut : " + this.statut + " heure : " + this.heure + " identifiant_con : " + this.identifiant_con + " mdp : " + this.mdp + " professeur : " + this.professeur + " type_session : " + this.type_session + " le_sport : " + this.le_sport;
+        return "id_session : " + this.id_session + " date_session : " + this.date_session + " statut : " + this.statut + " heure : " + this.heure + " identifiant_con : " + this.identifiant_con + " mdp : " + this.mdp + " professeur : " + this.professeur + " le_sport : " + this.le_sport;
     }
 
     /**
@@ -207,7 +188,6 @@ module.exports = class Session {
      * "identifiant_con": "tournClasse1",
      * "mdp": "Classe1 "
      * "professeur": "M. Dupont",
-     * "type_session": "Tournois",
      * "le_sport": "Badminton"
      * }
      */
@@ -220,7 +200,6 @@ module.exports = class Session {
             "identifiant_con": this.identifiant_con,
             "mdp": this.mdp,
             "professeur": this.professeur,
-            "type_session": this.type_session,
             "le_sport": this.le_sport
         }
     }

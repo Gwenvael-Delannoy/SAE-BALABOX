@@ -18,11 +18,11 @@ USE balabox_sport_db;
 
 /**
 Schema relationel complet de la base de donnée:
-    Sport(id_sport (INTEGER), nom_sport (VARCHAR(30)), description_sport (VARCHAR(250))
+    Sport(id_sport (INTEGER), nom_sport (VARCHAR(30)), description_sport (VARCHAR(250)), type_session (VARCHAR(20))
 
     Equipe(id_equipe (INTEGER), nb_joueurs (INTEGER), total (INTEGER))
 
-    Session(id_session (INTEGER), date_session (DATE), statut (VARCHAR(10)), heure (TIME), identifiant_con (VARCHAR(50)), mdp (VARCHAR(50)), professeur (VARCHAR(30)), type_session (VARCHAR(20)), le_sport (INTEGER))
+    Session(id_session (INTEGER), date_session (DATE), statut (VARCHAR(10)), heure (TIME), identifiant_con (VARCHAR(50)), mdp (VARCHAR(50)), professeur (VARCHAR(30)), le_sport (INTEGER))
 
     Eleve(id_eleve (INTEGER), nom (VARCHAR(20)), prenom (VARCHAR(20)), sexe (VARCHAR(10)), classe (VARCHAR(50)), total_points (INTEGER))
 
@@ -93,8 +93,11 @@ CREATE TABLE Sport(
     id_sport INTEGER AUTO_INCREMENT,
     nom_sport VARCHAR(30) NOT NULL,
     description_sport VARCHAR(250),
+    type_session VARCHAR(20) NOT NULL,
+    
 
     -- CONSTRAINT
+    CONSTRAINT ck_type_session CHECK (type_session IN ("tournoi equipe","tournoi individuel", "resultat")),
     CONSTRAINT pk_Sport PRIMARY KEY (id_sport)
 );
 
@@ -115,13 +118,11 @@ CREATE TABLE Session(
     identifiant_con VARCHAR(50) NOT NULL,
     mdp VARCHAR(50) NOT NULL,
     professeur VARCHAR(30) NOT NULL,
-    type_session VARCHAR(20) NOT NULL,
     le_sport INTEGER,
 
     -- CONSTRAINTS
     CONSTRAINT pk_Session PRIMARY KEY (id_session),
     CONSTRAINT ck_statut CHECK (statut IN ("en cours", "terminer")),
-    CONSTRAINT ck_type_session CHECK (type_session IN ("tournoi equipe","tournoi individuel", "resultat")),
     CONSTRAINT fk_Sport_Session FOREIGN KEY (le_sport) REFERENCES Sport(id_sport)
 );
 
