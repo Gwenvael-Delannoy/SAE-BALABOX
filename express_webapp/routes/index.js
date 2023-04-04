@@ -107,6 +107,7 @@ router.post('/', function(req, res, next) {
           if(session[0].statut == 'en cours'){
             
             var type_ses = '';
+            var id_eleve='';
 
             //recupere le type de la session
             sport_dao.findByKey(session[0].le_sport, function(err,rows) {
@@ -128,7 +129,6 @@ router.post('/', function(req, res, next) {
                     var prenomEleveBdd = '';
                     var nomEleveBdd = '';
                     var classeEleveBdd = '';
-                    var id_eleve='';
             
                     //recupere le prenom de l'eleve de la base de donnée si il existe 
                     if(eleve_req.length != 0){
