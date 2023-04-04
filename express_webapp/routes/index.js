@@ -128,12 +128,14 @@ router.post('/', function(req, res, next) {
                     var prenomEleveBdd = '';
                     var nomEleveBdd = '';
                     var classeEleveBdd = '';
+                    var id_eleve='';
             
                     //recupere le prenom de l'eleve de la base de donnée si il existe 
                     if(eleve_req.length != 0){
                       prenomEleveBdd = eleve_req[0].prenom;
                       nomEleveBdd = eleve_req[0].nom;
                       classeEleveBdd = eleve_req[0].classe;
+                      id_eleve = eleve_req[0].id_eleve;
                     }
                     //check si l'eleve existe deja dans la base de donnée ou non meme s'il a le meme nom mais pas le meme prenom*
                     if(eleve_req.length == 0 || (prenomEleveBdd != prenomEleve && nomEleveBdd != nomEleve && classeEleveBdd != classeEleve)){
@@ -148,7 +150,8 @@ router.post('/', function(req, res, next) {
                         }
                         else{
                           console.log('nouveau eleve/professeur connecter en tant qu eleve cree ');
-    
+                          //recupere l'id de l'eleve inseré
+                          id_eleve = rows.insertId;
                         }
                       });
                     }
@@ -166,11 +169,11 @@ router.post('/', function(req, res, next) {
                 //renvoie la page en fonction du type de session
                 console.log('type de la session : '+type_ses);
                 if(type_ses == 'tournoi equipe'){
-                  res.redirect('/classement_equipe?ses='+ session[0].id_session);
+                  res.redirect('/classement_equipe?ses='+ session[0].id_session + '&id_el=' + id_eleve);
                 }else if(type_ses == 'resultat'){
                   res.redirect('/resultat?idSport=' + session[0].le_sport + '&ses=' + session[0].id_session + '&nom=' + nomEleve + '&prenom=' + prenomEleve + '&classe=' + classeEleve);
                 }else if(type_ses == 'tournoi individuel' ){
-                  res.redirect('/classement_eleve?ses=' + session[0].id_session);
+                  res.redirect('/classement_eleve?ses=' + session[0].id_session + '&id_el=' + id_eleve);
                 }
               }
             });

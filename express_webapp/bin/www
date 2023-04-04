@@ -31,7 +31,6 @@ const wssEleve = new Websocket.Server({ port: 3001 });
 const wssProfesseur = new Websocket.Server({ port: 3002 });
 
 var eleves = []; // tableau global pour stocker les informations des élèves
-var resultats_eleves = []; // tableau global pour stocker les résultats des élèves
 var equipes = []; // tableau global pour stocker les équipes
 
 wssEleve.on('connection', function connection(ws) {
@@ -63,7 +62,6 @@ wssEleve.on('connection', function connection(ws) {
         });
       }
       else if(data.type == 'resultat_eleve'){
-        resultats_eleves.push(data);
         console.log('Données stockées:');
         console.log(resultats_eleves);
 
@@ -72,6 +70,7 @@ wssEleve.on('connection', function connection(ws) {
             client.send(JSON.stringify(resultats_eleves));
           }
         });
+
       }
       else if(data.type == 'getTabEleve'){
         console.log('Envoi des données des élèves');
