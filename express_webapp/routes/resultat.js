@@ -12,6 +12,7 @@ var musculation_dao = require('../models/dao/dataBase').musculation_dao;
 var step_dao = require('../models/dao/dataBase').step_dao;
 var resultat_dao = require('../models/dao/dataBase').resultat_dao;
 var resultat = require('../models/resultat');
+const Natation = require('../models/natation');
 var eleve_dao = require('../models/dao/dataBase').eleve_dao;
 //var api = require_once(_ROOT_.'/config.php');
 
@@ -344,12 +345,60 @@ router.post('/', function(req, res, next) {
     });
   }
   else if(nom_sport == 'Natation'){
+
+    var nom_bassin = req.body.nomBassin;
+    var style_nage = req.body.styleNage;
+    var distance = req.body.distance;
+    var temps = "00:"+req.body.minutes+":"+req.body.seconds;
+    var nbPlongeons = req.body.plongeons;
+    var complementaire = req.body.complementaire;
+
+
+
     //insertion dans la base de donnée
-    res.render('resultat',{sport: nom_sport ,message : 'insertion dans la base de donnée', afficher : '' , session : info_eleveProfConnecte[3]});
 
-    //envoyer les données au professeur
-    envoieDonneesProf({sport : nom_sport, id_sport : id_sport, session : info_eleveProfConnecte[3]});
+    var result = new resultat();
+    result.init(temps,distance,null,complementaire,info_eleveProfConnecte[3],info_eleveProfConnecte[4]);
 
+    resultat_dao.insert(result, function(err,rows) {
+      if(err){
+        res.render('error',{message : err});
+      }
+      else{
+        var id_resultat = rows.insertId;
+
+        var nat = new Natation();
+        //init (style_nage, plongeons, nom_bassin)
+        nat.init(style_nage, nbPlongeons, nom_bassin);
+        nat.setId(id_resultat);
+
+        // creer insertion dans la table escalade 
+        natation_dao.insert(nat, function(err,rows) {
+          if(err){
+            res.render('error',{message : err});
+          }
+          else{
+            //envoyer les données au professeur en direct(websocket)
+            envoieDonneesProf({
+              sport : nom_sport,                
+              nom : info_eleveProfConnecte[0],
+              prenom : info_eleveProfConnecte[1],
+              classe : info_eleveProfConnecte[2],
+              session : info_eleveProfConnecte[3],
+              nom_bassin : nom_bassin,
+              style_nage : style_nage,
+              distance : distance,
+              temps: temps,
+              nbPlongeons : nbPlongeons,
+              complementaire : complementaire,
+            })
+
+            message= 'Données envoyées';
+            res.render('resultat',{idSport: id_sport ,sport : nom_sport ,message : message});
+          }
+        });
+      }
+    });
   }
   else if(nom_sport == 'Musculation'){
     //insertion dans la base de donnée
