@@ -62,7 +62,8 @@
             data: {
                 session: '<%=idSession%>',
                 nomEleves: [],
-                classement: '<%=classement%>'
+                classement: '<%=classement%>',
+                eleveCo : '<%=eleveCo%>'
             },
             created: function() {
                 // Écouter les événements de la connexion WebSocket
@@ -81,8 +82,8 @@
                     const noms = [];
                     console.log(infoEleve + 'infoEleve');
                     for (const eleve of infoEleve) {
-                        if (eleve.session === sesInt) {
-                        noms.push(eleve.nom + ' ' + eleve.prenom);
+                        if (eleve.session === sesInt && eleve.nom !== this.eleveCo.nom && eleve.prenom !== this.eleveCo.prenom) {
+                            noms.push(eleve.nom + ' ' + eleve.prenom);
                         }
                     }
                     this.updateNomEleves(noms);

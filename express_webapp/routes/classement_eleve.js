@@ -5,10 +5,34 @@ var match_dao = require('../models/dao/dataBase').match_dao;
 var Eleve = require('../models/eleve');
 var matchSession = [];
 var classement = [];
+var idEleCo = -1;
+var nomCo = '';
+var prenomCo = '';
+
 
 /* Recupere la page de classement des eleves et qui renvoie un tableau de string avec les prenoms des eleves */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res,next) {
     idSession = req.query.ses;
+    idEleCo = req.query.id_el;
+    console.log("idEleCo :" +idEleCo);
+    eleveCo = [];
+
+    /**
+    eleve_dao.findByKey(idEleCo, function(err,rows) {
+        if (err ) {
+            messageError ='Connexion à la base de donnée impossible';
+            res.render('error',{message : messageError});
+        }
+        else{
+            
+            eleveCo[0] = rows[0].nom;
+            eleveCo[1] = rows[0].prenom;
+            console.log("eleveCo :" +eleveCo);
+        }
+    }); 
+    
+    */
+    
     
     match_dao.findAllMatchSes(idSession, function(err,rows) {
         if (err ) {
@@ -26,7 +50,9 @@ router.get('/', function(req, res, next) {
                             messageError ='Connexion à la base de donnée impossible';
                             res.render('error',{message : messageError});
                         }
-                        else{   
+                        else{ 
+                            
+                            
                         
                             console.log("eleves :" +rows);
 
@@ -79,12 +105,22 @@ router.get('/', function(req, res, next) {
                                     console.log("ok2");
                                 }
                             }
+                            
+                             
                         }
                     });
 
+                    nomCo = classement[classement.length - 1].nom;
+                    prenomCo = classement[classement.length - 1].prenom;
+
+
+                    
+                    
+
                 }
             }
-            res.render('classement_eleve', { idSession : idSession, classement : classement});
+
+            res.render('classement_eleve', { idSession : idSession, classement : classement, eleveCo : eleveCo});
         }
     });
 
@@ -108,10 +144,11 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
     idSession = req.body.idSession;
     NomAdversaire = req.body.NomAdversaire;
+
     if(NomAdversaire == ''){
         res.render('error',{message : "Veuillez choisir un adversaire"});
     }else{
-        res.render('eleve_contre_eleve', { idSession : idSession, NomAdversaire : NomAdversaire});
+        res.render('eleve_contre_eleve', { idSession : idSession, NomAdversaire : NomAdversaire, idEleCo : idEleCo, nomCo : nomCo, prenomCo : prenomCo});
         console.log("idSession :" +idSession+ "\nNomAdversaire :" +NomAdversaire);
     }
     
