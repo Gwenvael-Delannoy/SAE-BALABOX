@@ -6,12 +6,15 @@ var Eleve = require('../models/eleve');
 var matchSession = [];
 var classement = [];
 var idEleCo = -1;
+var nomCo = '';
+var prenomCo = '';
 
 
 /* Recupere la page de classement des eleves et qui renvoie un tableau de string avec les prenoms des eleves */
-router.get('/', function(req, res) {
+router.get('/', function(req, res,next) {
     idSession = req.query.ses;
     idEleCo = req.query.id_el;
+    console.log("idEleCo :" +idEleCo);
     eleveCo = [];
 
     /**
@@ -106,6 +109,11 @@ router.get('/', function(req, res) {
                              
                         }
                     });
+
+                    nomCo = classement[classement.length - 1].nom;
+                    prenomCo = classement[classement.length - 1].prenom;
+
+
                     
                     
 
@@ -140,7 +148,7 @@ router.post('/', function(req, res, next) {
     if(NomAdversaire == ''){
         res.render('error',{message : "Veuillez choisir un adversaire"});
     }else{
-        res.render('eleve_contre_eleve', { idSession : idSession, NomAdversaire : NomAdversaire, idEleCo : idEleCo});
+        res.render('eleve_contre_eleve', { idSession : idSession, NomAdversaire : NomAdversaire, idEleCo : idEleCo, nomCo : nomCo, prenomCo : prenomCo});
         console.log("idSession :" +idSession+ "\nNomAdversaire :" +NomAdversaire);
     }
     
