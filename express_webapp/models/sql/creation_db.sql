@@ -36,7 +36,7 @@ Schema relationel complet de la base de donnée:
 
     Match_Eleve(le_match (INTEGER), le_eleve (INTEGER),gagnant (INTEGER))
 
-    Musculation(id_musculation (INTEGER), muscle_travailler (VARCHAR(50)), temps_pause (INTEGER), series (INTEGER), nb_reps (INTEGER), intensite (INTEGER), charge (INTEGER), ressenti (VARCHAR(250)), id_sport (INTEGER))
+    Musculation(id_musculation (INTEGER), muscle_travailler (VARCHAR(50)), series (INTEGER), nb_reps (INTEGER), intensite (INTEGER), charge (INTEGER), ressenti (VARCHAR(250)), id_sport (INTEGER))
 
     Step(id_step (INTEGER), type_mobilite (VARCHAR(50)), ressenti (VARCHAR(250)), param_indv (VARCHAR(250)), bilan_perso (VARCHAR(250)), perspective (VARCHAR(250)), id_sport (INTEGER))
     
@@ -295,7 +295,6 @@ CREATE TABLE Step (
 CREATE TABLE Musculation (
     id_musculation INTEGER ,
     muscle_travailler VARCHAR(50),
-    temps_pause INTEGER,
     series INTEGER,
     nb_reps INTEGER,
     intensite INTEGER,

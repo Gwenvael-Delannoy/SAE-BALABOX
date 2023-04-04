@@ -14,8 +14,9 @@ var MusculationDAO = function(){
      */
     this.insert = function(musculation, callback){
         this.use(null);
-        values = [musculation.getId(),musculation.getMuscleTravailler(), musculation.getTempsPause(), musculation.getSeries(), musculation.getNbReps(), musculation.getIntensite(), musculation.getCharge(), musculation.getRessenti()];
-        var sql = "INSERT INTO Musculation (id_musculation,muscle_travailler , temps_pause , series , nb_reps , intensite , charge , ressenti) VALUES (?,?,?,?,?,?,?,?)";
+        console.log(musculation);
+        values = [musculation.getId(),musculation.getMuscleTravailler(), musculation.getSeries(), musculation.getNbReps(), musculation.getIntensite(), musculation.getCharge(), musculation.getRessenti()];
+        var sql = "INSERT INTO Musculation (id_musculation,muscle_travailler  , series , nb_reps , intensite , charge , ressenti) VALUES (?,?,?,?,?,?,?)";
         smt.query(sql, values ,callback);
     };
 
@@ -28,8 +29,8 @@ var MusculationDAO = function(){
      */
     this.update = function(key, musculation, callback){
         this.use(null);
-        values = [musculation.getMuscleTravailler(), musculation.getTempsPause(), musculation.getSeries(), musculation.getNbReps(), musculation.getIntensite(), musculation.getCharge(), musculation.getRessenti()];
-        var sql2 = "UPDATE Musculation SET muscle_travailler=? , temps_pause=? , series=? , nb_reps=? , intensite=? , charge=? , ressenti=? WHERE id_musculation = " + key + ";";
+        values = [musculation.getMuscleTravailler(), musculation.getSeries(), musculation.getNbReps(), musculation.getIntensite(), musculation.getCharge(), musculation.getRessenti()];
+        var sql2 = "UPDATE Musculation SET muscle_travailler=? , series=? , nb_reps=? , intensite=? , charge=? , ressenti=? WHERE id_musculation = " + key + ";";
         smt.query(sql2,values, callback);
     };
 

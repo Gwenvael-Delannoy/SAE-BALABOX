@@ -3,7 +3,6 @@
  * Attributs of the database : 
  * id_musculation
  * muscle_travailler
- * temps_pause
  * series
  * nb_reps
  * intensite
@@ -19,7 +18,6 @@
     /**
      * init the object musculation
      * @param {String} muscle_travailler
-     * @param {int} temps_pause
      * @param {int} series
      * @param {int} nb_reps
      * @param {int} intensite
@@ -27,10 +25,9 @@
      * @param {String} ressenti
      * @returns {void}
      */
-    init (muscle_travailler, temps_pause, series, nb_reps, intensite, charge, ressenti){
+    init (muscle_travailler, series, nb_reps, intensite, charge, ressenti){
         this.id_musculation = -1;
         this.muscle_travailler = muscle_travailler;
-        this.temps_pause = temps_pause;
         this.series = series;
         this.nb_reps = nb_reps;
         this.intensite = intensite;
@@ -50,13 +47,6 @@
      */
     getMuscleTravailler(){
         return this.muscle_travailler;
-    }
-    /**
-     * Get the temps_pause of the object musculation
-     * @returns {int}
-     */
-    getTempsPause(){
-        return this.temps_pause;
     }
     /**
      * Get the series of the object musculation
@@ -108,14 +98,6 @@
      */
     setMuscleTravailler(muscle_travailler){
         this.muscle_travailler = muscle_travailler;
-    }
-    /**
-     * Set the temps_pause of the object musculation
-     * @param {int} temps_pause
-     * @returns {void}
-     */
-    setTempsPause(temps_pause){
-        this.temps_pause = temps_pause;
     }
     /**
      * Set the series of the object musculation

@@ -13,6 +13,8 @@ var step_dao = require('../models/dao/dataBase').step_dao;
 var resultat_dao = require('../models/dao/dataBase').resultat_dao;
 var resultat = require('../models/resultat');
 const Natation = require('../models/natation');
+const Musculation = require('../models/musculation');
+const Step = require('../models/step');
 var eleve_dao = require('../models/dao/dataBase').eleve_dao;
 //var api = require_once(_ROOT_.'/config.php');
 
@@ -368,7 +370,6 @@ router.post('/', function(req, res, next) {
         var id_resultat = rows.insertId;
 
         var nat = new Natation();
-        //init (style_nage, plongeons, nom_bassin)
         nat.init(style_nage, nbPlongeons, nom_bassin);
         nat.setId(id_resultat);
 
@@ -401,23 +402,120 @@ router.post('/', function(req, res, next) {
     });
   }
   else if(nom_sport == 'Musculation'){
+
+    var nom_exercice = req.body.nomExercice;
+    var nom_muscle = req.body.nomMuscle + " : " + nom_exercice;
+    var nb_series = req.body.nbSeries;
+    var nb_repetitions = req.body.nbRepetitions;
+    var intensite = req.body.intensite;
+    var poids = req.body.poids;
+    var temps = "00:"+req.body.minutes+":"+req.body.seconds;
+    var ressenti = req.body.ressenti;
+
     //insertion dans la base de donnée
-    res.render('resultat',{sport: nom_sport ,message : 'insertion dans la base de donnée', afficher : '' , session : info_eleveProfConnecte[3]});
 
-    //envoyer les données au professeur
-    envoieDonneesProf({sport : nom_sport, id_sport : id_sport, session : info_eleveProfConnecte[3]});
 
+    var result = new resultat();
+    result.init(temps,null,null,null,info_eleveProfConnecte[3],info_eleveProfConnecte[4]);
+
+    resultat_dao.insert(result, function(err,rows) {
+      if(err){
+        res.render('error',{message : err});
+      }
+      else{
+        var id_resultat = rows.insertId;
+
+        var muscu = new Musculation();
+        muscu.init(nom_muscle, nb_series, nb_repetitions, intensite, poids, ressenti);
+        muscu.setId(id_resultat);
+
+        // creer insertion dans la table escalade 
+        musculation_dao.insert(muscu, function(err,rows) {
+          if(err){
+            res.render('error',{message : err});
+          }
+          else{
+            //envoyer les données au professeur en direct(websocket)
+            envoieDonneesProf({
+              sport : nom_sport,                
+              nom : info_eleveProfConnecte[0],
+              prenom : info_eleveProfConnecte[1],
+              classe : info_eleveProfConnecte[2],
+              session : info_eleveProfConnecte[3],
+              nom_muscle : nom_muscle,
+              nb_series : nb_series,
+              nb_repetitions : nb_repetitions,
+              intensite : intensite,
+              poids : poids,
+              temps_pause: temps,
+              ressenti : ressenti,
+            })
+
+            message= 'Données envoyées';
+            res.render('resultat',{idSport: id_sport ,sport : nom_sport ,message : message});
+          }
+        });
+      }
+    });
   }
   else if(nom_sport == 'Step'){
-    //insertion dans la base de donnée
-    res.render('resultat',{sport: nom_sport ,message : 'insertion dans la base de donnée', afficher : '' , session : info_eleveProfConnecte[3]});
     
-    //envoyer les données au professeur
-    envoieDonneesProf({sport : nom_sport, id_sport : id_sport, session : info_eleveProfConnecte[3]});
+      var type_mobilite = req.body.typeMobilite;
+      var temps = "00:"+req.body.minutes+":"+req.body.seconds;
+      var freq_cardiaque = req.body.freqCard;
+      var paramIndv = req.body.paramIndv;
+      var ressenti = req.body.ressenti;
+      var bilanPerso = req.body.bilanPerso;
+      var perspective = req.body.perspective;
 
+       //insertion dans la base de donnée
+
+       var result = new resultat();
+       result.init(temps,null,freq_cardiaque,null,info_eleveProfConnecte[3],info_eleveProfConnecte[4]);
+   
+       resultat_dao.insert(result, function(err,rows) {
+         if(err){
+           res.render('error',{message : err});
+         }
+         else{
+           var id_resultat = rows.insertId;
+   
+           var step = new Step();
+           step.init(type_mobilite, ressenti, paramIndv, bilanPerso, perspective);
+           step.setId(id_resultat);
+   
+           // creer insertion dans la table escalade 
+           step_dao.insert(step, function(err,rows) {
+             if(err){
+               res.render('error',{message : err});
+             }
+             else{
+               //envoyer les données au professeur en direct(websocket)
+               envoieDonneesProf({
+                 sport : nom_sport,                
+                 nom : info_eleveProfConnecte[0],
+                 prenom : info_eleveProfConnecte[1],
+                 classe : info_eleveProfConnecte[2],
+                 session : info_eleveProfConnecte[3],
+                 type_mobilite : type_mobilite,
+                 temps : temps,
+                 freq_cardiaque : freq_cardiaque,
+                 paramIndv : paramIndv,
+                 ressenti : ressenti,
+                 bilanPerso : bilanPerso,
+                 perspective : perspective,
+
+               })
+   
+               message= 'Données envoyées';
+               res.render('resultat',{idSport: id_sport ,sport : nom_sport ,message : message});
+             }
+           });
+         }
+       });
   }
   else{
-    res.render('error',{message : 'Sport non reconnu'});
+    res.render('error',{message : 'Sport non reconnu , merci de vous deconnecter et de vous reconnecter'});
 
   }
 

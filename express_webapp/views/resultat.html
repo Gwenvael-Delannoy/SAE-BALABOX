@@ -100,14 +100,21 @@
                                 <label for="nomExercice">Nom de l'exercice : </label>
                                 <input type="text" id="nomExercice" name="nomExercice" required><br>
 
-                                <label for="nomMuscule">Nom du muscle travailler: </label>
-                                <input type="text" id="nomMuscule" name="nomMuscule" required><br>
+                                <label for="nomMuscle">Nom du muscle travailler: </label>
+                                <input type="text" id="nomMuscle" name="nomMuscle" required><br>
 
                                 <label for="nbSeries">Nombre de séries : </label>
                                 <input type="number" id="nbSeries" name="nbSeries" min="0" required><br>
 
+                                <label for="tempsPause">Temps de pause : </label>
+                                <label for="minutes">Minutes : ( 0 si Nean) </label>
+                                <input type="number" id="minutes" name="minutes" min="0" max="59" step="1" required><br>
+                                
+                                <label for="seconds">Secondes : </label>
+                                <input type="number" id="seconds" name="seconds" min="0" max="59" step="1" required><br>
+
                                 <label for="nbRepetitions">Nombre de répétitions : </label>
-                                <input type="number" id="nbRepetitions" name="nbRepetitions" min="0" required><br>
+                                <input type="number" id="nbRepetitions" name="nbRepetitions" min="0" max="100" required><br>
 
                                 <label for="intensite">Intensité (%): </label>
                                 <input type="number" id="intensite" name="intensite" min="0" max="100" required><br>
@@ -210,8 +217,11 @@
                                 <label for="typeMobilite">Type de mobilité : </label>
                                 <input type="text" id="typeMobilite" name="typeMobilite" required><br>
 
-                                <label for="temps">Temps (seconde) : </label>
-                                <input type="number" id="temps" name="temps" min="0" step="1" required><br>
+                                <label for="minutes">Minutes : ( 0 si Nean) </label>
+                                <input type="number" id="minutes" name="minutes" min="0" max="59" step="1" required><br>
+                                
+                                <label for="seconds">Secondes : </label>
+                                <input type="number" id="seconds" name="seconds" min="0" max="59" step="1" required><br>
 
                                 <label for="freqCard">Fréquence cardiaque (Moyenne) : </label>
                                 <input type="number" id="freqCard" name="freqCard" min="0" step="1" required><br>
@@ -220,13 +230,13 @@
                                 <textarea id="paramIndv" name="paramIndv"></textarea><br>
 
                                 <label for="ressenti">Ressenti : </label>
-                                <textarea id="ressenti" name="ressenti"></textarea><br>
+                                <textarea id="ressenti" name="ressenti" required ></textarea><br>
 
                                 <label for="bilanPerso">Bilan personnel : </label>
-                                <textarea id="bilanPerso" name="bilanPerso"></textarea><br>
+                                <textarea id="bilanPerso" name="bilanPerso" required ></textarea><br>
 
                                 <label for="perspective">Perspective : </label>
-                                <textarea id="perspective" name="perspective"></textarea><br>
+                                <textarea id="perspective" name="perspective" required></textarea><br>
 
                                 <input type="submit" name="action" value="Envoyer">
                                 <br>
