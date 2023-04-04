@@ -107,7 +107,7 @@ router.post('/', function(req, res, next) {
           if(session[0].statut == 'en cours'){
             
             var type_ses = '';
-            var id_eleve='';
+            var id='';
 
             //recupere le type de la session
             sport_dao.findByKey(session[0].le_sport, function(err,rows) {
@@ -117,8 +117,7 @@ router.post('/', function(req, res, next) {
               }
               else{
                 type_ses= rows[0].type_session;
-                console.log('type de la session : '+type_ses);
-                console.log('type de la session : '+type_ses);
+            
                 //check si l'eleve ou le professeur(connecté en tant qu'eleve pour pouvoir etre aussi dans la session si besoin) existe deja dans la base de donnée
                 eleve_dao.findByName(nomEleve, function(err,rows) {
                   if (err ) {
@@ -135,7 +134,8 @@ router.post('/', function(req, res, next) {
                       prenomEleveBdd = eleve_req[0].prenom;
                       nomEleveBdd = eleve_req[0].nom;
                       classeEleveBdd = eleve_req[0].classe;
-                      id_eleve = eleve_req[0].id_eleve;
+                      id = eleve_req[0].id_eleve;
+                      console.log(id);
                     }
                     //check si l'eleve existe deja dans la base de donnée ou non meme s'il a le meme nom mais pas le meme prenom*
                     if(eleve_req.length == 0 || (prenomEleveBdd != prenomEleve && nomEleveBdd != nomEleve && classeEleveBdd != classeEleve)){
@@ -151,7 +151,7 @@ router.post('/', function(req, res, next) {
                         else{
                           console.log('nouveau eleve/professeur connecter en tant qu eleve cree ');
                           //recupere l'id de l'eleve inseré
-                          id_eleve = rows.insertId;
+                          id = rows.insertId;
                         }
                       });
                     }
@@ -164,17 +164,16 @@ router.post('/', function(req, res, next) {
                       session: session[0].id_session
                     }));
                   }
+                  //renvoie la page en fonction du type de session
+                  console.log(id)
+                  if(type_ses == 'tournoi equipe'){
+                    res.redirect('/classement_equipe?ses='+ session[0].id_session + '&id_el=' + id);
+                  }else if(type_ses == 'resultat'){
+                    res.redirect('/resultat?idSport=' + session[0].le_sport + '&ses=' + session[0].id_session + '&nom=' + nomEleve + '&prenom=' + prenomEleve + '&classe=' + classeEleve);
+                  }else if(type_ses == 'tournoi individuel' ){
+                    res.redirect('/classement_eleve?ses=' + session[0].id_session + '&id_el=' + id);
+                  }
                 });
-                  
-                //renvoie la page en fonction du type de session
-                console.log('type de la session : '+type_ses);
-                if(type_ses == 'tournoi equipe'){
-                  res.redirect('/classement_equipe?ses='+ session[0].id_session + '&id_el=' + id_eleve);
-                }else if(type_ses == 'resultat'){
-                  res.redirect('/resultat?idSport=' + session[0].le_sport + '&ses=' + session[0].id_session + '&nom=' + nomEleve + '&prenom=' + prenomEleve + '&classe=' + classeEleve);
-                }else if(type_ses == 'tournoi individuel' ){
-                  res.redirect('/classement_eleve?ses=' + session[0].id_session + '&id_el=' + id_eleve);
-                }
               }
             });
           }

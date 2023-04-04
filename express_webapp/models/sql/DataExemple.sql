@@ -1,6 +1,5 @@
 -- exemple de script d'utilisation (données fictives)
-
-/*DELETE FROM Match_Eleve;
+/**DELETE FROM Match_Eleve;
 DELETE FROM Match_;
 DELETE FROM Eleve;
 DELETE FROM Equipe;
@@ -26,6 +25,7 @@ INSERT INTO Sport(nom_sport,description_sport,type_session) VALUES ('Badminton',
 
 -- creer une session
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,le_sport) VALUES ("en cours","test","test","Michelle Dupont",1);
+INSERT INTO Session(statut,identifiant_con,mdp,professeur,le_sport) VALUES ("en cours","test15","test15","Michelle Dupont",2);
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,le_sport) VALUES ("en cours","test1","test1","Jack rihiad",6);
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,le_sport) VALUES ("en cours","test3","test3","JackIE rihr",7);
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,le_sport) VALUES ("en cours","test4","test4","JA ri",8);
