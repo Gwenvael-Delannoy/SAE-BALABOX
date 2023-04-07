@@ -110,8 +110,8 @@ router.get('/', function(req, res,next) {
                         }
                     });
 
-                    nomCo = classement[classement.length - 1].nom;
-                    prenomCo = classement[classement.length - 1].prenom;
+                    // nomCo = classement[classement.length - 1].nom;
+                    // prenomCo = classement[classement.length - 1].prenom;
 
 
                     
