@@ -69,8 +69,9 @@ INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (6,5);
 INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,2);
 INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,4,2);
 INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (10,2,2);
-INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (10,12,2);
-
+INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (10,12,3);
+INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (3,12,3);
+INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (8,12,3);
 
 INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (1,1,3);
 INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (1,2,0);
