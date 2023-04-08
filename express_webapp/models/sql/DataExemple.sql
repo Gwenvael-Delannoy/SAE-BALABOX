@@ -75,6 +75,12 @@ INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (10,12
 INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (1,1,3);
 INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (1,2,0);
 
+INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (2,1,0);
+INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (2,2,3);
+
+INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (3,1,3);
+INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (3,2,0);
+
 INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,3);
 
 INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (1,2,3);
