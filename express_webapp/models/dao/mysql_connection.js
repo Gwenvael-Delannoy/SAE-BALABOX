@@ -11,7 +11,7 @@ class mysql_connection{
      */
     constructor(){
         this.connection = mysql.createConnection({
-            host: 'localhost',
+            host: 'db', // adresse du serveur de la base de donnee (a modifier si necessaire)
             user: 'balabox', // nom de l'utilisateur de la base de donnee (a modifier si necessaire)
             password: 'balabox' // mot de passe de l'utilisateur de la base de donnee (a modifier si necessaire)
         });

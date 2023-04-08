@@ -9,12 +9,14 @@
 * Creer une base de données et la configurer
 */
 
+
 CREATE DATABASE IF NOT EXISTS balabox_sport_db;
 DROP USER IF EXISTS balabox@localhost;
 CREATE USER balabox@localhost;
 GRANT ALL ON balabox_sport_db.* TO balabox@localhost;
 ALTER USER 'balabox'@'localhost' IDENTIFIED WITH mysql_native_password BY 'balabox';
 USE balabox_sport_db;
+
 
 /**
 Schema relationel complet de la base de donnée:

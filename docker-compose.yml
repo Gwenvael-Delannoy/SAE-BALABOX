@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  monapp:
+    image: sport
+    depends_on:
+      - db
+    networks:
+      - sportNetworks
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_HOST: db
+      MYSQL_DATABASE: balabox_sport_db
+      MYSQL_USER: balabox
+      MYSQL_PASSWORD: balabox
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ./models/sql/creation_db.sql:/docker-entrypoint-initdb.d/creation_db.sql
+      - ./models/sql/DataExemple.sql:/docker-entrypoint-initdb.d/DataExemple.sql
+    ports:
+      - "3306:3306"
+    networks:
+      - sportNetworks
+    expose:
+      - 3306
+
+networks:
+  sportNetworks:

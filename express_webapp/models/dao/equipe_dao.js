@@ -1,7 +1,7 @@
 /**
  * DAO pour Equipe
  */
-var Equipe = require('../Equipe');
+var Equipe = require('../equipe');
 var smt = require('./mysql_connection');
 
 var EquipeDAO = function() {
