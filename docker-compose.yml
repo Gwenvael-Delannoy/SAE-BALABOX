@@ -7,8 +7,10 @@ services:
       - db
     networks:
       - sportNetworks
+    ports:
+      - "3000:3000"
   db:
-    image: mysql:latest
+    image: mysql:5.7
     restart: always
     environment:
       MYSQL_HOST: db
