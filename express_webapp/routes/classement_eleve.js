@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var WebSocket = require('ws');
 var eleve_dao = require('../models/dao/dataBase').eleve_dao;
 var match_dao = require('../models/dao/dataBase').match_dao;
 var Eleve = require('../models/eleve');
@@ -8,6 +9,22 @@ var classement = [[]];
 var idEleCo = -1;
 var nomCo = '';
 var prenomCo = '';
+var wss ;
+
+
+wss = new WebSocket('ws://localhost:3001');
+wss.onopen = function () {
+  console.log('Connexion websocket établie pour l eleve.');
+};
+
+wss.onerror = function (error) {
+  console.log('Erreur websocket : ', error);
+};
+
+wss.onclose = function () {
+  console.log('Déconnexion websocket pour l eleve.');
+};
+
 
 
 /* Recupere la page de classement des eleves et qui renvoie un tableau de string avec les prenoms des eleves */
@@ -129,18 +146,16 @@ router.get('/', function(req, res,next) {
                                                     }
                                                 }
                                             });
-                                                                            
-                                            
-                                        
-                                        
                                         }
-                                        
-                                        
                                     }
                                 });
-
-
                             }
+                            // Envoi d'un message vers le serveur WebSocket de l'élève
+                            wss.send(JSON.stringify({
+                                type: 'classement',
+                                session: idSession,
+                                classement: classement
+                                }));
                         } else {
                             console.log("Aucun match dans cette session");
                         }
