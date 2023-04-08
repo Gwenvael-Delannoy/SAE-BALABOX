@@ -62,6 +62,7 @@ INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (4,3);
 -- creer un match
 INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,2);
 
+
 INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (1,1,3);
 INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (1,2,0);
 
@@ -135,3 +136,4 @@ SELECT * FROM Session, Resultat, Sport WHERE id_session = la_session AND le_spor
 SELECT * FROM Session, Resultat, Acrosport WHERE id_session = la_session AND id_resultat=id_acrosport ;
 SELECT * FROM Acrosport;
 SELECT * FROM Resultat, Acrosport WHERE id_resultat=id_acrosport ;
+

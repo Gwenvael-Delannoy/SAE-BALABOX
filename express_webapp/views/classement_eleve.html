@@ -43,10 +43,10 @@
                     <tbody>
                       <tr v-for="eleve in classement" :key="eleve.id">
                         <td>{{ position + 1 }}</td>
-                        <td>{{ eleve }}</td>
-                        <td>{{ eleve }}</td>
-                        <td>{{ eleve }}</td>
-                        <td>{{ eleve }}</td>
+                        <td>{{ eleve[1] }}</td>
+                        <td>{{ eleve[2] }}</td>
+                        <td>{{ eleve[3] }}</td>
+                        <td>{{ eleve[4] }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -89,7 +89,6 @@
                         }
                     }
                     this.updateNomEleves(noms);
-                    this.toStringClassement();
                 }.bind(this));
 
 
@@ -102,19 +101,6 @@
                 updateNomEleves(noms) {
                     this.nomEleves = noms;
                 },
-
-                toStringClassement() {
-                    for (const eleve of this.classement) {
-                        eleve.nom = eleve.getNom();
-                        eleve.prenom = eleve.getPrenom();
-                        eleve.total_points = eleve.getTotalPoints();
-                        eleve.nb_match = eleve.nb_match + '';
-
-                        console.log(eleve.nom + ' : nom   ' + eleve.prenom + ' : prenom   ' + eleve.total_points + ' : points   ' + eleve.nb_match+ " : nb_match");
-                    }
-
-                    
-                }
             }
             });
 

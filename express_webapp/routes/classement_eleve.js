@@ -37,112 +37,129 @@ router.get('/', function(req, res,next) {
             console.log("prenomCo :" +prenomCo);
 
 
-            
-        }
-    }); 
-    
-    
 
-    
-    
-    match_dao.findAllMatchSes(idSession, function(err,rows) {
-        if (err ) {
-            messageError ='Connexion à la base de donnée impossible';
-            res.render('error',{message : messageError});
-        }
-        else{
-            matchSession = rows;
+            match_dao.findAllMatchSes(idSession, function(err,rows) {
+                    if (err ) {
+                        messageError ='Connexion à la base de donnée impossible';
+                        res.render('error',{message : messageError});
+                    }
+                    else{
+                        matchSession = rows;
 
-            if(matchSession.length != 0){
+                        console.log("Bonjour");
 
-                for(var i = 0; i < matchSession.length; i++){
-                    match_dao.findMatch_ElevesByMatch(matchSession[i].id_match, function(err,rows) {
-                        if (err ) {
-                            messageError ='Connexion à la base de donnée impossible';
-                            res.render('error',{message : messageError});
-                        }
-                        else{ 
-                            
-                            
-                        
-                            console.log("eleves :" +rows);
+                        console.log("matchSession.length :" +matchSession.length);
 
-                            for(var i = 0; i < rows.length; i++){
+                        if(matchSession.length != 0){
+                            console.log("Bonjour2");
 
-                                var id_l_eleve = rows[i].leleve;
-                                var eleves_res = [];
-                                var trouver = 'false';
-                                var indexTrouver = -1;
-                                var j = 0;
-
-                                if(classement.length != 0){
-                                    //checker si il est deja dans le tableau
-                                    while(j < classement.length && trouver == 'false'){
-                                        console.log("ok");
-                                        if(classement[j][0] == id_l_eleve){
-                                            trouver = 'true';
-                                            indexTrouver = j;
-                                        }
-                                        j++;
+                            for(var k = 0; k < matchSession.length; k++){
+                                console.log("Bonjour3");
+                                console.log("matchSession[i].id_match :" +matchSession[k].id_match);
+                                var id_match = matchSession[k].id_match;
+                                id_match = parseInt(id_match);
+                                match_dao.findMatch_ElevesByMatch(id_match, function(err,rows) {
+                                    if (err ) {
+                                        messageError ='Connexion à la base de donnée impossible';
+                                        res.render('error',{message : messageError});
                                     }
-                                }
-                                console.log("ok");
-                                if(trouver == 'false'){ //si il n'est pas dans le tableau
-                                    eleves_res[0] = id_l_eleve;
+                                    else{ 
 
-                                    eleve_dao.findByKey(id_l_eleve, function(err,rows) {
-                                        if (err ) {
-                                            messageError ='Connexion à la base de donnée impossible';
-                                            res.render('error',{message : messageError});
+                                        console.log("rows :" +rows);
+                                        
+                                        
+                                    
+                                        
+                                        
+
+                                        for(var i = 0; i < rows.length; i++){
+
+                                            var id_l_eleve = rows[i].leleve;    
+                                            var eleves_res = [];
+                                            var trouver = 'false';
+                                            var indexTrouver = -1;
+                                            var j = 0;
+
+                                            if(classement.length != 0){
+                                                //checker si il est deja dans le tableau
+                                                while(j < classement.length && trouver == 'false'){
+                                                    console.log("dans while");
+                                                    if(classement[j][0] == id_l_eleve){
+                                                        trouver = 'true';
+                                                        indexTrouver = j;
+                                                    }
+                                                    j++;
+                                                }
+                                            }
+                                            console.log("ok");
+                                            if(trouver == 'false'){ //si il n'est pas dans le tableau
+                                                eleves_res[0] = id_l_eleve;
+
+                                                eleve_dao.findByKey(id_l_eleve, function(err,rows) {
+                                                    if (err ) {
+                                                        messageError ='Connexion à la base de donnée impossible';
+                                                        res.render('error',{message : messageError});
+                                                    }
+                                                    else{
+                                                        console.log('rows nom :' +rows.nom);
+                                                        var el = rows;
+                                                        eleves_res[1] = rows[0].nom; // nom de l'eleve
+                                                        if (typeof eleves_res[1] !== 'string') {
+                                                            eleves_res[1] = String(eleves_res[1]);
+                                                        }
+
+                                                        console.log("nom eleve :" +eleves_res[1]);
+
+                                                        
+                                                        eleves_res[2] = rows[0].prenom; // prenom de l'eleve
+                                                        if (typeof eleves_res[2] !== 'string') {
+                                                            eleves_res[2] = String(eleves_res[2]);
+                                                        }
+                                                        console.log("prenom eleve :" +eleves_res[2]);
+
+
+
+                                            
+                                                    }
+                                                });
+                                                eleves_res[3] = rows[i].gagnant; // nombre de point de l'eleve
+
+                                                eleves_res[4] = 1;  // nombre de match de l'eleve
+                                                console.log(eleves_res);
+                                                classement.push(eleves_res);
+                                                console.log("classement :" +classement);
+                                                console.log("ok1");
+                                            }
+                                            else{
+                                                classement[indexTrouver][3] = classement[indexTrouver][3] + rows[i].gagnant; // nombre de point de l'eleve
+                                                classement[indexTrouver][4] = classement[indexTrouver][4] + 1; // nombre de match de l'eleve
+                                                console.log("classement :" +classement);
+                                                console.log("ok2");
+                                            }
                                         }
-                                        else{
-                                            console.log('rows nom :' +rows.nom);
-                                            var el = rows;
-                                            eleves_res[1] = rows[0].nom; // nom de l'eleve
-                                            console.log("eleve pres:" +rows[0].nom);
-                                            eleves_res[2] = rows[0].prenom; // prenom de l'eleve
-                                            console.log("eleve pres:" +rows[0].prenom);
-                                        }
-                                    });
-                                    eleves_res[3] = rows[i].gagnant; // nombre de point de l'eleve
-                                    eleves_res[4] = 1;  // nombre de match de l'eleve
-                                    console.log(eleves_res);
-                                    classement.push(eleves_res);
-                                    console.log("classement :" +classement);
-                                    console.log("ok1");
-                                }
-                                else{
-                                    classement[indexTrouver][3] = classement[indexTrouver][3] + rows[i].gagnant; // nombre de point de l'eleve
-                                    classement[indexTrouver][4] = classement[indexTrouver][4] + 1; // nombre de match de l'eleve
-                                    console.log("classement :" +classement);
-                                    console.log("ok2");
-                                }
+                                        
+                                        
+                                    }
+                                });
+
+
                             }
-                            
-                             
+                        } else {
+                            console.log("Aucun match dans cette session");
                         }
-                    });
-                }
-            }
+                    }
+                }); 
+    
+    
+
+    
+    
+    
+                
 
             res.render('classement_eleve', { idSession : idSession, classement : classement, nomCo : nomCo, prenomCo : prenomCo});
         }
     });
-
-
-    /** 
-    eleve_dao.findName4(idSession, function(err,rows) {
-        if (err ) {
-            messageError ='Connexion à la base de donnée impossible';
-        }
-        else{
-            var classement = rows;
-            console.log("tableau :" +classement);
-
-            res.render('classement_eleve', { idSession : idSession, classement : classement});
-        }
-    });*/
-
 });
 
 
