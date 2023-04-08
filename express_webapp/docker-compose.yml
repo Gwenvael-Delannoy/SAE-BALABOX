@@ -8,7 +8,7 @@ services:
     networks:
       - sportNetworks
     ports:
-      - "3000:3000"
+      - "4004:4004"
   db:
     image: mysql:5.7
     restart: always
@@ -27,6 +27,8 @@ services:
       - sportNetworks
     expose:
       - 3306
+
+  
 
 networks:
   sportNetworks:
