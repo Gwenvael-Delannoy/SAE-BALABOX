@@ -18,7 +18,7 @@ router.get('/', function(req, res,next) {
 
     eleve_dao.findByKey(idEleCo, function(err,rows) {
         if (err ) {
-            messageError ='Connexion à la base de donnée impossible';
+            messageError ='Id eleve null,merci de revenir en arriere et ressayer';
             res.render('error',{message : messageError});
         }
         else{
@@ -39,7 +39,7 @@ router.get('/', function(req, res,next) {
 
             match_dao.findAllMatchSes(idSession, function(err,rows) {
                     if (err ) {
-                        messageError ='Connexion à la base de donnée impossible';
+                        messageError ='Session inexistante,merci de revenir en arriere et ressayer';
                         res.render('error',{message : messageError});
                     }
                     else{
