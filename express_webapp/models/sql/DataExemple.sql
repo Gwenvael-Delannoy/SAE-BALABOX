@@ -88,8 +88,8 @@ INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (4,2,0);
 INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (5,1,3);
 INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (5,2,0);
 
-INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (6,1,3);
-INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (6,2,0);
+INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (6,1,1);
+INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (6,2,1);
 
 INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,2);
 

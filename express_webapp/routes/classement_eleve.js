@@ -71,11 +71,16 @@ router.get('/', function(req, res,next) {
                                     res.render('error',{message : messageError});
                                 }
                                 else{
+                                    let points = {};
+                                    points[0] = rows[0].gagnant;
+                                    points[1] = rows[1].gagnant;
+                                    
+                                    var compteur = 0;//compteur pour savoir si on a parcouru nos deux eleves de ce match
+
                                     for(var i = 0; i < rows.length; i++){
     
                                         var id_eleveMatch= rows[i].leleve;
-                                        var match_point = rows[i].gagnant;
-                                    
+
                                         eleve_dao.findByKey(id_eleveMatch, function(err,rows) {
                                             if (err ) {
                                                 messageError ='Connexion à la base de donnée impossible';
@@ -83,11 +88,10 @@ router.get('/', function(req, res,next) {
                                             }
                                             else{
                                                 if(rows.length != 0){              
-                                                                               
                                                     if(classement[rows[0].id_eleve]!= undefined && classement[rows[0].id_eleve] != null && classement[rows[0].id_eleve] != ''){
                                                         eleve_info = classement[rows[0].id_eleve];
-                                                        eleve_info[3] += match_point;
-                                                        eleve_info[4] += + 1;
+                                                        eleve_info[3] += points[compteur];  
+                                                        eleve_info[4] += 1;
                                                         classement[rows[0].id_eleve] = eleve_info;
 
 
@@ -107,7 +111,7 @@ router.get('/', function(req, res,next) {
                                                         eleve_info[0] = rows[0].id_eleve;
                                                         eleve_info[1] = rows[0].nom;
                                                         eleve_info[2] = rows[0].prenom;
-                                                        eleve_info[3] = match_point;
+                                                        eleve_info[3] = points[compteur];  
                                                         eleve_info[4] = 1;
                                                         classement[rows[0].id_eleve] = eleve_info;
 
@@ -122,6 +126,7 @@ router.get('/', function(req, res,next) {
                                                         }
                                                         
                                                     }
+                                                    compteur++;
                                                     nbMatchFait++;
                                                 }
                                                 else{

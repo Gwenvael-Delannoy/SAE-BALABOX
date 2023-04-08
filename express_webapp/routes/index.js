@@ -15,7 +15,7 @@ var professeur ='';
 router.get('/', function(req, res, next) {
 
   var message ='';
-  var professeur ='yes';
+  var professeur ='';
   //requeter l'api avec /authentified et on recuepre le role et on regarde si s'est un professer ou non
   /**
    var role = (appel api);
@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 
-  var role = 2 //(appel api);
+  var role = 4 //(appel api);
   //dechiffrement du JWT TOKEN avec la clé public
 
   var ideCon= req.body.SIdentifiant;
