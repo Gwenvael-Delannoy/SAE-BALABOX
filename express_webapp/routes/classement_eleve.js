@@ -4,7 +4,7 @@ var eleve_dao = require('../models/dao/dataBase').eleve_dao;
 var match_dao = require('../models/dao/dataBase').match_dao;
 var Eleve = require('../models/eleve');
 var matchSession = [];
-var classement = [];
+var classement = [[]];
 var idEleCo = -1;
 var nomCo = '';
 var prenomCo = '';
@@ -33,8 +33,7 @@ router.get('/', function(req, res,next) {
             if (typeof prenomCo !== 'string') {
                  prenomCo = String(prenomCo);
             }
-            console.log("nomCo :" +nomCo);
-            console.log("prenomCo :" +prenomCo);
+            
 
 
 
@@ -46,33 +45,25 @@ router.get('/', function(req, res,next) {
                     else{
                         matchSession = rows;
 
-                        console.log("Bonjour");
-
-                        console.log("matchSession.length :" +matchSession.length);
 
                         if(matchSession.length != 0){
-                            console.log("Bonjour2");
+                            
 
                             for(var k = 0; k < matchSession.length; k++){
-                                console.log("Bonjour3");
+                              
                                 console.log("matchSession[i].id_match :" +matchSession[k].id_match);
                                 var id_match = matchSession[k].id_match;
                                 id_match = parseInt(id_match);
                                 match_dao.findMatch_ElevesByMatch(id_match, function(err,rows) {
+                                    
                                     if (err ) {
                                         messageError ='Connexion à la base de donnée impossible';
                                         res.render('error',{message : messageError});
                                     }
                                     else{ 
 
-                                        console.log("rows :" +rows);
-                                        
-                                        
-                                    
-                                        
-                                        
-
                                         for(var i = 0; i < rows.length; i++){
+                                            var match = rows[i];
 
                                             var id_l_eleve = rows[i].leleve;    
                                             var eleves_res = [];
@@ -80,29 +71,31 @@ router.get('/', function(req, res,next) {
                                             var indexTrouver = -1;
                                             var j = 0;
 
-                                            if(classement.length != 0){
-                                                //checker si il est deja dans le tableau
-                                                while(j < classement.length && trouver == 'false'){
-                                                    console.log("dans while");
-                                                    if(classement[j][0] == id_l_eleve){
-                                                        trouver = 'true';
-                                                        indexTrouver = j;
-                                                    }
-                                                    j++;
-                                                }
-                                            }
-                                            console.log("ok");
-                                            if(trouver == 'false'){ //si il n'est pas dans le tableau
-                                                eleves_res[0] = id_l_eleve;
+                                            
+                                            //si il n'est pas dans le tableau
+                                            eleves_res[0] = id_l_eleve;
 
-                                                eleve_dao.findByKey(id_l_eleve, function(err,rows) {
-                                                    if (err ) {
-                                                        messageError ='Connexion à la base de donnée impossible';
-                                                        res.render('error',{message : messageError});
-                                                    }
-                                                    else{
-                                                        console.log('rows nom :' +rows.nom);
-                                                        var el = rows;
+                                            eleve_dao.findByKey(id_l_eleve, function(err,rows) {
+                                                if (err ) {
+                                                    messageError ='Connexion à la base de donnée impossible';
+                                                    res.render('error',{message : messageError});
+                                                }
+                                                else{
+
+
+                                                    if(classement.length != 0){
+                                                        //checker si il est deja dans le tableau
+                                                        while(j < classement.length && trouver == 'false'){
+                                                            console.log("dans while");
+                                                            if(classement[j][0] == id_l_eleve){
+                                                                trouver = 'true';
+                                                                indexTrouver = j;
+                                                            }
+                                                            j++;
+                                                        }
+                                                    } if (trouver == 'false'){
+                                                        
+                                                    
                                                         eleves_res[1] = rows[0].nom; // nom de l'eleve
                                                         if (typeof eleves_res[1] !== 'string') {
                                                             eleves_res[1] = String(eleves_res[1]);
@@ -116,26 +109,30 @@ router.get('/', function(req, res,next) {
                                                             eleves_res[2] = String(eleves_res[2]);
                                                         }
                                                         console.log("prenom eleve :" +eleves_res[2]);
+                                                        
+                                                        eleves_res[3] = match.gagnant; // nombre de point de l'eleve
+                                                        eleves_res[3] = String(eleves_res[3]);
+                                                        console.log("el [2] :"+eleves_res[2]);
 
+                                                        eleves_res[4] = 1;  // nombre de match de l'eleve
+                                                        eleves_res[4] = String(eleves_res[4]);
+                                                        console.log("el :"+eleves_res);
+                                                        classement.push([eleves_res[0], eleves_res[1], eleves_res[2], eleves_res[3], eleves_res[4]]);
+                                                        console.log("classement !!!!!!!!!:" +  classement);
+                                                    } else {
 
-
-                                            
+                                                        classement[indexTrouver][3] = parseInt(classement[indexTrouver][3]) + match.gagnant; // nombre de point de l'eleve
+                                                        classement[indexTrouver][3] = String(classement[indexTrouver][3]);
+                                                        classement[indexTrouver][4] = parseInt(classement[indexTrouver][4]) + 1; // nombre de match de l'eleve
+                                                        classement[indexTrouver][4] = String(classement[indexTrouver][4]);
+                                                        console.log("classement gagnant :" +classement[classement.length-1]);
                                                     }
-                                                });
-                                                eleves_res[3] = rows[i].gagnant; // nombre de point de l'eleve
-
-                                                eleves_res[4] = 1;  // nombre de match de l'eleve
-                                                console.log(eleves_res);
-                                                classement.push(eleves_res);
-                                                console.log("classement :" +classement);
-                                                console.log("ok1");
-                                            }
-                                            else{
-                                                classement[indexTrouver][3] = classement[indexTrouver][3] + rows[i].gagnant; // nombre de point de l'eleve
-                                                classement[indexTrouver][4] = classement[indexTrouver][4] + 1; // nombre de match de l'eleve
-                                                console.log("classement :" +classement);
-                                                console.log("ok2");
-                                            }
+                                                }
+                                            });
+                                                                            
+                                            
+                                        
+                                        
                                         }
                                         
                                         
@@ -149,18 +146,14 @@ router.get('/', function(req, res,next) {
                         }
                     }
                 }); 
-    
-    
-
-    
-    
-    
-                
-
-            res.render('classement_eleve', { idSession : idSession, classement : classement, nomCo : nomCo, prenomCo : prenomCo});
+ 
         }
     });
+    console.log("classement gagnant §§§§§§§§§§§§§§ :" +classement[classement.length-2]);
+    res.render('classement_eleve', { idSession : idSession, classement : classement, nomCo : nomCo, prenomCo : prenomCo});
 });
+
+
 
 
 router.post('/', function(req, res, next) {

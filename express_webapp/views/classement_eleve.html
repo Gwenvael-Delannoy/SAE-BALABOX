@@ -41,14 +41,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="eleve in classement" :key="eleve.id">
-                        <td>{{ position + 1 }}</td>
-                        <td>{{ eleve[1] }}</td>
-                        <td>{{ eleve[2] }}</td>
-                        <td>{{ eleve[3] }}</td>
-                        <td>{{ eleve[4] }}</td>
-                      </tr>
-                    </tbody>
+                                       
                   </table>
             </div>
         </div>
@@ -69,8 +62,12 @@
             },
             created: function() {
                 // Écouter les événements de la connexion WebSocket
+                this.position=1;
                 const ses = this.session;
                 const sesInt = parseInt(ses);
+                console.log("classement[0]"+this.classement)
+
+                
                 
                 ws.addEventListener('open', function(event) {
                     console.log('Connexion WebSocket ouverte');
@@ -89,6 +86,7 @@
                         }
                     }
                     this.updateNomEleves(noms);
+
                 }.bind(this));
 
 
