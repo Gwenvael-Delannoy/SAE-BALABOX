@@ -15,7 +15,7 @@ var professeur ='';
 router.get('/', function(req, res, next) {
 
   var message ='';
-  var professeur ='';
+  var professeur ='fghn,;';
   //requeter l'api avec /authentified et on recuepre le role et on regarde si s'est un professer ou non
   /**
    var role = (appel api);
@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 
-  var role = 4 //(appel api);
+  var role = 2 //(appel api);
   //dechiffrement du JWT TOKEN avec la clé public
 
   var ideCon= req.body.SIdentifiant;
@@ -42,24 +42,25 @@ router.post('/', function(req, res, next) {
   var classeEleve='';
   var messageError = '';
   var wss ;
+  
   if(role == 4 ||role == 5 ){
     nomEleve = req.body.SNomEleve;
     prenomEleve = req.body.SPrenomEleve;
     classeEleve = req.body.SClasseEleve;
 
-        // Connexion au websocket pour l eleve
-        wss = new WebSocket('ws://localhost:3001');
-        wss.onopen = function () {
-          console.log('Connexion websocket établie pour l eleve.');
-        };
-    
-        wss.onerror = function (error) {
-          console.log('Erreur websocket : ', error);
-        };
-    
-        wss.onclose = function () {
-          console.log('Déconnexion websocket pour l eleve.');
-        };
+    // Connexion au websocket pour l eleve
+    wss = new WebSocket('ws://localhost:3001');
+    wss.onopen = function () {
+      console.log('Connexion websocket établie pour l eleve.');
+    };
+
+    wss.onerror = function (error) {
+      console.log('Erreur websocket : ', error);
+    };
+
+    wss.onclose = function () {
+      console.log('Déconnexion websocket pour l eleve.');
+    };
 
 
   }else if(role == 2 ||role == 3) {

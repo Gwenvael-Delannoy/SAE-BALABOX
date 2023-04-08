@@ -70,7 +70,7 @@ var EquipeDAO = function() {
     this.findEquipeSession = function(key, callback) {
         this.use(null);
         //on recupere les equipes de la session grace a des jointures avec match_equipe , match et equipe
-        var sql6 = "SELECT * FROM Equipe WHERE id_equipe IN (SELECT id_equipe FROM Match_equipe WHERE id_match IN (SELECT id_match FROM Match WHERE id_session = " + key + "));";
+        var sql6 = "SELECT * FROM Equipe INNER JOIN Match_equipe ON Equipe.id_equipe = Match_equipe.lequipe INNER JOIN Match_ ON Match_equipe.le_match = Match_.id_match WHERE Match_.la_session = " + key + ";";
         smt.query(sql6, callback);
     };
 

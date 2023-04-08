@@ -100,10 +100,6 @@ wssProfesseur.on('connection', function connection(ws) {
         console.log('Envoi des données des élèves au professeur');
         ws.send(JSON.stringify(eleves));
       }
-      else if(data.type == 'getTabResultat'){
-        console.log('Envoi des données des resultats élèves au professeur');
-        ws.send(JSON.stringify(resultats_eleves));
-      }
       else if(data.type == 'getTabEquipe'){
         console.log('Envoi des données des équipes au professeur');
         ws.send(JSON.stringify(equipes));

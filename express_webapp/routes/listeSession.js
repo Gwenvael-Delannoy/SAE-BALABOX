@@ -42,7 +42,8 @@ router.post('/', function(req, res, next) {
         res.redirect('crSession');
     
       } else if(req.body.action == 'view') {
-        res.redirect('/resultat?ses='+id+'&idSport='+id_sport+'');
+        //res.redirect('/resultat?ses='+id+'&idSport='+id_sport+'');
+        res.redirect('/gestionEquipe?idSession='+id+'&idSport='+id_sport+'');
     
       } else {
 

@@ -90,8 +90,6 @@ var EleveDAO = function() {
         var sql6 = "SELECT prenom FROM Eleve;";
         smt.query(sql6,callback);
     };
-    
-
 
     /**
      * Trouver le nom prenom et le total point et le nombre de match des eleves par ordre croissant du total point dans une session dans la base de données
@@ -103,6 +101,18 @@ var EleveDAO = function() {
         this.use(null);
         var sql7 = "SELECT id_eleve, nom, prenom, total_points, COUNT(*) AS nb_match FROM Eleve, Match_Eleve, Match_ WHERE id_eleve = leleve AND un_match = id_match AND la_session= " + session +" GROUP BY id_eleve ORDER BY total_points;";
         smt.query(sql7,callback);
+    }
+
+    /**
+     * Trouver l'equipe d'un eleve dans la base de données
+     * @param id_equipe int
+     * @param {function} callback
+     * @returns {string[]}
+     */
+    this.findEleveByEquipe= function(id_equipe, callback) {
+        this.use(null);
+        var sql8= "SELECT * from Eleve WHERE id_eleve IN (SELECT l_eleve FROM Eleve_Equipe WHERE l_equipe = " + id_equipe + ");";
+        smt.query(sql8,callback);
     }
         
 

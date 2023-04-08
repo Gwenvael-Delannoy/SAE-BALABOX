@@ -44,6 +44,8 @@ INSERT INTO Session(statut,identifiant_con,mdp,professeur,le_sport) VALUES ("ter
 INSERT INTO Equipe(nb_joueurs,total) VALUES (30,5);
 INSERT INTO Equipe(nb_joueurs,total) VALUES (2,0);
 INSERT INTO Equipe(nb_joueurs,total) VALUES (2,0);
+INSERT INTO Equipe(nb_joueurs,total) VALUES (2,0);
+INSERT INTO Equipe(nb_joueurs,total) VALUES (2,0);
 
 -- creer un eleve
 INSERT INTO Eleve(nom,prenom,sexe,classe,total_points) VALUES ('Dupont','Michel','homme','6A',0);
@@ -58,9 +60,16 @@ INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (1,2);
 INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (2,2);
 INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (3,3);
 INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (4,3);
+INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (5,4);
+INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (6,4);
+INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (5,5);
+INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (6,5);
 
 -- creer un match
 INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,2);
+INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,4,2);
+INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (10,2,2);
+INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (10,12,2);
 
 INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (1,1,3);
 INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (1,2,0);
@@ -69,6 +78,12 @@ INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,3
 
 INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (1,2,3);
 INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (1,3,0);
+
+INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (2,1,3);
+INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (2,5,0);
+
+INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (3,4,3);
+INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (3,5,0);
 
 -- creer un resultat
 INSERT INTO Resultat(la_session,unEleve)VALUES(5,1);
