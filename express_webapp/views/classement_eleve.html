@@ -41,12 +41,12 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="(eleve, index) in classement" :key="eleve.id">
-                        <td>{{ index + 1 }}</td>
-                        <td>{{ eleve.nom }}</td>
-                        <td>{{ eleve.prenom }}</td>
-                        <td>{{ eleve.total_points }}</td>
-                        <td>{{ eleve.nb_match }}</td>
+                      <tr v-for="eleve in classement" :key="eleve.id">
+                        <td>{{ position + 1 }}</td>
+                        <td>{{ eleve[1] }}</td>
+                        <td>{{ eleve[2] }}</td>
+                        <td>{{ eleve[3] }}</td>
+                        <td>{{ eleve[4] }}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -60,10 +60,12 @@
             new Vue({
             el: '#app',
             data: {
+                position : 1,
                 session: '<%=idSession%>',
                 nomEleves: [],
                 classement: '<%=classement%>',
-                eleveCo : '<%=eleveCo%>'
+                nomCo: '<%=nomCo%>',
+                prenomCo: '<%=prenomCo%>'
             },
             created: function() {
                 // Écouter les événements de la connexion WebSocket
@@ -82,12 +84,11 @@
                     const noms = [];
                     console.log(infoEleve + 'infoEleve');
                     for (const eleve of infoEleve) {
-                        if (eleve.session === sesInt && eleve.nom !== this.eleveCo.nom && eleve.prenom !== this.eleveCo.prenom) {
+                        if (eleve.session === sesInt && eleve.nom !== this.nomCo && eleve.prenom !== this.prenomCo) {
                             noms.push(eleve.nom + ' ' + eleve.prenom);
                         }
                     }
                     this.updateNomEleves(noms);
-                    this.toStringClassement();
                 }.bind(this));
 
 
@@ -100,19 +101,6 @@
                 updateNomEleves(noms) {
                     this.nomEleves = noms;
                 },
-
-                toStringClassement() {
-                    for (const eleve of this.classement) {
-                        eleve.nom = eleve.getNom();
-                        eleve.prenom = eleve.getPrenom();
-                        eleve.total_points = eleve.getTotalPoints();
-                        eleve.nb_match = eleve.nb_match + '';
-
-                        console.log(eleve.nom + ' : nom   ' + eleve.prenom + ' : prenom   ' + eleve.total_points + ' : points   ' + eleve.nb_match+ " : nb_match");
-                    }
-
-                    
-                }
             }
             });
 
