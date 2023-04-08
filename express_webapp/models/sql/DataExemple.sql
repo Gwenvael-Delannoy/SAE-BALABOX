@@ -158,3 +158,4 @@ SELECT * FROM Session, Resultat, Acrosport WHERE id_session = la_session AND id_
 SELECT * FROM Acrosport;
 SELECT * FROM Resultat, Acrosport WHERE id_resultat=id_acrosport ;
 
+SELECT * FROM Match_Eleve WHERE un_match = 2;
