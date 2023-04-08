@@ -66,9 +66,9 @@ INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (5,5);
 INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (6,5);
 
 -- creer un match
-INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,2);
-INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,4,2);
-INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (10,2,2);
+INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,3);
+INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,4,3);
+INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (10,2,3);
 INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (10,12,3);
 INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (3,12,3);
 INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (8,12,3);
@@ -82,7 +82,16 @@ INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (2,2,3);
 INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (3,1,3);
 INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (3,2,0);
 
-INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,3);
+INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (4,1,3);
+INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (4,2,0);
+
+INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (5,1,3);
+INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (5,2,0);
+
+INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (6,1,3);
+INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (6,2,0);
+
+INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,2);
 
 INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (1,2,3);
 INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (1,3,0);
@@ -159,4 +168,4 @@ SELECT * FROM Session, Resultat, Acrosport WHERE id_session = la_session AND id_
 SELECT * FROM Acrosport;
 SELECT * FROM Resultat, Acrosport WHERE id_resultat=id_acrosport ;
 
-SELECT * FROM Match_Eleve WHERE un_match = 2;
+SELECT * FROM Match_Eleve WHERE un_match = 3;

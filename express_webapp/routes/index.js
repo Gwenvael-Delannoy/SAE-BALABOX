@@ -15,7 +15,7 @@ var professeur ='';
 router.get('/', function(req, res, next) {
 
   var message ='';
-  var professeur ='fghn,;';
+  var professeur ='';
   //requeter l'api avec /authentified et on recuepre le role et on regarde si s'est un professer ou non
   /**
    var role = (appel api);
@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 
-  var role = 2 //(appel api);
+  var role = 4 //(appel api);
   //dechiffrement du JWT TOKEN avec la clé public
 
   var ideCon= req.body.SIdentifiant;
@@ -136,13 +136,22 @@ router.post('/', function(req, res, next) {
                       nomEleveBdd = eleve_req[0].nom;
                       classeEleveBdd = eleve_req[0].classe;
                       id = eleve_req[0].id_eleve;
-                      console.log(id);
+
+                      //renvoie la page en fonction du type de session
+                      if(type_ses == 'tournoi equipe'){
+                        res.redirect('/classement_equipe?ses='+ session[0].id_session + '&id_el=' + id);
+                      }else if(type_ses == 'resultat'){
+                        res.redirect('/resultat?idSport=' + session[0].le_sport + '&ses=' + session[0].id_session + '&nom=' + nomEleve + '&prenom=' + prenomEleve + '&classe=' + classeEleve);
+                      }else if(type_ses == 'tournoi individuel' ){
+                        res.redirect('/classement_eleve?ses=' + session[0].id_session + '&id_el=' + id);
+                      }
                     }
                     //check si l'eleve existe deja dans la base de donnée ou non meme s'il a le meme nom mais pas le meme prenom*
-                    if(eleve_req.length == 0 || (prenomEleveBdd != prenomEleve && nomEleveBdd != nomEleve && classeEleveBdd != classeEleve)){
+                    else if(eleve_req.length == 0 || (prenomEleveBdd != prenomEleve && nomEleveBdd != nomEleve && classeEleveBdd != classeEleve)){
+                      
                       //si l'eleve n'existe pas on l'ajoute dans la base de donnée
                       var eleve = new Eleve();
-                      //(nom, prenom, sexe, classe, total_points){
+  
                       eleve.init(nomEleve,prenomEleve,"homme",classeEleve);
                       eleve_dao.insert(eleve, function(err,rows) {
                         if (err ) {
@@ -153,6 +162,15 @@ router.post('/', function(req, res, next) {
                           console.log('nouveau eleve/professeur connecter en tant qu eleve cree ');
                           //recupere l'id de l'eleve inseré
                           id = rows.insertId;
+
+                          //renvoie la page en fonction du type de session
+                          if(type_ses == 'tournoi equipe'){
+                            res.redirect('/classement_equipe?ses='+ session[0].id_session + '&id_el=' + id);
+                          }else if(type_ses == 'resultat'){
+                            res.redirect('/resultat?idSport=' + session[0].le_sport + '&ses=' + session[0].id_session + '&nom=' + nomEleve + '&prenom=' + prenomEleve + '&classe=' + classeEleve);
+                          }else if(type_ses == 'tournoi individuel' ){
+                            res.redirect('/classement_eleve?ses=' + session[0].id_session + '&id_el=' + id);
+                          }
                         }
                       });
                     }
@@ -164,15 +182,6 @@ router.post('/', function(req, res, next) {
                       classe: classeEleve,
                       session: session[0].id_session
                     }));
-                  }
-                  //renvoie la page en fonction du type de session
-                  console.log(id)
-                  if(type_ses == 'tournoi equipe'){
-                    res.redirect('/classement_equipe?ses='+ session[0].id_session + '&id_el=' + id);
-                  }else if(type_ses == 'resultat'){
-                    res.redirect('/resultat?idSport=' + session[0].le_sport + '&ses=' + session[0].id_session + '&nom=' + nomEleve + '&prenom=' + prenomEleve + '&classe=' + classeEleve);
-                  }else if(type_ses == 'tournoi individuel' ){
-                    res.redirect('/classement_eleve?ses=' + session[0].id_session + '&id_el=' + id);
                   }
                 });
               }
