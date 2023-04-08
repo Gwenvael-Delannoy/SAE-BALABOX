@@ -105,8 +105,8 @@ wssEleve.on('connection', function connection(ws) {
             client.send(JSON.stringify(classement[id_session]));
           }
         });
-        console.log('Données stockées:');
-        console.log(classement);
+        console.log('Données stockées:')
+        console.log(data.classement);
       }
     } catch (error) {
       console.error('Erreur lors de l\'analyse JSON:', error.message);

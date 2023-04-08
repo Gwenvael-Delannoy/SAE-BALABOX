@@ -5,8 +5,7 @@ var eleve_dao = require('../models/dao/dataBase').eleve_dao;
 var match_dao = require('../models/dao/dataBase').match_dao;
 var Eleve = require('../models/eleve');
 var matchSession = [];
-var classement = [[]];
-var idEleCo = -1;
+let classement = {};
 var nomCo = '';
 var prenomCo = '';
 var wss ;
@@ -14,24 +13,21 @@ var wss ;
 
 wss = new WebSocket('ws://localhost:3001');
 wss.onopen = function () {
-  console.log('Connexion websocket établie pour l eleve.');
+  console.log('Connexion websocket du classement reussie');
 };
 
 wss.onerror = function (error) {
-  console.log('Erreur websocket : ', error);
+  console.log('Connexion websocket du classement error :  ', error);
 };
 
 wss.onclose = function () {
-  console.log('Déconnexion websocket pour l eleve.');
+  console.log('Déconnexion websocket du classement');
 };
-
-
 
 /* Recupere la page de classement des eleves et qui renvoie un tableau de string avec les prenoms des eleves */
 router.get('/', function(req, res,next) {
     idSession = req.query.ses;
     idEleCo = req.query.id_el;
-    console.log("idEleCo :" +idEleCo);
 
     eleve_dao.findByKey(idEleCo, function(err,rows) {
         if (err ) {
@@ -50,125 +46,102 @@ router.get('/', function(req, res,next) {
             if (typeof prenomCo !== 'string') {
                  prenomCo = String(prenomCo);
             }
-            
-
-
 
             match_dao.findAllMatchSes(idSession, function(err,rows) {
-                    if (err ) {
-                        messageError ='Session inexistante,merci de revenir en arriere et ressayer';
-                        res.render('error',{message : messageError});
-                    }
-                    else{
-                        matchSession = rows;
+                if (err ) {
+                    messageError ='Session inexistante,merci de revenir en arriere et ressayer';
+                    res.render('error',{message : messageError});
+                }
+                else{
+                    matchSession = rows;
 
-
-                        if(matchSession.length != 0){
+                    if(matchSession.length != 0){
+                        var k;
+                        var nbMatchFait =1;
+                        var nbMatchTotal = matchSession.length;
+                        
+                        
+                        for(k = 0; k < matchSession.length; k++){
                             
-
-                            for(var k = 0; k < matchSession.length; k++){
-                              
-                                console.log("matchSession[i].id_match :" +matchSession[k].id_match);
-                                var id_match = matchSession[k].id_match;
-                                id_match = parseInt(id_match);
-                                match_dao.findMatch_ElevesByMatch(id_match, function(err,rows) {
+                            var id_match = matchSession[k].id_match;
+                            match_dao.findMatch_ElevesByMatch(id_match, function(err,rows) {
+                                
+                                if (err ) {
+                                    messageError ='Connexion à la base de donnée impossible';
+                                    res.render('error',{message : messageError});
+                                }
+                                else{
+                                    for(var i = 0; i < rows.length; i++){
+    
+                                        var id_eleveMatch= rows[i].leleve;
+                                        var match_point = rows[i].gagnant;
                                     
-                                    if (err ) {
-                                        messageError ='Connexion à la base de donnée impossible';
-                                        res.render('error',{message : messageError});
-                                    }
-                                    else{ 
+                                        eleve_dao.findByKey(id_eleveMatch, function(err,rows) {
+                                            if (err ) {
+                                                messageError ='Connexion à la base de donnée impossible';
+                                                res.render('error',{message : messageError});
+                                            }
+                                            else{
+                                                if(rows.length != 0){              
+                                                                               
+                                                    if(classement[rows[0].id_eleve]!= undefined && classement[rows[0].id_eleve] != null && classement[rows[0].id_eleve] != ''){
+                                                        eleve_info = classement[rows[0].id_eleve];
+                                                        eleve_info[3] += match_point;
+                                                        eleve_info[4] += + 1;
+                                                        classement[rows[0].id_eleve] = eleve_info;
 
-                                        for(var i = 0; i < rows.length; i++){
-                                            var match = rows[i];
 
-                                            var id_l_eleve = rows[i].leleve;    
-                                            var eleves_res = [];
-                                            var trouver = 'false';
-                                            var indexTrouver = -1;
-                                            var j = 0;
+                                                        //divier par 2 car on a 2 eleve par match donc on compte 2 fois un match , et une fois arrivé au bout du compte de match total on envoie la donnée au websocket
+                                                        if((nbMatchFait/2) == nbMatchTotal){
+                                                    
+                                                            wss.send(JSON.stringify({
+                                                                type: 'classement',
+                                                                session: idSession,
+                                                                classement:JSON.stringify(classement),
+                                                            }));
+                                                            res.render('classement_eleve', { idSession : idSession,classement:classement, nomCo : nomCo, prenomCo : prenomCo});
+                                                        }
+                                                        
+                                                    } else {
+                                                        eleve_info = [];
+                                                        eleve_info[0] = rows[0].id_eleve;
+                                                        eleve_info[1] = rows[0].nom;
+                                                        eleve_info[2] = rows[0].prenom;
+                                                        eleve_info[3] = match_point;
+                                                        eleve_info[4] = 1;
+                                                        classement[rows[0].id_eleve] = eleve_info;
 
-                                            
-                                            //si il n'est pas dans le tableau
-                                            eleves_res[0] = id_l_eleve;
-
-                                            eleve_dao.findByKey(id_l_eleve, function(err,rows) {
-                                                if (err ) {
-                                                    messageError ='Connexion à la base de donnée impossible';
-                                                    res.render('error',{message : messageError});
+                                                        if((nbMatchFait/2) == nbMatchTotal){
+                          
+                                                            wss.send(JSON.stringify({
+                                                                type: 'classement',
+                                                                session: idSession,
+                                                                classement:JSON.stringify(classement),
+                                                            }));
+                                                            res.render('classement_eleve', { idSession : idSession,classement:classement, nomCo : nomCo, prenomCo : prenomCo});
+                                                        }
+                                                        
+                                                    }
+                                                    nbMatchFait++;
                                                 }
                                                 else{
-
-
-                                                    if(classement.length != 0){
-                                                        //checker si il est deja dans le tableau
-                                                        while(j < classement.length && trouver == 'false'){
-                                                            console.log("dans while");
-                                                            if(classement[j][0] == id_l_eleve){
-                                                                trouver = 'true';
-                                                                indexTrouver = j;
-                                                            }
-                                                            j++;
-                                                        }
-                                                    } if (trouver == 'false'){
-                                                        
-                                                    
-                                                        eleves_res[1] = rows[0].nom; // nom de l'eleve
-                                                        if (typeof eleves_res[1] !== 'string') {
-                                                            eleves_res[1] = String(eleves_res[1]);
-                                                        }
-
-                                                        console.log("nom eleve :" +eleves_res[1]);
-
-                                                        
-                                                        eleves_res[2] = rows[0].prenom; // prenom de l'eleve
-                                                        if (typeof eleves_res[2] !== 'string') {
-                                                            eleves_res[2] = String(eleves_res[2]);
-                                                        }
-                                                        console.log("prenom eleve :" +eleves_res[2]);
-                                                        
-                                                        eleves_res[3] = match.gagnant; // nombre de point de l'eleve
-                                                        eleves_res[3] = String(eleves_res[3]);
-                                                        console.log("el [2] :"+eleves_res[2]);
-
-                                                        eleves_res[4] = 1;  // nombre de match de l'eleve
-                                                        eleves_res[4] = String(eleves_res[4]);
-                                                        console.log("el :"+eleves_res);
-                                                        classement.push([eleves_res[0], eleves_res[1], eleves_res[2], eleves_res[3], eleves_res[4]]);
-                                                        console.log("classement !!!!!!!!!:" +  classement);
-                                                    } else {
-
-                                                        classement[indexTrouver][3] = parseInt(classement[indexTrouver][3]) + match.gagnant; // nombre de point de l'eleve
-                                                        classement[indexTrouver][3] = String(classement[indexTrouver][3]);
-                                                        classement[indexTrouver][4] = parseInt(classement[indexTrouver][4]) + 1; // nombre de match de l'eleve
-                                                        classement[indexTrouver][4] = String(classement[indexTrouver][4]);
-                                                        console.log("classement gagnant :" +classement[classement.length-1]);
-                                                    }
+                                                    messageError ='Eleve non existant dans la base de données,merci de revenir en arriere et ressayer';
+                                                    res.render('error',{message : messageError});
                                                 }
-                                            });
-                                        }
+                                            }
+                                        });
                                     }
-                                });
-                            }
-                            // Envoi d'un message vers le serveur WebSocket de l'élève
-                            wss.send(JSON.stringify({
-                                type: 'classement',
-                                session: idSession,
-                                classement: classement
-                                }));
-                        } else {
-                            console.log("Aucun match dans cette session");
-                        }
+                                }
+                            });
+                        }                   
+                    }else {
+                        console.log("Aucun match dans cette session");
                     }
-                }); 
- 
+                }
+            });
         }
     });
-    console.log("classement gagnant §§§§§§§§§§§§§§ :" +classement[classement.length-2]);
-    res.render('classement_eleve', { idSession : idSession, classement : classement, nomCo : nomCo, prenomCo : prenomCo});
 });
-
-
 
 
 router.post('/', function(req, res, next) {
