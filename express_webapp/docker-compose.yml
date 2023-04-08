@@ -10,17 +10,15 @@ services:
     ports:
       - "4004:4004"
   db:
-    image: mysql:5.7
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
       MYSQL_HOST: db
       MYSQL_DATABASE: balabox_sport_db
-      MYSQL_USER: balabox
-      MYSQL_PASSWORD: balabox
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
     volumes:
       - ./models/sql/creation_db.sql:/docker-entrypoint-initdb.d/creation_db.sql
-      - ./models/sql/DataExemple.sql:/docker-entrypoint-initdb.d/DataExemple.sql
     ports:
       - "3306:3306"
     networks:
