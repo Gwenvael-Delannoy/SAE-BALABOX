@@ -5,9 +5,8 @@ var equipe_dao = require('../models/dao/dataBase').equipe_dao;
 var match_dao = require('../models/dao/dataBase').match_dao;
 var Equipe = require('../models/Equipe');
 var matchSession = [];
-let classement = {};
-var nomCo = '';
-var prenomCo = '';
+let classement;
+var idCo = '';
 var wss ;
 
 
@@ -26,28 +25,23 @@ wss.onclose = function () {
 
 /* Recupere la page de classement des eleves et qui renvoie un tableau de string avec les prenoms des eleves */
 router.get('/', function(req, res,next) {
+    classement = {};
     idSession = req.query.ses;
     idEleCo = req.query.id_el;
 
-    eleve_dao.findByKey(idEleCo, function(err,rows) {
+    equipe_dao.findByKey(idEleCo, function(err,rows) {
         if (err ) {
             messageError ='Id eleve null,merci de revenir en arriere et ressayer';
             res.render('error',{message : messageError});
         }
         else{
             
-            nomCo = rows[0].nom;
-            prenomCo = rows[0].prenom;
+            idCo = rows[0].id_equipe;
 
-            if (typeof nomCo !== 'string') {
-                 nomCo = String(nomCo);
+            if (typeof idCo !== 'string') {
+              idCo = String(idCo);
             }
-        
-            if (typeof prenomCo !== 'string') {
-                 prenomCo = String(prenomCo);
-            }
-            console.log('nomCo : '+nomCo);
-            console.log('prenomCo : '+prenomCo);
+            console.log('id : '+idCo);
 
             match_dao.findAllMatchSes(idSession, function(err,rows) {
                 if (err ) {
@@ -66,7 +60,7 @@ router.get('/', function(req, res,next) {
                         for(k = 0; k < matchSession.length; k++){
                             
                             var id_match = matchSession[k].id_match;
-                            match_dao.findMatch_ElevesByMatch(id_match, function(err,rows) {
+                            match_dao.findMatch_EquipesByEquipe(id_match, function(err,rows) {
                                 
                                 if (err ) {
                                     messageError ='Connexion à la base de donnée impossible';
@@ -74,9 +68,10 @@ router.get('/', function(req, res,next) {
                                 }
                                 else{
                                     let points = {};
+        
                                     points[0] = rows[0].gagnant;
                                     points[1] = rows[1].gagnant;
-                                    
+                            
                                     var compteur = 0;//compteur pour savoir si on a parcouru nos deux eleves de ce match
 
                                     for(var i = 0; i < rows.length; i++){
@@ -90,11 +85,11 @@ router.get('/', function(req, res,next) {
                                             }
                                             else{
                                                 if(rows.length != 0){              
-                                                    if(classement[rows[0].id_eleve]!= undefined && classement[rows[0].id_eleve] != null && classement[rows[0].id_eleve] != ''){
-                                                        eleve_info = classement[rows[0].id_eleve];
+                                                    if(classement[rows[0].id_equipe]!= undefined && classement[rows[0].id_equipe] != null && classement[rows[0].id_equipe] != ''){
+                                                        eleve_info = classement[rows[0].id_equipe];
                                                         eleve_info[3] += points[compteur];  
                                                         eleve_info[4] += 1;
-                                                        classement[rows[0].id_eleve] = eleve_info;
+                                                        classement[rows[0].id_equipe] = eleve_info;
 
 
                                                         //divier par 2 car on a 2 eleve par match donc on compte 2 fois un match , et une fois arrivé au bout du compte de match total on envoie la donnée au websocket
@@ -105,27 +100,26 @@ router.get('/', function(req, res,next) {
                                                                 session: idSession,
                                                                 classement:JSON.stringify(classement),
                                                             }));
-                                                            res.render('classement_eleve', { idSession : idSession,classement:classement, nomCo : nomCo, prenomCo : prenomCo});
+                                                            res.render('classement_equipe', { idSession : idSession,classement:classement, idCo : idCo});
                                                         }
                                                         
                                                     } else {
                                                         eleve_info = [];
-                                                        eleve_info[0] = rows[0].id_eleve;
-                                                        eleve_info[1] = rows[0].nom;
-                                                        eleve_info[2] = rows[0].prenom;
+                                                        eleve_info[0] = rows[0].id_equipe;
                                                         eleve_info[3] = points[compteur];  
                                                         eleve_info[4] = 1;
-                                                        classement[rows[0].id_eleve] = eleve_info;
+                                                        classement[rows[0].id_equipe] = eleve_info;
                                                         classementBis = classement;
 
                                                         if((nbMatchFait/2) == nbMatchTotal){
-                          
+                                                            console.log('classement : ' + JSON.stringify(classement));
                                                             wss.send(JSON.stringify({
                                                                 type: 'classement',
                                                                 session: idSession,
                                                                 classement:JSON.stringify(classement),
                                                             }));
-                                                            res.render('classement_eleve', { idSession : idSession,classementBis:classementBis, nomCo : nomCo, prenomCo : prenomCo});
+                                                            classement = {};
+                                                            res.render('classement_equipe', { idSession : idSession,classement:classement, idCo : idCo});
                                                         }
                                                         
                                                     }
@@ -133,7 +127,7 @@ router.get('/', function(req, res,next) {
                                                     nbMatchFait++;
                                                 }
                                                 else{
-                                                    messageError ='Eleve non existant dans la base de données,merci de revenir en arriere et ressayer';
+                                                    messageError ='Equpie non existant dans la base de données,merci de revenir en arriere et ressayer';
                                                     res.render('error',{message : messageError});
                                                 }
                                             }
@@ -159,7 +153,7 @@ router.post('/', function(req, res, next) {
     if(NomAdversaire == ''){
         res.render('error',{message : "Veuillez choisir un adversaire"});
     }else{
-        res.render('eleve_contre_eleve', { idSession : idSession, NomAdversaire : NomAdversaire, idEleCo : idEleCo});
+        res.render('equipe_contre_equipe', { idSession : idSession, NomAdversaire : NomAdversaire, idEleCo : idEleCo});
         console.log("idSession :" +idSession+ "\nNomAdversaire :" +NomAdversaire);
     }
     
