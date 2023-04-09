@@ -108,7 +108,7 @@ router.get('/', function(req, res,next) {
                                                                 session: idSession,
                                                                 classement:JSON.stringify(classement),
                                                             }));
-                                                            res.render('classement_eleve', { idSession : idSession,classement:classement, nomCo : nomCo, prenomCo : prenomCo});
+                                                            res.render('classement_eleve', { idSession : idSession,classement:classement, nomCo : nomCo, prenomCo : prenomCo,message : ''});
                                                         }
                                                         
                                                     } else {
@@ -128,7 +128,7 @@ router.get('/', function(req, res,next) {
                                                                 session: idSession,
                                                                 classement:JSON.stringify(classement),
                                                             }));
-                                                            res.render('classement_eleve', { idSession : idSession,classementBis:classementBis, nomCo : nomCo, prenomCo : prenomCo});
+                                                            res.render('classement_eleve', { idSession : idSession,classementBis:classementBis, nomCo : nomCo, prenomCo : prenomCo,message : ''});
                                                         }
                                                         
                                                     }
