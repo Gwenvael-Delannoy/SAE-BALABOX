@@ -20,7 +20,7 @@
             <h1 class="titre">Classement</h1>
             <h3 class="titre2">Faire un match contre :</h3>
             <select id="mySelect" v-model="updateNomEleves">
-                <option v-for="nom in nomEleves">{{ nom }}</option>
+                <option v-for="nomsss in nomEleves">{{ nomsss }}</option>
             </select>
             <form class="formulaire" action='/classement_eleve' method='post'>
                 <input type="hidden" name="idSession" value="terminer" id="idSession">
@@ -41,7 +41,14 @@
                       </tr>
                     </thead>
                     <tbody>
-                                       
+                      <tr v-for="(eleve, index) in classementTab">
+                        <td>{{ index + 1 }}</td>
+                        <td>{{ eleve[1] }}</td>
+                        <td>{{ eleve[2] }}</td>
+                        <td>{{ eleve[3] }}</td>
+                        <td>{{ eleve[4] }}</td>
+                      </tr>
+                    </tbody>
                   </table>
             </div>
         </div>
@@ -56,7 +63,7 @@
                 position : 1,
                 session: '<%=idSession%>',
                 nomEleves: [],
-                classement: '<%=classement%>',
+                classementTab: [],
                 nomCo: '<%=nomCo%>',
                 prenomCo: '<%=prenomCo%>'
             },
@@ -86,8 +93,34 @@
                         }
                     }
                     this.updateNomEleves(noms);
+                    console.log("Bonjour : "+ this.nomEleves);
+
 
                 }.bind(this));
+
+
+                ws.addEventListener('open', function(event) {
+                    ws.send(JSON.stringify({ type: 'getClassement', session: sesInt }));
+                });
+
+                ws.addEventListener('message', function(event) {
+                    console.log('Données reçues:');
+                    console.log(JSON.parse(event.data));
+                    const data = JSON.parse(event.data);
+                    if (data.type === 'classement') {
+                        console.log(data.classement);
+                        this.classementTab = JSON.parse(data.classement);
+                    }
+                }.bind(this));
+
+
+
+
+
+
+
+
+
 
 
             },
