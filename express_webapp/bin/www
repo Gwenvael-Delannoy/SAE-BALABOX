@@ -76,7 +76,9 @@ wssEleve.on('connection', function connection(ws) {
 
 
         var tab = resultat_eleve[session];
-        tab[tab.length]=data.data;
+        var index= tab.length();
+        console.log(index);
+        tab[index]=data.data;
 
         resultat_eleve[session] = tab;
         
@@ -90,6 +92,8 @@ wssEleve.on('connection', function connection(ws) {
             client.send(JSON.stringify(message));
           }
         });
+        console.log('Données stockées:');
+        console.log(resultat_eleve);
 
       }
       else if(data.type == 'getTabEquipe'){

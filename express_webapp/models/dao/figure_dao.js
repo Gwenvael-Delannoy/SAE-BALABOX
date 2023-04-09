@@ -79,6 +79,12 @@ var FigureDAO = function() {
         smt.query(sql6, callback);
     };
 
+    this.findByAcro = function(key, callback) {
+        this.use(null);
+        var sql7 = "SELECT * FROM Figure_Acrosport WHERE lAcrosport = " + key + ";";
+        smt.query(sql7, callback);
+    };
+
     /**
      * Utiliser la bonne base de données
      * @param {function} callback

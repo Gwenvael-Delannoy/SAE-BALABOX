@@ -93,6 +93,19 @@ var EscaladeDAO = function() {
         var sql5 = "SELECT * FROM Escalade WHERE id_escalade= " + key + ";";
         smt.query(sql5, callback);
     };
+
+    /**
+     * Trouver une donnée voie dans la base de données par son escalade
+     * @param {int} key
+     * @param {function} callback
+     * @returns {Escalade}
+     */
+    this.findVoieByEscalade = function(key, callback) {
+        this.use(null);
+        var sql6 = "SELECT * FROM Escalade_Voie WHERE lEscalade= " + key + ";";
+        smt.query(sql6, callback);
+    };
+
     /**
      * Utiliser la bonne base de données
      * @param {function} callback

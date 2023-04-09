@@ -42,3 +42,12 @@ Header
     background-color : #ff7b00;
     color : #e6e3e3;
 }
+
+
+.tableau {
+    margin-top: 10px;
+    margin-left: 3%;
+    margin-right: 3%;
+    width: 94%;
+    height: 100%;
+}

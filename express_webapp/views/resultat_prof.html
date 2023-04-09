@@ -22,6 +22,71 @@
                     <input type="submit" name="action" value="Retour" >
                 </form>
             </div>
+
+
+            <div>
+                <% if (message) { %>
+                  <p style="color: red;"><%= message %></p>
+                <% } %>
+              </div>
             
         </body>
+        <script>
+            const ws = new WebSocket('ws://localhost:3001');
+
+            new Vue({
+                el: '#app',
+                data: {
+                    position : 1,
+                    session: '<%=idSession%>',
+                    parsedClassement: [],
+                },
+                created: function() {
+                    // Écouter les événements de la connexion WebSocket
+                    this.position=1;
+                    const ses = this.session;
+                    const sesInt = parseInt(ses);
+
+                
+                
+                    ws.addEventListener('open', function(event) {
+
+                        ws.send(JSON.stringify({ type: 'getTabEleve', session: sesInt }));
+                        ws.send(JSON.stringify({ type: 'getClassement', session: sesInt }));
+                    });
+
+                    ws.addEventListener('message', function(event) {
+                       
+                        const data = JSON.parse(event.data);
+                        if(data.type == 'classement' && data.session == sesInt ){
+                            
+                            const parsedClassement = [];
+                            const classementObj = JSON.parse(data.data);
+                            
+                            Object.values(classementObj).forEach((res) => {
+                                parsedClassement.push({
+                                    nom: res.nom,
+                                    prenom: res.prenom,
+                                    points: res.points,
+                                    position: this.position++,
+                                });
+                            });
+
+                            parsedClassement.sort((a, b) => b.points - a.points);
+
+
+                            this.parsedClassement = parsedClassement;
+                            
+                            }
+                        
+                    }.bind(this));
+
+
+                },
+                destroyed: function() {
+                    // Fermer la connexion WebSocket lorsque la vue est détruite
+                    ws.close();
+                },
+            });
+        </script>
     </html>

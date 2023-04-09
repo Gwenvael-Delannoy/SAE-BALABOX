@@ -129,6 +129,39 @@ router.post('/', function(req, res, next) {
   if (req.body.action ==  'Nouveau résultat'){
     res.redirect('/resultat?idSport=' + id_sport + '&ses=' + info_eleveProfConnecte[3] + '&nom=' + info_eleveProfConnecte[0] + '&prenom=' + info_eleveProfConnecte[1] + '&classe=' + info_eleveProfConnecte[2]);
   }
+  else if(nom_sport =='Course'){
+
+    var temps = "00:"+req.body.minutes+":"+req.body.seconds;
+    var distance = req.body.distance;
+    var freq_card = req.body.freq_card;
+    var complementaire = req.body.complementaire;
+
+    var result = new resultat();
+    result.init(temps,distance,freq_card,complementaire,info_eleveProfConnecte[3],info_eleveProfConnecte[4]);
+    resultat_dao.insert(result, function(err,rows) {
+      if(err){
+        res.render('error',{message : err});
+      }
+      else{
+
+        envoieDonneesProf({
+          sport : nom_sport,                
+          nom : info_eleveProfConnecte[0],
+          prenom : info_eleveProfConnecte[1],
+          classe : info_eleveProfConnecte[2],
+          session : info_eleveProfConnecte[3],
+          temps : tmp[3],
+          distance : tmp[4],
+          freq_card : tmp[5],
+          complementaire : tmp[6],
+        });
+
+        message= 'Données envoyées';
+        res.render('resultat',{idSport: id_sport ,sport : nom_sport ,message : message});
+        
+      }
+    });
+  }
   else if(nom_sport == 'Acrosport'){
 
     if(req.body.action == 'Envoyer'){

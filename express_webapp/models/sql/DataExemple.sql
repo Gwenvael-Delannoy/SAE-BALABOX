@@ -106,16 +106,9 @@ INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (9,4,0);
 INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (9,5,3);
 
 -- creer un resultat
-INSERT INTO Resultat(la_session,unEleve)VALUES(5,1);
-INSERT INTO Resultat(la_session,unEleve)VALUES(5,2);
-INSERT INTO Resultat(la_session,unEleve)VALUES(7,1);
-INSERT INTO Resultat(la_session,unEleve)VALUES(7,2);
-INSERT INTO Resultat(la_session,unEleve)VALUES(9,3);
-INSERT INTO Resultat(la_session,unEleve)VALUES(9,4);
-INSERT INTO Resultat(la_session,unEleve)VALUES(10,5);
-INSERT INTO Resultat(la_session,unEleve)VALUES(10,6);
-INSERT INTO Resultat(la_session,unEleve)VALUES(8,1);
-INSERT INTO Resultat(la_session,unEleve)VALUES(6,1);
+INSERT INTO Resultat(temps,distance,freq_card,complementaire,la_session,unEleve)VALUES("00:00:12",100,145,"épuisé",9,1);
+INSERT INTO Resultat(temps,distance,freq_card,complementaire,la_session,unEleve)VALUES(null,null,null,null,7,2);
+INSERT INTO Resultat(temps,distance,freq_card,complementaire,la_session,unEleve)VALUES("00:01:48",null,null,"épuisé",6,3);
 
 
 -- creer des figures d'acrosport
@@ -131,3 +124,14 @@ INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('La monté',11);
 INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('La pente',12);
 INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('La roue tournante',13);
 INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('L enfer',14);
+
+-- creer un acrosport
+INSERT INTO Acrosport(id_acrosport,total_point)VALUES(2,45);
+
+INSERT INTO Figure_Acrosport(lAcrosport,laFigure)VALUES(2,1);
+INSERT INTO Figure_Acrosport(lAcrosport,laFigure)VALUES(2,2);
+INSERT INTO Figure_Acrosport(lAcrosport,laFigure)VALUES(2,3);
+
+-- creer un escalade
+INSERT INTO Escalade(id_escalade,assureur)VALUES(3,"Payet");
+INSERT INTO Escalade_Voie(lEscalade,laVoie)VALUES(3,1);

@@ -32,7 +32,7 @@ router.get('/', function(req, res,next) {
     idEleCo = req.query.id_el;
 
     eleve_dao.findByKey(idEleCo, function(err,rows) {
-        if (err ) {
+        if (err || rows.length == 0) {
             messageError ='Id eleve null,merci de revenir en arriere et ressayer';
             res.render('error',{message : messageError});
         }
@@ -70,11 +70,14 @@ router.get('/', function(req, res,next) {
                                 
                                 if (err ) {
                                     messageError ='Connexion à la base de donnée impossible';
-                                    res.render('error',{message : messageError});
+                                    res.redirect('/error?message='+messageError);
                                 }
                                 else{
                                     let points = {};
-        
+                                    if(rows[0].gagnant == null ||rows[1].gagnant == null || rows[0].gagnant == undefined ||rows[1].gagnant == undefined ){
+                                        messageError ='Probleme de données deja dans la base';
+                                        res.redirect('/error?message='+messageError);
+                                    }
                                     points[0] = rows[0].gagnant;
                                     points[1] = rows[1].gagnant;
                             
@@ -87,7 +90,7 @@ router.get('/', function(req, res,next) {
                                         eleve_dao.findByKey(id_eleveMatch, function(err,rows) {
                                             if (err ) {
                                                 messageError ='Connexion à la base de donnée impossible';
-                                                res.render('error',{message : messageError});
+                                                res.redirect('/error?message='+messageError);
                                             }
                                             else{
                                                 if(rows.length != 0){              

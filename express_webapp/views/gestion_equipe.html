@@ -14,7 +14,7 @@
 
   </head>
   <body>
-  <div id="app"></div>
+  <div id="app">
     <div class="block">
       <header class="header">
           <img class="logo" src="/images/image.jpeg">
@@ -26,19 +26,123 @@
 
       <div class="equipeExist">
         <h2>Equipes existantes</h2>
-        <div >
+        <div class="tableau" >
           <% for(var i = 0; i < equipes.length; i++) { %>
-              <p>Equipe <%=equipes[i] %></p>
-          <% } %>
+              <p>Equipe <%=equipes[i].id_equipe %></p>
+              <div class="tab">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>id</th>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(var j = 0; j < equipes[i].eleves.length; j++) { %>
+                            <tr>
+                                <td><%=equipes[i].eleves[j].id_eleve%></td>
+                                <td><%=equipes[i].eleves[j].nom%></td>
+                                <td><%=equipes[i].eleves[j].prenom%></td>
+                            </tr>
+                        <% } %>
+                        
+                </tbody>
+              </table>
+              <p>Ajouter Eleve</p>
+                <select id="mySelect" v-model="updateNomEleves">
+                  <option v-for="nom in nomEleves">{{ nom }}</option>
+              </select>
+              <% } %>
+          </div>
         </div>
       </div>
     </div>
-    
+  </div>
       
 
     <script>
-      
+      const ws = new WebSocket('ws://localhost:3001');
 
+      new Vue({
+          el: '#app',
+          data: {
+              position : 1,
+              session: '<%=idSession%>',
+              nomEleves: [],
+              parsedClassement: []
+          },
+          created: function() {
+              // Écouter les événements de la connexion WebSocket
+              this.position=1;
+              const ses = this.session;
+              const sesInt = parseInt(ses);
+
+              ws
+          
+              ws.addEventListener('open', function(event) {
+                  ws.send(JSON.stringify({ type: 'getTabEquipe', session: sesInt }));
+                  ws.send(JSON.stringify({ type: 'getClassement', session: sesInt }));
+              });
+
+              ws.addEventListener('message', function(event) {
+
+                  const data = JSON.parse(event.data);
+                  
+                  if(data.type == 'equipes' && data.session == sesInt){
+                  
+                      const info_equipe = JSON.parse(data.data);
+                      
+                      const noms = [];
+                      for (k = 0;k<info_equipe.length;k++){
+                          var trouver = false;
+                          for (let b = 0; b < this.idCo.length; b++) {
+                              
+                              if(info_equipe[k] == this.idCo[b]){
+                                  trouver=true;
+                              }
+                          }
+                          if(trouver == false ){
+                              noms.push(info_equipe[k]);
+                          }
+                      }
+                      this.updateNomEleves(noms);
+
+
+                  }if(data.type == 'classement' && data.session == sesInt ){
+                      
+                      const parsedClassement = [];
+                      const classementObj = JSON.parse(data.data);
+                      
+                      for (const position in classementObj) {
+                          const eleve = classementObj[position];
+                          parsedClassement.push({
+                              position: position,
+                              id_equipe: eleve[0],
+                              points: eleve[3],
+                              nbMatchs: eleve[4]
+                          });
+                      }
+
+                      parsedClassement.sort((a, b) => b.points - a.points);
+                      this.parsedClassement = parsedClassement;
+                      
+                  }
+                  
+              }.bind(this));
+
+
+          },
+          destroyed: function() {
+              // Fermer la connexion WebSocket lorsque la vue est détruite
+              ws.close();
+          },
+          methods: {
+              updateNomEleves(noms) {
+                  this.nomEleves = noms;
+              },
+          }
+      });
     </script>
 
 </html>

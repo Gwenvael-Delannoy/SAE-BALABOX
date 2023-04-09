@@ -8,12 +8,14 @@ var WebSocket = require('ws');
 
 //import api 
 //var api = require_once(_ROOT_.'/config.php');
+var role = -1;
+var professeur ='Raul Adrien';//Raul Adrien
 
 /* Recuperer la page d'accueuil. */
 router.get('/', function(req, res, next) {
 
   var message ='';
-  var professeur ='Raul Adrien';//Raul Adrien
+  role = 2
   //requeter l'api avec /authentified et on recuepre le role et on regarde si s'est un professer ou non
   /**
    var role = (appel api);
@@ -29,9 +31,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-
-  var role = 2 //(appel api);
-  //dechiffrement du JWT TOKEN avec la clé public
 
   var ideCon= req.body.SIdentifiant;
   var pwd = req.body.Spwd;
@@ -130,10 +129,44 @@ router.post('/', function(req, res, next) {
             
                     //recupere le prenom de l'eleve de la base de donnée si il existe 
                     if(eleve_req.length != 0){
-                      prenomEleveBdd = eleve_req[0].prenom;
-                      nomEleveBdd = eleve_req[0].nom;
-                      classeEleveBdd = eleve_req[0].classe;
-                      id = eleve_req[0].id_eleve;
+                      existant = '';
+                      for(var i = 0; i < eleve_req.length; i++){
+
+                        prenomEleveBdd = eleve_req[i].prenom;
+                        nomEleveBdd = eleve_req[i].nom;
+                        classeEleveBdd = eleve_req[i].classe;
+
+                        if(prenomEleveBdd == prenomEleve && nomEleveBdd == nomEleve && classeEleveBdd == classeEleve){
+                          existant = true;
+                          id = eleve_req[i].id_eleve;
+                          console.log('eleve/professeur connecter en tant qu eleve deja existant');
+                          break;
+                        }
+                        else{
+                          existant = false;
+                        }
+                      };
+
+                      if(existant == false){
+
+                        //si l'eleve n'existe pas on l'ajoute dans la base de donnée
+                        var eleve = new Eleve();
+    
+                        eleve.init(nomEleve,prenomEleve,"homme",classeEleve);
+                        eleve_dao.insert(eleve, function(err,rows) {
+                          if (err ) {
+                            messageError =err;
+                            console.log(messageError);
+                          }
+                          else{
+                            console.log('nouveau eleve/professeur connecter en tant qu eleve cree ');
+                            //recupere l'id de l'eleve inseré
+                            id = rows.insertId;
+                          }
+                        });
+                      }else if(existant == true){
+                        id = eleve_req[0].id_eleve;
+                      }
 
                       //renvoie la page en fonction du type de session
                       if(type_ses == 'tournoi equipe'){
@@ -143,10 +176,9 @@ router.post('/', function(req, res, next) {
                       }else if(type_ses == 'tournoi individuel' ){
                         res.redirect('/classement_eleve?ses=' + session[0].id_session + '&id_el=' + id);
                       }
-                    }
-                    //check si l'eleve existe deja dans la base de donnée ou non meme s'il a le meme nom mais pas le meme prenom*
-                    else if(eleve_req.length == 0 || (prenomEleveBdd != prenomEleve && nomEleveBdd != nomEleve && classeEleveBdd != classeEleve)){
-                      
+
+                    }else {
+                        
                       //si l'eleve n'existe pas on l'ajoute dans la base de donnée
                       var eleve = new Eleve();
   

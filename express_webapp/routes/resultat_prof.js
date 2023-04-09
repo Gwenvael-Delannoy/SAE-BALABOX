@@ -1,11 +1,268 @@
 var express = require('express');
 var router = express.Router();
+var sport_dao = require('../models/dao/dataBase').sport_dao;
+var acrosport_dao = require('../models/dao/dataBase').acrosport_dao;
+var figure_dao = require('../models/dao/dataBase').figure_dao;
+var voie_dao = require('../models/dao/dataBase').voie_dao;
+var natation_dao = require('../models/dao/dataBase').natation_dao;
+var escalade_dao = require('../models/dao/dataBase').escalade_dao;
+var musculation_dao = require('../models/dao/dataBase').musculation_dao;
+var step_dao = require('../models/dao/dataBase').step_dao;
+var resultat_dao = require('../models/dao/dataBase').resultat_dao;
+var eleve_dao = require('../models/dao/dataBase').eleve_dao;
 
+var id_session ;
 
 /* Recuperer la page de tournoi de foot */ 
 router.get('/', function(req, res, next) {
+  var id_sport = req.query.sport;
+  id_session = req.query.idsession;
 
-  res.render('resultat_prof');
+  sport_dao.findByKey(id_sport, function(err, row) {
+    var nom_sport = row[0].nom_sport;
+
+    if (err) res.render("error", {message: err});
+    else{
+      resultat_dao.findBySession(id_session, function(err, rows) {
+        if(err){
+          res.render("error", {message: err});
+        }
+        else{
+          if(rows.length == 0){
+            res.render('resultat_prof',{message:'Auncun résultat pour cette session'});
+          }else{
+            for(i = 0; i < rows.length; i++){
+              var tmp =[];
+              var id_eleve=rows[i].unEleve;
+              var id_resultat = rows[i].id_resultat;
+              var resultatEncours = rows[i];
+              eleve_dao.findByKey(id_eleve, function(err, row) {
+                if(err){
+                  res.render("error", {message: err});
+                }else{
+                  tmp[0] = row[0].nom;
+                  tmp[1] = row[0].prenom;
+                  tmp[2] = row[0].classe;
+                  if(nom_sport == "Course"){
+                    tmp[3] = resultatEncours.temps;
+                    tmp[4] = resultatEncours.distance;
+                    tmp[5] = resultatEncours.freq_card;
+                    tmp[6] = resultatEncours.complementaire;
+  
+                    
+                    envoieDonneesProf({
+                      sport : nom_sport,                
+                      nom : tmp[0],
+                      prenom : tmp[1],
+                      classe : tmp[2],
+                      session : id_session,
+                      temps : tmp[3],
+                      distance : tmp[4],
+                      freq_card : tmp[5],
+                      complementaire : tmp[6],
+                    });
+                    res.render('resultat_prof',{message:''});
+                  }
+                  else if (nom_sport == "Musculation"){
+  
+                    musculation_dao.findByKey(id_resultat, function(err, row) {
+                      if(err){
+                        res.render("error", {message: err});
+                      }else{
+                        tmp[3]=resultatEncours.temps;
+                        tmp[4]=row.series;
+                        tmp[5]=row.nb_reps;
+                        tmp[6]=row.intensite;
+                        tmp[7]=row.charge;
+                        tmp[8]=row.ressenti;
+                        tmp[9]=row.muscle_travailler;
+  
+                        envoieDonneesProf({
+                          sport : nom_sport,                
+                          nom : info_eleveProfConnecte[0],
+                          prenom : info_eleveProfConnecte[1],
+                          classe : info_eleveProfConnecte[2],
+                          session : info_eleveProfConnecte[3],
+                          nom_muscle : tmp[9],
+                          nb_series : tmp[4],
+                          nb_repetitions : tmp[5],
+                          intensite : tmp[6],
+                          poids : tmp[7],
+                          temps_pause: tmp[3],
+                          ressenti : tmp[8],
+                        });
+                        res.render('resultat_prof',{message:''});
+                      }
+                    });
+                  }
+                  else if (nom_sport == "Acrosport"){
+  
+                    acrosport_dao.findByKey(id_resultat, function(err, row) {
+                      if(err){
+                        res.render("error", {message: err});
+                      }
+                      else{
+                        tmp[3]=row.total_point;
+                        tmp[4]='';
+  
+                        figure_dao.findByAcro(id_resultat, function(err, rowss){
+                          if(err){
+                            res.render("error", {message: err});
+                          }
+                          else{
+                            tmp2=[];
+                            console.log(rowss);
+                            for(j = 0; j < rowss.length; j++){
+                              var id_figure = rowss[j].laFigure;
+                              figure_dao.findByKey(id_figure, function(err, rowsss) {
+                                if(err){
+                                  res.render("error", {message: err});
+                                }
+                                else{
+                                  tmp2[j] = rowsss[0].nom + " | " + rowsss[0].point;
+                                }
+                              });
+                            }
+                              console.log(tmp2);
+                            envoieDonneesProf({
+                              nom_sport : nom_sport,
+                              nom : tmp[0],
+                              prenom : tmp[1],
+                              classe : tmp[2],
+                              session : id_session,
+                              total_point : tmp[3],
+                              figures : tmp2,
+          
+                            });
+                            res.render('resultat_prof',{message:''});
+                          }
+                        });
+                      }
+                    });
+                  }
+                  else if (nom_sport == "Escalade"){
+  
+                    escalade_dao.findByKey(id_resultat, function(err, row) {
+                      if(err){
+                        res.render("error", {message: err});
+                      }
+                      else{
+                        tmp[3]=resultatEncours.temps;
+                        tmp[4]=resultatEncours.complementaire;
+                        tmp[5]=resultatEncours.assureur;
+  
+                        escalade_dao.findVoieByEscalade(id_resultat, function(err, rowss){
+                          if(err){
+                            res.render("error", {message: err});
+                          }
+                          else{
+                            var id_voie = rowss[0].laVoie;
+                            voie_dao.findByKey(id_voie, function(err, rowsss) {
+                              if(err){
+                                res.render("error", {message: err});
+                              }
+                              else{
+  
+                                tmp[6]=rowsss[0].nom_voie;
+                                tmp[7]=rowsss[0].deg_diffi;
+  
+                                envoieDonneesProf({
+                                  sport : nom_sport,                
+                                  nom : tmp[0],
+                                  prenom : tmp[1],
+                                  classe : tmp[2],
+                                  session : id_session,
+                                  la_voie : tmp[6],
+                                  deg_diffi : tmp[7],
+                                  assureur : tmp[5],
+                                  temps: tmp[3],
+                                  complementaire : tmp[4]
+      
+                                });
+                                res.render('resultat_prof',{message:''});
+                              }
+                            });
+                          }
+                        });
+                      }
+                    });
+                  }
+                  else if(non_sport == "Natation"){
+  
+                    tmp[3]=resultatEncours.temps;
+                    tmp[4]=resultatEncours.distance;
+                    tmp[5]=resultatEncours.complementaire;
+                    
+  
+                    natation_dao.findByKey(id_resultat, function(err, row) {
+                      if(err){
+                        res.render("error", {message: err});
+                      }else{
+                        tmp[6]=row.plongeons;
+                        tmp[7]=row.style_nage;
+                        tmp[8]=row.nom_bassin;
+  
+                        envoieDonneesProf({
+                          sport : nom_sport,                
+                          nom : tmp[0],
+                          prenom : tmp[1],
+                          classe : tmp[2],
+                          session : id_session,
+                          nom_bassin : tmp[8],
+                          style_nage : tmp[7],
+                          distance : tmp[4],
+                          temps:tmp[3],
+                          nbPlongeons : tmp[6],
+                          complementaire : tmp[5],
+                        });
+                        res.render('resultat_prof',{message:''});
+                      }
+                    });
+                  }else if(nom_sport == "Step"){
+  
+                    tmp[3]=resultatEncours.temps;
+                    tmp[4]=resultatEncours.freq_card
+  
+                    step_dao.findByKey(id_resultat, function(err, row) {
+                      if(err){
+                        res.render("error", {message: err});
+                      }else{
+                        tmp[5]=row.type_mobilite;
+                        tmp[6]=row.ressenti;
+                        tmp[7]=row.paramIndv;
+                        tmp[8]=row.bilanPerso;
+                        tmp[9]=row.perspective;
+  
+  
+                        envoieDonneesProf({
+                          sport : nom_sport,                
+                          nom : tmp[0],
+                          prenom : tmp[1],
+                          classe : tmp[2],
+                          session : id_session,
+                          type_mobilite : tmp[5],
+                          temps :  tmp[3],
+                          freq_cardiaque :  tmp[4],
+                          paramIndv :  tmp[7],
+                          ressenti :  tmp[6],
+                          bilanPerso :  tmp[8],
+                          perspective :  tmp[9],
+                        });
+                        res.render('resultat_prof',{message:''});
+                      }
+                    });
+                  }
+                  else{
+                    res.render("error", {message: "Sport non reconnu"});
+                  }
+                }
+              });
+            }
+          }
+        }
+      });
+    }
+  });
 });
 
 router.post('/', function(req, res, next) {
@@ -13,5 +270,13 @@ router.post('/', function(req, res, next) {
     res.redirect('/listeSession');
   }
 });
-
+function envoieDonneesProf(donnees) {
+  var WebSocket = require('ws');
+  var wss;
+  // Connexion au websocket du professeur
+  wss = new WebSocket('ws://localhost:3001');
+  wss.on('open', function open() {
+    wss.send(JSON.stringify({type: 'resultat_eleve',session : id_session,data: donnees}));
+  });
+}
 module.exports = router;
