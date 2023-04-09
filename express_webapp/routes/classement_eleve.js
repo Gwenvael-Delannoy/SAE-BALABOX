@@ -3,6 +3,7 @@ var router = express.Router();
 var WebSocket = require('ws');
 var eleve_dao = require('../models/dao/dataBase').eleve_dao;
 var match_dao = require('../models/dao/dataBase').match_dao;
+var session_dao = require('../models/dao/dataBase').session_dao;
 var Eleve = require('../models/eleve');
 var matchSession = [];
 let classement;
@@ -159,13 +160,22 @@ router.post('/', function(req, res, next) {
     idSession = req.body.idSession;
     NomAdversaire = req.body.NomAdversaire;
 
-    if(NomAdversaire == ''){
-        res.render('error',{message : "Veuillez choisir un adversaire"});
-    }else{
-        res.render('eleve_contre_eleve', { idSession : idSession, NomAdversaire : NomAdversaire, idEleCo : idEleCo});
-        console.log("idSession :" +idSession+ "\nNomAdversaire :" +NomAdversaire);
-    }
-    
+    session_dao.findByKey(idSession, function(err,rows) {
+        if (err ) {
+            messageError ='Session inexistante, merci de revenir en arriere et ressayer';
+            res.render('error',{message : messageError});
+        }
+        else{
+            if(rows.length != 0){
+                if(NomAdversaire == ''){
+                    res.render('error',{message : "Veuillez choisir un adversaire"});
+                }else{
+                    res.render('eleve_contre_eleve', { idSession : idSession, NomAdversaire : NomAdversaire, idEleCo : idEleCo, idSport : rows[0].le_sport});
+                    console.log("idSession :" +idSession+ "\nNomAdversaire :" +NomAdversaire);
+                }
+            }
+        }
+    });
 });
 
 

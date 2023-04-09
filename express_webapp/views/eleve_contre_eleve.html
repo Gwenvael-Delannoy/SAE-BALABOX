@@ -74,11 +74,11 @@
         const ctx = canvas.getContext('2d');
         ctx.fillStyle = '#000000';
 
-        const idSession = '<%=idSession%>';
-        console.log(idSession);
+        const idSport = '<%=idSport%>';
+        console.log(idSport);
 
         // terrain de basminton 
-        if(idSession == 6){
+        if(idSport == 6){
             // bordure du terrain
             ctx.fillRect(20, 20, 5, 460);
             ctx.fillRect(275, 20, 5, 460);
@@ -99,7 +99,7 @@
             ctx.fillRect(20, 300, 260, 5);
             ctx.fillRect(147.5, 20, 5, 160);
             ctx.fillRect(147.5, 300, 5, 180);
-        }else if(idSession == 1){
+        }else if(idSport == 1){
             // terrain de tennis
         
             // bordure du terrain
@@ -113,7 +113,7 @@
 
             // carré de service
             ctx.fillRect(147.5, 20, 5, 460);
-        }else if(idSession == 4){
+        }else if(idSport == 4){
             // terrain handball
 
             // bordure du terrain
@@ -165,7 +165,7 @@
 
             document.getElementById('point').style.display = 'none';
 
-        }else if(idSession == 2){
+        }else if(idSport == 2){
             // terrain de foot
 
             // bordure du terrain
@@ -254,7 +254,7 @@
 
             document.getElementById('point').style.display = 'none';
 
-        }else if(idSession == 3){
+        }else if(idSport == 3){
             // Terrain de basket
 
             // bordure du terrain
@@ -319,7 +319,7 @@
             ctx.closePath();
             document.getElementById('point').style.display = 'none';
 
-        }else if(idSession == 5){
+        }else if(idSport == 5){
             // Terrain de volleyball
 
             // bordure du terrain
