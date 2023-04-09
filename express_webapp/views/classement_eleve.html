@@ -79,8 +79,6 @@
                     console.log('Données reçues:');
                     console.log(JSON.parse(event.data));
 
-
-
                     const data = JSON.parse(event.data);
                     if(data.type == 'eleves'){
                         const infoEleve = data.data;
