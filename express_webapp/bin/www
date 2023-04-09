@@ -81,6 +81,54 @@ wssEleve.on('connection', function connection(ws) {
         });
 
       }
+      else if (data.type == 'info_equipe') {
+        equipes.push(data);
+        console.log('Données stockées:');
+        console.log(equipes);
+
+        //envoie les données a tous les clients
+        wssEleve.clients.forEach(function each(client) {
+          if (client.readyState === Websocket.OPEN) {
+            let message = {
+              type: 'equipes',
+              data: equipes
+            };
+            client.send(JSON.stringify(message));
+          }
+        });
+        wssProfesseur.clients.forEach(function each(client) {
+          if (client.readyState === Websocket.OPEN) {
+            let message = {
+              type: 'equipes',
+              data: equipes
+            };
+            client.send(JSON.stringify(message));
+          }
+        });
+      }
+      else if(data.type == 'getTabEquipe'){
+        console.log('Envoi des données des equipes');
+        //envoie les données a tous les clients
+        wssEleve.clients.forEach(function each(client) {
+          if (client.readyState === Websocket.OPEN) {
+            let message = {
+              type: 'equipes',
+              data: equipes
+            };
+            client.send(JSON.stringify(message));
+          }
+        });
+        wssProfesseur.clients.forEach(function each(client) {
+          if (client.readyState === Websocket.OPEN) {
+            let message = {
+              type: 'equipes',
+              data: equipes
+            };
+            client.send(JSON.stringify(message));
+          }
+        });
+      }
+
       else if(data.type == 'getTabEleve'){
         console.log('Envoi des données des élèves');
         //envoie les données a tous les clients
@@ -169,10 +217,6 @@ wssProfesseur.on('connection', function connection(ws) {
       else if(data.type == 'getTabEquipe'){
         console.log('Envoi des données des équipes au professeur');
         ws.send(JSON.stringify(equipes));
-      }
-      else if(data.type == 'getTabEleve'){
-        console.log('Envoi des données des élèves');
-        ws.send(JSON.stringify(eleves));
       }
       else if(data.type == 'getClassement'){
         id_session = data.session;
