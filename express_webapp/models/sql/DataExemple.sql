@@ -59,6 +59,7 @@ INSERT INTO Eleve(nom,prenom,sexe,classe,total_points) VALUES ('Jack','Jack','ho
 
 INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (1,2);
 INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (2,2);
+INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (2,3);
 INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (3,3);
 INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (4,3);
 INSERT INTO Eleve_Equipe(l_eleve,l_equipe) VALUES (5,4);
@@ -73,6 +74,9 @@ INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (10,2,
 INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (10,12,3);
 INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (3,12,3);
 INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (8,12,3);
+INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,2);
+INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,2);
+INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,2);
 
 INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (1,1,3);
 INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (1,2,0);
@@ -92,16 +96,14 @@ INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (5,2,0);
 INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (6,1,1);
 INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (6,2,1);
 
-INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,2);
-
 INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (7,2,3);
 INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (7,3,0);
 
-INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (2,1,3);
-INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (2,5,0);
+INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (8,1,3);
+INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (8,5,0);
 
-INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (3,4,3);
-INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (3,5,0);
+INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (9,4,0);
+INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (9,5,3);
 
 -- creer un resultat
 INSERT INTO Resultat(la_session,unEleve)VALUES(5,1);

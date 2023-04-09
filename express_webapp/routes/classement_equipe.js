@@ -30,19 +30,18 @@ router.get('/', function(req, res,next) {
     idEleCo = req.query.id_el;
 
     equipe_dao.findByKeyEleve(idEleCo, function(err,rows) {
-        if (err ) {
+        if (err || rows.length == 0 ) {
             messageError ='Eleve dans aucune equipe,merci de revenir en arriere et ressayer';
             res.render('error',{message : messageError});
         }
         else{
             for (var b = 0; b < rows.length; b++) {
             
-              idCo[b] = rows[0].id_equipe;
+              idCo[b] = rows[b].id_equipe;
 
               if (typeof idCo[b] !== 'string') {
                 idCo[b] = String(idCo[b]);
               }
-              console.log('id : '+idCo[b]);
             }
 
             match_dao.findAllMatchSes(idSession, function(err,rows) {
@@ -61,7 +60,6 @@ router.get('/', function(req, res,next) {
                         
                         for(k = 0; k < matchSession.length; k++){
 
-                            console.log('matchSession[k].id_match : '+matchSession[k].id_match);
                             
                             var id_match = matchSession[k].id_match;
                             match_dao.findMatch_EquipesByMatch(id_match, function(err,rows) {
@@ -107,7 +105,7 @@ router.get('/', function(req, res,next) {
                                                                 session: idSession,
                                                                 classement:JSON.stringify(classement),
                                                             }));
-                                                            res.render('classement_equipe', { idSession : idSession,classement:classement, idCo : idCo});
+                                                            res.render('classement_equipe', { idSession : idSession,classement:classement, idCo : idCo,message : ""});
                                                         }
                                                         
                                                     } else {
@@ -126,7 +124,7 @@ router.get('/', function(req, res,next) {
                                                                 classement:JSON.stringify(classement),
                                                             }));
                                                             classement = {};
-                                                            res.render('classement_equipe', { idSession : idSession,classement:classement, idCo : idCo});
+                                                            res.render('classement_equipe', { idSession : idSession,classement:classement, idCo : idCo,message : ""});
                                                         }
                                                         
                                                     }
@@ -144,7 +142,8 @@ router.get('/', function(req, res,next) {
                             });
                         }                   
                     }else {
-                        console.log("Aucun match dans cette session");
+                        message = "Aucun match dans cette session";
+                        res.render('classement_equipe', { idSession : idSession,classement:classement, idCo : idCo, message : message});
                     }
                   }
             });

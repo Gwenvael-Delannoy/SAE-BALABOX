@@ -56,6 +56,9 @@
                     </tbody>
                 </table>
             </div>
+            <% if (message) { %>
+                <p style="color: red;"><%= message %></p>
+              <% } %>
             
             </div>
         </div>
@@ -78,7 +81,7 @@
                     const ses = this.session;
                     const sesInt = parseInt(ses);
 
-                
+                    ws
                 
                     ws.addEventListener('open', function(event) {
                         console.log('Connexion WebSocket ouverte');
@@ -92,45 +95,46 @@
                         const data = JSON.parse(event.data);
                         
                         if(data.type == 'equipes'){
+                        
                             const info_equipe = data.data;
-                        console.log("ok");
-                        const noms = [];
-                        for (const eleve of info_equipe) {
-                            let trouve = false;
-                            for (let b = 0; b < this.idCo.length; b++) {
-                                if (eleve.session === sesInt && eleve.id_equipe === this.idCo[b]) {
-                                    trouve = true;
-                                    break;
+                            console.log(info_equipe);
+                            console.log(this.idCo);
+                            const noms = [];
+                            for (const eleve of info_equipe) {
+                                let trouve = false;
+                                for (let b = 0; b < this.idCo.length; b++) {
+                                    if (eleve.session === sesInt && eleve.id_equipe === this.idCo[b]) {
+                                        trouve = true;
+                                        break;
+                                    }
+                                }
+                                if (!trouve) {
+                                    noms.push(eleve.id_equipe);
                                 }
                             }
-                            if (!trouve) {
-                                noms.push(eleve.id_equipe);
-                            }
-                        }
-                        this.updateNomEleves(noms);
+                            this.updateNomEleves(noms);
 
 
                         }if(data.type == 'classement'){
-                                console.log("data"+data.data);
-                                const parsedClassement = [];
-                                const classementObj = JSON.parse(data.data);
-                                console.log("classementObj:  "+classementObj);
-                                for (const position in classementObj) {
-                                    const eleve = classementObj[position];
-                                    parsedClassement.push({
-                                        position: position,
-                                        id_equipe: eleve[0],
-                                        points: eleve[3],
-                                        nbMatchs: eleve[4]
-                                    });
-                                    console.log("parsedClassement:  "+parsedClassement);
-                                }
-
-                                parsedClassement.sort((a, b) => b.points - a.points);
-                                this.parsedClassement = parsedClassement;
                             
+                            const parsedClassement = [];
+                            const classementObj = JSON.parse(data.data);
+                            
+                            for (const position in classementObj) {
+                                const eleve = classementObj[position];
+                                parsedClassement.push({
+                                    position: position,
+                                    id_equipe: eleve[0],
+                                    points: eleve[3],
+                                    nbMatchs: eleve[4]
+                                });
+                                
                             }
-                        console.log("parsedClassement !!!!!!!!!!!!!:  "+this.parsedClassement);
+
+                            parsedClassement.sort((a, b) => b.points - a.points);
+                            this.parsedClassement = parsedClassement;
+                            
+                        }
                         
                     }.bind(this));
 
