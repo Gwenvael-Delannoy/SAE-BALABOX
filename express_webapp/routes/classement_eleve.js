@@ -5,7 +5,7 @@ var eleve_dao = require('../models/dao/dataBase').eleve_dao;
 var match_dao = require('../models/dao/dataBase').match_dao;
 var Eleve = require('../models/eleve');
 var matchSession = [];
-let classement = {};
+let classement;
 var nomCo = '';
 var prenomCo = '';
 var wss ;
@@ -26,6 +26,7 @@ wss.onclose = function () {
 
 /* Recupere la page de classement des eleves et qui renvoie un tableau de string avec les prenoms des eleves */
 router.get('/', function(req, res,next) {
+    classement = {};
     idSession = req.query.ses;
     idEleCo = req.query.id_el;
 
@@ -74,9 +75,10 @@ router.get('/', function(req, res,next) {
                                 }
                                 else{
                                     let points = {};
+        
                                     points[0] = rows[0].gagnant;
                                     points[1] = rows[1].gagnant;
-                                    
+                            
                                     var compteur = 0;//compteur pour savoir si on a parcouru nos deux eleves de ce match
 
                                     for(var i = 0; i < rows.length; i++){
@@ -119,12 +121,13 @@ router.get('/', function(req, res,next) {
                                                         classementBis = classement;
 
                                                         if((nbMatchFait/2) == nbMatchTotal){
-                          
+                                                            console.log('classement : ' + JSON.stringify(classement));
                                                             wss.send(JSON.stringify({
                                                                 type: 'classement',
                                                                 session: idSession,
                                                                 classement:JSON.stringify(classement),
                                                             }));
+                                                            classement = {};
                                                             res.render('classement_eleve', { idSession : idSession,classementBis:classementBis, nomCo : nomCo, prenomCo : prenomCo});
                                                         }
                                                         
