@@ -9,7 +9,6 @@ let classement;
 var idCo = [];
 var wss ;
 
-
 wss = new WebSocket('ws://localhost:3001');
 wss.onopen = function () {
   console.log('Connexion websocket du classement reussie');
@@ -22,6 +21,7 @@ wss.onerror = function (error) {
 wss.onclose = function () {
   console.log('Déconnexion websocket du classement');
 };
+
 
 /* Recupere la page de classement des eleves et qui renvoie un tableau de string avec les prenoms des eleves */
 router.get('/', function(req, res,next) {

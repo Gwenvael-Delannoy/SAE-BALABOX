@@ -87,21 +87,18 @@
                 const sesInt = parseInt(ses);
     
                 ws.addEventListener('open', function(event) {
-                    console.log('Connexion WebSocket ouverte');
                     ws.send(JSON.stringify({ type: 'getClassement', session: sesInt }));
                 });
 
                 ws.addEventListener('message', function(event) {
                     
                     const data = JSON.parse(event.data);
-                    console.log(data);
                     
                     if(data.type == 'classement'){
                         
                         const parsedClassement = [];
                         const classementObj = JSON.parse(data.data);
-                        console.log("classementObj:  "+classementObj);
-                        
+                    
                         if(this.type == "tournoi equipe"){
                             for (const position in classementObj) {
                             const equipe = classementObj[position];
@@ -115,7 +112,6 @@
                             this.parsedClassement = parsedClassement;
                         }
                         else if(this.type == "tournoi individuel"){
-                            console.log("data"+data.data);
                             for (const position in classementObj) {
                                 const eleve = classementObj[position];
                                 parsedClassement.push({
@@ -125,7 +121,6 @@
                                     points: eleve[3],
                                     nbMatchs: eleve[4]
                                 });
-                                console.log("parsedClassement:  "+parsedClassement);
                             }
                             this.parsedClassement = parsedClassement;
                         }

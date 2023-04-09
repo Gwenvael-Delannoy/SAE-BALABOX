@@ -84,12 +84,9 @@
                     ws
                 
                     ws.addEventListener('open', function(event) {
-                        console.log('Connexion WebSocket ouverte');
                         ws.send(JSON.stringify({ type: 'getTabEquipe', session: sesInt }));
                         ws.send(JSON.stringify({ type: 'getClassement', session: sesInt }));
                     });
-
-                    ws.send(JSON.stringify({ type: 'getTabEquipe', session: sesInt }));
 
                     ws.addEventListener('message', function(event) {
 
@@ -97,15 +94,19 @@
                         
                         if(data.type == 'equipes' && data.session == sesInt){
                         
-                            const info_equipe = data.data;
-                            console.log(info_equipe);
+                            const info_equipe = JSON.parse(data.data);
+                            
                             const noms = [];
-                            for (const equipe of info_equipe) {
+                            for (k = 0;k<info_equipe.length;k++){
+                                var trouver = false;
                                 for (let b = 0; b < this.idCo.length; b++) {
-
-                                    if(equipe.session === sesInt && equipe.id_equipe !== this.idCo[b]){
-                                        noms.push(equipe.id_equipe);
+                                    
+                                    if(info_equipe[k] == this.idCo[b]){
+                                        trouver=true;
                                     }
+                                }
+                                if(trouver == false ){
+                                    noms.push(info_equipe[k]);
                                 }
                             }
                             this.updateNomEleves(noms);

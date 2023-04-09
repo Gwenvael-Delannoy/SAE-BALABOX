@@ -107,7 +107,7 @@
                             }
                             this.updateNomEleves(noms);
 
-                        }if(data.type == 'classement'){
+                        }if(data.type == 'classement' && data.session == sesInt ){
                             
                             const parsedClassement = [];
                             const classementObj = JSON.parse(data.data);

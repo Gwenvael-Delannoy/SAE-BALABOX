@@ -31,7 +31,7 @@ const wssEleve = new Websocket.Server({ port: 3001 });
 const wssProfesseur = new Websocket.Server({ port: 3002 });
 
 var eleves = []; // tableau global pour stocker les informations des élèves
-let equipes = []; // tableau global pour stocker les équipes
+let equipes = {}; // tableau global pour stocker les équipes
 let classement = {};
 let resultat_eleve={}
 
@@ -84,7 +84,7 @@ wssEleve.on('connection', function connection(ws) {
           if (client.readyState === Websocket.OPEN) {
             let message = {
               type: 'resultat_eleve',
-              session:id_session,
+              session:session,
               data: resultat_eleve[session]
             };
             client.send(JSON.stringify(message));
@@ -99,8 +99,8 @@ wssEleve.on('connection', function connection(ws) {
         wssEleve.clients.forEach(function each(client) {
           if (client.readyState === Websocket.OPEN) {
             let message = {
-              type: 'equipe',
-              session:id_session,
+              type: 'equipes',
+              session:session,
               data: equipes[session]
             };
             client.send(JSON.stringify(message));
@@ -137,6 +137,7 @@ wssEleve.on('connection', function connection(ws) {
           if (client.readyState === Websocket.OPEN) {
             let message = {
               type: 'classement',
+              session:id_session,
               data: classement[id_session]
             };
             client.send(JSON.stringify(message));
@@ -146,6 +147,7 @@ wssEleve.on('connection', function connection(ws) {
           if (client.readyState === Websocket.OPEN) {
             let message = {
               type: 'classement',
+              session:id_session,
               data: classement[id_session]
             };
             client.send(JSON.stringify(message));
@@ -210,7 +212,7 @@ wssProfesseur.on('connection', function connection(ws) {
         wssProfesseur.clients.forEach(function each(client) {
           if (client.readyState === Websocket.OPEN) {
             let message = {
-              type: 'equipe',
+              type: 'equipes',
               session:id_session,
               data: equipes[session]
             };
@@ -226,6 +228,7 @@ wssProfesseur.on('connection', function connection(ws) {
           if (client.readyState === Websocket.OPEN) {
             let message = {
               type: 'classement',
+              session:id_session,
               data: classement[id_session]
             };
             client.send(JSON.stringify(message));
@@ -239,6 +242,7 @@ wssProfesseur.on('connection', function connection(ws) {
           if (client.readyState === Websocket.OPEN) {
             let message = {
               type: 'resultat_eleve',
+              session:id_session,
               data: resultat_eleve[id_session]
             };
             client.send(JSON.stringify(message));
@@ -259,7 +263,7 @@ wssProfesseur.on('connection', function connection(ws) {
         wssEleve.clients.forEach(function each(client) {
           if (client.readyState === Websocket.OPEN) {
             let message = {
-              type: 'equipe',
+              type: 'equipes',
               session:id_session,
               data: equipes[session]
             };
@@ -269,7 +273,7 @@ wssProfesseur.on('connection', function connection(ws) {
         wssProfesseur.clients.forEach(function each(client) {
           if (client.readyState === Websocket.OPEN) {
             let message = {
-              type: 'equipe',
+              type: 'equipes',
               session:id_session,
               data: equipes[session]
             };
