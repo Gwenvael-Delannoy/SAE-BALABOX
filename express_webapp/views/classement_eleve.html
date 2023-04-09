@@ -32,40 +32,47 @@
             <div class = tab>
                 <table>
                     <thead>
-                      <tr>
-                        <th>Position</th>
-                        <th>Nom</th>
-                        <th>Prenom</th>
-                        <th>Points</th>
-                        <th>Nombre de match</th>
-                      </tr>
+                        <tr>
+                            <th>Position</th>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                            <th>Points</th>
+                            <th>Nombre de match</th>
+                        </tr>
                     </thead>
                     <tbody>
-                                       
-                  </table>
+                        <tr v-for="(eleve, index) in parsedClassement">
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ eleve.nom }}</td>
+                            <td>{{ eleve.prenom }}</td>
+                            <td>{{ eleve.points }}</td>
+                            <td>{{ eleve.nbMatchs }}</td>
+                        </tr>
+                    </tbody>
+                    
+                </table>
             </div>
         </div>
-        
          
         <script>
             const ws = new WebSocket('ws://localhost:3001');
 
             new Vue({
-            el: '#app',
-            data: {
-                position : 1,
-                session: '<%=idSession%>',
-                nomEleves: [],
-                classement: '<%=classement%>',
-                nomCo: '<%=nomCo%>',
-                prenomCo: '<%=prenomCo%>'
-            },
-            created: function() {
-                // Écouter les événements de la connexion WebSocket
-                this.position=1;
-                const ses = this.session;
-                const sesInt = parseInt(ses);
-                console.log("classement[0]"+this.classement)
+                el: '#app',
+                data: {
+                    position : 1,
+                    session: '<%=idSession%>',
+                    nomEleves: [],
+                    parsedClassement: [],
+                    nomCo: '<%=nomCo%>',
+                    prenomCo: '<%=prenomCo%>'
+                },
+                created: function() {
+                    // Écouter les événements de la connexion WebSocket
+                    this.position=1;
+                    const ses = this.session;
+                    const sesInt = parseInt(ses);
+                    console.log("classement[0]"+this.classement)
 
                 
                 
@@ -91,9 +98,23 @@
                         this.updateNomEleves(noms);
 
                     }else if(data.type == 'classement'){
-                        const classement = data.data;
-                        console.log(classement + 'classement');
-                    }
+                            const parsedClassement = [];
+                            const classementObj = JSON.parse(data.classement);
+                            for (const position in classementObj) {
+                                const eleve = classementObj[position];
+                                parsedClassement.push({
+                                    position: position,
+                                    nom: eleve[1],
+                                    prenom: eleve[2],
+                                    points: eleve[3],
+                                    nbMatchs: eleve[4]
+                                });
+                                console.log("parsedClassement:  "+parsedClassement);
+                            }
+                            this.parsedClassement = parsedClassement;
+                           
+                        }
+                         console.log("parsedClassement !!!!!!!!!!!!!:  "+this.parsedClassement);
                     
                 }.bind(this));
 
