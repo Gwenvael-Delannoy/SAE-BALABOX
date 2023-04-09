@@ -146,7 +146,8 @@ router.get('/', function(req, res,next) {
                             });
                         }                   
                     }else {
-                        console.log("Aucun match dans cette session");
+                        message = "Aucun match dans cette session";
+                        res.render('classement_eleve', { idSession : idSession, nomCo : nomCo, prenomCo : prenomCo, message : message});
                     }
                 }
             });

@@ -58,6 +58,9 @@
                     </tbody>
                 </table>
             </div>
+            <% if (message) { %>
+                <p style="color: red;"><%= message %></p>
+              <% } %>
             
             </div>
         </div>
@@ -84,19 +87,18 @@
                 
                 
                     ws.addEventListener('open', function(event) {
-                        console.log('Connexion WebSocket ouverte');
+
                         ws.send(JSON.stringify({ type: 'getTabEleve', session: sesInt }));
                         ws.send(JSON.stringify({ type: 'getClassement', session: sesInt }));
                     });
 
                     ws.addEventListener('message', function(event) {
-                        console.log('Données reçues:');
-
+                       
                         const data = JSON.parse(event.data);
                         
                         if(data.type == 'eleves'){
                             const infoEleve = data.data;
-                            console.log("ok");
+                            
                             const noms = [];
                             for (const eleve of infoEleve) {
                                 if (eleve.session === sesInt && eleve.nom !== this.nomCo && eleve.prenom !== this.prenomCo) {
@@ -106,10 +108,10 @@
                             this.updateNomEleves(noms);
 
                         }if(data.type == 'classement'){
-                            console.log("data"+data.data);
+                            
                             const parsedClassement = [];
                             const classementObj = JSON.parse(data.data);
-                            console.log("classementObj:  "+classementObj);
+                            
                             Object.values(classementObj).forEach((eleve) => {
                                 parsedClassement.push({
                                     nom: eleve[1],
@@ -121,12 +123,10 @@
 
                             parsedClassement.sort((a, b) => b.points - a.points);
 
-                            console.log("parsedClassement:  "+parsedClassement);
 
                             this.parsedClassement = parsedClassement;
                             
                             }
-                        console.log("parsedClassement !!!!!!!!!!!!!:  "+this.parsedClassement);
                         
                     }.bind(this));
 
@@ -139,7 +139,7 @@
                 methods: {
                     updateNomEleves(noms) {
                         this.nomEleves = noms;
-                        console.log("updateNomEleves:  "+this.nomEleves);
+                        
                     },
                 }
             });

@@ -4,8 +4,14 @@
         <head>
             <meta charset="utf-8">
             <title>Classement du tournois</title>
-            <link rel="stylesheet" href="/stylesheets/eleveVsEleve.css">
+            <link rel="stylesheet" href="/stylesheets/classement_eleve.css">
             <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     
         </head>
         <div class ="block">
@@ -15,16 +21,12 @@
             </header>
         </div>
         <body>
-            <div class = "formulaire">
+            <div class="container" id="app">
                 <h1>Classement du tournois
                 </h1>
                 <br>
                 <br>
-                                
-                <% if (message) { %>
-                    <p><%= message %></p>
-                <% } %>
-
+                
                 <%if (type == "tournoi equipe"){ %>
                     <div >
                         <form action='/classement_prof' method='post'>
@@ -56,6 +58,9 @@
                             </tbody>
                         </table>
                     </div>
+                    <% if (message) { %>
+                        <p style="color: red;"><%= message %></p>
+                      <% } %>
                 <% } %>
                 <div >
                     <form action='/classement_prof' method='post'>
@@ -65,7 +70,7 @@
             </body>
         </html>
     <script>
-        const ws = new WebSocket('ws://localhost:3002');
+        const ws = new WebSocket('ws://localhost:3001');
 
         new Vue({
             el: '#app',
@@ -80,23 +85,22 @@
                 this.position=1;
                 const ses = this.session;
                 const sesInt = parseInt(ses);
-
-            
-            
+    
                 ws.addEventListener('open', function(event) {
                     console.log('Connexion WebSocket ouverte');
                     ws.send(JSON.stringify({ type: 'getClassement', session: sesInt }));
                 });
 
                 ws.addEventListener('message', function(event) {
-                    console.log('Données reçues:');
-
+                    
                     const data = JSON.parse(event.data);
+                    console.log(data);
                     
                     if(data.type == 'classement'){
                         
                         const parsedClassement = [];
                         const classementObj = JSON.parse(data.data);
+                        console.log("classementObj:  "+classementObj);
                         
                         if(this.type == "tournoi equipe"){
                             for (const position in classementObj) {
@@ -108,10 +112,12 @@
                                     nbMatchs: equipe[4]
                                 });
                             }
+                            this.parsedClassement = parsedClassement;
                         }
                         else if(this.type == "tournoi individuel"){
+                            console.log("data"+data.data);
                             for (const position in classementObj) {
-                            const eleve = classementObj[position];
+                                const eleve = classementObj[position];
                                 parsedClassement.push({
                                     position: position,
                                     nom: eleve[1],
@@ -119,10 +125,10 @@
                                     points: eleve[3],
                                     nbMatchs: eleve[4]
                                 });
+                                console.log("parsedClassement:  "+parsedClassement);
                             }
+                            this.parsedClassement = parsedClassement;
                         }
-                        this.parsedClassement = parsedClassement;
-                    
                     }
                     
                 }.bind(this));

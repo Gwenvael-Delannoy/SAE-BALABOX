@@ -87,7 +87,7 @@ router.get('/', function(req, res, next) {
                                           
                                                   wss.send(JSON.stringify({
                                                       type: 'classement',
-                                                      session: idSession,
+                                                      session: id_session,
                                                       classement:JSON.stringify(classement),
                                                   }));
                                                   res.render('classement_prof',{type:type_sport , idSession:id_session , message:''});
@@ -107,7 +107,7 @@ router.get('/', function(req, res, next) {
                                                   console.log('classement : ' + JSON.stringify(classement));
                                                   wss.send(JSON.stringify({
                                                       type: 'classement',
-                                                      session: idSession,
+                                                      session: id_session,
                                                       classement:JSON.stringify(classement),
                                                   }));
                                                   res.render('classement_prof',{type:type_sport , idSession:id_session , message:''});

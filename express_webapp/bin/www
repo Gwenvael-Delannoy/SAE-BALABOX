@@ -220,10 +220,14 @@ wssProfesseur.on('connection', function connection(ws) {
       }
       else if(data.type == 'getClassement'){
         id_session = data.session;
-   
+
         wssProfesseur.clients.forEach(function each(client) {
           if (client.readyState === Websocket.OPEN) {
-            client.send(JSON.stringify(classement[id_session]));
+            let message = {
+              type: 'classement',
+              data: classement[id_session]
+            };
+            client.send(JSON.stringify(message));
           }
         });
       }
