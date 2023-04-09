@@ -72,21 +72,32 @@
                 ws.addEventListener('open', function(event) {
                     console.log('Connexion WebSocket ouverte');
                     ws.send(JSON.stringify({ type: 'getTabEleve', session: sesInt }));
+                    ws.send(JSON.stringify({ type: 'getClassement', session: sesInt }));
                 });
 
                 ws.addEventListener('message', function(event) {
                     console.log('Données reçues:');
                     console.log(JSON.parse(event.data));
-                    const infoEleve = JSON.parse(event.data);
-                    const noms = [];
-                    console.log(infoEleve + 'infoEleve');
-                    for (const eleve of infoEleve) {
-                        if (eleve.session === sesInt && eleve.nom !== this.nomCo && eleve.prenom !== this.prenomCo) {
-                            noms.push(eleve.nom + ' ' + eleve.prenom);
-                        }
-                    }
-                    this.updateNomEleves(noms);
 
+
+
+                    const data = JSON.parse(event.data);
+                    if(data.type == 'eleves'){
+                        const infoEleve = data.data;
+                        const noms = [];
+                        console.log(infoEleve + 'infoEleve');
+                        for (const eleve of infoEleve) {
+                            if (eleve.session === sesInt && eleve.nom !== this.nomCo && eleve.prenom !== this.prenomCo) {
+                                noms.push(eleve.nom + ' ' + eleve.prenom);
+                            }
+                        }
+                        this.updateNomEleves(noms);
+
+                    }else if(data.type == 'classement'){
+                        const classement = data.data;
+                        console.log(classement + 'classement');
+                    }
+                    
                 }.bind(this));
 
 

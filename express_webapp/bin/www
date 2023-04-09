@@ -53,12 +53,20 @@ wssEleve.on('connection', function connection(ws) {
         //envoie les données a tous les clients
         wssEleve.clients.forEach(function each(client) {
           if (client.readyState === Websocket.OPEN) {
-            client.send(JSON.stringify(eleves));
+            let message = {
+              type: 'eleves',
+              data: eleves
+            };
+            client.send(JSON.stringify(message));
           }
         });
         wssProfesseur.clients.forEach(function each(client) {
           if (client.readyState === Websocket.OPEN) {
-            client.send(JSON.stringify(eleves));
+            let message = {
+              type: 'eleves',
+              data: eleves
+            };
+            client.send(JSON.stringify(message));
           }
         });
       }
@@ -75,19 +83,45 @@ wssEleve.on('connection', function connection(ws) {
       }
       else if(data.type == 'getTabEleve'){
         console.log('Envoi des données des élèves');
-        ws.send(JSON.stringify(eleves));
+        //envoie les données a tous les clients
+        wssEleve.clients.forEach(function each(client) {
+          if (client.readyState === Websocket.OPEN) {
+            let message = {
+              type: 'eleves',
+              data: eleves
+            };
+            client.send(JSON.stringify(message));
+          }
+        });
+        wssProfesseur.clients.forEach(function each(client) {
+          if (client.readyState === Websocket.OPEN) {
+            let message = {
+              type: 'eleves',
+              data: eleves
+            };
+            client.send(JSON.stringify(message));
+          }
+        });
       }
       else if(data.type == 'getClassement'){
         id_session = data.session;
         //envoie les données a tous les clients
         wssEleve.clients.forEach(function each(client) {
           if (client.readyState === Websocket.OPEN) {
-            client.send(JSON.stringify(classement[id_session]));
+            let message = {
+              type: 'classement',
+              data: classement[id_session]
+            };
+            client.send(JSON.stringify(message));
           }
         });
         wssProfesseur.clients.forEach(function each(client) {
           if (client.readyState === Websocket.OPEN) {
-            client.send(JSON.stringify(classement[id_session]));
+            let message = {
+              type: 'classement',
+              data: classement[id_session]
+            };
+            client.send(JSON.stringify(message));
           }
         });
       }
