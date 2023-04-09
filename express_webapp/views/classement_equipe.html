@@ -27,7 +27,7 @@
             <select id="mySelect" v-model="updateNomEleves">
                 <option v-for="nom in nomEleves">{{ nom }}</option>
             </select>
-            <form class="formulaire" action='/classement_eleve' method='post'>
+            <form class="formulaire" action='/classement_equipe' method='post'>
                 <input type="hidden" name="idSession" value="terminer" id="idSession">
                 <input type="hidden" name="NomAdversaire" value="terminer" id="NomAdversaire">
                 <button class="bouton" id="entre">Entré</button>
@@ -41,8 +41,7 @@
                     <thead class="thead-dark">
                         <tr>
                             <th>Position</th>
-                            <th>Nom</th>
-                            <th>Prénom</th>
+                            <th>Equipe</th>
                             <th>Points</th>
                             <th>Nombre de match</th>
                         </tr>
@@ -50,8 +49,7 @@
                     <tbody>
                         <tr v-for="(eleve, index) in parsedClassement">
                             <td>{{ index + 1 }}</td>
-                            <td>{{ eleve.nom }}</td>
-                            <td>{{ eleve.prenom }}</td>
+                            <td>Equipe {{ eleve.id_equipe}}</td>
                             <td>{{ eleve.points }}</td>
                             <td>{{ eleve.nbMatchs }}</td>
                         </tr>
@@ -72,8 +70,7 @@
                     session: '<%=idSession%>',
                     nomEleves: [],
                     parsedClassement: [],
-                    nomCo: '<%=nomCo%>',
-                    prenomCo: '<%=prenomCo%>'
+                    idCo: '<%=idCo%>'
                 },
                 created: function() {
                     // Écouter les événements de la connexion WebSocket
@@ -85,7 +82,7 @@
                 
                     ws.addEventListener('open', function(event) {
                         console.log('Connexion WebSocket ouverte');
-                        ws.send(JSON.stringify({ type: 'getTabEleve', session: sesInt }));
+                        ws.send(JSON.stringify({ type: 'getTabEquipe', session: sesInt }));
                         ws.send(JSON.stringify({ type: 'getClassement', session: sesInt }));
                     });
 
@@ -94,13 +91,15 @@
 
                         const data = JSON.parse(event.data);
                         
-                        if(data.type == 'eleves'){
-                            const infoEleve = data.data;
+                        if(data.type == 'equipes'){
+                            const info_equipe = data.data;
                             console.log("ok");
                             const noms = [];
-                            for (const eleve of infoEleve) {
-                                if (eleve.session === sesInt && eleve.nom !== this.nomCo && eleve.prenom !== this.prenomCo) {
-                                    noms.push(eleve.nom + ' ' + eleve.prenom);
+                            for (const eleve of info_equipe) {
+                                for(b = 0; b < this.idCo.length; b++){
+                                    if (eleve.session === sesInt && eleve.id_equipe !== this.idCo[b]) {
+                                        noms.push(eleve.id_equipe);
+                                    }
                                 }
                             }
                             this.updateNomEleves(noms);

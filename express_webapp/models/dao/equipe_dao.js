@@ -74,6 +74,12 @@ var EquipeDAO = function() {
         smt.query(sql6, callback);
     };
 
+    this.findByKeyEleve = function(key, callback) {
+        this.use(null);
+        var sql5 = "SELECT * FROM Equipe,Eleve_Equipe WHERE Equipe.id_equipe = Eleve_Equipe.l_equipe AND Eleve_Equipe.l_eleve = " + key + ";";
+        smt.query(sql5, callback);
+    };
+
 
     /**
      * Utiliser la bonne base de données

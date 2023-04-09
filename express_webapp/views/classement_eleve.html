@@ -96,6 +96,7 @@
                         
                         if(data.type == 'eleves'){
                             const infoEleve = data.data;
+                            console.log("ok");
                             const noms = [];
                             for (const eleve of infoEleve) {
                                 if (eleve.session === sesInt && eleve.nom !== this.nomCo && eleve.prenom !== this.prenomCo) {
@@ -118,11 +119,12 @@
                                         points: eleve[3],
                                         nbMatchs: eleve[4]
                                     });
-                                    
+                                    console.log("parsedClassement:  "+parsedClassement);
                                 }
                                 this.parsedClassement = parsedClassement;
                             
                             }
+                        console.log("parsedClassement !!!!!!!!!!!!!:  "+this.parsedClassement);
                         
                     }.bind(this));
 

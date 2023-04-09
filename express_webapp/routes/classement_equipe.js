@@ -6,7 +6,7 @@ var match_dao = require('../models/dao/dataBase').match_dao;
 var Equipe = require('../models/Equipe');
 var matchSession = [];
 let classement;
-var idCo = '';
+var idCo = [];
 var wss ;
 
 
@@ -29,19 +29,21 @@ router.get('/', function(req, res,next) {
     idSession = req.query.ses;
     idEleCo = req.query.id_el;
 
-    equipe_dao.findByKey(idEleCo, function(err,rows) {
+    equipe_dao.findByKeyEleve(idEleCo, function(err,rows) {
         if (err ) {
-            messageError ='Id eleve null,merci de revenir en arriere et ressayer';
+            messageError ='Eleve dans aucune equipe,merci de revenir en arriere et ressayer';
             res.render('error',{message : messageError});
         }
         else{
+            for (var b = 0; b < rows.length; b++) {
             
-            idCo = rows[0].id_equipe;
+              idCo[b] = rows[0].id_equipe;
 
-            if (typeof idCo !== 'string') {
-              idCo = String(idCo);
+              if (typeof idCo[b] !== 'string') {
+                idCo[b] = String(idCo[b]);
+              }
+              console.log('id : '+idCo[b]);
             }
-            console.log('id : '+idCo);
 
             match_dao.findAllMatchSes(idSession, function(err,rows) {
                 if (err ) {
@@ -58,9 +60,11 @@ router.get('/', function(req, res,next) {
                         
                         
                         for(k = 0; k < matchSession.length; k++){
+
+                            console.log('matchSession[k].id_match : '+matchSession[k].id_match);
                             
                             var id_match = matchSession[k].id_match;
-                            match_dao.findMatch_EquipesByEquipe(id_match, function(err,rows) {
+                            match_dao.findMatch_EquipesByMatch(id_match, function(err,rows) {
                                 
                                 if (err ) {
                                     messageError ='Connexion à la base de donnée impossible';
@@ -68,6 +72,8 @@ router.get('/', function(req, res,next) {
                                 }
                                 else{
                                     let points = {};
+
+                                    console.log('rows : '+rows[0]);
         
                                     points[0] = rows[0].gagnant;
                                     points[1] = rows[1].gagnant;
@@ -78,7 +84,7 @@ router.get('/', function(req, res,next) {
     
                                         var id_eleveMatch= rows[i].leleve;
 
-                                        eleve_dao.findByKey(id_eleveMatch, function(err,rows) {
+                                        equipe_dao.findByKey(id_eleveMatch, function(err,rows) {
                                             if (err ) {
                                                 messageError ='Connexion à la base de donnée impossible';
                                                 res.render('error',{message : messageError});
@@ -139,7 +145,7 @@ router.get('/', function(req, res,next) {
                     }else {
                         console.log("Aucun match dans cette session");
                     }
-                }
+                  }
             });
         }
     });
