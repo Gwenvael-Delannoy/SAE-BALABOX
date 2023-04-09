@@ -109,9 +109,12 @@
                     const data = JSON.parse(event.data);
                     if (data.type === 'classement') {
                         console.log(data.classement);
-                        this.classementTab = JSON.parse(data.classement);
+                        const parsedClassement = JSON.parse(data.classement);
+                        const classementTab = Object.values(parsedClassement);
+                        this.classementTab = classementTab;
                     }
                 }.bind(this));
+
 
 
 
