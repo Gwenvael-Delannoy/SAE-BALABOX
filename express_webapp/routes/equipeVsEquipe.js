@@ -10,8 +10,7 @@ router.get('/', function(req, res, next) {
     var idSession = req.query.idSession;
     var NomAdversaire = req.query.NomAdversaire;
     var idEleCo = req.query.idEleCo;
-    var idSport = req.query.idSport;
-    res.render('eleve_contre_eleve', {idSession : idSession, NomAdversaire : NomAdversaire, idEleCo : idEleCo, idSport : idSport});
+    res.render('eleve_contre_eleve', {idSession : idSession, NomAdversaire : NomAdversaire, idEleCo : idEleCo});
 });
 
 router.post('/', function(req, res, next) {
