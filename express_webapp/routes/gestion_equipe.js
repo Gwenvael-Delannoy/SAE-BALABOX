@@ -21,7 +21,7 @@ router.get('/', function(req, res, next) {
     }
     else{
       var equipes = [];
-      var eleves = [];
+      
 
       equipe_dao.findAllEquipeEleve( function(err,rows2) {
         if (err ) {
@@ -30,6 +30,7 @@ router.get('/', function(req, res, next) {
         }
         else{
           for(var i = 0; i < rows1.length; i++){
+            var eleves = [];
               for(var j = 0; j < rows2.length; j++){
                 if(rows1[i].id_equipe == rows2[j].id_equipe){
                   eleves.push({id_eleve : rows2[j].id_eleve, nom : rows2[j].nom, prenom : rows2[j].prenom});
@@ -37,6 +38,15 @@ router.get('/', function(req, res, next) {
               }
               equipes.push({id_equipe : rows1[i].id_equipe, eleves : eleves});
           }
+          for(var i = 0; i < equipes.length; i++){
+            var id = equipes[i].id_equipe;
+            for(var j = 0; j < equipes.length; j++){
+              if(id == equipes[j].id_equipe && i != j){
+                equipes.splice(j);
+              }
+            }
+          }
+          console.log(equipes);
           res.render('gestion_equipe',{idSession : idSession, type : type, equipes : equipes});
         }
       });
