@@ -56,7 +56,7 @@ router.post('/', function(req, res, next) {
                             console.log("leMatch : " + leMatch);
                             
                             if(score1>score2){
-                                match_dao.insertMatch_Eleve(leMatch.getId(), idEleCo, 1, function(err,rows) {
+                                match_dao.insertMatch_Eleve(leMatch.getId(), idEleCo, 3, function(err,rows) {
                                     if (err ) {
                                         messageError ='Connexion à la base de donnée impossible';
                                         res.render('error',{message : messageError});
@@ -69,8 +69,21 @@ router.post('/', function(req, res, next) {
                                     }
                                 });
                             }
-                            else{
+                            else if(score1<score2){
                                 match_dao.insertMatch_Eleve(leMatch.getId(), idEleCo, 0, function(err,rows) {
+                                    if (err ) {
+                                        messageError ='Connexion à la base de donnée impossible';
+                                        res.render('error',{message : messageError});
+                                    }
+                                });
+                                match_dao.insertMatch_Eleve(leMatch.getId(), idAdversaire, 3, function(err,rows) {
+                                    if (err ) {
+                                        messageError ='Connexion à la base de donnée impossible';
+                                        res.render('error',{message : messageError});
+                                    }
+                                });
+                            }else{
+                                match_dao.insertMatch_Eleve(leMatch.getId(), idEleCo, 1, function(err,rows) {
                                     if (err ) {
                                         messageError ='Connexion à la base de donnée impossible';
                                         res.render('error',{message : messageError});
