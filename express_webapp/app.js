@@ -14,6 +14,7 @@ var foot = require('./routes/foot');
 var eleveVsEleve = require('./routes/eleveVsEleve');
 var gestionEquipe = require('./routes/gestion_equipe');
 var resultat_prof = require('./routes/resultat_prof');
+var classement_prof = require('./routes/classement_prof');
 var error = require('./routes/error');
 var updateSession = require('./routes/updateSession');
 
@@ -41,6 +42,7 @@ app.use('/gestionEquipe', gestionEquipe);
 app.use('/resultat_prof', resultat_prof);
 app.use('/error', error);
 app.use('/updateSession', updateSession);
+app.use('/classement_prof', classement_prof);
 
 app.use('/resultat', resultat);
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

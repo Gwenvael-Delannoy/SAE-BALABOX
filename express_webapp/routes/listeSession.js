@@ -68,9 +68,9 @@ router.post('/', function(req, res, next) {
             if(type_session == "resultat") {
               res.redirect('resultat_prof?idsession=' + id);
             } else if(type_session == "tournoi equipe") {
-              //res.redirect('tournoiSession?id=' + id);
+              res.redirect('classement_prof?idsession=' + id + '&type=tournoi equipe' + '&sport=' + id_sport);
             }else if(type_session == "tournoi individuel") {
-              //res.redirect('tournoiSession?id=' + id);
+              res.redirect('classement_prof?idsession=' + id + '&type=tournoi individuel');
             }
         
           } else {

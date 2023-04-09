@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+    <!-- Page d'accueille , page où on se connecte à une session-->
+    <html>
+        <head>
+            <meta charset="utf-8">
+            <title>Classement du tournois</title>
+            <link rel="stylesheet" href="/stylesheets/eleveVsEleve.css">
+    
+        </head>
+        <div class ="block">
+            <header class="header">
+                <img class="logo" src="/images/image.jpeg">
+                   <a class="lienBoutton" href="/" ><input type = "button" value="Menu principale"></a>
+            </header>
+        </div>
+        <body>
+            <div class = "formulaire">
+                <h1>Classement du tournois
+                </h1>
+                <br>
+                <br>
+                <% if (type == "tournoi equipe"){ %>
+                    <div >
+                        <form action='/resultat' method='post'>
+                            <input type="submit" name="action" value="Gestion des equipes" >
+                        </form>
+                    </div>
+
+                <% } %>
+                <% if (type == "tournoi individuel"){ %>
+                <% } %>
+                <div >
+                    <form action='/classement_prof' method='post'>
+                        <input type="submit" name="action" value="Retour" >
+                    </form>
+                </div>
+            </div>
+        </body>
+    </html>
