@@ -6,6 +6,11 @@
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
     </head>
     <body>
         <div class="container" id="app">
@@ -28,14 +33,16 @@
                 <button class="bouton" id="entre">Entré</button>
             </form>
             </div>
+            <br/>
+            <br/>
 
-            <div class = tab>
-                <table>
-                    <thead>
+            <div class="tab">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
                         <tr>
                             <th>Position</th>
                             <th>Nom</th>
-                            <th>Prenom</th>
+                            <th>Prénom</th>
                             <th>Points</th>
                             <th>Nombre de match</th>
                         </tr>
@@ -49,8 +56,9 @@
                             <td>{{ eleve.nbMatchs }}</td>
                         </tr>
                     </tbody>
-                    
                 </table>
+            </div>
+            
             </div>
         </div>
          
@@ -72,63 +80,66 @@
                     this.position=1;
                     const ses = this.session;
                     const sesInt = parseInt(ses);
-                    console.log("classement[0]"+this.classement)
 
                 
                 
-                ws.addEventListener('open', function(event) {
-                    console.log('Connexion WebSocket ouverte');
-                    ws.send(JSON.stringify({ type: 'getTabEleve', session: sesInt }));
-                    ws.send(JSON.stringify({ type: 'getClassement', session: sesInt }));
-                });
+                    ws.addEventListener('open', function(event) {
+                        console.log('Connexion WebSocket ouverte');
+                        ws.send(JSON.stringify({ type: 'getTabEleve', session: sesInt }));
+                        ws.send(JSON.stringify({ type: 'getClassement', session: sesInt }));
+                    });
 
-                ws.addEventListener('message', function(event) {
-                    console.log('Données reçues:');
+                    ws.addEventListener('message', function(event) {
+                        console.log('Données reçues:');
 
-                    const data = JSON.parse(event.data);
-                    if(data.type == 'eleves'){
-                        const infoEleve = data.data;
-                        console.log("ok");
-                        const noms = [];
-                        for (const eleve of infoEleve) {
-                            if (eleve.session === sesInt && eleve.nom !== this.nomCo && eleve.prenom !== this.prenomCo) {
-                                noms.push(eleve.nom + ' ' + eleve.prenom);
+                        const data = JSON.parse(event.data);
+                        
+                        if(data.type == 'eleves'){
+                            const infoEleve = data.data;
+                            console.log("ok");
+                            const noms = [];
+                            for (const eleve of infoEleve) {
+                                if (eleve.session === sesInt && eleve.nom !== this.nomCo && eleve.prenom !== this.prenomCo) {
+                                    noms.push(eleve.nom + ' ' + eleve.prenom);
+                                }
                             }
-                        }
-                        this.updateNomEleves(noms);
+                            this.updateNomEleves(noms);
 
-                    }else if(data.type == 'classement'){
-                            const parsedClassement = [];
-                            const classementObj = JSON.parse(data.classement);
-                            for (const position in classementObj) {
-                                const eleve = classementObj[position];
-                                parsedClassement.push({
-                                    position: position,
-                                    nom: eleve[1],
-                                    prenom: eleve[2],
-                                    points: eleve[3],
-                                    nbMatchs: eleve[4]
-                                });
-                                console.log("parsedClassement:  "+parsedClassement);
+                        }if(data.type == 'classement'){
+                                console.log("data"+data.data);
+                                const parsedClassement = [];
+                                const classementObj = JSON.parse(data.data);
+                                console.log("classementObj:  "+classementObj);
+                                for (const position in classementObj) {
+                                    const eleve = classementObj[position];
+                                    parsedClassement.push({
+                                        position: position,
+                                        nom: eleve[1],
+                                        prenom: eleve[2],
+                                        points: eleve[3],
+                                        nbMatchs: eleve[4]
+                                    });
+                                    console.log("parsedClassement:  "+parsedClassement);
+                                }
+                                this.parsedClassement = parsedClassement;
+                            
                             }
-                            this.parsedClassement = parsedClassement;
-                           
-                        }
-                         console.log("parsedClassement !!!!!!!!!!!!!:  "+this.parsedClassement);
-                    
-                }.bind(this));
+                        console.log("parsedClassement !!!!!!!!!!!!!:  "+this.parsedClassement);
+                        
+                    }.bind(this));
 
 
-            },
-            destroyed: function() {
-                // Fermer la connexion WebSocket lorsque la vue est détruite
-                ws.close();
-            },
-            methods: {
-                updateNomEleves(noms) {
-                    this.nomEleves = noms;
                 },
-            }
+                destroyed: function() {
+                    // Fermer la connexion WebSocket lorsque la vue est détruite
+                    ws.close();
+                },
+                methods: {
+                    updateNomEleves(noms) {
+                        this.nomEleves = noms;
+                        console.log("updateNomEleves:  "+this.nomEleves);
+                    },
+                }
             });
 
             let form = document.querySelector('#entre');

@@ -46,6 +46,8 @@ router.get('/', function(req, res,next) {
             if (typeof prenomCo !== 'string') {
                  prenomCo = String(prenomCo);
             }
+            console.log('nomCo : '+nomCo);
+            console.log('prenomCo : '+prenomCo);
 
             match_dao.findAllMatchSes(idSession, function(err,rows) {
                 if (err ) {
@@ -114,6 +116,7 @@ router.get('/', function(req, res,next) {
                                                         eleve_info[3] = points[compteur];  
                                                         eleve_info[4] = 1;
                                                         classement[rows[0].id_eleve] = eleve_info;
+                                                        classementBis = classement;
 
                                                         if((nbMatchFait/2) == nbMatchTotal){
                           
@@ -122,7 +125,7 @@ router.get('/', function(req, res,next) {
                                                                 session: idSession,
                                                                 classement:JSON.stringify(classement),
                                                             }));
-                                                            res.render('classement_eleve', { idSession : idSession,classement:classement, nomCo : nomCo, prenomCo : prenomCo});
+                                                            res.render('classement_eleve', { idSession : idSession,classementBis:classementBis, nomCo : nomCo, prenomCo : prenomCo});
                                                         }
                                                         
                                                     }
