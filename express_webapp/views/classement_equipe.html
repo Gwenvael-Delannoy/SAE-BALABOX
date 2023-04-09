@@ -89,33 +89,29 @@
                         ws.send(JSON.stringify({ type: 'getClassement', session: sesInt }));
                     });
 
+                    ws.send(JSON.stringify({ type: 'getTabEquipe', session: sesInt }));
+
                     ws.addEventListener('message', function(event) {
-                        console.log('Données reçues:');
 
                         const data = JSON.parse(event.data);
                         
-                        if(data.type == 'equipes'){
+                        if(data.type == 'equipes' && data.session == sesInt){
                         
                             const info_equipe = data.data;
                             console.log(info_equipe);
-                            console.log(this.idCo);
                             const noms = [];
-                            for (const eleve of info_equipe) {
-                                let trouve = false;
+                            for (const equipe of info_equipe) {
                                 for (let b = 0; b < this.idCo.length; b++) {
-                                    if (eleve.session === sesInt && eleve.id_equipe === this.idCo[b]) {
-                                        trouve = true;
-                                        break;
+
+                                    if(equipe.session === sesInt && equipe.id_equipe !== this.idCo[b]){
+                                        noms.push(equipe.id_equipe);
                                     }
-                                }
-                                if (!trouve) {
-                                    noms.push(eleve.id_equipe);
                                 }
                             }
                             this.updateNomEleves(noms);
 
 
-                        }if(data.type == 'classement'){
+                        }if(data.type == 'classement' && data.session == sesInt ){
                             
                             const parsedClassement = [];
                             const classementObj = JSON.parse(data.data);
@@ -147,7 +143,6 @@
                 methods: {
                     updateNomEleves(noms) {
                         this.nomEleves = noms;
-                        console.log("updateNomEleves:  "+this.nomEleves);
                     },
                 }
             });
