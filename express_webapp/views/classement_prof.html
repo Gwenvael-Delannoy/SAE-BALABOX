@@ -34,6 +34,27 @@
                         </form>
                     </div>
 
+                    <div class="tab">
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Position</th>
+                                    <th>Equipes</th>
+                                    <th>Points</th>
+                                    <th>Nombre de match</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(eleve, index) in parsedClassement">
+                                    <td>{{ index + 1 }}</td>
+                                    <td>Equipe {{ eleve.id_equipe}}</td>
+                                    <td>{{ eleve.points }}</td>
+                                    <td>{{ eleve.nbMatchs }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                 <% } %>
                 <% if (type == "tournoi individuel"){ %>
                     <div class="tab">
@@ -60,79 +81,82 @@
                     </div>
                     <% if (message) { %>
                         <p style="color: red;"><%= message %></p>
-                      <% } %>
+                        <% } %>
                     <% } %>
                 <div >
                     <form action='/classement_prof' method='post'>
                         <button class="bouton" name="action" value="Retour">Retour</button>
                     </form>
                 </div>
-            </body>
-        </html>
-    <script>
-        const ws = new WebSocket('ws://localhost:3001');
-
-        new Vue({
-            el: '#app',
-            data: {
-                position : 1,
-                session: '<%=idSession%>',
-                type: '<%=type%>',
-                parsedClassement: [],
-            },
-            created: function() {
-                // Écouter les événements de la connexion WebSocket
-                this.position=1;
-                const ses = this.session;
-                const sesInt = parseInt(ses);
+            </div>
+        </body>
+        <script>
+            const ws = new WebSocket('ws://localhost:3001');
     
-                ws.addEventListener('open', function(event) {
-                    ws.send(JSON.stringify({ type: 'getClassement', session: sesInt }));
-                });
-
-                ws.addEventListener('message', function(event) {
-                    
-                    const data = JSON.parse(event.data);
-                    
-                    if(data.type == 'classement'){
+            new Vue({
+                el: '#app',
+                data: {
+                    position : 1,
+                    session: '<%=idSession%>',
+                    type: '<%=type%>',
+                    parsedClassement: [],
+                },
+                created: function() {
+                    // Écouter les événements de la connexion WebSocket
+                    this.position=1;
+                    const ses = this.session;
+                    const sesInt = parseInt(ses);
+        
+                    ws.addEventListener('open', function(event) {
+                        ws.send(JSON.stringify({ type: 'getClassement', session: sesInt }));
+                    });
+    
+                    ws.addEventListener('message', function(event) {
                         
-                        const parsedClassement = [];
-                        const classementObj = JSON.parse(data.data);
-                    
-                        if(this.type == "tournoi equipe"){
-                            for (const position in classementObj) {
-                            const equipe = classementObj[position];
-                                parsedClassement.push({
-                                    position: position,
-                                    id: eleve[1],
-                                    points: equipe[3],
-                                    nbMatchs: equipe[4]
-                                });
-                            }
-                            this.parsedClassement = parsedClassement;
-                        }
-                        else if(this.type == "tournoi individuel"){
-                            for (const position in classementObj) {
+                        const data = JSON.parse(event.data);
+                        
+                        if(data.type == 'classement'){
+                            
+                            const parsedClassement = [];
+                            const classementObj = JSON.parse(data.data);
+                        
+                            if(this.type == "tournoi equipe"){
+                                for (const position in classementObj) {
                                 const eleve = classementObj[position];
                                 parsedClassement.push({
                                     position: position,
-                                    nom: eleve[1],
-                                    prenom: eleve[2],
+                                    id_equipe: eleve[0],
                                     points: eleve[3],
                                     nbMatchs: eleve[4]
                                 });
                             }
-                            this.parsedClassement = parsedClassement;
+                                parsedClassement.sort((a, b) => b.points - a.points);
+                                this.parsedClassement = parsedClassement;
+                            }
+                            else if(this.type == "tournoi individuel"){
+                                for (const position in classementObj) {
+                                    const eleve = classementObj[position];
+                                    parsedClassement.push({
+                                        position: position,
+                                        nom: eleve[1],
+                                        prenom: eleve[2],
+                                        points: eleve[3],
+                                        nbMatchs: eleve[4]
+                                    });
+                                }
+                                parsedClassement.sort((a, b) => b.points - a.points);
+                                this.parsedClassement = parsedClassement;
+                            }
                         }
-                    }
-                    
-                }.bind(this));
-
-
-            },
-            destroyed: function() {
-                // Fermer la connexion WebSocket lorsque la vue est détruite
-                ws.close();
-            },
-        });
-    </script>
+                        
+                    }.bind(this));
+    
+    
+                },
+                destroyed: function() {
+                    // Fermer la connexion WebSocket lorsque la vue est détruite
+                    ws.close();
+                },
+            });
+        </script>
+    </html>

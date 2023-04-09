@@ -48,8 +48,6 @@ router.get('/', function(req, res,next) {
             if (typeof prenomCo !== 'string') {
                  prenomCo = String(prenomCo);
             }
-            console.log('nomCo : '+nomCo);
-            console.log('prenomCo : '+prenomCo);
 
             match_dao.findAllMatchSes(idSession, function(err,rows) {
                 if (err ) {

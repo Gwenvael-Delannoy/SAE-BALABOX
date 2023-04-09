@@ -2,8 +2,10 @@ var express = require('express');
 var router = express.Router();
 var WebSocket = require('ws');
 var eleve_dao = require('../models/dao/dataBase').eleve_dao;
+var equipe_dao = require('../models/dao/dataBase').equipe_dao;
 var match_dao = require('../models/dao/dataBase').match_dao;
 var session_dao = require('../models/dao/dataBase').session_dao;
+var Equipe = require('../models/Equipe');
 var Eleve = require('../models/eleve');
 var matchSession = [];
 let classement;
@@ -107,7 +109,7 @@ router.get('/', function(req, res, next) {
                                                   console.log('classement : ' + JSON.stringify(classement));
                                                   wss.send(JSON.stringify({
                                                       type: 'classement',
-                                                      session: id_session,
+                                                      session: idSession,
                                                       classement:JSON.stringify(classement),
                                                   }));
                                                   res.render('classement_prof',{type:type_sport , idSession:id_session , message:''});
@@ -129,7 +131,89 @@ router.get('/', function(req, res, next) {
                 }
               }
               else if(type_sport == 'tournoi equipe'){
-                res.render('classement_prof',{type:type_sport , idSession:id_session , message:''});
+                for(k = 0; k < matchSession.length; k++){
+
+                            
+                  var id_match = matchSession[k].id_match;
+                  match_dao.findMatch_EquipesByMatch(id_match, function(err,rows) {
+                      
+                      if (err ) {
+                          messageError ='Connexion à la base de donnée impossible ';
+                          res.render('error',{message : messageError});
+                      }
+                      else{
+                          let points = {};
+
+                          console.log('rows : '+rows[0]);
+
+                          points[0] = rows[0].gagnant;
+                          points[1] = rows[1].gagnant;
+                  
+                          var compteur = 0;//compteur pour savoir si on a parcouru nos deux eleves de ce match
+
+                          for(var i = 0; i < rows.length; i++){
+
+                              var id_eleveMatch= rows[i].lequipe;
+
+                              equipe_dao.findByKey(id_eleveMatch, function(err,rows) {
+                                  if (err ) {
+                                      messageError ='Connexion à la base de donnée impossible';
+                                      res.render('error',{message : messageError});
+                                  }
+                                  else{
+                                      if(rows.length != 0){              
+                                          if(classement[rows[0].id_equipe]!= undefined && classement[rows[0].id_equipe] != null && classement[rows[0].id_equipe] != ''){
+                                              eleve_info = classement[rows[0].id_equipe];
+                                              eleve_info[1]= rows[0].id_equipe;
+                                              eleve_info[3] += points[compteur];  
+                                              eleve_info[4] += 1;
+                                              classement[rows[0].id_equipe] = eleve_info;
+
+
+                                              //divier par 2 car on a 2 eleve par match donc on compte 2 fois un match , et une fois arrivé au bout du compte de match total on envoie la donnée au websocket
+                                              if((nbMatchFait/2) == nbMatchTotal){
+                                          
+                                                  wss.send(JSON.stringify({
+                                                      type: 'classement',
+                                                      session: id_session,
+                                                      classement:JSON.stringify(classement),
+                                                  }));
+                                                  res.render('classement_prof',{type:type_sport , idSession:id_session , message:''});
+                                              }
+                                              
+                                          } else {
+                                              eleve_info = [];
+                                              eleve_info[0] = rows[0].id_equipe;
+                                              eleve_info[3] = points[compteur];  
+                                              eleve_info[4] = 1;
+                                              classement[rows[0].id_equipe] = eleve_info;
+                                              classementBis = classement;
+
+                                              if((nbMatchFait/2) == nbMatchTotal){
+                                                  console.log('classement : ' + JSON.stringify(classement));
+                                                  wss.send(JSON.stringify({
+                                                      type: 'classement',
+                                                      session: id_session,
+                                                      classement:JSON.stringify(classement),
+                                                  }));
+                                                  classement = {};
+                                                  res.render('classement_prof',{type:type_sport , idSession:id_session , message:''});
+                                              }
+                                              
+                                          }
+                                          compteur++;
+                                          nbMatchFait++;
+                                      }
+                                      else{
+                                          messageError ='Equpie non existant dans la base de données,merci de revenir en arriere et ressayer';
+                                          res.render('error',{message : messageError});
+                                      }
+                                  }
+                              });
+                          }
+                      }
+                  });
+                }  
               }
               else{
                 messageError ='Page de classement non disponible, merci de revenir en arriere et ressayer';
