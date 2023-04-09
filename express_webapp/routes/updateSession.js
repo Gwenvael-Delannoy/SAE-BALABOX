@@ -5,49 +5,53 @@ var session_dao = require('../models/dao/dataBase').session_dao;
 var session = require('../models/session');
 
 var prof;
+var id;
 /* Recuperer la page de creation de session. */
 router.get('/', function(req, res, next) {
   var data1;
   prof = req.query.prof;
-  sport_dao.findAll(function(err, rows) {
+  id = req.query.idSession;
+
+  session_dao.FindSessionSportById(id,function(err, rows) {
     if (err) console.log(err);
     else {
+
       data1 = rows;
 
-      data2 = data1.map(function (item) {
-        return item.id_sport;
-      });
-
-      data3 = data1.map(function (item) {
+      var nom_sport = data1.map(function (item) {
         return item.nom_sport;
       });
 
-      data4 = data1.map(function (item) {
+      var type_session = data1.map(function (item) {
         return item.type_session;
       });
 
-      res.render('form_create_session', {id_sport: data2 ,nom_sport: data3 , type_session: data4});
+      var identifiant_con = data1.map(function (item) {
+        return item.identifiant_con;
+      });
+
+      var mdp = data1.map(function (item) {
+        return item.mdp;
+      });
+
+      res.render('updateSession', {nom_sport: nom_sport , type_session: type_session, login: identifiant_con, mdp: mdp});
     }
   });
 });
 
 router.post('/', function(req, res, next) {
-  var selectedSport = req.body.selectedSport;
-  var selectedType = req.body.selectedType;
   var login = req.body.IdCon;
   var password = req.body.mdpCon;
   
   var sess = new session();
 
-  sport_dao.findByName(selectedSport, function(err, rows) {
+  session_dao.FindSessionSportById(id, function(err, rows) {
     if (err) res.render('error', {message: err});
     else {
   
-      var date = new Date();
-      var date2 = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-      sess.init(date2,"en cours",null,login,password,prof/*valeur par défeaut en attente des autre groupes*/,rows[0].id_sport);
+      sess.init(null,"en cours",null,login,password,prof/*valeur par défeaut en attente des autre groupes*/,rows[0].id_sport);
 
-        session_dao.insert(sess, function(err, rows) {
+        session_dao.update(id, sess, function(err, rows) {
           if (err) res.render('error', {message: err});
           else res.redirect('listeSession');
         });

@@ -16,19 +16,19 @@
       <div class="titre">
         <h1>Nouvelle Activité</h1>
       </div>
-      <form action="/crSession" method="POST" class="formulaire">
+      <form action="/updateSession" method="POST" class="formulaire">
         <label for="typeAct">Type d'activité : </label><br>
-        <select name="selectedType" v-on:change="updateType" v-model="selectedType">
+        <select name="selectedType" v-on:change="updateType" v-model="selectedType" disabled>
             <option v-for="type in type_session" :value="type">{{ type }}</option>
         </select><br><br>
         <label for="sport">Sport : </label><br>
-        <select name="selectedSport" v-model="selectedSport">
+        <select name="selectedSport" v-model="selectedSport" disabled>
           <option v-for="sport in nom_sport" :value="sport">{{ sport }}</option>
         </select><br><br>
         <label for="IdCon">Identifiant de connexion : </label><br>
-        <input type="text" id="IdCon" name="IdCon" v-model="login" required><br><br>
+        <input type="text" id="IdCon" name="IdCon" v-model="login"><br><br>
         <label for="mdpCon">Mot de passe de connexion : </label><br>
-        <input type="text" id="mdpCon" name="mdpCon" v-model="password" required><br><br>
+        <input type="text" id="mdpCon" name="mdpCon" v-model="password"><br><br>
         <button type="submit" name ="BtValide" value ="BtValide" id="BtValide">Valider</button>
         <button type="button" name ="BtAnnuler" value ="BtAnnuler" id="BtAnnuler" @click="reset">Annuler</button>
       </form>
@@ -38,45 +38,27 @@
       new Vue({
         el: '#app',
         data: {
-          sports: [],
-          id_sport:  "<%=id_sport%>",
           nom_sport:  "<%=nom_sport%>",
           type_session:  "<%=type_session%>",
+          loginSaved:'<%=login%>',
+          passwordSaved:'<%=mdp%>',
           selectedSport: '',
           selectedType: '',
-          login: '',
-          password: ''
+          login: '<%=login%>',
+          password: '<%=mdp%>'
         },
         created() {
-            this.id_sport = this.id_sport.split(',').map(Number);
-            this.nom_sport = this.nom_sport.split(',');
-            this.type_session = this.type_session.split(',');
+          this.type_session = this.type_session.split(',');
+          this.nom_sport = this.nom_sport.split(',');
 
-            for (var i = 0; i < this.id_sport.length; i++) {
-              this.sports.push({
-                id_sport: this.id_sport[i],
-                nom_sport: this.nom_sport[i],
-                type_session: this.type_session[i]
-              })
-            }
-            
-            this.type_session = [...new Set(this.type_session)];
+          this.selectedSport = this.nom_sport[0];
+          this.selectedType = this.type_session[0];
+
         },                  
         methods: {
-          createSession: function() {
-            // Code pour créer une session
-          },
-          updateType(){
-            var valeurs = this.sports.filter(sport => sport.type_session == this.selectedType);
-
-            this.nom_sport = [];
-            valeurs.forEach(sport => this.nom_sport.push(sport.nom_sport));
-          },
           reset(){
-            this.selectedSport = ''
-            this.selectedType = ''
-            this.login = ''
-            this.password = ''
+            this.login = this.loginSaved;
+            this.password = this.passwordSaved;
           }
         }
       })

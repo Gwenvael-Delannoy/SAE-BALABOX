@@ -26,11 +26,12 @@ var SessionDAO = function(){
      * @param {function} callback
      * @returns {void}
      */
-    this.update = function(key, values, callback){
+    this.update = function(key, session, callback){
         this.use(null);
+        var values1 = [session.getDate(), session.getStatut(), session.getHeure(), session.getIdentifiant(), session.getMdp(), session.getProfesseur(), session.getSport()];
         var sql2 = "UPDATE Session SET date_session=?,statut=?,heure=?,identifiant_con=?,mdp=?,professeur=?,le_sport=? WHERE id_session=?;";
-        values.push(key);
-        smt.query(sql2,values, callback);
+        values1.push(key);
+        smt.query(sql2,values1, callback);
     };
 
     /**
@@ -101,7 +102,7 @@ var SessionDAO = function(){
     this.FindSessionSportById = function(id, callback){
         this.use(null);
         var sql7 = "SELECT * FROM Session, Sport WHERE id_session=? AND le_sport=id_sport;";
-        smt.query(sql7, nomProf, callback);
+        smt.query(sql7, id, callback);
     };
 
     /**

@@ -303,5 +303,5 @@ CREATE TABLE Musculation (
     
     -- CONSTRAINTS
     CONSTRAINT pk_Musculation PRIMARY KEY (id_musculation),
-    CONSTRAINT fk_Musculation_Eleve FOREIGN KEY (id_musculation) REFERENCES Resultat(id_resultat)
+    CONSTRAINT fk_Musculation_Resultat FOREIGN KEY (id_musculation) REFERENCES Resultat(id_resultat)
 );

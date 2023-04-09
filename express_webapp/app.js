@@ -14,6 +14,7 @@ var foot = require('./routes/foot');
 var eleveVsEleve = require('./routes/eleveVsEleve');
 var gestionEquipe = require('./routes/gestion_equipe');
 var error = require('./routes/error');
+var updateSession = require('./routes/updateSession');
 
 
 var app = express();
@@ -37,6 +38,7 @@ app.use('/foot', foot);
 app.use('/eleveVsEleve', eleveVsEleve);
 app.use('/gestionEquipe', gestionEquipe);
 app.use('/error', error);
+app.use('/updateSession', updateSession);
 
 app.use('/resultat', resultat);
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

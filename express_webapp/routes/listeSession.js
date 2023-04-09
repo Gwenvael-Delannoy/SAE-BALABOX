@@ -11,10 +11,10 @@ var acrosport_dao = require('../models/dao/dataBase').acrosport_dao;
 var escalade_dao = require('../models/dao/dataBase').escalade_dao;
 var match_dao = require('../models/dao/dataBase').match_dao;
 
-
+var professeur ='Raul Adrien';
 /* Recuperer la page qui liste toutes les session créer par le professeur connecté . */
 router.get('/', function(req, res, next) {
-  session_dao.FindSessionProfSport("Raul Adrien",function(err,rows) {
+  session_dao.FindSessionProfSport(professeur,function(err,rows) {
     if (err ) {
       res.render("error", {message: err});
     }
@@ -26,20 +26,21 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   if(req.body.action == 'add') {
-    res.redirect('crSession');
+    res.redirect('/crSession?prof='+professeur+'');
 
   }
 
   var id = req.body.id;
 
-  session_dao.findByKey(id, function(err, row) {
+  session_dao.FindSessionSportById(id, function(err, row) {
     if (err) res.render("error", {message: err});
     else {
       var id_sport = row[0].le_sport;
-      var type_session = row[0].type_session;      
+      var type_session = row[0].type_session;
+      console.log(row);
 
       if(req.body.action == 'update') {
-        res.redirect('crSession');
+        res.redirect('/updateSession?idSession='+id+'&prof='+professeur+'');
     
       } else if(req.body.action == 'view') {
         //res.redirect('/resultat?ses='+id+'&idSport='+id_sport+'');
@@ -186,10 +187,13 @@ router.post('/', function(req, res, next) {
                   }
                 });
               } else if (nom_sport == "Acrosport") {
+                console.log(nom_sport);
+                console.log(type_session);
                 resultat_dao.findBySession(id, function(err, rows) {
                   if (err) res.render("error", {message: err});
                   else{
                     var nbRows = rows.length;
+                    console.log(nbRows);
 
                     if(nbRows == 0){
                       session_dao.delete(id, function(err, row) {
@@ -236,7 +240,9 @@ router.post('/', function(req, res, next) {
                   }
                 });
               } else if (nom_sport == "Escalade") {
-
+                console.log(id);
+                console.log(nom_sport);
+                console.log(type_session);
                 resultat_dao.findBySession(id, function(err, rows) {
                   if (err) res.render("error", {message: err});
                   else{
