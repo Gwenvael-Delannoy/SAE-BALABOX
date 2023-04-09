@@ -128,7 +128,6 @@ router.get('/', function(req, res,next) {
                                                                 session: idSession,
                                                                 classement:JSON.stringify(classement),
                                                             }));
-                                                            classement = {};
                                                             res.render('classement_eleve', { idSession : idSession,classementBis:classementBis, nomCo : nomCo, prenomCo : prenomCo});
                                                         }
                                                         

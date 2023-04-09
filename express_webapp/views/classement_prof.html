@@ -19,21 +19,118 @@
                 </h1>
                 <br>
                 <br>
-                <% if (type == "tournoi equipe"){ %>
+                                
+                <% if (message) { %>
+                    <p><%= message %></p>
+                <% } %>
+
+                <%if (type == "tournoi equipe"){ %>
                     <div >
-                        <form action='/resultat' method='post'>
-                            <input type="submit" name="action" value="Gestion des equipes" >
+                        <form action='/classement_prof' method='post'>
+                            <button class="bouton" name="action" value="Gestion des equipes" >Gestion des equipes</button>
                         </form>
                     </div>
 
                 <% } %>
                 <% if (type == "tournoi individuel"){ %>
+                    <div class="tab">
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Position</th>
+                                    <th>Nom</th>
+                                    <th>Prénom</th>
+                                    <th>Points</th>
+                                    <th>Nombre de match</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(eleve, index) in parsedClassement">
+                                    <td>{{ index + 1 }}</td>
+                                    <td>{{ eleve.nom }}</td>
+                                    <td>{{ eleve.prenom }}</td>
+                                    <td>{{ eleve.points }}</td>
+                                    <td>{{ eleve.nbMatchs }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 <% } %>
                 <div >
                     <form action='/classement_prof' method='post'>
-                        <input type="submit" name="action" value="Retour" >
+                        <button class="bouton" name="action" value="Retour">Retour</button>
                     </form>
                 </div>
-            </div>
-        </body>
-    </html>
+            </body>
+        </html>
+    <script>
+        const ws = new WebSocket('ws://localhost:3002');
+
+        new Vue({
+            el: '#app',
+            data: {
+                position : 1,
+                session: '<%=idSession%>',
+                type: '<%=type%>',
+                parsedClassement: [],
+            },
+            created: function() {
+                // Écouter les événements de la connexion WebSocket
+                this.position=1;
+                const ses = this.session;
+                const sesInt = parseInt(ses);
+
+            
+            
+                ws.addEventListener('open', function(event) {
+                    console.log('Connexion WebSocket ouverte');
+                    ws.send(JSON.stringify({ type: 'getClassement', session: sesInt }));
+                });
+
+                ws.addEventListener('message', function(event) {
+                    console.log('Données reçues:');
+
+                    const data = JSON.parse(event.data);
+                    
+                    if(data.type == 'classement'){
+                        
+                        const parsedClassement = [];
+                        const classementObj = JSON.parse(data.data);
+                        
+                        if(this.type == "tournoi equipe"){
+                            for (const position in classementObj) {
+                            const equipe = classementObj[position];
+                                parsedClassement.push({
+                                    position: position,
+                                    id: eleve[1],
+                                    points: equipe[3],
+                                    nbMatchs: equipe[4]
+                                });
+                            }
+                        }
+                        else if(this.type == "tournoi individuel"){
+                            for (const position in classementObj) {
+                            const eleve = classementObj[position];
+                                parsedClassement.push({
+                                    position: position,
+                                    nom: eleve[1],
+                                    prenom: eleve[2],
+                                    points: eleve[3],
+                                    nbMatchs: eleve[4]
+                                });
+                            }
+                        }
+                        this.parsedClassement = parsedClassement;
+                    
+                    }
+                    
+                }.bind(this));
+
+
+            },
+            destroyed: function() {
+                // Fermer la connexion WebSocket lorsque la vue est détruite
+                ws.close();
+            },
+        });
+    </script>

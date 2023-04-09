@@ -26,7 +26,7 @@ INSERT INTO Sport(nom_sport,description_sport,type_session) VALUES ('Badminton',
 -- creer une session
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,le_sport) VALUES ("en cours","test","test","Michelle Dupont",1);
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,le_sport) VALUES ("en cours","test15","test15","Raul Adrien",2);
-INSERT INTO Session(statut,identifiant_con,mdp,professeur,le_sport) VALUES ("en cours","test1","test1","Jack rihiad",6);
+INSERT INTO Session(statut,identifiant_con,mdp,professeur,le_sport) VALUES ("en cours","test1","test1","Raul Adrien",6);
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,le_sport) VALUES ("en cours","test3","test3","JackIE rihr",7);
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,le_sport) VALUES ("en cours","test4","test4","JA ri",8);
 INSERT INTO Session(statut,identifiant_con,mdp,professeur,le_sport) VALUES ("en cours","test5","test5","Raul Adrien",9);
@@ -122,26 +122,6 @@ INSERT INTO Figure(nom,description,point) VALUES ('figure 2','figure 2',2);
 INSERT INTO Figure(nom,description,point) VALUES ('figure 3','figure 3',3);
 INSERT INTO Figure(nom,description,point) VALUES ('figure 4','figure 4',4);
 
--- creer un resultat acrosport
-
--- INSERT INTO Acrosport(id_acrosport)VALUES(10);
-
--- INSERT INTO Figure_Acrosport(lAcrosport,laFigure)VALUES(10,1);
-
--- creer un resultat step
-
-INSERT INTO Step (id_step) VALUES (3);
-INSERT INTO Step (id_step) VALUES (4);
-
--- creer un resultat musculation
-
-INSERT INTO Musculation (id_musculation) VALUES (5);
-INSERT INTO Musculation (id_musculation) VALUES (6);
-
--- creer un resultat natation
-
-INSERT INTO Natation (id_natation) VALUES (7);
-INSERT INTO Natation (id_natation) VALUES (8);
 
 -- creer des voies d'escalade
 INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('La redoutable',10);
@@ -149,31 +129,3 @@ INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('La monté',11);
 INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('La pente',12);
 INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('La roue tournante',13);
 INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('L enfer',14);
-
-
-INSERT INTO Escalade(id_escalade, assureur, total_diff)VALUES(10,"Michel", 2);
-
-INSERT INTO Escalade_Voie(lEscalade, laVoie)VALUES(1,1);
-
--- TEST 
-
-INSERT INTO Session(statut,identifiant_con,mdp,professeur,le_sport) VALUES ("terminer","bonjour","bonjour","Jean",7);
-
-INSERT INTO Resultat(la_session,unEleve)VALUES(15,1);
-INSERT INTO Natation(id_natation)VALUES(15);
-
-SELECT * FROM Eleve;
-SELECT * FROM Resultat, Escalade, Escalade_Voie, Voie WHERE id_resultat = id_escalade AND id_escalade = lEscalade AND id_voie = laVoie;
-
-SELECT * FROM Session, Resultat, Step WHERE id_session = la_session AND id_resultat = id_step;
-
-SELECT * FROM Session, Resultat, Sport WHERE id_session = la_session AND le_sport=id_sport AND nom_sport="Course";
-SELECT * FROM Session, Resultat, Sport WHERE id_session = la_session AND le_sport=id_sport AND la_session=8;
-
-SELECT * FROM Session, Resultat, Acrosport WHERE id_session = la_session AND id_resultat=id_acrosport ;
-SELECT * FROM Acrosport;
-SELECT * FROM Resultat, Acrosport WHERE id_resultat=id_acrosport ;
-
-SELECT * FROM Match_Eleve WHERE un_match = 3;
-
-SELECT * FROM Sport, Session WHERE id_sport = le_sport AND identifiant_con = 'azerty';
