@@ -30,26 +30,24 @@
                 <button class="scoreBordControlB">-</button>
                 <button class="scoreBordControlB">+</button>
             </div>
-            <div id="point">
-                <div class="point">
-                    <div class="faute1">
-                        <button class="fauteB fauteB1"></button>
-                        <p>Faute</p>
-                    </div>
-                    <div class="point1">
-                        <button class="pointB pointB1"></button>
-                        <p>Point</p>
-                    </div>
+            <div class="point" id="pointV">
+                <div class="faute1">
+                    <button class="fauteB fauteB1"></button>
+                    <p>Faute</p>
                 </div>
-                <div class="point">
-                    <div class="faute2">
-                        <button class="fauteB fauteB2"></button>
-                        <p>Faute</p>
-                    </div>
-                    <div class="point2">
-                        <button class="pointB pointB2"></button>
-                        <p>Point</p>
-                    </div>
+                <div class="point1">
+                    <button class="pointB pointB1"></button>
+                    <p>Point</p>
+                </div>
+            </div>
+            <div class="point" id="pointA">
+                <div class="faute2">
+                    <button class="fauteB fauteB2"></button>
+                    <p>Faute</p>
+                </div>
+                <div class="point2">
+                    <button class="pointB pointB2"></button>
+                    <p>Point</p>
                 </div>
             </div>
         </div>
@@ -99,6 +97,8 @@
             ctx.fillRect(20, 300, 260, 5);
             ctx.fillRect(147.5, 20, 5, 160);
             ctx.fillRect(147.5, 300, 5, 180);
+            
+            
         }else if(idSport == 1){
             // terrain de tennis
         
@@ -163,7 +163,9 @@
             ctx.fillRect(147.5,70,5,2);
             ctx.fillRect(147.5,430,5,2);
 
-            document.getElementById('point').style.display = 'none';
+            
+            document.getElementById('pointV').style.display = 'none';
+            document.getElementById('pointA').style.display = 'none';
 
         }else if(idSport == 2){
             // terrain de foot
@@ -252,7 +254,9 @@
             ctx.closePath();
             ctx.stroke();
 
-            document.getElementById('point').style.display = 'none';
+            
+            document.getElementById('pointV').style.display = 'none';
+            document.getElementById('pointA').style.display = 'none';
 
         }else if(idSport == 3){
             // Terrain de basket
@@ -317,7 +321,9 @@
             ctx.arc(150.5, 458, 4, 0, Math.PI*2, false);
             ctx.stroke();
             ctx.closePath();
-            document.getElementById('point').style.display = 'none';
+            
+            document.getElementById('pointV').style.display = 'none';
+            document.getElementById('pointA').style.display = 'none';
 
         }else if(idSport == 5){
             // Terrain de volleyball
