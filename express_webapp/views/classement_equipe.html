@@ -41,7 +41,7 @@
                     <thead class="thead-dark">
                         <tr>
                             <th>Position</th>
-                            <th>Equipe</th>
+                            <th>Equipes</th>
                             <th>Points</th>
                             <th>Nombre de match</th>
                         </tr>
@@ -93,16 +93,22 @@
                         
                         if(data.type == 'equipes'){
                             const info_equipe = data.data;
-                            console.log("ok");
-                            const noms = [];
-                            for (const eleve of info_equipe) {
-                                for(b = 0; b < this.idCo.length; b++){
-                                    if (eleve.session === sesInt && eleve.id_equipe !== this.idCo[b]) {
-                                        noms.push(eleve.id_equipe);
-                                    }
+                        console.log("ok");
+                        const noms = [];
+                        for (const eleve of info_equipe) {
+                            let trouve = false;
+                            for (let b = 0; b < this.idCo.length; b++) {
+                                if (eleve.session === sesInt && eleve.id_equipe === this.idCo[b]) {
+                                    trouve = true;
+                                    break;
                                 }
                             }
-                            this.updateNomEleves(noms);
+                            if (!trouve) {
+                                noms.push(eleve.id_equipe);
+                            }
+                        }
+                        this.updateNomEleves(noms);
+
 
                         }if(data.type == 'classement'){
                                 console.log("data"+data.data);
@@ -113,13 +119,14 @@
                                     const eleve = classementObj[position];
                                     parsedClassement.push({
                                         position: position,
-                                        nom: eleve[1],
-                                        prenom: eleve[2],
+                                        id_equipe: eleve[0],
                                         points: eleve[3],
                                         nbMatchs: eleve[4]
                                     });
                                     console.log("parsedClassement:  "+parsedClassement);
                                 }
+
+                                parsedClassement.sort((a, b) => b.points - a.points);
                                 this.parsedClassement = parsedClassement;
                             
                             }

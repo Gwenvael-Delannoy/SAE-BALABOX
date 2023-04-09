@@ -94,8 +94,8 @@ INSERT INTO Match_Eleve(un_match , leleve,gagnant) VALUES (6,2,1);
 
 INSERT INTO Match_(resultat_equipe_1,resultat_equipe_2,la_session) VALUES (1,2,2);
 
-INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (1,2,3);
-INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (1,3,0);
+INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (7,2,3);
+INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (7,3,0);
 
 INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (2,1,3);
 INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (2,5,0);

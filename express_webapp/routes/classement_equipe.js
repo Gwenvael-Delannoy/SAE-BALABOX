@@ -67,7 +67,7 @@ router.get('/', function(req, res,next) {
                             match_dao.findMatch_EquipesByMatch(id_match, function(err,rows) {
                                 
                                 if (err ) {
-                                    messageError ='Connexion à la base de donnée impossible';
+                                    messageError ='Connexion à la base de donnée impossible ';
                                     res.render('error',{message : messageError});
                                 }
                                 else{
@@ -82,7 +82,7 @@ router.get('/', function(req, res,next) {
 
                                     for(var i = 0; i < rows.length; i++){
     
-                                        var id_eleveMatch= rows[i].leleve;
+                                        var id_eleveMatch= rows[i].lequipe;
 
                                         equipe_dao.findByKey(id_eleveMatch, function(err,rows) {
                                             if (err ) {
@@ -93,6 +93,7 @@ router.get('/', function(req, res,next) {
                                                 if(rows.length != 0){              
                                                     if(classement[rows[0].id_equipe]!= undefined && classement[rows[0].id_equipe] != null && classement[rows[0].id_equipe] != ''){
                                                         eleve_info = classement[rows[0].id_equipe];
+                                                        eleve_info[1]= rows[0].id_equipe;
                                                         eleve_info[3] += points[compteur];  
                                                         eleve_info[4] += 1;
                                                         classement[rows[0].id_equipe] = eleve_info;

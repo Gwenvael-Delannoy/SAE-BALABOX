@@ -106,22 +106,24 @@
                             this.updateNomEleves(noms);
 
                         }if(data.type == 'classement'){
-                                console.log("data"+data.data);
-                                const parsedClassement = [];
-                                const classementObj = JSON.parse(data.data);
-                                console.log("classementObj:  "+classementObj);
-                                for (const position in classementObj) {
-                                    const eleve = classementObj[position];
-                                    parsedClassement.push({
-                                        position: position,
-                                        nom: eleve[1],
-                                        prenom: eleve[2],
-                                        points: eleve[3],
-                                        nbMatchs: eleve[4]
-                                    });
-                                    console.log("parsedClassement:  "+parsedClassement);
-                                }
-                                this.parsedClassement = parsedClassement;
+                            console.log("data"+data.data);
+                            const parsedClassement = [];
+                            const classementObj = JSON.parse(data.data);
+                            console.log("classementObj:  "+classementObj);
+                            Object.values(classementObj).forEach((eleve) => {
+                                parsedClassement.push({
+                                    nom: eleve[1],
+                                    prenom: eleve[2],
+                                    points: eleve[3],
+                                    nbMatchs: eleve[4]
+                                });
+                            });
+
+                            parsedClassement.sort((a, b) => b.points - a.points);
+
+                            console.log("parsedClassement:  "+parsedClassement);
+
+                            this.parsedClassement = parsedClassement;
                             
                             }
                         console.log("parsedClassement !!!!!!!!!!!!!:  "+this.parsedClassement);
