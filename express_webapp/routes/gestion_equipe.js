@@ -14,17 +14,32 @@ router.get('/', function(req, res, next) {
   var idSession = req.query.idsession;
   var type = req.query.type;
   console.log(type)
-  equipe_dao.findEquipeSession(idSession, function(err,rows) {
+  equipe_dao.findEquipeSession(idSession, function(err,rows1) {
     if (err ) {
         messageError ='Session inexistante,merci de revenir en arriere et ressayer';
         res.render('error',{message : messageError});
     }
     else{
-      var idEquipes = [];
-      for(var i = 0; i < rows.length; i++){
-        idEquipes.push(rows[i].id_equipe);
-      }
-      res.render('gestion_equipe',{idSession : idSession, type : type, equipes : idEquipes});
+      var equipes = [];
+      var eleves = [];
+
+      equipe_dao.findAllEquipeEleve( function(err,rows2) {
+        if (err ) {
+            messageError ='Session inexistante,merci de revenir en arriere et ressayer';
+            res.render('error',{message : messageError});
+        }
+        else{
+          for(var i = 0; i < rows1.length; i++){
+              for(var j = 0; j < rows2.length; j++){
+                if(rows1[i].id_equipe == rows2[j].id_equipe){
+                  eleves.push({id_eleve : rows2[j].id_eleve, nom : rows2[j].nom, prenom : rows2[j].prenom});
+                }
+              }
+              equipes.push({id_equipe : rows1[i].id_equipe, eleves : eleves});
+          }
+          res.render('gestion_equipe',{idSession : idSession, type : type, equipes : equipes});
+        }
+      });
     }
   });
   

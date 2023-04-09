@@ -28,7 +28,7 @@
         <h2>Equipes existantes</h2>
         <div >
           <% for(var i = 0; i < equipes.length; i++) { %>
-              <p>Equipe <%=equipes[i] %></p>
+              <p>Equipe <%=equipes[i].id_equipe %></p>
           <% } %>
         </div>
       </div>
@@ -37,7 +37,7 @@
       
 
     <script>
-      
+      console.log('<%= equipes %>');
 
     </script>
 
