@@ -11,11 +11,22 @@ var session_dao = require('../models/dao/dataBase').session_dao;
 
 /* GET error page. */
 router.get('/', function(req, res, next) {
-  var ws = new WebSocket('ws://localhost:3002');
   var idSession = req.query.idsession;
   var type = req.query.type;
   console.log(type)
-  res.render('gestion_equipe',{idSession : idSession, type : type});
+  equipe_dao.findEquipeSession(idSession, function(err,rows) {
+    if (err ) {
+        messageError ='Session inexistante,merci de revenir en arriere et ressayer';
+        res.render('error',{message : messageError});
+    }
+    else{
+      var idEquipes = [];
+      for(var i = 0; i < rows.length; i++){
+        idEquipes.push(rows[i].id_equipe);
+      }
+      res.render('gestion_equipe',{idSession : idSession, type : type, equipes : idEquipes});
+    }
+  });
   
 });
 
