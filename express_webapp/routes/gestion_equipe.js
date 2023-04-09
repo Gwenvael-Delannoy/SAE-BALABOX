@@ -5,8 +5,7 @@ var equipe_dao =  require('../models/dao/dataBase').equipe_dao;
 var sport_dao = require('../models/dao/dataBase').sport_dao;
 var eleve_dao = require('../models/dao/dataBase').eleve_dao;
 var session_dao = require('../models/dao/dataBase').session_dao;
-//import api 
-//var api = require_once(_ROOT_.'/config.php');
+
 
 
 /* GET error page. */
@@ -46,7 +45,7 @@ router.get('/', function(req, res, next) {
               }
             }
           }
-          console.log(equipes);
+          // console.log(equipes);
           res.render('gestion_equipe',{idSession : idSession, type : type, equipes : equipes});
         }
       });

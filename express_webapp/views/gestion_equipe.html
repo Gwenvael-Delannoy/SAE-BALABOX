@@ -61,88 +61,49 @@
   </div>
       
 
-    <script>
-      const ws = new WebSocket('ws://localhost:3001');
-
+    <!-- <script type="application/javascript">
+      var ws = new WebSocket('ws://localhost:3002');
+      
       new Vue({
-          el: '#app',
-          data: {
-              position : 1,
-              session: '<%=idSession%>',
-              nomEleves: [],
-              parsedClassement: []
+        el: '#app',
+        data: {
+          session: '<%=idSession%>',
+          nomEleves: []
+        },
+        created: function() {
+          // Écouter les événements de la connexion WebSocket
+          const ses = this.session;
+          const sesInt = parseInt(ses);
+
+          ws.onopen = function() {
+            console.log('Connexion établie');
+            ws.send(JSON.stringify({type: 'session', data: sesInt}));
+          };
+          const vm = this;
+
+          ws.onmessage = (event) => {
+            console.log('Message reçu : ' + event.data);
+            const data = JSON.parse(event.data);
+            if (data.type === 'nomEleves') {
+              this.updateNomEleves(data.data);
+            }
+          };
+
+
+          ws.onclose = function() {
+            console.log('Connexion fermée');
+          };
+        },
+        destroyed: function() {
+          // Fermer la connexion WebSocket lorsque la vue est détruite
+          ws.close();
+        },
+        methods: {
+          updateNomEleves(noms) {
+            this.nomEleves = noms;
           },
-          created: function() {
-              // Écouter les événements de la connexion WebSocket
-              this.position=1;
-              const ses = this.session;
-              const sesInt = parseInt(ses);
-
-              ws
-          
-              ws.addEventListener('open', function(event) {
-                  ws.send(JSON.stringify({ type: 'getTabEquipe', session: sesInt }));
-                  ws.send(JSON.stringify({ type: 'getClassement', session: sesInt }));
-              });
-
-              ws.addEventListener('message', function(event) {
-
-                  const data = JSON.parse(event.data);
-                  
-                  if(data.type == 'equipes' && data.session == sesInt){
-                  
-                      const info_equipe = JSON.parse(data.data);
-                      
-                      const noms = [];
-                      for (k = 0;k<info_equipe.length;k++){
-                          var trouver = false;
-                          for (let b = 0; b < this.idCo.length; b++) {
-                              
-                              if(info_equipe[k] == this.idCo[b]){
-                                  trouver=true;
-                              }
-                          }
-                          if(trouver == false ){
-                              noms.push(info_equipe[k]);
-                          }
-                      }
-                      this.updateNomEleves(noms);
-
-
-                  }if(data.type == 'classement' && data.session == sesInt ){
-                      
-                      const parsedClassement = [];
-                      const classementObj = JSON.parse(data.data);
-                      
-                      for (const position in classementObj) {
-                          const eleve = classementObj[position];
-                          parsedClassement.push({
-                              position: position,
-                              id_equipe: eleve[0],
-                              points: eleve[3],
-                              nbMatchs: eleve[4]
-                          });
-                      }
-
-                      parsedClassement.sort((a, b) => b.points - a.points);
-                      this.parsedClassement = parsedClassement;
-                      
-                  }
-                  
-              }.bind(this));
-
-
-          },
-          destroyed: function() {
-              // Fermer la connexion WebSocket lorsque la vue est détruite
-              ws.close();
-          },
-          methods: {
-              updateNomEleves(noms) {
-                  this.nomEleves = noms;
-              },
-          }
+        }
       });
-    </script>
+    </script> -->
 
 </html>
