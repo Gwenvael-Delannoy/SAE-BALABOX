@@ -23,11 +23,35 @@ wss.onclose = function () {
 };
 
 
+var wss2 ;
+
+wss2 = new WebSocket('ws://localhost:3002');
+
+
+
+
 /* Recupere la page de classement des eleves et qui renvoie un tableau de string avec les prenoms des eleves */
 router.get('/', function(req, res,next) {
     classement = {};
     idSession = req.query.ses;
     idEleCo = req.query.id_el;
+
+    wss2.send(JSON.stringify({
+        type: 'equipe_session',
+        session: idSession,
+        equipe:"2",
+
+      }));
+      wss2.send(JSON.stringify({
+        type: 'equipe_session',
+        session: idSession,
+        equipe:"3",
+      }));
+      wss2.send(JSON.stringify({
+        type: 'equipe_session',
+        session: idSession,
+        equipe:"4",
+      }));
 
     equipe_dao.findByKeyEleve(idEleCo, function(err,rows) {
         if (err || rows.length == 0 ) {
@@ -43,6 +67,7 @@ router.get('/', function(req, res,next) {
                 idCo[b] = String(idCo[b]);
               }
             }
+            console.log('idCo : '+idCo);
 
             match_dao.findAllMatchSes(idSession, function(err,rows) {
                 if (err ) {

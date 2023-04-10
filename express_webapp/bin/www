@@ -30,7 +30,7 @@ server.on('listening', onListening);
 const wssEleve = new Websocket.Server({ port: 3001 });
 const wssProfesseur = new Websocket.Server({ port: 3002 });
 
-var eleves = []; // tableau global pour stocker les informations des élèves
+var eleves = {}; // tableau global pour stocker les informations des élèves
 let equipes = {}; // tableau global pour stocker les équipes
 let classement = {};
 let resultat_eleve={}
@@ -44,19 +44,34 @@ wssEleve.on('connection', function connection(ws) {
     try {
       var data = JSON.parse(message);
       console.log('Données reçues:');
-      console.log(data);
        
       if(data.type == 'info_eleve'){
-        eleves.push(data);
-        console.log('Données stockées:');
-        console.log(eleves);
+        var eleve = data.data;
+        var session = data.session;
+        // Vérifier si la session existe dans l'objet eleves_par_session
+        if (!eleves.hasOwnProperty(session)) {
+          eleves[session] = []; // Initialiser un tableau vide pour la session
+        }
+
+        //checker si l'eleve existe deja
+        var existe = false;
+        for(var i = 0; i < eleves[session].length; i++){
+          if(eleves[session][i].nom == eleve.nom && eleves[session][i].prenom == eleve.prenom && eleves[session][i].classe == eleve.classe){
+            existe = true;
+          }
+        }
+        if(!existe){
+          // Ajouter l'élève au tableau correspondant à sa session
+          eleves[session].push(eleve);
+        }
 
         //envoie les données a tous les clients
         wssEleve.clients.forEach(function each(client) {
           if (client.readyState === Websocket.OPEN) {
             let message = {
               type: 'eleves',
-              data: eleves
+              session:session,
+              data: eleves[session]
             };
             client.send(JSON.stringify(message));
           }
@@ -65,35 +80,42 @@ wssEleve.on('connection', function connection(ws) {
           if (client.readyState === Websocket.OPEN) {
             let message = {
               type: 'eleves',
-              data: eleves
-            };
-            client.send(JSON.stringify(message));
-          }
-        });
-      }
-      else if(data.type == 'resultat_eleve'){
-        var session = data.session;
-
-
-        var tab = resultat_eleve[session];
-        var index= tab.length();
-        console.log(index);
-        tab[index]=data.data;
-
-        resultat_eleve[session] = tab;
-        
-        wssProfesseur.clients.forEach(function each(client) {
-          if (client.readyState === Websocket.OPEN) {
-            let message = {
-              type: 'resultat_eleve',
               session:session,
-              data: resultat_eleve[session]
+              data: eleves[session]
             };
             client.send(JSON.stringify(message));
           }
         });
         console.log('Données stockées:');
+        console.log(eleves[session]);
+      }
+      else if(data.type == 'resultat_eleve'){
+        var session = data.session;
+        var donnees = data.data;
+        
+        // Vérifier si la session a déjà été créée dans resultat_eleve
+        if (!resultat_eleve.hasOwnProperty(session)) {
+          resultat_eleve[session] = [];
+        }
+        
+        // Ajouter les données à la liste correspondante
+        resultat_eleve[session].push(donnees);
+        
+        // Envoyer les données aux clients connectés
+        wssProfesseur.clients.forEach(function each(client) {
+          if (client.readyState === Websocket.OPEN) {
+            let message = {
+              type: 'resultat_eleve',
+              session: session,
+              data: resultat_eleve[session]
+            };
+            client.send(JSON.stringify(message));
+          }
+        });
+        
+        console.log('Données stockées:');
         console.log(resultat_eleve);
+        
 
       }
       else if(data.type == 'getTabEquipe'){
@@ -110,25 +132,39 @@ wssEleve.on('connection', function connection(ws) {
             client.send(JSON.stringify(message));
           }
         });
+        wssProfesseur.clients.forEach(function each(client) {
+          if (client.readyState === Websocket.OPEN) {
+            let message = {
+              type: 'equipes',
+              session:session,
+              data: equipes[session]
+            };
+            client.send(JSON.stringify(message));
+          }
+        });
       }
 
       else if(data.type == 'getTabEleve'){
+        var session = data.session;
         console.log('Envoi des données des élèves');
         //envoie les données a tous les clients
         wssEleve.clients.forEach(function each(client) {
           if (client.readyState === Websocket.OPEN) {
             let message = {
               type: 'eleves',
-              data: eleves
+              session:session,
+              data: eleves[session]
             };
             client.send(JSON.stringify(message));
+            console.log(message);
           }
         });
         wssProfesseur.clients.forEach(function each(client) {
           if (client.readyState === Websocket.OPEN) {
             let message = {
               type: 'eleves',
-              data: eleves
+              session:session,
+              data: eleves[session]
             };
             client.send(JSON.stringify(message));
           }
@@ -205,9 +241,21 @@ wssProfesseur.on('connection', function connection(ws) {
     console.log(data);
 
     try {
+      
       if(data.type == 'getTabEleve'){
-        console.log('Envoi des données des élèves au professeur');
-        ws.send(JSON.stringify(eleves));
+        var session = data.session;
+        console.log('Envoi des données des élèves');
+        //envoie les données a tous les clients
+        wssProfesseur.clients.forEach(function each(client) {
+          if (client.readyState === Websocket.OPEN) {
+            let message = {
+              type: 'eleves',
+              session:session,
+              data: eleves[session]
+            };
+            client.send(JSON.stringify(message));
+          }
+        });
       }
       else if(data.type == 'getTabEquipe'){
         var session = data.session;
@@ -217,17 +265,16 @@ wssProfesseur.on('connection', function connection(ws) {
           if (client.readyState === Websocket.OPEN) {
             let message = {
               type: 'equipes',
-              session:id_session,
+              session:session,
               data: equipes[session]
             };
             client.send(JSON.stringify(message));
           }
-        }
-        );
+        });
       }
       else if(data.type == 'getClassement'){
         id_session = data.session;
-
+        //envoie les données a tous les clients
         wssProfesseur.clients.forEach(function each(client) {
           if (client.readyState === Websocket.OPEN) {
             let message = {
@@ -238,7 +285,7 @@ wssProfesseur.on('connection', function connection(ws) {
             client.send(JSON.stringify(message));
           }
         });
-      } 
+      }
       else if(data.type == 'getResultat'){
         id_session = data.session;
 
@@ -257,8 +304,21 @@ wssProfesseur.on('connection', function connection(ws) {
         const equipe = data.equipe;
         const session = data.session;
 
-        
-        equipes[session]= equipe;
+         // Vérifier si la session a déjà été créée dans resultat_eleve
+         if (!equipes.hasOwnProperty(session)) {
+          equipes[session] = [];
+        }
+
+        var trouver = false;
+        for(var i = 0; i < equipes[session].length; i++){
+          if(equipes[session][i] == equipe){
+            trouver = true;
+          }
+        }
+        if(!trouver){    
+          // Ajouter les données à la liste correspondante
+          equipes[session].push(equipe);
+        }
 
         console.log('Données stockées:');
         console.log(equipes);
@@ -268,7 +328,7 @@ wssProfesseur.on('connection', function connection(ws) {
           if (client.readyState === Websocket.OPEN) {
             let message = {
               type: 'equipes',
-              session:id_session,
+              session:session,
               data: equipes[session]
             };
             client.send(JSON.stringify(message));
@@ -278,7 +338,7 @@ wssProfesseur.on('connection', function connection(ws) {
           if (client.readyState === Websocket.OPEN) {
             let message = {
               type: 'equipes',
-              session:id_session,
+              session:session,
               data: equipes[session]
             };
             client.send(JSON.stringify(message));

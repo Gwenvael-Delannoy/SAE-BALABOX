@@ -9,7 +9,7 @@ var WebSocket = require('ws');
 //import api 
 //var api = require_once(_ROOT_.'/config.php');
 var role = -1;
-var professeur ='fefz';//Raul Adrien
+var professeur ='Raul Adrien';//Raul Adrien
 
 /* Recuperer la page d'accueuil. */
 router.get('/', function(req, res, next) {
@@ -208,10 +208,12 @@ router.post('/', function(req, res, next) {
                     // Envoi d'un message vers le serveur WebSocket de l'élève
                     wss.send(JSON.stringify({
                       type: 'info_eleve',
-                      nom: nomEleve,
-                      prenom: prenomEleve,
-                      classe: classeEleve,
-                      session: session[0].id_session
+                      session: session[0].id_session,
+                      data: { 
+                        nom: nomEleve,
+                        prenom: prenomEleve,
+                        classe: classeEleve,
+                      }
                     }));
                   }
                 });

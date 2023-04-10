@@ -17,11 +17,21 @@
         <body>
             <h1>Resultat des élèves</h1>
             <br>
-            <div >
-                <form action='/resultat_prof' method='post'>
-                    <input type="submit" name="action" value="Retour" >
-                </form>
-            </div>
+
+            <% if (nom_sport == "Course") { %>
+                <h2>Course</h2>
+            <% } if (nom_sport == "Natation") { %>
+                <h2>Natation</h2>
+            <% } else if (nom_sport == "Musculation") { %>
+                <h2>Musculation</h2>
+            <% } else if (nom_sport == "Acrosport") { %>
+                <h2>Acrosport</h2>
+            <% } else if (nom_sport == "Escalade") { %>
+                <h2>Escalade</h2>
+            <% } else if (nom_sport == "Step") { %>
+                <h2>Step</h2>
+            <% } %>
+
 
 
             <div>
@@ -29,6 +39,12 @@
                   <p style="color: red;"><%= message %></p>
                 <% } %>
               </div>
+
+              <div >
+                <form action='/resultat_prof' method='post'>
+                    <input type="submit" name="action" value="Retour" >
+                </form>
+            </div>
             
         </body>
         <script>

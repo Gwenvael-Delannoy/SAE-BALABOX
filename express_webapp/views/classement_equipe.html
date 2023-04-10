@@ -91,16 +91,15 @@
                     ws.addEventListener('message', function(event) {
 
                         const data = JSON.parse(event.data);
-                        
+
                         if(data.type == 'equipes' && data.session == sesInt){
-                        
-                            const info_equipe = JSON.parse(data.data);
+                            const info_equipe = data.data;
                             
                             const noms = [];
+                            console.log(this.idCo);
                             for (k = 0;k<info_equipe.length;k++){
                                 var trouver = false;
                                 for (let b = 0; b < this.idCo.length; b++) {
-                                    
                                     if(info_equipe[k] == this.idCo[b]){
                                         trouver=true;
                                     }

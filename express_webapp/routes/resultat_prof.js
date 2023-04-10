@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
         }
         else{
           if(rows.length == 0){
-            res.render('resultat_prof',{message:'Auncun résultat pour cette session'});
+            res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:'Auncun résultat pour cette session'});
           }else{
             for(i = 0; i < rows.length; i++){
               var tmp =[];
@@ -61,7 +61,7 @@ router.get('/', function(req, res, next) {
                       freq_card : tmp[5],
                       complementaire : tmp[6],
                     });
-                    res.render('resultat_prof',{message:''});
+                    res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
                   }
                   else if (nom_sport == "Musculation"){
   
@@ -91,7 +91,7 @@ router.get('/', function(req, res, next) {
                           temps_pause: tmp[3],
                           ressenti : tmp[8],
                         });
-                        res.render('resultat_prof',{message:''});
+                        res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
                       }
                     });
                   }
@@ -134,7 +134,7 @@ router.get('/', function(req, res, next) {
                               figures : tmp2,
           
                             });
-                            res.render('resultat_prof',{message:''});
+                            res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
                           }
                         });
                       }
@@ -179,7 +179,7 @@ router.get('/', function(req, res, next) {
                                   complementaire : tmp[4]
       
                                 });
-                                res.render('resultat_prof',{message:''});
+                                res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
                               }
                             });
                           }
@@ -215,7 +215,7 @@ router.get('/', function(req, res, next) {
                           nbPlongeons : tmp[6],
                           complementaire : tmp[5],
                         });
-                        res.render('resultat_prof',{message:''});
+                        res.render('resultat_prof',{idSession:id_session,nom,message:''});
                       }
                     });
                   }else if(nom_sport == "Step"){
@@ -248,7 +248,7 @@ router.get('/', function(req, res, next) {
                           bilanPerso :  tmp[8],
                           perspective :  tmp[9],
                         });
-                        res.render('resultat_prof',{message:''});
+                        res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
                       }
                     });
                   }

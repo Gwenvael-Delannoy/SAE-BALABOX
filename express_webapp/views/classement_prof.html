@@ -22,7 +22,7 @@
         </div>
         <body>
             <div class="container" id="app">
-                <h1>Classement du tournois
+                <h1>Classement du tournoi
                 </h1>
                 <br>
                 <br>
@@ -54,7 +54,10 @@
                             </tbody>
                         </table>
                     </div>
-
+                    <% if (message) { %>
+                        <p style="color: red;"><%= message %></p>
+                    <% } %>
+    
                 <% } %>
                 <% if (type == "tournoi individuel"){ %>
                     <div class="tab">

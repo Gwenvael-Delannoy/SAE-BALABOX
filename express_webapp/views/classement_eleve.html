@@ -95,13 +95,14 @@
                     ws.addEventListener('message', function(event) {
                        
                         const data = JSON.parse(event.data);
-                        
-                        if(data.type == 'eleves'){
+
+                        if(data.type == 'eleves' && data.session == sesInt){
                             const infoEleve = data.data;
+                            console.log("o=infoooo "+ infoEleve);
                             
                             const noms = [];
                             for (const eleve of infoEleve) {
-                                if (eleve.session === sesInt && eleve.nom !== this.nomCo && eleve.prenom !== this.prenomCo) {
+                                if (eleve.nom !== this.nomCo && eleve.prenom !== this.prenomCo) {
                                     noms.push(eleve.nom + ' ' + eleve.prenom);
                                 }
                             }
