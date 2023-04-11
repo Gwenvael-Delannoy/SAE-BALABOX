@@ -32,6 +32,7 @@ router.get('/', function(req, res, next) {
           if(rows.length == 0){
             res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:'Auncun résultat pour cette session'});
           }else{
+            var done = false;
             for(i = 0; i < rows.length; i++){
               var tmp =[];
               var id_eleve=rows[i].unEleve;
@@ -62,7 +63,12 @@ router.get('/', function(req, res, next) {
                       freq_card : tmp[5],
                       complementaire : tmp[6],
                     });
-                    res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
+                    if(i+1 == rows.length){
+                      done = true;
+                    }
+                    if(done == true){
+                      res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
+                    }
                   }
                   else if (nom_sport == "Musculation"){
   
@@ -92,7 +98,12 @@ router.get('/', function(req, res, next) {
                           temps_pause: tmp[3],
                           ressenti : tmp[8],
                         });
-                        res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
+                        if(i == rows.length + 1){
+                          done = true;
+                        }
+                        if(done == true){
+                          res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
+                        }
                       }
                     });
                   }
@@ -135,7 +146,12 @@ router.get('/', function(req, res, next) {
                                         total_point : tmp[3],
                                         figures : tmp2,
                                       });
-                                      res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
+                                      if(i == rows.length + 1){
+                                        done = true;
+                                      }
+                                      if(done == true){
+                                        res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
+                                      }
                                     }
                                   }
                                 });
@@ -157,7 +173,6 @@ router.get('/', function(req, res, next) {
                         tmp[4]=resultatEncours.complementaire;
                         tmp[5]=rowdd[0].assureur;
 
-  
                         escalade_dao.findVoieByEscalade(id_resultat, function(err, rowss){
                           if(err){
                             res.render("error", {message: err});
@@ -169,7 +184,6 @@ router.get('/', function(req, res, next) {
                                 res.render("error", {message: err});
                               }
                               else{
-  
                                 tmp[6]=rowsss[0].nom_voie;
                                 tmp[7]=rowsss[0].deg_diffi;
                                 
@@ -186,7 +200,13 @@ router.get('/', function(req, res, next) {
                                   complementaire : tmp[4]
       
                                 });
-                                res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
+                                if(i == rows.length){
+                                  done = true;
+                                }
+                                if(done == true){
+                                  console.log("ok3");
+                                  res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
+                                }
                               }
                             });
                           }
@@ -222,7 +242,12 @@ router.get('/', function(req, res, next) {
                           nbPlongeons : tmp[6],
                           complementaire : tmp[5],
                         });
-                        res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
+                        if(i == rows.length + 1){
+                          done = true;
+                        }
+                        if(done == true){
+                          res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
+                        }
                       }
                     });
                   }else if(nom_sport == "Step"){
@@ -256,7 +281,12 @@ router.get('/', function(req, res, next) {
                           bilanPerso :  tmp[8],
                           perspective :  tmp[9],
                         });
-                        res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
+                        if(i == rows.length + 1){
+                          done = true;
+                        }
+                        if(done == true){
+                          res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
+                        }
                       }
                     });
                   }

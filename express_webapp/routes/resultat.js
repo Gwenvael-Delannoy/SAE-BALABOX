@@ -200,7 +200,6 @@ router.post('/', function(req, res, next) {
               }
               else{
                 total_point = total_point + figure[0].point;
-                console.log(total_point);
   
                 //checker si la figure a déjà été faite
                 for (var j = 0; j < id_figures.length; j++) {
@@ -555,11 +554,12 @@ router.post('/', function(req, res, next) {
 
 });
 
+
 function envoieDonneesProf(donnees) {
   var WebSocket = require('ws');
   var wss;
   // Connexion au websocket du professeur
-  wss = new WebSocket('ws://localhost:3002');
+  wss = new WebSocket('ws://localhost:3001');
   wss.on('open', function open() {
     wss.send(JSON.stringify({type: 'resultat_eleve',nom_sport : nom_sport , session : info_eleveProfConnecte[3],data: donnees}));
   });
