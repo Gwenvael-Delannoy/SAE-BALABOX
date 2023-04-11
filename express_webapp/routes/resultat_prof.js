@@ -12,6 +12,7 @@ var resultat_dao = require('../models/dao/dataBase').resultat_dao;
 var eleve_dao = require('../models/dao/dataBase').eleve_dao;
 
 var id_session ;
+var nom_sport = '';
 
 /* Recuperer la page de tournoi de foot */ 
 router.get('/', function(req, res, next) {
@@ -19,7 +20,7 @@ router.get('/', function(req, res, next) {
   id_session = req.query.idsession;
 
   sport_dao.findByKey(id_sport, function(err, row) {
-    var nom_sport = row[0].nom_sport;
+    nom_sport = row[0].nom_sport;
 
     if (err) res.render("error", {message: err});
     else{
@@ -277,7 +278,7 @@ function envoieDonneesProf(donnees) {
   // Connexion au websocket du professeur
   wss = new WebSocket('ws://localhost:3001');
   wss.on('open', function open() {
-    wss.send(JSON.stringify({type: 'resultat_eleve',session : id_session,data: donnees}));
+    wss.send(JSON.stringify({type: 'resultat_eleve',nom_sport : nom_sport ,session : id_session,data: donnees}));
   });
 }
 module.exports = router;

@@ -560,7 +560,7 @@ function envoieDonneesProf(donnees) {
   // Connexion au websocket du professeur
   wss = new WebSocket('ws://localhost:3002');
   wss.on('open', function open() {
-    wss.send(JSON.stringify({type: 'resultat_eleve',session : info_eleveProfConnecte[3],data: donnees}));
+    wss.send(JSON.stringify({type: 'resultat_eleve',nom_sport : nom_sport , session : info_eleveProfConnecte[3],data: donnees}));
   });
 }
 module.exports = router;

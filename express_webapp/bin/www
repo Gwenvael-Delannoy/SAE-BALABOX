@@ -91,14 +91,53 @@ wssEleve.on('connection', function connection(ws) {
       else if(data.type == 'resultat_eleve'){
         var session = data.session;
         var donnees = data.data;
+        var nom_sport = data.nom_sport;
         
         // Vérifier si la session a déjà été créée dans resultat_eleve
         if (!resultat_eleve.hasOwnProperty(session)) {
           resultat_eleve[session] = [];
         }
-        
-        // Ajouter les données à la liste correspondante
-        resultat_eleve[session].push(donnees);
+
+        //checker si le resultat existe deja
+        var existe = false;
+
+        console.log(nom_sport);
+        for(var i = 0; i < resultat_eleve[session].length; i++){
+          if(nom_sport == "Course"){
+            if(resultat_eleve[session][i].nom == donnees.nom && resultat_eleve[session][i].prenom == donnees.prenom && resultat_eleve[session][i].classe == donnees.classe &&resultat_eleve[session][i].temps == donnees.temps && resultat_eleve[session][i].distance == donnees.distance&& resultat_eleve[session][i].freq_card == donnees.freq_card&& resultat_eleve[session][i].complementaire == donnees.complementaire){
+              existe = true;
+            }
+          }
+          else if (nom_sport == "Natation"){
+            if(resultat_eleve[session][i].nom == donnees.nom && resultat_eleve[session][i].prenom == donnees.prenom && resultat_eleve[session][i].classe == donnees.classe &&resultat_eleve[session][i].temps == donnees.temps && resultat_eleve[session][i].distance == donnees.distance&& resultat_eleve[session][i].style_nage == donnees.style_nage&& resultat_eleve[session][i].complementaire == donnees.complementaire && resultat_eleve[session][i].nbPlongeons == donnees.nbPlongeons && resultat_eleve[session][i].nom_bassin == donnees.nom_bassin){
+              existe = true;
+            }
+          }
+          else if (nom_sport == "Step"){
+            if(resultat_eleve[session][i].nom == donnees.nom && resultat_eleve[session][i].prenom == donnees.prenom && resultat_eleve[session][i].classe == donnees.classe && resultat_eleve[session][i].temps == donnees.temps && resultat_eleve[session][i].type_mobilite == donnees.type_mobilite && resultat_eleve[session][i].freq_cardiaque == donnees.freq_cardiaque && resultat_eleve[session][i].paramIndv == donnees.paramIndv&& resultat_eleve[session][i].ressenti == donnees.ressenti&& resultat_eleve[session][i].bilanPerso == donnees.bilanPerso&& resultat_eleve[session][i].perspective == donnees.perspective){
+              existe = true;
+            }
+          }
+          else if (nom_sport == "Musculation"){
+            if(resultat_eleve[session][i].nom == donnees.nom && resultat_eleve[session][i].prenom == donnees.prenom && resultat_eleve[session][i].classe == donnees.classe && resultat_eleve[session][i].nom_muscle == donnees.nom_muscle && resultat_eleve[session][i].nb_series == donnees.nb_series && resultat_eleve[session][i].nb_repetitions == donnees.nb_repetitions && resultat_eleve[session][i].intensite == donnees.intensite && resultat_eleve[session][i].poids == donnees.poids && resultat_eleve[session][i].temps_pause == donnees.temps_pause && resultat_eleve[session][i].ressenti == donnees.ressenti){
+              existe = true;
+            }
+          }
+          else if (nom_sport == "Acrosport"){
+            if(resultat_eleve[session][i].nom == donnees.nom && resultat_eleve[session][i].prenom == donnees.prenom && resultat_eleve[session][i].classe == donnees.classe && resultat_eleve[session][i].total_point == donnees.total_point && resultat_eleve[session][i].figures == donnees.figures){
+              existe = true;
+            }
+          }
+          else if (nom_sport == "Escalade"){
+            if(resultat_eleve[session][i].nom == donnees.nom && resultat_eleve[session][i].prenom == donnees.prenom && resultat_eleve[session][i].classe == donnees.classe && resultat_eleve[session][i].la_voie == donnees.la_voie && resultat_eleve[session][i].deg_diffi == donnees.deg_diffi && resultat_eleve[session][i].assureur == donnees.assureur && resultat_eleve[session][i].temps == donnees.temps && resultat_eleve[session][i].complementaire == donnees.complementaire){
+              existe = true;
+            }
+          }
+        }
+        if(!existe){
+          // Ajouter les données à la liste correspondante
+          resultat_eleve[session].push(donnees);
+        }
         
         // Envoyer les données aux clients connectés
         wssProfesseur.clients.forEach(function each(client) {
