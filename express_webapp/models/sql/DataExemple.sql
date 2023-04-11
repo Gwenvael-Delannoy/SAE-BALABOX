@@ -105,33 +105,45 @@ INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (8,5,0);
 INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (9,4,0);
 INSERT INTO Match_Equipe(le_match , lequipe,gagnant) VALUES (9,5,3);
 
--- creer un resultat
+-- creer des objects resultat
 INSERT INTO Resultat(temps,distance,freq_card,complementaire,la_session,unEleve)VALUES("00:00:12",100,145,"épuisé",9,1);
 INSERT INTO Resultat(temps,distance,freq_card,complementaire,la_session,unEleve)VALUES(null,null,null,null,7,2);
 INSERT INTO Resultat(temps,distance,freq_card,complementaire,la_session,unEleve)VALUES("00:01:48",null,null,"épuisé",6,3);
+INSERT INTO Resultat(temps,distance,freq_card,complementaire,la_session,unEleve)VALUES("00:01:48",800,null,"épuisé",11,1);
+INSERT INTO Resultat(temps,distance,freq_card,complementaire,la_session,unEleve)VALUES("00:01:48",null,null,null,10,3);
+INSERT INTO Resultat(temps,distance,freq_card,complementaire,la_session,unEleve)VALUES("00:01:48",null,156,null,8,1);
 
 
--- creer des figures d'acrosport
+
+-- creer des  objects figures d'acrosport
 INSERT INTO Figure(nom,description,point) VALUES ('figure 1','figure 1',1);
 INSERT INTO Figure(nom,description,point) VALUES ('figure 2','figure 2',2);
 INSERT INTO Figure(nom,description,point) VALUES ('figure 3','figure 3',3);
 INSERT INTO Figure(nom,description,point) VALUES ('figure 4','figure 4',4);
 
 
--- creer des voies d'escalade
+-- creer des objects voies d'escalade
 INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('La redoutable',10);
 INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('La monté',11);
 INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('La pente',12);
 INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('La roue tournante',13);
 INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('L enfer',14);
 
--- creer un acrosport
+-- creer un object  acrosport
 INSERT INTO Acrosport(id_acrosport,total_point)VALUES(2,6);
 
 INSERT INTO Figure_Acrosport(lAcrosport,laFigure)VALUES(2,1);
 INSERT INTO Figure_Acrosport(lAcrosport,laFigure)VALUES(2,2);
 INSERT INTO Figure_Acrosport(lAcrosport,laFigure)VALUES(2,3);
 
--- creer un escalade
+-- creer un object  escalade
 INSERT INTO Escalade(id_escalade,assureur,total_diff)VALUES(3,"Payet",8);
 INSERT INTO Escalade_Voie(lEscalade,laVoie)VALUES(3,1);
+
+-- creer un object natation
+INSERT INTO Natation(id_natation,style_nage,plongeons,nom_bassin)VALUES(4,"Dos",4,"Le roi");
+
+-- creer un object musculatation
+INSERT INTO Musculation(id_musculation,muscle_travailler,series,nb_reps,intensite,charge,ressenti)VALUES(5,"Triceps : Dips",4,10,80,80,"épuisé");
+
+INSERT INTO Step(id_step,type_mobilite,ressenti,param_indv,bilan_perso,perspective)VALUES(6,"Dynamique","Fatigué , manque de sucre aussi","poids de 4kg à la cheville","Tout est bon","Finir la danse semaine prochaine");

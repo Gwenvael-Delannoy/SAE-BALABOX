@@ -71,19 +71,19 @@ router.get('/', function(req, res, next) {
                         res.render("error", {message: err});
                       }else{
                         tmp[3]=resultatEncours.temps;
-                        tmp[4]=rowsiiiii.series;
-                        tmp[5]=rowsiiiii.nb_reps;
-                        tmp[6]=rowsiiiii.intensite;
-                        tmp[7]=rowsiiiii.charge;
-                        tmp[8]=rowsiiiii.ressenti;
-                        tmp[9]=rowsiiiii.muscle_travailler;
+                        tmp[4]=rowsiiiii[0].series;
+                        tmp[5]=rowsiiiii[0].nb_reps;
+                        tmp[6]=rowsiiiii[0].intensite;
+                        tmp[7]=rowsiiiii[0].charge;
+                        tmp[8]=rowsiiiii[0].ressenti;
+                        tmp[9]=rowsiiiii[0].muscle_travailler;
   
                         envoieDonneesProf({
                           sport : nom_sport,                
-                          nom : info_eleveProfConnecte[0],
-                          prenom : info_eleveProfConnecte[1],
-                          classe : info_eleveProfConnecte[2],
-                          session : info_eleveProfConnecte[3],
+                          nom : tmp[0],
+                          prenom : tmp[1],
+                          classe : tmp[2],
+                          session : id_session,
                           nom_muscle : tmp[9],
                           nb_series : tmp[4],
                           nb_repetitions : tmp[5],
@@ -118,27 +118,29 @@ router.get('/', function(req, res, next) {
                             else {
                               for(j = 0; j < rowss.length; j++){
                                 var id_figure = rowss[j].laFigure;
-                                console.log(id_figure);
+                                
                                 figure_dao.findByKey(id_figure, function(err, rowsss) {
                                   if(err){
                                     res.render("error", {message: err});
                                   }
                                   else{
                                     tmp2.push (rowsss[0].nom + " | " + rowsss[0].point);
+                                    if(tmp2.length == rowss.length){
+                                      envoieDonneesProf({
+                                        sport : nom_sport,                
+                                        nom : tmp[0],
+                                        prenom : tmp[1],
+                                        classe : tmp[2],
+                                        session : id_session,
+                                        total_point : tmp[3],
+                                        figures : tmp2,
+                                      });
+                                      res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
+                                    }
                                   }
                                 });
                               }
                             }
-                            envoieDonneesProf({
-                              sport : nom_sport,                
-                              nom : tmp[0],
-                              prenom : tmp[1],
-                              classe : tmp[2],
-                              session : id_session,
-                              total_point : tmp[3],
-                              figures : tmp2,
-                            });
-                            res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
                           }
                         });
                       }
@@ -170,7 +172,7 @@ router.get('/', function(req, res, next) {
   
                                 tmp[6]=rowsss[0].nom_voie;
                                 tmp[7]=rowsss[0].deg_diffi;
-                                console.log(tmp);
+                                
                                 envoieDonneesProf({
                                   sport : nom_sport,                
                                   nom : tmp[0],
@@ -192,7 +194,7 @@ router.get('/', function(req, res, next) {
                       }
                     });
                   }
-                  else if(non_sport == "Natation"){
+                  else if(nom_sport == "Natation"){
   
                     tmp[3]=resultatEncours.temps;
                     tmp[4]=resultatEncours.distance;
@@ -203,9 +205,9 @@ router.get('/', function(req, res, next) {
                       if(err){
                         res.render("error", {message: err});
                       }else{
-                        tmp[6]=rowsii.plongeons;
-                        tmp[7]=rowsii.style_nage;
-                        tmp[8]=rowsii.nom_bassin;
+                        tmp[6]=rowsii[0].plongeons;
+                        tmp[7]=rowsii[0].style_nage;
+                        tmp[8]=rowsii[0].nom_bassin;
   
                         envoieDonneesProf({
                           sport : nom_sport,                
@@ -220,24 +222,25 @@ router.get('/', function(req, res, next) {
                           nbPlongeons : tmp[6],
                           complementaire : tmp[5],
                         });
-                        res.render('resultat_prof',{idSession:id_session,nom,message:''});
+                        res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
                       }
                     });
                   }else if(nom_sport == "Step"){
   
                     tmp[3]=resultatEncours.temps;
-                    tmp[4]=resultatEncours.freq_card
-  
+                    tmp[4]=resultatEncours.freq_card;
                     step_dao.findByKey(id_resultat, function(err, rowsiii) {
                       if(err){
                         res.render("error", {message: err});
                       }else{
-                        tmp[5]=rowsiii.type_mobilite;
-                        tmp[6]=rowsiii.ressenti;
-                        tmp[7]=rowsiii.paramIndv;
-                        tmp[8]=rowsiii.bilanPerso;
-                        tmp[9]=rowsiii.perspective;
-  
+                        console.log(rowsiii[0]);
+                        tmp[5]=rowsiii[0].type_mobilite;
+                        tmp[6]=rowsiii[0].ressenti;
+                        tmp[7]=rowsiii[0].param_indv;
+                        tmp[8]=rowsiii[0].bilan_perso;
+                        tmp[9]=rowsiii[0].perspective;
+                        console.log(rowsiii[0].paramIndv);
+                        console.log(rowsiii[0].bilanPerso);
   
                         envoieDonneesProf({
                           sport : nom_sport,                
