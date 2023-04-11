@@ -124,7 +124,7 @@ wssEleve.on('connection', function connection(ws) {
             }
           }
           else if (nom_sport == "Acrosport"){
-            if(resultat_eleve[session][i].nom == donnees.nom && resultat_eleve[session][i].prenom == donnees.prenom && resultat_eleve[session][i].classe == donnees.classe && resultat_eleve[session][i].total_point == donnees.total_point && resultat_eleve[session][i].figures == donnees.figures){
+            if(resultat_eleve[session][i].nom == donnees.nom && resultat_eleve[session][i].prenom == donnees.prenom && resultat_eleve[session][i].classe == donnees.classe && resultat_eleve[session][i].total_point == donnees.total_point){
               existe = true;
             }
           }

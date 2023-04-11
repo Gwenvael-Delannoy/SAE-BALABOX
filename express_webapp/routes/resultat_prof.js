@@ -103,7 +103,7 @@ router.get('/', function(req, res, next) {
                         res.render("error", {message: err});
                       }
                       else{
-                        tmp[3]=rowsiiii.total_point;
+                        tmp[3]=rowsiiii[0].total_point;
                         tmp[4]='';
   
                         figure_dao.findByAcro(id_resultat, function(err, rowss){
@@ -111,29 +111,32 @@ router.get('/', function(req, res, next) {
                             res.render("error", {message: err});
                           }
                           else{
-                            tmp2=[];
-                            console.log(rowss);
-                            for(j = 0; j < rowss.length; j++){
-                              var id_figure = rowss[j].laFigure;
-                              figure_dao.findByKey(id_figure, function(err, rowsss) {
-                                if(err){
-                                  res.render("error", {message: err});
-                                }
-                                else{
-                                  tmp2[j] = rowsss[0].nom + " | " + rowsss[0].point;
-                                }
-                              });
+                            var tmp2=[];
+                            if(rowss.length == 0){
+                              tmp2[0] = "Aucune figure";
                             }
-                              console.log(tmp2);
+                            else {
+                              for(j = 0; j < rowss.length; j++){
+                                var id_figure = rowss[j].laFigure;
+                                console.log(id_figure);
+                                figure_dao.findByKey(id_figure, function(err, rowsss) {
+                                  if(err){
+                                    res.render("error", {message: err});
+                                  }
+                                  else{
+                                    tmp2.push (rowsss[0].nom + " | " + rowsss[0].point);
+                                  }
+                                });
+                              }
+                            }
                             envoieDonneesProf({
-                              nom_sport : nom_sport,
+                              sport : nom_sport,                
                               nom : tmp[0],
                               prenom : tmp[1],
                               classe : tmp[2],
                               session : id_session,
                               total_point : tmp[3],
                               figures : tmp2,
-          
                             });
                             res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
                           }

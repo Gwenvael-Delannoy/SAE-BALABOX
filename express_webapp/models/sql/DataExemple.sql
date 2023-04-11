@@ -126,7 +126,7 @@ INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('La roue tournante',13);
 INSERT INTO Voie(nom_voie,deg_diffi) VALUES ('L enfer',14);
 
 -- creer un acrosport
-INSERT INTO Acrosport(id_acrosport,total_point)VALUES(2,45);
+INSERT INTO Acrosport(id_acrosport,total_point)VALUES(2,6);
 
 INSERT INTO Figure_Acrosport(lAcrosport,laFigure)VALUES(2,1);
 INSERT INTO Figure_Acrosport(lAcrosport,laFigure)VALUES(2,2);
@@ -135,5 +135,3 @@ INSERT INTO Figure_Acrosport(lAcrosport,laFigure)VALUES(2,3);
 -- creer un escalade
 INSERT INTO Escalade(id_escalade,assureur,total_diff)VALUES(3,"Payet",8);
 INSERT INTO Escalade_Voie(lEscalade,laVoie)VALUES(3,1);
-
-select * from escalade;

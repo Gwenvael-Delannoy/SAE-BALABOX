@@ -200,6 +200,7 @@ router.post('/', function(req, res, next) {
               }
               else{
                 total_point = total_point + figure[0].point;
+                console.log(total_point);
   
                 //checker si la figure a déjà été faite
                 for (var j = 0; j < id_figures.length; j++) {
