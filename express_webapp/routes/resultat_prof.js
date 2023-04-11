@@ -65,17 +65,17 @@ router.get('/', function(req, res, next) {
                   }
                   else if (nom_sport == "Musculation"){
   
-                    musculation_dao.findByKey(id_resultat, function(err, row) {
+                    musculation_dao.findByKey(id_resultat, function(err, rowsiiiii) {
                       if(err){
                         res.render("error", {message: err});
                       }else{
                         tmp[3]=resultatEncours.temps;
-                        tmp[4]=row.series;
-                        tmp[5]=row.nb_reps;
-                        tmp[6]=row.intensite;
-                        tmp[7]=row.charge;
-                        tmp[8]=row.ressenti;
-                        tmp[9]=row.muscle_travailler;
+                        tmp[4]=rowsiiiii.series;
+                        tmp[5]=rowsiiiii.nb_reps;
+                        tmp[6]=rowsiiiii.intensite;
+                        tmp[7]=rowsiiiii.charge;
+                        tmp[8]=rowsiiiii.ressenti;
+                        tmp[9]=rowsiiiii.muscle_travailler;
   
                         envoieDonneesProf({
                           sport : nom_sport,                
@@ -97,12 +97,12 @@ router.get('/', function(req, res, next) {
                   }
                   else if (nom_sport == "Acrosport"){
   
-                    acrosport_dao.findByKey(id_resultat, function(err, row) {
+                    acrosport_dao.findByKey(id_resultat, function(err, rowsiiii) {
                       if(err){
                         res.render("error", {message: err});
                       }
                       else{
-                        tmp[3]=row.total_point;
+                        tmp[3]=rowsiiii.total_point;
                         tmp[4]='';
   
                         figure_dao.findByAcro(id_resultat, function(err, rowss){
@@ -142,14 +142,15 @@ router.get('/', function(req, res, next) {
                   }
                   else if (nom_sport == "Escalade"){
   
-                    escalade_dao.findByKey(id_resultat, function(err, row) {
+                    escalade_dao.findByKey(id_resultat, function(err, rowdd) {
                       if(err){
                         res.render("error", {message: err});
                       }
                       else{
                         tmp[3]=resultatEncours.temps;
                         tmp[4]=resultatEncours.complementaire;
-                        tmp[5]=resultatEncours.assureur;
+                        tmp[5]=rowdd[0].assureur;
+
   
                         escalade_dao.findVoieByEscalade(id_resultat, function(err, rowss){
                           if(err){
@@ -165,7 +166,7 @@ router.get('/', function(req, res, next) {
   
                                 tmp[6]=rowsss[0].nom_voie;
                                 tmp[7]=rowsss[0].deg_diffi;
-  
+                                console.log(tmp);
                                 envoieDonneesProf({
                                   sport : nom_sport,                
                                   nom : tmp[0],
@@ -194,13 +195,13 @@ router.get('/', function(req, res, next) {
                     tmp[5]=resultatEncours.complementaire;
                     
   
-                    natation_dao.findByKey(id_resultat, function(err, row) {
+                    natation_dao.findByKey(id_resultat, function(err, rowsii) {
                       if(err){
                         res.render("error", {message: err});
                       }else{
-                        tmp[6]=row.plongeons;
-                        tmp[7]=row.style_nage;
-                        tmp[8]=row.nom_bassin;
+                        tmp[6]=rowsii.plongeons;
+                        tmp[7]=rowsii.style_nage;
+                        tmp[8]=rowsii.nom_bassin;
   
                         envoieDonneesProf({
                           sport : nom_sport,                
@@ -223,15 +224,15 @@ router.get('/', function(req, res, next) {
                     tmp[3]=resultatEncours.temps;
                     tmp[4]=resultatEncours.freq_card
   
-                    step_dao.findByKey(id_resultat, function(err, row) {
+                    step_dao.findByKey(id_resultat, function(err, rowsiii) {
                       if(err){
                         res.render("error", {message: err});
                       }else{
-                        tmp[5]=row.type_mobilite;
-                        tmp[6]=row.ressenti;
-                        tmp[7]=row.paramIndv;
-                        tmp[8]=row.bilanPerso;
-                        tmp[9]=row.perspective;
+                        tmp[5]=rowsiii.type_mobilite;
+                        tmp[6]=rowsiii.ressenti;
+                        tmp[7]=rowsiii.paramIndv;
+                        tmp[8]=rowsiii.bilanPerso;
+                        tmp[9]=rowsiii.perspective;
   
   
                         envoieDonneesProf({

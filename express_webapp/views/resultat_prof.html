@@ -4,6 +4,10 @@
         <head>
             <meta charset="utf-8">
             <title>Resultat des élèves</title>
+            <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
             <link rel="stylesheet" href="/stylesheets/eleveVsEleve.css">
 
             <div class ="block">
@@ -15,25 +19,191 @@
     
         </head>
         <body>
+            <div class="container" id="app">
             <h1>Resultat des élèves</h1>
             <br>
 
             <% if (nom_sport == "Course") { %>
                 <h2>Course</h2>
-            <% } if (nom_sport == "Natation") { %>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Classe</th>
+                            <th>Temps</th>
+                            <th>Distance</th>
+                            <th>Fréquence cardiaque</th>
+                            <th>Complémentaire</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(result, index) in parsedResultat">
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ result.nom }}</td>
+                            <td>{{ result.prenom }}</td>
+                            <td>{{ result.classe }}</td>
+                            <td>{{ result.temps }}</td>
+                            <td>{{ result.distance }}</td>
+                            <td>{{ result.freq_card }}</td>
+                            <td>{{ result.complementaire }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            <% } else if (nom_sport == "Natation") { %>
                 <h2>Natation</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Classe</th>
+                            <th>Bassin</th>
+                            <th>Nage</th>
+                            <th>Distance</th>
+                            <th>Temps</th>
+                            <th>Nombre de plongeons</th>
+                            <th>Complémentaire</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(result, index) in parsedResultat">
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ result.nom }}</td>
+                            <td>{{ result.prenom }}</td>
+                            <td>{{ result.classe }}</td>
+                            <td>{{ result.nom_bassin }}</td>
+                            <td>{{ result.style_nage }}</td>
+                            <td>{{ result.distance }}</td>
+                            <td>{{ result.temps }}</td>
+                            <td>{{ result.nbPlongeons }}</td>
+                            <td>{{ result.complementaire }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             <% } else if (nom_sport == "Musculation") { %>
                 <h2>Musculation</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Classe</th>
+                            <th>Muscle</th>
+                            <th>Nombre de séries</th>
+                            <th>Nombre de répétitions</th>
+                            <th>Intensité</th>
+                            <th>Poids</th>
+                            <th>Temps de pause</th>
+                            <th>Ressenti</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(result, index) in parsedResultat">
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ result.nom }}</td>
+                            <td>{{ result.prenom }}</td>
+                            <td>{{ result.classe }}</td>
+                            <td>{{ result.nom_muscle }}</td>
+                            <td>{{ result.nb_series }}</td>
+                            <td>{{ result.nb_repetitions }}</td>
+                            <td>{{ result.intensite }}</td>
+                            <td>{{ result.poids }}</td>
+                            <td>{{ result.temps_pause }}</td>
+                            <td>{{ result.ressenti }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             <% } else if (nom_sport == "Acrosport") { %>
                 <h2>Acrosport</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Classe</th>
+                            <th>Figure</th>
+                            <th>Nombre de points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(result, index) in parsedResultat">
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ result.nom }}</td>
+                            <td>{{ result.prenom }}</td>
+                            <td>{{ result.classe }}</td>
+                            <td>{{ result.figures }}</td>
+                            <td>{{ result.total_point }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             <% } else if (nom_sport == "Escalade") { %>
                 <h2>Escalade</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Classe</th>
+                            <th>La voie</th>
+                            <th>Degré de difficulté</th>
+                            <th>Assureur</th>
+                            <th>Temps</th>
+                            <th>Complémentaire</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(result, index) in parsedResultat">
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ result.nom }}</td>
+                            <td>{{ result.prenom }}</td>
+                            <td>{{ result.classe }}</td>
+                            <td>{{ result.la_voie }}</td>
+                            <td>{{ result.deg_difficulte }}</td>
+                            <td>{{ result.assureur }}</td>
+                            <td>{{ result.temps }}</td>
+                            <td>{{ result.complementaire }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             <% } else if (nom_sport == "Step") { %>
                 <h2>Step</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Classe</th>
+                            <th>Type de mobilité</th>
+                            <th>Fréquence cardiaque</th>
+                            <th>Paramètres individuels</th>
+                            <th>Ressenti</th>
+                            <th>Bilan personnel</th>
+                            <th>Perspective</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(result, index) in parsedResultat">
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ result.nom }}</td>
+                            <td>{{ result.prenom }}</td>
+                            <td>{{ result.classe }}</td>
+                            <td>{{ result.type_mobilite }}</td>
+                            <td>{{ result.freq_cardiaque }}</td>
+                            <td>{{ result.paramIndv }}</td>
+                            <td>{{ result.ressenti }}</td>
+                            <td>{{ result.bilanPerso }}</td>
+                            <td>{{ result.perspective }}</td>
+                        </tr>
+                    </tbody>
+                </table>
             <% } %>
-
-
-
             <div>
                 <% if (message) { %>
                   <p style="color: red;"><%= message %></p>
@@ -45,56 +215,143 @@
                     <input type="submit" name="action" value="Retour" >
                 </form>
             </div>
-            
+            </div>
         </body>
         <script>
-            const ws = new WebSocket('ws://localhost:3001');
+            const ws = new WebSocket('ws://localhost:3002');
 
             new Vue({
                 el: '#app',
                 data: {
                     position : 1,
+
                     session: '<%=idSession%>',
-                    parsedClassement: [],
+                    nom_sport: '<%=nom_sport%>',
+                    parsedResultat: [],
                 },
                 created: function() {
                     // Écouter les événements de la connexion WebSocket
                     this.position=1;
                     const ses = this.session;
                     const sesInt = parseInt(ses);
-
-                
                 
                     ws.addEventListener('open', function(event) {
-
-                        ws.send(JSON.stringify({ type: 'getTabEleve', session: sesInt }));
-                        ws.send(JSON.stringify({ type: 'getClassement', session: sesInt }));
+                        ws.send(JSON.stringify({ type: 'getResultat', session: sesInt }));
                     });
 
                     ws.addEventListener('message', function(event) {
                        
                         const data = JSON.parse(event.data);
-                        if(data.type == 'classement' && data.session == sesInt ){
-                            
-                            const parsedClassement = [];
-                            const classementObj = JSON.parse(data.data);
-                            
-                            Object.values(classementObj).forEach((res) => {
-                                parsedClassement.push({
-                                    nom: res.nom,
-                                    prenom: res.prenom,
-                                    points: res.points,
-                                    position: this.position++,
+                        if(data.type == 'resultat_eleve' && data.session == sesInt ){
+
+                            const parsedResultat = [];
+
+                            if(this.nom_sport == "Course"){
+                                
+                                const resultObj = data.data;
+                                
+                                Object.values(resultObj).forEach((res) => {
+                                    parsedResultat.push({
+                                        nom: res.nom,
+                                        prenom: res.prenom,
+                                        classe:res.classe,
+                                        temps: res.temps,
+                                        distance : res.distance,
+                                        freq_card : res.freq_card,
+                                        complementaire : res.complementaire,
+                                    });
                                 });
-                            });
-
-                            parsedClassement.sort((a, b) => b.points - a.points);
-
-
-                            this.parsedClassement = parsedClassement;
-                            
+                            }else if(this.nom_sport == "Natation"){
+                                
+                                const resultObj = data.data;
+                                
+                                Object.values(resultObj).forEach((res) => {
+                                    parsedResultat.push({
+                                        nom: res.nom,
+                                        prenom: res.prenom,
+                                        classe:res.classe,
+                                        nom_bassin: res.nom_bassin,
+                                        style_nage: res.style_nage,
+                                        distance: res.distance,
+                                        temps: res.temps,
+                                        nbPlongeons: res.nbPlongeons,
+                                        complementaire: res.complementaire,
+                                    });
+                                });
                             }
-                        
+                            else if(this.nom_sport == "Escalade"){
+                                
+                                const resultObj = data.data;
+                                
+                                Object.values(resultObj).forEach((res) => {
+                                    parsedResultat.push({
+                                        nom: res.nom,
+                                        prenom: res.prenom,
+                                        classe:res.classe,
+                                        la_voie: res.la_voie,
+                                        deg_difficulte: res.deg_diffi,
+                                        assureur:res.assureur,
+                                        temps: res.temps,
+                                        complementaire: res.complementaire,
+                                    });
+                                });
+
+                            }
+                            else if(this.nom_sport == "Musculation"){
+                                
+                                const resultObj = data.data;
+                                
+                                Object.values(resultObj).forEach((res) => {
+                                    parsedResultat.push({
+                                        nom: res.nom,
+                                        prenom: res.prenom,
+                                        classe:res.classe,
+                                        nom_muscle: res.nom_muscle,
+                                        nb_series: res.nb_series,
+                                        nb_repetitions: res.nb_repetitions,
+                                        intensite:res.intensite,
+                                        poids:res.poids,
+                                        temps_pause:res.temps_pause,
+                                        ressenti:res.ressenti,
+                                    });
+                                });
+                            }
+                            else if(this.nom_sport == "Step"){
+                                
+                                const resultObj = data.data;
+                                
+                                Object.values(resultObj).forEach((res) => {
+                                    parsedResultat.push({
+                                        nom: res.nom,
+                                        prenom: res.prenom,
+                                        temps: res.temps,
+                                        classe:res.classe,
+                                        type_mobilite : res.type_mobilite,
+                                        freq_cardiaque:res.freq_cardiaque,
+                                        paramIndv:res.paramIndv,
+                                        ressenti:res.ressenti,
+                                        bilanPerso : res.bilanPerso,
+                                        perspective:res.perspective,
+
+                                    });
+                                });
+                            }
+                            else if(this.nom_sport == "Acrosport"){
+                                
+                                const resultObj = data.data;
+                                
+                                Object.values(resultObj).forEach((res) => {
+                                    parsedResultat.push({
+                                        nom: res.nom,
+                                        prenom: res.prenom,
+                                        classe:res.classe,
+                                        total_point:res.total_point,
+                                        figures:res.figures,
+                                    });
+                                });
+                            }
+                            console.log(parsedResultat);
+                        }
                     }.bind(this));
 
 

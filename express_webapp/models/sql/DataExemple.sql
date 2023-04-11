@@ -133,8 +133,7 @@ INSERT INTO Figure_Acrosport(lAcrosport,laFigure)VALUES(2,2);
 INSERT INTO Figure_Acrosport(lAcrosport,laFigure)VALUES(2,3);
 
 -- creer un escalade
-INSERT INTO Escalade(id_escalade,assureur)VALUES(3,"Payet");
+INSERT INTO Escalade(id_escalade,assureur,total_diff)VALUES(3,"Payet",8);
 INSERT INTO Escalade_Voie(lEscalade,laVoie)VALUES(3,1);
 
-select * from match_;
-select * from match_eleve where un_match = 13;
+select * from escalade;

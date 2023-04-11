@@ -43,7 +43,6 @@ wssEleve.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
     try {
       var data = JSON.parse(message);
-      console.log('Données reçues:');
        
       if(data.type == 'info_eleve'){
         var eleve = data.data;
@@ -113,10 +112,6 @@ wssEleve.on('connection', function connection(ws) {
           }
         });
         
-        console.log('Données stockées:');
-        console.log(resultat_eleve);
-        
-
       }
       else if(data.type == 'getTabEquipe'){
         var session = data.session;
@@ -156,7 +151,6 @@ wssEleve.on('connection', function connection(ws) {
               data: eleves[session]
             };
             client.send(JSON.stringify(message));
-            console.log(message);
           }
         });
         wssProfesseur.clients.forEach(function each(client) {
@@ -237,8 +231,6 @@ wssProfesseur.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
 
     var data = JSON.parse(message);
-    console.log('Données reçues:');
-    console.log(data);
 
     try {
       
@@ -288,6 +280,8 @@ wssProfesseur.on('connection', function connection(ws) {
       }
       else if(data.type == 'getResultat'){
         id_session = data.session;
+        console.log('Envoi des données des résultats');
+        console.log(resultat_eleve[id_session]);
 
         wssProfesseur.clients.forEach(function each(client) {
           if (client.readyState === Websocket.OPEN) {
