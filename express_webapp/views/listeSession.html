@@ -26,14 +26,14 @@
 
         <div id='session'>
             <% for(var i = 0; i < session.length; i++) { %> 
-                <form action='/listeSession' method='post' id=<%= session[i].id_session %> style='border: 1px solid black; padding: 10px;'>
-                    Sport : <%= session[i].nom_sport %>
+                <form action='/listeSession' method='post' id='<%= session[i].id_session %>'>
+                   <p> Sport : <%= session[i].nom_sport %></p>
                     <br>
-                    Identifiant de connexion : <%= session[i].identifiant_con %>
+                    <p>Identifiant de connexion : <%= session[i].identifiant_con %></p>
                     <br>
-                    Mot de passe : <%= session[i].mdp %>
+                    <p>Mot de passe : <%= session[i].mdp %></p>
                     <br>
-                    Date : <%= session[i].date_session %>
+                    <p>Date : <%= session[i].date_session %></p>
                     <br>
                     <button name="action" value="view" type='submit'>
                         <img src='/images/icon_oeil.png' width=100% height=100% />

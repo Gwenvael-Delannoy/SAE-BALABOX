@@ -1,6 +1,5 @@
 body {
     margin: 0;
-    /* padding: 0; */
  }  
 
 /* 
@@ -45,10 +44,12 @@ Header
 }
 
 .titre {
+    font-family: 'Roboto', sans-serif;
     text-align: center;
 }
 
 .formulaire{
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
     margin-left: 20%;
     margin-right: 20%;
@@ -78,6 +79,12 @@ Header
     width: 80px;
 }
 
+.formulaire #BtValide:hover{
+    background-color : #00b200;
+    color : #e6e3e3;
+}
+
+
 .formulaire #BtAnnuler{
     float: right;
     margin-right: 40%;
@@ -88,4 +95,18 @@ Header
     width: 80px;
     border: #ffffff;
     border-radius: 12px;
+}
+
+.formulaire #BtAnnuler:hover{
+    background-color : #b20000;
+    color : #e6e3e3;
+}
+
+
+@media screen and (max-width : 1340px) {
+    .formulaire #BtAnnuler{
+        float: none;
+        margin-right: auto;
+        margin-left: auto;
+    }
 }
