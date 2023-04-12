@@ -9,7 +9,7 @@ var WebSocket = require('ws');
 //import api 
 //var api = require_once(_ROOT_.'/config.php');
 var role = -1;
-var professeur ='Raul Adrien';//Raul Adrien
+var professeur ='Jean';//Raul Adrien
 
 /* Recuperer la page d'accueuil. */
 router.get('/', function(req, res, next) {

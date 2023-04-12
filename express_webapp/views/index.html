@@ -22,7 +22,7 @@
 
                 <button type="submit" name ="btn" value ="BtConnexion" >Connexion session </button>
                 
-                <button type="button" name ="btn" onclick="window.location.href='/listeSession';" value ="BtAccesProf" >Accès professeur </button>
+                <button type="button" name ="btn" onclick="window.location.href=`/listeSession?prof=<%= professeur %>`;" value ="BtAccesProf" >Accès professeur </button>
             </form>
 
             <% } else { %>
