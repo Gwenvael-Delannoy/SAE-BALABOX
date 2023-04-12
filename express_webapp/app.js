@@ -15,6 +15,8 @@ var eleveVsEleve = require('./routes/eleveVsEleve');
 var gestionEquipe = require('./routes/gestion_equipe');
 var resultat_prof = require('./routes/resultat_prof');
 var classement_prof = require('./routes/classement_prof');
+var gestion_voie = require('./routes/gestion_voie');
+var gestion_figure = require('./routes/gestion_figure');
 var error = require('./routes/error');
 var updateSession = require('./routes/updateSession');
 
@@ -43,8 +45,10 @@ app.use('/resultat_prof', resultat_prof);
 app.use('/error', error);
 app.use('/updateSession', updateSession);
 app.use('/classement_prof', classement_prof);
-
+app.use('/gestion_voie',gestion_voie);
+app.use('/gestion_figure',gestion_figure);
 app.use('/resultat', resultat);
+
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 // catch 404 and forward to error handlermy
