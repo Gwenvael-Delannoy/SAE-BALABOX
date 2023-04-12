@@ -13,11 +13,16 @@ var match_dao = require('../models/dao/dataBase').match_dao;
 
 //import api 
 //var api = require_once(_ROOT_.'/config.php');
-
+var nom_prof;
 
 /* Recuperer la page qui liste toutes les session créer par le professeur connecté . */
 router.get('/', function(req, res, next) {
-  var nom_prof = 'Raul Adrien';
+  if(req.query.prof){
+    nom_prof = req.query.prof;
+  } else {
+    nom_prof = 'Raul Adrien';
+  }
+  
 
   //requeter l'api avec /authentified et on recuepre le role et on regarde si s'est un professer ou non
   /**
@@ -42,7 +47,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   if(req.body.action == 'add') {
-    res.redirect('crSession');
+    res.redirect('/crSession?prof='+nom_prof+'');
 
   }
 
@@ -61,7 +66,7 @@ router.post('/', function(req, res, next) {
           type_session = row[0].type_session;
  
           if(req.body.action == 'update') {
-            res.redirect('crSession');
+            res.redirect('/updateSession?prof='+nom_prof+'&idSession=' + id+'');
         
           } else if(req.body.action == 'view') {
 

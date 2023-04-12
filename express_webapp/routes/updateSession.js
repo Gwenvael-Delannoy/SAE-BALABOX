@@ -53,7 +53,7 @@ router.post('/', function(req, res, next) {
 
         session_dao.update(id, sess, function(err, rows) {
           if (err) res.render('error', {message: err});
-          else res.redirect('listeSession');
+          else res.redirect('/listeSession?prof='+prof+'');
         });
       }
   });
