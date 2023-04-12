@@ -32,13 +32,20 @@ router.get('/', function(req, res, next) {
           if(rows.length == 0){
             res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:'Auncun résultat pour cette session'});
           }else{
-            var done = false;
+            console.log("rows.length : " + rows.length);
             for(i = 0; i < rows.length; i++){
               var tmp =[];
+              var k = i;
               var id_eleve=rows[i].unEleve;
-              var id_resultat = rows[i].id_resultat;
               var resultatEncours = rows[i];
+              console.log(resultatEncours);
+
+              if(k == rows.length -1){
+                res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
+              }
+
               eleve_dao.findByKey(id_eleve, function(err, row) {
+                console.log("id_resultat : " + resultatEncours.id_resultat);
                 if(err){
                   res.render("error", {message: err});
                 }else{
@@ -63,16 +70,10 @@ router.get('/', function(req, res, next) {
                       freq_card : tmp[5],
                       complementaire : tmp[6],
                     });
-                    if(i+1 == rows.length){
-                      done = true;
-                    }
-                    if(done == true){
-                      res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
-                    }
                   }
                   else if (nom_sport == "Musculation"){
   
-                    musculation_dao.findByKey(id_resultat, function(err, rowsiiiii) {
+                    musculation_dao.findByKey(resultatEncours.id_resultat, function(err, rowsiiiii) {
                       if(err){
                         res.render("error", {message: err});
                       }else{
@@ -98,18 +99,12 @@ router.get('/', function(req, res, next) {
                           temps_pause: tmp[3],
                           ressenti : tmp[8],
                         });
-                        if(i == rows.length + 1){
-                          done = true;
-                        }
-                        if(done == true){
-                          res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
-                        }
                       }
                     });
                   }
                   else if (nom_sport == "Acrosport"){
   
-                    acrosport_dao.findByKey(id_resultat, function(err, rowsiiii) {
+                    acrosport_dao.findByKey(resultatEncours.id_resultat, function(err, rowsiiii) {
                       if(err){
                         res.render("error", {message: err});
                       }
@@ -117,7 +112,7 @@ router.get('/', function(req, res, next) {
                         tmp[3]=rowsiiii[0].total_point;
                         tmp[4]='';
   
-                        figure_dao.findByAcro(id_resultat, function(err, rowss){
+                        figure_dao.findByAcro(resultatEncours.id_resultat, function(err, rowss){
                           if(err){
                             res.render("error", {message: err});
                           }
@@ -146,12 +141,6 @@ router.get('/', function(req, res, next) {
                                         total_point : tmp[3],
                                         figures : tmp2,
                                       });
-                                      if(i == rows.length + 1){
-                                        done = true;
-                                      }
-                                      if(done == true){
-                                        res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
-                                      }
                                     }
                                   }
                                 });
@@ -163,8 +152,9 @@ router.get('/', function(req, res, next) {
                     });
                   }
                   else if (nom_sport == "Escalade"){
+                    console.log("id_resultat : " + resultatEncours.id_resultat);
   
-                    escalade_dao.findByKey(id_resultat, function(err, rowdd) {
+                    escalade_dao.findByKey(resultatEncours.id_resultat, function(err, rowdd) {
                       if(err){
                         res.render("error", {message: err});
                       }
@@ -173,7 +163,7 @@ router.get('/', function(req, res, next) {
                         tmp[4]=resultatEncours.complementaire;
                         tmp[5]=rowdd[0].assureur;
 
-                        escalade_dao.findVoieByEscalade(id_resultat, function(err, rowss){
+                        escalade_dao.findVoieByEscalade(resultatEncours.id_resultat, function(err, rowss){
                           if(err){
                             res.render("error", {message: err});
                           }
@@ -186,7 +176,8 @@ router.get('/', function(req, res, next) {
                               else{
                                 tmp[6]=rowsss[0].nom_voie;
                                 tmp[7]=rowsss[0].deg_diffi;
-                                
+                                console.log("ok3");
+                                console.log(tmp);
                                 envoieDonneesProf({
                                   sport : nom_sport,                
                                   nom : tmp[0],
@@ -200,13 +191,6 @@ router.get('/', function(req, res, next) {
                                   complementaire : tmp[4]
       
                                 });
-                                if(i == rows.length){
-                                  done = true;
-                                }
-                                if(done == true){
-                                  console.log("ok3");
-                                  res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
-                                }
                               }
                             });
                           }
@@ -221,7 +205,7 @@ router.get('/', function(req, res, next) {
                     tmp[5]=resultatEncours.complementaire;
                     
   
-                    natation_dao.findByKey(id_resultat, function(err, rowsii) {
+                    natation_dao.findByKey(resultatEncours.id_resultat, function(err, rowsii) {
                       if(err){
                         res.render("error", {message: err});
                       }else{
@@ -242,19 +226,13 @@ router.get('/', function(req, res, next) {
                           nbPlongeons : tmp[6],
                           complementaire : tmp[5],
                         });
-                        if(i == rows.length + 1){
-                          done = true;
-                        }
-                        if(done == true){
-                          res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
-                        }
                       }
                     });
                   }else if(nom_sport == "Step"){
   
                     tmp[3]=resultatEncours.temps;
                     tmp[4]=resultatEncours.freq_card;
-                    step_dao.findByKey(id_resultat, function(err, rowsiii) {
+                    step_dao.findByKey(resultatEncours.id_resultat, function(err, rowsiii) {
                       if(err){
                         res.render("error", {message: err});
                       }else{
@@ -281,12 +259,6 @@ router.get('/', function(req, res, next) {
                           bilanPerso :  tmp[8],
                           perspective :  tmp[9],
                         });
-                        if(i == rows.length + 1){
-                          done = true;
-                        }
-                        if(done == true){
-                          res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:''});
-                        }
                       }
                     });
                   }

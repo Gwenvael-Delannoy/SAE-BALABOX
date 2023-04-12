@@ -101,7 +101,7 @@ wssEleve.on('connection', function connection(ws) {
         //checker si le resultat existe deja
         var existe = false;
 
-        console.log(nom_sport);
+        console.log(donnees);
         for(var i = 0; i < resultat_eleve[session].length; i++){
           if(nom_sport == "Course"){
             if(resultat_eleve[session][i].nom == donnees.nom && resultat_eleve[session][i].prenom == donnees.prenom && resultat_eleve[session][i].classe == donnees.classe &&resultat_eleve[session][i].temps == donnees.temps && resultat_eleve[session][i].distance == donnees.distance&& resultat_eleve[session][i].freq_card == donnees.freq_card&& resultat_eleve[session][i].complementaire == donnees.complementaire){
