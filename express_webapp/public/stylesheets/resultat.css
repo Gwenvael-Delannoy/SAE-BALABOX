@@ -43,17 +43,35 @@ Header
     color : #e6e3e3;
 }
 .formulaire{
+    font-family: 'Roboto', sans-serif;
     display: block;
     text-align: center;
     font-size: 16px;
-    margin-top: 250px;
+    margin-top: 50px;
     line-height: 1.8;
     margin-left: auto;
     margin-right: auto;
-    border-radius: 12%;
-    width: 70%;
-    background-color: #eed9d9;
+    border-radius: 30px;
+    width: 600px;
+    background-color: #ffffff;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px, rgba(0, 0, 0, 0.2) 0px 4px 10px -3px, rgba(0, 0, 0, 0.15) 0px -2px 0px inset;
+}
 
+.formulaire input{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 200px;
+    height: 25px;
+    border-radius: 6px;
+    border: 1px solid #000000;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 16px;
+}
 
+.formulaire input[type=submit]:hover{
+    background-color: #dbdbdb;
+    color: #000000;
 }
