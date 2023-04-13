@@ -9,6 +9,7 @@ var matchSession = [];
 let classement;
 var nomCo = '';
 var prenomCo = '';
+var classeCo = '';
 var idEleCo='';
 var wss ;
 
@@ -41,6 +42,7 @@ router.get('/', function(req, res,next) {
             
             nomCo = rows[0].nom;
             prenomCo = rows[0].prenom;
+            classeCo = rows[0].classe;
 
             if (typeof nomCo !== 'string') {
                  nomCo = String(nomCo);
@@ -49,6 +51,9 @@ router.get('/', function(req, res,next) {
             if (typeof prenomCo !== 'string') {
                  prenomCo = String(prenomCo);
             }
+            if (typeof classeCo !== 'string') {
+                classeCo = String(classeCo);
+           }
 
             match_dao.findAllMatchSes(idSession, function(err,rows) {
                 if (err ) {
@@ -110,7 +115,7 @@ router.get('/', function(req, res,next) {
                                                                 session: idSession,
                                                                 classement:JSON.stringify(classement),
                                                             }));
-                                                            res.render('classement_eleve', { idSession : idSession,classement:classement, nomCo : nomCo, prenomCo : prenomCo,message : ''});
+                                                            res.render('classement_eleve', { idSession : idSession,classement:classement, nomCo : nomCo, prenomCo : prenomCo, classeCo:classeCo ,message : ''});
                                                         }
                                                         
                                                     } else {
@@ -130,7 +135,7 @@ router.get('/', function(req, res,next) {
                                                                 session: idSession,
                                                                 classement:JSON.stringify(classement),
                                                             }));
-                                                            res.render('classement_eleve', { idSession : idSession,classementBis:classementBis, nomCo : nomCo, prenomCo : prenomCo,message : ''});
+                                                            res.render('classement_eleve', { idSession : idSession,classementBis:classementBis, nomCo : nomCo, prenomCo : prenomCo,classeCo:classeCo,message : ''});
                                                         }
                                                         
                                                     }
@@ -174,6 +179,7 @@ router.post('/', function(req, res, next) {
                 }else{
                     res.render('eleve_contre_eleve', { idSession : idSession, NomAdversaire : NomAdversaire, idEleCo : idEleCo, idSport : rows[0].le_sport});
                     console.log("idSession :" +idSession+ "\nNomAdversaire :" +NomAdversaire);
+                    console.log("idEleCo :" +idEleCo+ "\nidSport :" +rows[0].le_sport);
                 }
             }
         }
