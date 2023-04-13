@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ajout d"une figure d'acrosport</title>
+        <link rel="stylesheet" href="/stylesheets/gestion.css">
+    </head>
+    
+    <body>
+        <div class ="block">
+            <header class="header">
+                <img class="logo" src="/images/image.jpeg">
+                <a class="lienBoutton" href="/" ><input type = "button" value="Menu principal"></a>
+            </header>
+        </div>
+        <h1>Ajout d'une figure</h1>
+        <form action='/gestionFigure_ajout' method='post'>
+            <label for="nomVoie">Nom de la figure: </label>
+            <input type="text" id="nom_figure" name="nom_figure" value=" ">
+            <label for="nomVoie">Deescription de la figure: </label>
+            <input type="text" id="desc_figure" name="desc_figure" value=" ">
+            <label for="point">Point de la figure: </label>
+            <input type="number" id="point" name="point" value =0 min="0" step="1">
+            <button class="bouton" name="action" value="Ajouter">Ajouter</button>
+            <button class="bouton" name="action" value="Annuler">Annuler</button>
+        </form>
+    </body>
+</html>

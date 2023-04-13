@@ -18,8 +18,12 @@ router.get('/', function(req, res, next) {
                 res.redirect('/gestion_figure?message=La figure n\'existe pas');
             }
             else{
-                figureModif =  figure;
-                res.render('gestionFigure_modification',{figureModif : figureModif, message : ""});
+                figureModif =  figure[0];
+                var nom = figureModif.nom;
+                var desc = figureModif.description;
+                var point = figureModif.point;
+                var id_figure = figureModif.id_figure;
+                res.render('gestionFigure_modification',{id_figure:id_figure , nom:nom , desc:desc, point : point, message : ""});
             }
         }
     });
@@ -33,8 +37,8 @@ router.post('/', function(req, res, next) {
         res.redirect('/gestion_figure');
     }
     else if (req.body.action ==  'Modifier'){
-        var nom = req.body.nom;
-        var description = req.body.description;
+        var nom = req.body.nom_figure;
+        var description = req.body.desc_figure;
         var point = req.body.point;
 
         var figure = new Figure();

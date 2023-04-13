@@ -17,8 +17,11 @@ router.get('/', function(req, res, next) {
                 res.redirect('/gestion_voie?message=La voie n\'existe pas');
             }
             else{
-                var voieModif=JSON.stringify(voie);
-                res.render('gestionVoie_modification',{voie :voieModif , message : ""});
+                voieModif = voie;
+                var id_voie = voieModif[0].id_voie;
+                var nom_voie = voieModif[0].nom_voie;
+                var deg_diffi = voieModif[0].deg_diffi;
+                res.render('gestionVoie_modification',{id_voie:id_voie, nom_voie :nom_voie , deg_diffi : deg_diffi, message : ""});
             }
         }
     });
@@ -31,12 +34,11 @@ router.post('/', function(req, res, next) {
         res.redirect('/gestion_voie');
     }
     else if (req.body.action ==  'Modifier'){
-        var nom_voie = req.body.nomVoie;
-        var deg_diffi = req.body.difficulté;
+        var nom_voie = req.body.nom_voie;
+        var deg_diffi = req.body.deg_diffi;
 
         var voie = new Voie();
         voie.init(nom_voie, deg_diffi);
-        console.log(id_voie);
 
         voie_dao.update(id_voie,voie, function(err, voie){
             if (err) throw err;

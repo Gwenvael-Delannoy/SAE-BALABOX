@@ -13,8 +13,8 @@ router.post('/', function(req, res, next) {
         res.redirect('/gestion_figure');
     }
     else if (req.body.action ==  'Ajouter'){
-        var nom = req.body.nom;
-        var description = req.body.description;
+        var nom = req.body.nom_figure;
+        var description = req.body.desc_figure;
         var point = req.body.point;
 
         var figure = new Figure();

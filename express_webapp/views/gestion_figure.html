@@ -44,6 +44,12 @@
               <% }); %>
             </tbody>
           </table>              
-        </div>          
+        </div>
+        <div>
+          <!-- Afficher le message d'erreur s'il y en a un -->
+          <% if (message) { %>
+            <p style="color: red;"><%= message %></p>
+          <% } %>
+      </div>           
     </body>
 </html>
