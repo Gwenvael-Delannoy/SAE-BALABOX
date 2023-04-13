@@ -27,6 +27,7 @@ router.post('/', function(req, res, next) {
     console.log("idEleCo : " + idEleCo);
 
     NomAdversaire = NomAdversaire.split(" ")[0];
+    console.log("Nom adversaire : "+NomAdversaire)
 
     eleve_dao.findByName(NomAdversaire, function(err,rows) {
         if (err ) {
@@ -35,7 +36,7 @@ router.post('/', function(req, res, next) {
         }
         else{
             idAdversaire = rows[0].id_eleve;
-            console.log("idAdversaire : " + idAdversaire);
+            console.log("idAdversaire : " + rows.length);
             let leMatch = new match();
             leMatch.init(score1, score2, idSession);
             match_dao.insert(leMatch, function(err,rows) {
@@ -61,12 +62,14 @@ router.post('/', function(req, res, next) {
                                         messageError ='Connexion à la base de donnée impossible';
                                         res.render('error',{message : messageError});
                                     }
+                                    console.log(idEleCo)
                                 });
                                 match_dao.insertMatch_Eleve(leMatch.getId(), idAdversaire, 0, function(err,rows) {
                                     if (err ) {
                                         messageError ='Connexion à la base de donnée impossible';
                                         res.render('error',{message : messageError});
                                     }
+                                    console.log("idAvairsaire : "+idAdversaire)
                                 });
                             }
                             else if(score1<score2){
