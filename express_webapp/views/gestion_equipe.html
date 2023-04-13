@@ -59,51 +59,59 @@
       </div>
     </div>
   </div>
-      
+  </body>
+  <script>
+    const ws = new WebSocket('ws://localhost:3002');
 
-    <!-- <script type="application/javascript">
-      var ws = new WebSocket('ws://localhost:3002');
-      
-      new Vue({
+    new Vue({
         el: '#app',
         data: {
-          session: '<%=idSession%>',
-          nomEleves: []
+            position : 1,
+            session: '<%=idSession%>',
+            nomEleves: [],
         },
         created: function() {
           // Écouter les événements de la connexion WebSocket
+          this.position=1;
           const ses = this.session;
           const sesInt = parseInt(ses);
+    
+          ws.addEventListener('open', function(event) {
 
-          ws.onopen = function() {
-            console.log('Connexion établie');
-            ws.send(JSON.stringify({type: 'session', data: sesInt}));
-          };
-          const vm = this;
+            ws.send(JSON.stringify({ type: 'getTabEleve', session: sesInt }));
+          });
 
-          ws.onmessage = (event) => {
-            console.log('Message reçu : ' + event.data);
-            const data = JSON.parse(event.data);
-            if (data.type === 'nomEleves') {
-              this.updateNomEleves(data.data);
-            }
-          };
+          ws.addEventListener('message', function(event) {
+              
+              const data = JSON.parse(event.data);
+              console.log(data.data);
 
+              if(data.type == 'eleves' && data.session == sesInt){
+                  const infoEleve = data.data;
+                  console.log("o=infoooo "+ infoEleve);
+                  
+                  const noms = [];
+                  for (const eleve of infoEleve) {
+                      if (eleve.nom !== this.nomCo && eleve.prenom !== this.prenomCo) {
+                          noms.push(eleve.nom + ' ' + eleve.prenom);
+                      }
+                  }
+                  this.updateNomEleves(noms);
 
-          ws.onclose = function() {
-            console.log('Connexion fermée');
-          };
+              }
+          }.bind(this));
         },
         destroyed: function() {
-          // Fermer la connexion WebSocket lorsque la vue est détruite
-          ws.close();
+            // Fermer la connexion WebSocket lorsque la vue est détruite
+            ws.close();
         },
         methods: {
-          updateNomEleves(noms) {
-            this.nomEleves = noms;
-          },
+            updateNomEleves(noms) {
+                this.nomEleves = noms;
+                
+            },
         }
-      });
-    </script> -->
-
+    });
+  </script>
 </html>
+

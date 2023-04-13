@@ -300,6 +300,8 @@ wssProfesseur.on('connection', function connection(ws) {
               data: equipes[session]
             };
             client.send(JSON.stringify(message));
+            console.log('Envoi des données des equipesaaaaaaaaaaaaaaaaa');
+            console.log(equipes[session]);
           }
         });
       }
