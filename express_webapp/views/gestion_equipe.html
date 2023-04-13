@@ -5,12 +5,6 @@
     <title>Gestion des équipes</title>
     <link rel="stylesheet" href="/stylesheets/gestionEquipe.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
   </head>
   <body>
@@ -22,13 +16,13 @@
       </header>
     </div>
     
-      <h1>Gestion des équipes</h1>
+      <h1 class="titre">Gestion des équipes</h1>
 
       <div class="equipeExist">
-        <h2>Equipes existantes</h2>
+        <h2 class="titreEquipeExist">Equipes existantes</h2>
         <div class="tableau" >
           <% for(var i = 0; i < equipes.length; i++) { %>
-              <p>Equipe <%=equipes[i].id_equipe %></p>
+              <p class="EquipeNom">Equipe <%=equipes[i].id_equipe %></p>
               <div class="tab">
                 <table class="table table-striped">
                     <thead class="thead-dark">
@@ -46,20 +40,32 @@
                                 <td><%=equipes[i].eleves[j].prenom%></td>
                             </tr>
                         <% } %>
-                        
                 </tbody>
               </table>
-              <p>Ajouter Eleve</p>
+              <div class="ajoutEleve">
+                <p class="ajoutEleveP">Ajouter Eleve</p>
                 <select id="mySelect" v-model="updateNomEleves">
                   <option v-for="nom in nomEleves">{{ nom }}</option>
-              </select>
-              <% } %>
-          </div>
+                </select>
+              </div>
+            </div>
+            <% } %>
         </div>
       </div>
     </div>
-  </div>
+
+    <h2 class="titreNEquipe">Nouvelle Equipe</h1>
+      <form class="NewEquipe" method="post" action="/gestionEquipe">
+        <input type="hidden" name="statut" value="newEquipe">
+        <input type="hidden" name="idSession" value="<%=idSession%>">
+        <button type="submit" >Créer une équipe</button>
+      </form>
+
+
   </body>
+
+  
+
   <script>
     const ws = new WebSocket('ws://localhost:3002');
 

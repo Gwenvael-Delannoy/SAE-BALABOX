@@ -44,10 +44,153 @@ Header
 }
 
 
-.tableau {
-    margin-top: 10px;
-    margin-left: 3%;
-    margin-right: 3%;
-    width: 94%;
-    height: 100%;
+.titre {
+    font-family: 'Roboto', sans-serif;	
+    padding-top: 20px;
+    text-align: center;
+}
+
+.titreEquipeExist{
+    font-family: 'Roboto', sans-serif;	
+    padding-top: 20px;
+    text-align: center;
+}
+
+.EquipeNom{
+    text-align: center;
+    padding-top: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+}
+
+/* 
+Tableau
+*/
+
+th {
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    background-color: #212529;
+    border-color: #32383e;
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+    text-align: inherit;
+    display: table-cell;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    border-collapse: separate;
+    text-indent: initial;
+    border-spacing: 0px;
+}
+
+td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+    display: table-cell;
+    vertical-align: inherit;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+
+}
+
+tbody {
+    font-family: 'Roboto', sans-serif;
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tbody tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.05);
+}
+
+input {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+input:hover{
+    background-color: #e6e3e3;
+}
+
+
+.tab {
+    border-bottom: 1px solid #bbbcbd;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+/* 
+ajout Eleve 
+*/
+
+
+.ajoutEleveP{
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+#mySelect {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+.ajoutEleve{ 
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+/* 
+Nouvelle Equipe
+*/
+
+.titreNEquipe{
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    padding-top: 20px;
+}
+
+.NewEquipe {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.NewEquipe button{
+    background-color: #ff9955;
+    color: #ffffff;
+    font-size: 16px;
+    height: 40px;
+    border: #ffffff;
+    border-radius: 12px;
+}
+
+.NewEquipe button:hover{
+    background-color : #ff7b00;
+    color : #e6e3e3;
 }
