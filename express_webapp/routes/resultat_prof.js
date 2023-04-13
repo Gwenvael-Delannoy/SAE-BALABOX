@@ -278,6 +278,11 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   if (req.body.action ==  'Retour'){
     res.redirect('/listeSession');
+  }else if(req.body.action ==  'Gestion des figures'){
+    res.redirect('/gestion_figure');
+  }
+  else if(req.body.action ==  'Gestion des voies'){
+    res.redirect('/gestion_voie');
   }
 });
 function envoieDonneesProf(donnees) {

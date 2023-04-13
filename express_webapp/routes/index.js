@@ -8,14 +8,14 @@ var WebSocket = require('ws');
 
 //import api 
 //var api = require_once(_ROOT_.'/config.php');
-var role = -1;
-var professeur ='Jean';//Raul Adrien
+var role;
+var professeur ='Raul Adrien';//Raul Adrien
 
 /* Recuperer la page d'accueuil. */
 router.get('/', function(req, res, next) {
 
   var message ='';
-  role = 4
+  role = 2
 
   //requeter l'api avec /authentified et on recuepre le role et on regarde si s'est un professer ou non
   /**
@@ -40,7 +40,7 @@ router.post('/', function(req, res, next) {
   var classeEleve='';
   var messageError = '';
   var wss ;
-  
+  console.log('role : '+role);
   if(role == 4 ||role == 5 ){
     nomEleve = req.body.SNomEleve;
     prenomEleve = req.body.SPrenomEleve;
@@ -59,7 +59,6 @@ router.post('/', function(req, res, next) {
     wss.onclose = function () {
       console.log('Déconnexion websocket pour l eleve.');
     };
-
 
   }else if(role == 2 ||role == 3) {
 

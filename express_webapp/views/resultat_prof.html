@@ -119,6 +119,9 @@
                 </table>
             <% } else if (nom_sport == "Acrosport") { %>
                 <h2>Acrosport</h2>
+                <form action='/resultat_prof' method='post'>
+                    <input type="submit" name="action" value="Gestion des figures" >
+                </form>
                 <table>
                     <thead>
                         <tr>
@@ -143,6 +146,9 @@
                 </table>
             <% } else if (nom_sport == "Escalade") { %>
                 <h2>Escalade</h2>
+                <form action='/resultat_prof' method='post'>
+                    <input type="submit" name="action" value="Gestion des voies" >
+                </form>
                 <table>
                     <thead>
                         <tr>

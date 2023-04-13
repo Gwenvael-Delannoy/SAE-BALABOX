@@ -147,3 +147,9 @@ INSERT INTO Natation(id_natation,style_nage,plongeons,nom_bassin)VALUES(4,"Dos",
 INSERT INTO Musculation(id_musculation,muscle_travailler,series,nb_reps,intensite,charge,ressenti)VALUES(5,"Triceps : Dips",4,10,80,80,"épuisé");
 
 INSERT INTO Step(id_step,type_mobilite,ressenti,param_indv,bilan_perso,perspective)VALUES(6,"Dynamique","Fatigué , manque de sucre aussi","poids de 4kg à la cheville","Tout est bon","Finir la danse semaine prochaine");
+
+
+select * from escalade;
+select * from escalade_voie;
+select * from resultat;
+select * from match_eleve where un_match=10;

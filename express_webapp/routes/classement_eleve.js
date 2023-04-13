@@ -9,6 +9,7 @@ var matchSession = [];
 let classement;
 var nomCo = '';
 var prenomCo = '';
+var idEleCo='';
 var wss ;
 
 

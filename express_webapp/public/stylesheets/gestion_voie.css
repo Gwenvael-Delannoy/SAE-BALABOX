@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+ }  
+
+/* 
+Header
+*/
+
+.block .header {
+    margin-left: 0px;
+    position: sticky;
+    width: 100%;
+    height: 60px;
+    line-height: 30px;
+    background-color: #ffffff;
+    z-index: 999;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 4px, rgba(0, 0, 0, 0.2) 0px 4px 10px -3px, rgba(0, 0, 0, 0.15) 0px -2px 0px inset;
+}
+
+.block .header .logo {
+    margin-top : 10px;
+    margin-left: 3%;
+    height: 40px;
+}
+
+.block .header .lienBoutton {
+    float : right;
+    margin-top: 10px;
+    margin-right : 3%;
+}
+
+.block .header .lienBoutton input{
+    background-color: #ff9955;
+    color: #ffffff;
+    font-size: 16px;
+    height: 40px;
+    border: #ffffff;
+    border-radius: 12px;
+}
+
+.block .header .lienBoutton input:hover{
+    background-color : #ff7b00;
+    color : #e6e3e3;
+}
+
+/* Définition des styles pour le formulaire */
+.formulaire {
+    margin: 20px;
+}
+
+.bouton {
+  text-decoration: none;
+  border: 1px solid black;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #ff9955;
+  color: white;
+  justify-content: center;
+}
+
+/* Définition des styles pour la table */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+th {
+  background-color: #ff9955;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+.champs {
+  margin: auto;
+  padding: 50px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: 150px;
+  background-color: white;
+  border-radius: 10px;
+}
+.btnModif {
+  background-color: #ff9955;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  text-decoration: none;
+  margin: 5px;
+}

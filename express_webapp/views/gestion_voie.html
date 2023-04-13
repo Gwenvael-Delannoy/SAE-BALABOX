@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gestion des voies d'escalade</title>
+        <link rel="stylesheet" href="/stylesheets/gestion_voie.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+
+    </head>
+    
+    <body>
+        <div class ="block">
+            <header class="header">
+                <img class="logo" src="/images/image.jpeg">
+                <a class="lienBoutton" href="/" ><input type = "button" value="déconnection"></a>
+            </header>
+        </div>
+        
+        <div id="app">
+            <div v-if="message">
+              <div class="alert alert-danger" role="alert">
+                {{ message }}
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-8 offset-md-2">
+                  <h1>Liste des voies</h1>
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Nom de la voie</th>
+                        <th>Difficulté</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="voie in voies">
+                        <td>{{ voie.nom_voie }}</td>
+                        <td>{{ voie.deg_diffi }}</td>
+                        <td>
+                          <button class="bouton" @click="editForm(voie)">Editer</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div v-if="!showAddForm">
+                    <button class="bouton" @click="showAddForm = true">Ajouter une voie</button>
+                  </div>
+                  <div v-if="showAddForm">
+                    <form @submit.prevent="addVoie" class="champs">
+                      <label for="nomVoie">Nom de la voie: </label>
+                      <input type="text" id="nomVoie" v-model="newVoie.nom_voie"><br>
+                      <label for="point">Difficulté de la voie: </label>
+                      <input type="number" id="difficulté" v-model.number="newVoie.deg_diffi" min="0" step="1"><br>
+                      <button class="bouton" name="action" value="Annuler" @click="cancelAddVoie()">Annuler</button>
+                      <button class="bouton" name="action" value="Ajouter2" type="submit">Ajouter</button>
+                    </form>
+                  </div>
+                  <div v-if="showEditForm">
+                    <form @submit.prevent="editVoie" class="champs">
+                      <label for="nomVoie">Nom de la voie: </label>
+                      <input type="text" id="nomVoie" v-model="editVoie.nom_voie"><br>
+                      <label for="point">Difficulté de la voie: </label>
+                      <input type="number" id="difficulté" v-model.number="editVoie.deg_diffi" min="0" step="1"><br>
+                      <button class="bouton" name="action" value="Annuler" @click="cancelEditVoie()">Annuler</button>
+                      <button class="bouton" name="action" value="Modifier2" type="submit">Modifier</button>
+                    </form>
+                    </div>
+                </div>
+            </div>          
+        </div>
+    </body>
+    <script>
+        new Vue({
+          el: '#app',
+          data: {
+            voies: [],
+            newVoie: {
+              nom_voie: '',
+              deg_diffi: ''
+            },
+            editVoie: {
+              nom_voie: '',
+              deg_diffi: ''
+            },
+            message: "<%= message %>",
+            showAddForm: false,
+            showEditForm: false
+          },
+          created() {
+            this.voies = JSON.stringify("<%=voiesss%>");
+          },
+          methods: {
+            showAddForm() {
+              this.showAddForm = true;
+            },
+            cancelAddVoie() {
+              this.showAddForm = false;
+              this.newVoie.nom_voie = '';
+              this.newVoie.deg_diffi = '';
+            },
+            saveVoie() {
+              this.voies.push(this.newVoie);
+              this.showAddForm = false;
+              this.newVoie.nom_voie = '';
+              this.newVoie.deg_diffi = '';
+            },
+            cancelEditVoie() {
+              this.showEditForm = false;
+              this.editVoie.nom_voie = '';
+              this.editVoie.deg_diffi = '';
+            },
+            editSelectedVoie(voie) {
+              this.showEditForm = true;
+              this.editVoie.nom_voie = voie.nom_voie;
+              this.editVoie.deg_diffi = voie.deg_diffi;
+            },
+            updateVoie() {
+              this.showEditForm = false;
+              this.editVoie.nom_voie = '';
+              this.editVoie.deg_diffi = '';
+            },
+            deleteVoie(voieIndex) {
+              this.voies.splice(voieIndex, 1);
+            }
+          }
+        });
+      </script>
+      
+    
+</html>
