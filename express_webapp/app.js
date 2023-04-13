@@ -16,7 +16,11 @@ var gestionEquipe = require('./routes/gestion_equipe');
 var resultat_prof = require('./routes/resultat_prof');
 var classement_prof = require('./routes/classement_prof');
 var gestion_voie = require('./routes/gestion_voie');
+var gestionVoie_ajout = require('./routes/gestionVoie_ajout');
+var gestionVoie_modif = require('./routes/gestionVoie_modif');
 var gestion_figure = require('./routes/gestion_figure');
+var gestionFigure_ajout = require('./routes/gestionFigure_ajout');
+var gestionFigure_modif = require('./routes/gestionFigure_modif');
 var error = require('./routes/error');
 var updateSession = require('./routes/updateSession');
 
@@ -46,7 +50,11 @@ app.use('/error', error);
 app.use('/updateSession', updateSession);
 app.use('/classement_prof', classement_prof);
 app.use('/gestion_voie',gestion_voie);
+app.use('/gestionVoie_ajout',gestionVoie_ajout);
+app.use('/gestionVoie_modif',gestionVoie_modif);
 app.use('/gestion_figure',gestion_figure);
+app.use('/gestionFigure_ajout',gestionFigure_ajout);
+app.use('/gestionFigure_modif',gestionFigure_modif);
 app.use('/resultat', resultat);
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

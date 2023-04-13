@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Modification d"une voie d'escalade</title>
+        <link rel="stylesheet" href="/stylesheets/gestion.css">
+    </head>
+    
+    <body>
+        <div class ="block">
+            <header class="header">
+                <img class="logo" src="/images/image.jpeg">
+                <a class="lienBoutton" href="/" ><input type = "button" value="Menu principal"></a>
+            </header>
+        </div>
+        <h1>Modification d'une voie</h1>
+        <form action='/gestionVoie_modif' method='post'>
+            <label for="nomVoie">Nom de la voie: </label>
+            <input type="text" id="nom_voie" name="nom_voie" value="<%=voie.nom_voie%>">
+            <label for="point">Difficulté de la voie: </label>
+            <input type="number" id="deg_diffi" name="deg_diffi" value ="<%=voie.deg_diffi%>" min="0" step="1">
+            <button class="bouton" name="action" value="Modifier">Modifier</button>
+            <input type="hidden" name="id_voie" value="<%= voie['id_voie']%>">
+            <button class="bouton" name="action" value="Annuler">Annuler</button>
+        </form>
+    </body>
+    <script>
+        var voie = JSON.parse('<%= voie %>'); // reconvertir en objet JavaScript
+        console.log(voie);
+      </script>
+        
+</html>

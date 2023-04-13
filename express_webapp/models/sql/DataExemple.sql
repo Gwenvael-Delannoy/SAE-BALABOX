@@ -148,8 +148,3 @@ INSERT INTO Musculation(id_musculation,muscle_travailler,series,nb_reps,intensit
 
 INSERT INTO Step(id_step,type_mobilite,ressenti,param_indv,bilan_perso,perspective)VALUES(6,"Dynamique","Fatigué , manque de sucre aussi","poids de 4kg à la cheville","Tout est bon","Finir la danse semaine prochaine");
 
-
-select * from escalade;
-select * from escalade_voie;
-select * from resultat;
-select * from match_eleve where un_match=10;

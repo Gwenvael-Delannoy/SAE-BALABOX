@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gestion des figures d'acrosport</title>
+        <link rel="stylesheet" href="/stylesheets/gestion.css">
+    </head>
+    
+    <body>
+        <div class ="block">
+            <header class="header">
+                <img class="logo" src="/images/image.jpeg">
+                <a class="lienBoutton" href="/" ><input type = "button" value="Menu principal"></a>
+            </header>
+        </div>
+        <h1>Gestion des figures</h1>
+        <form action='/gestion_figure' method='post'>
+          <input type="submit" name="action" value="Ajouter" >
+          <input type="submit" name="action" value="Retour" >
+      </form>
+        <div class="container">
+          <table>
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Point</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Boucle pour afficher chaque voie -->
+              <% figures.forEach(function(figure) { %>
+                <tr>
+                  <td><%= figure.nom %></td>
+                  <td> <%= figure.description %></td>
+                  <td> <%= figure.point %></td>
+                  <td>
+                    <form action='/gestion_figure' method='post'>
+                      <input type="hidden" name="id_figure" value="<%= figure.id_figure %>">
+                      <input type="submit" name="action" value="Modifier" >
+                  </form>
+                  </td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>              
+        </div>          
+    </body>
+</html>
