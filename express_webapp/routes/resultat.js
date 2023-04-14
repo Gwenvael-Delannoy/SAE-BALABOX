@@ -131,7 +131,16 @@ router.post('/', function(req, res, next) {
   }
   else if(nom_sport =='Course'){
 
-    var temps = "00:"+req.body.minutes+":"+req.body.seconds;
+    if(req.body.minutes >= 10 && req.body.seconds >= 10){
+      var temps = "00:"+req.body.minutes+":"+req.body.seconds;
+    }else if(req.body.minutes >= 10 && req.body.seconds < 10){
+      var temps = "00:"+req.body.minutes+":0"+req.body.seconds;
+    }else if(req.body.minutes < 10 && req.body.seconds >= 10){
+      var temps = "00:0"+req.body.minutes+":"+req.body.seconds;
+    }
+    else if(req.body.minutes < 10 && req.body.seconds < 10){
+      var temps = "00:0"+req.body.minutes+":0"+req.body.seconds;
+    }
     var distance = req.body.distance;
     var freq_card = req.body.freq_card;
     var complementaire = req.body.complementaire;
@@ -150,10 +159,10 @@ router.post('/', function(req, res, next) {
           prenom : info_eleveProfConnecte[1],
           classe : info_eleveProfConnecte[2],
           session : info_eleveProfConnecte[3],
-          temps : tmp[3],
-          distance : tmp[4],
-          freq_card : tmp[5],
-          complementaire : tmp[6],
+          temps : temps,
+          distance : distance,
+          freq_card : freq_card,
+          complementaire : complementaire,
         });
 
         message= 'Données envoyées';
@@ -301,7 +310,18 @@ router.post('/', function(req, res, next) {
     var nom_voie = la_voie.split('|')[0];
     var deg_diffi = la_voie.split('|')[1];
     var assureur = req.body.assureur;
-    var temps = "00:"+req.body.minutes+":"+req.body.seconds;
+
+    if(req.body.minutes >= 10 && req.body.seconds >= 10){
+      var temps = "00:"+req.body.minutes+":"+req.body.seconds;
+    }else if(req.body.minutes >= 10 && req.body.seconds < 10){
+      var temps = "00:"+req.body.minutes+":0"+req.body.seconds;
+    }else if(req.body.minutes < 10 && req.body.seconds >= 10){
+      var temps = "00:0"+req.body.minutes+":"+req.body.seconds;
+    }
+    else if(req.body.minutes < 10 && req.body.seconds < 10){
+      var temps = "00:0"+req.body.minutes+":0"+req.body.seconds;
+    }
+
     var complementaire = req.body.complementaire;
 
     voie_dao.findByNom(nom_voie, function(err,rows) {
@@ -384,7 +404,17 @@ router.post('/', function(req, res, next) {
     var nom_bassin = req.body.nomBassin;
     var style_nage = req.body.styleNage;
     var distance = req.body.distance;
-    var temps = "00:"+req.body.minutes+":"+req.body.seconds;
+
+    if(req.body.minutes >= 10 && req.body.seconds >= 10){
+      var temps = "00:"+req.body.minutes+":"+req.body.seconds;
+    }else if(req.body.minutes >= 10 && req.body.seconds < 10){
+      var temps = "00:"+req.body.minutes+":0"+req.body.seconds;
+    }else if(req.body.minutes < 10 && req.body.seconds >= 10){
+      var temps = "00:0"+req.body.minutes+":"+req.body.seconds;
+    }
+    else if(req.body.minutes < 10 && req.body.seconds < 10){
+      var temps = "00:0"+req.body.minutes+":0"+req.body.seconds;
+    }
     var nbPlongeons = req.body.plongeons;
     var complementaire = req.body.complementaire;
 
@@ -442,7 +472,16 @@ router.post('/', function(req, res, next) {
     var nb_repetitions = req.body.nbRepetitions;
     var intensite = req.body.intensite;
     var poids = req.body.poids;
-    var temps = "00:"+req.body.minutes+":"+req.body.seconds;
+    if(req.body.minutes >= 10 && req.body.seconds >= 10){
+      var temps = "00:"+req.body.minutes+":"+req.body.seconds;
+    }else if(req.body.minutes >= 10 && req.body.seconds < 10){
+      var temps = "00:"+req.body.minutes+":0"+req.body.seconds;
+    }else if(req.body.minutes < 10 && req.body.seconds >= 10){
+      var temps = "00:0"+req.body.minutes+":"+req.body.seconds;
+    }
+    else if(req.body.minutes < 10 && req.body.seconds < 10){
+      var temps = "00:0"+req.body.minutes+":0"+req.body.seconds;
+    }
     var ressenti = req.body.ressenti;
 
     //insertion dans la base de donnée
@@ -494,7 +533,16 @@ router.post('/', function(req, res, next) {
   else if(nom_sport == 'Step'){
     
       var type_mobilite = req.body.typeMobilite;
-      var temps = "00:"+req.body.minutes+":"+req.body.seconds;
+      if(req.body.minutes >= 10 && req.body.seconds >= 10){
+        var temps = "00:"+req.body.minutes+":"+req.body.seconds;
+      }else if(req.body.minutes >= 10 && req.body.seconds < 10){
+        var temps = "00:"+req.body.minutes+":0"+req.body.seconds;
+      }else if(req.body.minutes < 10 && req.body.seconds >= 10){
+        var temps = "00:0"+req.body.minutes+":"+req.body.seconds;
+      }
+      else if(req.body.minutes < 10 && req.body.seconds < 10){
+        var temps = "00:0"+req.body.minutes+":0"+req.body.seconds;
+      }
       var freq_cardiaque = req.body.freqCard;
       var paramIndv = req.body.paramIndv;
       var ressenti = req.body.ressenti;

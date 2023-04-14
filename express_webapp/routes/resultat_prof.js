@@ -33,11 +33,11 @@ router.get('/', function(req, res, next) {
             res.render('resultat_prof',{idSession:id_session,nom_sport:nom_sport,message:'Auncun résultat pour cette session'});
           }else{
             console.log("rows.length : " + rows.length);
-            for(i = 0; i < rows.length; i++){
+            rows.forEach(function(r, index) {
               var tmp =[];
-              var k = i;
-              var id_eleve=rows[i].unEleve;
-              var resultatEncours = rows[i];
+              var k = index;
+              var id_eleve=r.unEleve;
+              var resultatEncours = r
               console.log(resultatEncours);
 
               if(k == rows.length -1){
@@ -267,7 +267,7 @@ router.get('/', function(req, res, next) {
                   }
                 }
               });
-            }
+            });
           }
         }
       });

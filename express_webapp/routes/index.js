@@ -9,13 +9,13 @@ var WebSocket = require('ws');
 //import api 
 //var api = require_once(_ROOT_.'/config.php');
 var role;
-var professeur ='';//Raul Adrien
+var professeur ='Raul Adrien';//Raul Adrien
 
 /* Recuperer la page d'accueuil. */
 router.get('/', function(req, res, next) {
 
   var message ='';
-  role = 4;
+  role = 2;
 
   //requeter l'api avec /authentified et on recuepre le role et on regarde si s'est un professer ou non
   /**
@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
    if(role =='False'){
     message = 'Vous n avez pas accès à se service , merci de vous connecter avant'.
    }else if(role == 2 ||role == 3 ){
-    professeur = 'professeur';
+    professeur = //nom du professeur
    }
    */
   res.render('index',{ message: message, professeur : professeur });
