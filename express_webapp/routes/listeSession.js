@@ -40,7 +40,7 @@ router.get('/', function(req, res, next) {
       res.render("error", {message: err});
     }
     else{
-      res.render('listeSession',{session : rows});
+      res.render('listeSession?prof='+nom_prof+'',{session : rows});
     }
   });
 });
@@ -98,7 +98,7 @@ router.post('/', function(req, res, next) {
                             if (err) {
                               res.render("error", {message: err});
                             } else {
-                              res.redirect('listeSession');
+                              res.redirect('listeSession?prof='+nom_prof+'');
                             }
                           });
                         }
@@ -120,7 +120,7 @@ router.post('/', function(req, res, next) {
                                       if (err) {
                                         res.render("error", {message: err});
                                       } else {
-                                        res.redirect('listeSession');
+                                        res.redirect('listeSession?prof='+nom_prof+'');
                                       }
                                     });
                                   }
@@ -142,7 +142,7 @@ router.post('/', function(req, res, next) {
                             if (err) {
                               res.render("error", {message: err});
                             } else {
-                              res.redirect('listeSession');
+                              res.redirect('listeSession?prof='+nom_prof+'');
                             }
                           });
                         }
@@ -162,7 +162,7 @@ router.post('/', function(req, res, next) {
                                       if (err) {
                                           res.render("error", {message: err});
                                       } else {
-                                          res.redirect('listeSession');
+                                          res.redirect('listeSession?prof='+nom_prof+'');
                                       }
                                     });
                                   }
@@ -185,7 +185,7 @@ router.post('/', function(req, res, next) {
                             if (err) {
                               res.render("error", {message: err});
                             } else {
-                              res.redirect('listeSession');
+                              res.redirect('listeSession?prof='+nom_prof+'');
                             }
                           });
                         }
@@ -207,7 +207,7 @@ router.post('/', function(req, res, next) {
                                       if (err) {
                                         res.render("error", {message: err});
                                       } else {
-                                        res.redirect('listeSession');
+                                        res.redirect('listeSession?prof='+nom_prof+'');
                                       }
                                     });
                                   }
@@ -229,7 +229,7 @@ router.post('/', function(req, res, next) {
                             if (err) {
                               res.render("error", {message: err});
                             } else {
-                              res.redirect('listeSession');
+                              res.redirect('listeSession?prof='+nom_prof+'');
                             }
                           });
                         }
@@ -255,7 +255,7 @@ router.post('/', function(req, res, next) {
                                           if (err) {
                                             res.render("error", {message: err});
                                           } else {
-                                            res.redirect('listeSession');
+                                            res.redirect('listeSession?prof='+nom_prof+'');
                                           }
                                         });
                                       }
@@ -280,7 +280,7 @@ router.post('/', function(req, res, next) {
                             if (err) {
                               res.render("error", {message: err});
                             } else {
-                              res.redirect('listeSession');
+                              res.redirect('listeSession?prof='+nom_prof+'');
                             }
                           });
                         }
@@ -306,7 +306,7 @@ router.post('/', function(req, res, next) {
                                           if (err) {
                                             res.render("error", {message: err});
                                           } else {
-                                            res.redirect('listeSession');
+                                            res.redirect('listeSession?prof='+nom_prof+'');
                                           }
                                         });
                                       }
@@ -330,7 +330,7 @@ router.post('/', function(req, res, next) {
                             if (err) {
                               res.render("error", {message: err});
                             } else {
-                              res.redirect('listeSession');
+                              res.redirect('listeSession?prof='+nom_prof+'');
                             }
                           });
                         }
@@ -349,7 +349,7 @@ router.post('/', function(req, res, next) {
                                   if (err) {
                                     res.render("error", {message: err});
                                   } else {
-                                    res.redirect('listeSession');
+                                    res.redirect('listeSession?prof='+nom_prof+'');
                                   }
                                 });
                               }
@@ -371,7 +371,7 @@ router.post('/', function(req, res, next) {
                     if (err) {
                       res.render("error", {message: err});
                     } else {
-                      res.redirect('listeSession');
+                      res.redirect('listeSession?prof='+nom_prof+'');
                     }
                   });
                 }
@@ -383,7 +383,7 @@ router.post('/', function(req, res, next) {
                       if (err) {
                         res.render("error", {message: err});
                       } else {
-                        res.redirect('listeSession');
+                        res.redirect('listeSession?prof='+nom_prof+'');
                       }
                     });
                   }
@@ -406,7 +406,7 @@ router.post('/', function(req, res, next) {
                                 if (err) {
                                   res.render("error", {message: err});
                                 } else {
-                                  res.redirect('listeSession');
+                                  res.redirect('listeSession?prof='+nom_prof+'');
                                 }
                               });
                             }
@@ -434,7 +434,7 @@ router.post('/', function(req, res, next) {
                       if (err) {
                         res.render("error", {message: err});
                       } else {
-                        res.redirect('listeSession');
+                        res.redirect('listeSession?prof='+nom_prof+'');
                       }
                     });
                   }
@@ -457,7 +457,7 @@ router.post('/', function(req, res, next) {
                                 if (err) {
                                   res.render("error", {message: err});
                                 } else {
-                                  res.redirect('listeSession');
+                                  res.redirect('listeSession?prof='+nom_prof+'');
                                 }
                               });
                             }
