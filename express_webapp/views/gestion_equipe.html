@@ -44,9 +44,15 @@
               </table>
               <div class="ajoutEleve">
                 <p class="ajoutEleveP">Ajouter Eleve</p>
-                <select id="mySelect" v-model="updateNomEleves">
-                  <option v-for="nom in nomEleves">{{ nom }}</option>
-                </select>
+                <form class="NewEquipe" method="post" action="/gestionEquipe">
+                  <select id="mySelect" name="mySelect" v-model="updateNomEleves">
+                    <option v-for="nom in nomEleves">{{ nom }}</option>
+                  </select>
+                  <input type="hidden" name="statut" value="ajoutEleve">
+                  <input type="hidden" name="idSession" value="<%=idSession%>">
+                  <input type="hidden" name="idEquipe" value="<%=equipes[i].id_equipe%>">
+                  <button type="submit" >Ajouter</button>
+                </form>
               </div>
             </div>
             <% } %>
@@ -97,8 +103,8 @@
                   console.log("o=infoooo "+ infoEleve);
                   
                   const noms = [];
-                  for (const eleve of infoEleve) {
-                      if (eleve.nom !== this.nomCo && eleve.prenom !== this.prenomCo) {
+                  if (Array.isArray(infoEleve)) {
+                      for (const eleve of infoEleve) {
                           noms.push(eleve.nom + ' ' + eleve.prenom);
                       }
                   }

@@ -102,10 +102,70 @@ router.post('/', function(req, res, next) {
         });
       }
     });
+
+  }else if(statut == "ajoutEleve"){
+    var nomEleve = req.body.mySelect;
+    console.log(nomEleve)
+    var idEquipe = req.body.idEquipe;
+    if(nomEleve == undefined){
+      messageError ='Vous devez selectionner un eleve';
+      res.render('error',{message : messageError});
+    } else{
+
+      var nom = nomEleve.split(" ");
+      var nom = nom[0];
+      eleve_dao.findByName(nom, function(err,rows) {
+        if (err ) {
+            messageError ='Session inexistante,merci de revenir en arriere et ressayer';
+            res.render('error',{message : messageError});
+        }
+        else{
+          console.log(rows);
+          var idEleve = rows[0].id_eleve;
+          equipe_dao.insertEleveEquipe(idEleve, idEquipe, function(err) {
+            if (err ) {
+                messageError ='Session inexistante,merci de revenir en arriere et ressayer';
+                res.render('error',{message : messageError});
+            }
+            else{
+              console.log("eleve insere");
+              equipe_dao.findAll(function(err,rows1) {
+                if (err ) {
+                    messageError ='Session inexistante,merci de revenir en arriere et ressayer';
+                    res.render('error',{message : messageError});
+                }
+                else{
+                  var equipes = [];
+                  
+            
+                  equipe_dao.findAllEquipeEleve(function(err,rows2) {
+                    if (err ) {
+                        messageError ='Session inexistante,merci de revenir en arriere et ressayer';
+                        res.render('error',{message : messageError});
+                    }
+                    else{
+                      for(var i = 0; i < rows1.length; i++){
+                        var eleves = [];
+                          for(var j = 0; j < rows2.length; j++){
+                            if(rows1[i].id_equipe == rows2[j].id_equipe){
+                              eleves.push({id_eleve : rows2[j].id_eleve, nom : rows2[j].nom, prenom : rows2[j].prenom});
+                            }
+                          }
+                          equipes.push({id_equipe : rows1[i].id_equipe, eleves : eleves});
+                          
+                      }
+                      res.render('gestion_equipe',{idSession : idSession, type : "tournoi equipe", equipes : equipes});
+                    }
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
+    }
   }
 
-
-  
 });
 
 module.exports = router;

@@ -19,6 +19,13 @@ var EquipeDAO = function() {
         smt.query(sql, values ,callback);
     };
 
+    this.insertEleveEquipe = function(key1,key2, callback) {
+        this.use(null);
+        values = [ key1, key2];
+        var sql = "INSERT INTO Eleve_Equipe (l_eleve, l_equipe) VALUES (?,?)";
+        smt.query(sql, values ,callback);
+    };
+
     /**
      * Mettre à jour une equipe dans la base de données
      * @param {int} key
