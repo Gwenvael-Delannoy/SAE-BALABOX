@@ -4,6 +4,12 @@
         <title>Classement</title>
         <link rel="stylesheet" href="/stylesheets/classement_eleve.css">
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     </head>
     <body>
@@ -85,6 +91,9 @@
                     ws.addEventListener('message', function(event) {
 
                         const data = JSON.parse(event.data);
+                        if(!(Array.isArray(this.idCo))){
+                            this.idCo= this.idCo.split(",");
+                        }
 
                         if(data.type == 'equipes' && data.session == sesInt){
                             const info_equipe = data.data;
@@ -93,7 +102,8 @@
                             console.log(this.idCo);
                             for (k = 0;k<info_equipe.length;k++){
                                 var trouver = false;
-                                for (let b = 0; b < this.idCo.length; b++) {
+                                for (var b = 0; b < this.idCo.length; b++) {
+                                    console.log(this.idCo[b])
                                     if(info_equipe[k] == this.idCo[b]){
                                         trouver=true;
                                     }

@@ -36,22 +36,20 @@ router.get('/', function(req, res,next) {
     idSession = req.query.ses;
     idEleCo = req.query.id_el;
 
-    wss2.send(JSON.stringify({
-        type: 'equipe_session',
-        session: idSession,
-        equipe:"2",
-
-      }));
-      wss2.send(JSON.stringify({
-        type: 'equipe_session',
-        session: idSession,
-        equipe:"3",
-      }));
-      wss2.send(JSON.stringify({
-        type: 'equipe_session',
-        session: idSession,
-        equipe:"4",
-      }));
+      equipe_dao.findAll(function(err,rows) {
+        if (err ) {
+            messageError ='Session inexistante,merci de revenir en arriere et ressayer';
+            res.render('error',{message : messageError})
+        }else{
+            rows.forEach(element => {
+                wss2.send(JSON.stringify({
+                    type: 'equipe_session',
+                    session: idSession,
+                    equipe: element.id_equipe,
+                  }));
+            });
+        }
+    });
 
     equipe_dao.findByKeyEleve(idEleCo, function(err,rows) {
         if (err || rows.length == 0 ) {
@@ -68,6 +66,7 @@ router.get('/', function(req, res,next) {
               }
             }
             console.log('idCo : '+idCo);
+            
 
             match_dao.findAllMatchSes(idSession, function(err,rows) {
                 if (err ) {
@@ -95,8 +94,6 @@ router.get('/', function(req, res,next) {
                                 }
                                 else{
                                     let points = {};
-
-                                    console.log('rows : '+rows[0]);
         
                                     points[0] = rows[0].gagnant;
                                     points[1] = rows[1].gagnant;
