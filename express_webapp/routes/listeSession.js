@@ -40,7 +40,7 @@ router.get('/', function(req, res, next) {
       res.render("error", {message: err});
     }
     else{
-      res.render('listeSession?prof='+nom_prof+'',{session : rows});
+      res.render('listeSession',{session : rows});
     }
   });
 });
