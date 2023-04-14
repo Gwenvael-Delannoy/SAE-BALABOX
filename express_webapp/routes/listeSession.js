@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
   if(req.query.prof){
     nom_prof = req.query.prof;
   } else {
-    nom_prof = 'Raul Adrien';
+    res.redirect("/?message=Vous n'avez pas accès à cette page, merci de vous connecter avant");
   }
   
 
