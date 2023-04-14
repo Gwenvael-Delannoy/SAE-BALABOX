@@ -71,11 +71,11 @@ router.post('/', function(req, res, next) {
           } else if(req.body.action == 'view') {
 
             if(type_session == "resultat") {
-              res.redirect('resultat_prof?idsession=' + id +'&sport=' + id_sport);
+              res.redirect('resultat_prof?idsession=' + id +'&sport=' + id_sport+'&prof=' +nom_prof);
             } else if(type_session == "tournoi equipe") {
-              res.redirect('classement_prof?idsession=' + id + '&type=tournoi equipe' + '&sport=' + id_sport);
+              res.redirect('classement_prof?idsession=' + id + '&type=tournoi equipe' + '&sport=' + id_sport+'&prof=' +nom_prof);
             }else if(type_session == "tournoi individuel") {
-              res.redirect('classement_prof?idsession=' + id + '&type=tournoi individuel');
+              res.redirect('classement_prof?idsession=' + id + '&type=tournoi individuel&prof=' +nom_prof);
             }
         
           } else {

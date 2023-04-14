@@ -13,11 +13,13 @@ var eleve_dao = require('../models/dao/dataBase').eleve_dao;
 
 var id_session ;
 var nom_sport = '';
+var prof = '';
 
 /* Recuperer la page de tournoi de foot */ 
 router.get('/', function(req, res, next) {
   var id_sport = req.query.sport;
   id_session = req.query.idsession;
+  prof = req.query.prof;
 
   sport_dao.findByKey(id_sport, function(err, row) {
     nom_sport = row[0].nom_sport;
@@ -277,7 +279,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   if (req.body.action ==  'Retour'){
-    res.redirect('/listeSession');
+    res.redirect('/listeSession?prof='+prof);
   }else if(req.body.action ==  'Gestion des figures'){
     res.redirect('/gestion_figure');
   }

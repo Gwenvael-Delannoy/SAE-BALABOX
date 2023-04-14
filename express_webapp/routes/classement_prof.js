@@ -13,6 +13,7 @@ var wss ;
 
 var id_session ='';
 var type_sport ='';
+var prof = '';
 
 
 wss = new WebSocket('ws://localhost:3001');
@@ -33,6 +34,7 @@ wss.onclose = function () {
 router.get('/', function(req, res, next) {
     id_session = req.query.idsession;
     type_sport = req.query.type;
+    prof = req.query.prof;
     classement = {};
 
     match_dao.findAllMatchSes(id_session, function(err,rows) {
@@ -236,7 +238,7 @@ router.post('/', function(req, res, next) {
       res.redirect('/gestionEquipe?idsession='+id_session+'&type='+type_sport);
     }
     else if (req.body.action ==  'Retour'){
-      res.redirect('/listeSession');
+      res.redirect('/listeSession?prof='+prof);
     }
 });
 
